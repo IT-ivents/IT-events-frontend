@@ -20,8 +20,11 @@
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier . --write",
 		"prepare": "husky install",
-		"commit": "cz"
+		"commit": "cz",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
+	"homepage": "./",
 	"eslintConfig": {
 		"extends": [
 			"react-app",
@@ -45,6 +48,7 @@
 		"commitizen": "^4.3.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint-config-prettier": "^8.8.0",
+		"gh-pages": "^5.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.2.2",
 		"prettier": "2.8.8"
