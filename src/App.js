@@ -19,7 +19,14 @@ function App() {
 		<Routes>
 			<Route exact path="/" element={<MainPage />} />
 			<Route path="/event" element={<EventPage />} />
-			<Route path="/favorites" element={<FavoritesPage />} />
+			<Route
+				path="/favorites"
+				element={
+					<ProtectedRoute isLoggedIn={isLoggedIn}>
+						<FavoritesPage />
+					</ProtectedRoute>
+				}
+			/>
 			<Route
 				path="/account"
 				element={
@@ -28,8 +35,8 @@ function App() {
 					</ProtectedRoute>
 				}
 			/>
-			<Route path="/signin" element={<SignIn />} />
-			<Route path="/sighout" element={<SignOut />} />
+			<Route path="/sign-in" element={<SignIn />} />
+			<Route path="/sign-out" element={<SignOut />} />
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);
