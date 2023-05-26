@@ -8,9 +8,9 @@ import {
 	SignIn,
 	SignOut,
 	NotFoundPage,
-} from './pages';
-import ProtectedRoute from './utils/router/ProtectedRoute';
-import './App.css';
+} from '../../pages';
+import ProtectedRoute from '../../utils/router/ProtectedRoute';
+import './App.module.css';
 
 function App() {
 	const isLoggedIn = true;

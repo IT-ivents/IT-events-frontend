@@ -1,0 +1,86 @@
+.eventContainer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 32px;
+	max-width: 1232px;
+	margin: 50px auto 0;
+}
+
+.eventDescription {
+	width: 600px;
+}
+
+.eventHeader {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.eventFigure {
+	display: flex;
+	margin: 0;
+	gap: 5px;
+}
+
+.eventButton {
+	background: url('../../images/arrow.png') no-repeat;
+	background-position-x: 230px;
+	background-position-y: center;
+	background-color: black;
+	color: white;
+	border: 0;
+	border-radius: 8px;
+	width: 256px;
+	height: 32px;
+}
+
+.eventDates {
+	display: flex;
+	gap: 30px;
+	padding: 0;
+}
+
+.eventDate:first-child {
+	list-style-type: none;
+}
+
+.eventDetails {
+	margin-top: 60px;
+}
+
+nav {
+	display: flex;
+	gap: 30px;
+}
+
+a {
+	text-decoration: none;
+	color: #828080;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+a:hover {
+	color: black;
+}
+
+.eventImage {
+	width: 600px;
+}
+
+.relatedEvents {
+	display: flex;
+}
+
+.relatedEvent {
+	width: 400px;
+	margin-right: 16px;
+}
+
+.relatedEvent:last-child {
+	margin-right: 0;
+}
+
+.relatedEventImage {
+	width: 100%;
+}
