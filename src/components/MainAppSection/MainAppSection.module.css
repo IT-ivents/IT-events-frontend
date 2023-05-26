@@ -1,12 +1,12 @@
 .section {
 	width: 100%;
 	margin: 0;
-	padding: 0;
+	padding: 110px 0 175px;
 	display: flex;
 	flex-direction: column;
 	justify-items: center;
 	align-items: center;
-	background: rgb(187, 184, 184);
+	background: #c4c4c4;
 }
 
 .container {
