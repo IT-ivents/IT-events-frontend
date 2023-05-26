@@ -1,0 +1,11 @@
+.form {
+	max-width: 608px;
+	height: 56px;
+	background: #fff;
+	border-radius: 34px;
+}
+
+.input {
+	outline: none;
+	border: none;
+}
