@@ -11,6 +11,7 @@ import {
 	NotFoundPage,
 } from '../../pages';
 import ProtectedRoute from '../../utils/router/ProtectedRoute';
+import Layout from '../Layout/Layout';
 
 function App() {
 	const isLoggedIn = true;
@@ -19,27 +20,29 @@ function App() {
 		<div className={styles.wrapper}>
 			<div className={styles.page}>
 				<Routes>
-					<Route exact path="/" element={<MainPage />} />
-					<Route path="/event" element={<EventPage />} />
-					<Route
-						path="/favorites"
-						element={
-							<ProtectedRoute isLoggedIn={isLoggedIn}>
-								<FavoritesPage />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/account"
-						element={
-							<ProtectedRoute isLoggedIn={isLoggedIn}>
-								<AccountPage />
-							</ProtectedRoute>
-						}
-					/>
-					<Route path="/sign-in" element={<SignIn />} />
-					<Route path="/sign-out" element={<SignOut />} />
-					<Route path="*" element={<NotFoundPage />} />
+					<Route path="/" element={<Layout />}>
+						<Route exact path="/" element={<MainPage />} />
+						<Route path="/event" element={<EventPage />} />
+						<Route
+							path="/favorites"
+							element={
+								<ProtectedRoute isLoggedIn={isLoggedIn}>
+									<FavoritesPage />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/account"
+							element={
+								<ProtectedRoute isLoggedIn={isLoggedIn}>
+									<AccountPage />
+								</ProtectedRoute>
+							}
+						/>
+						<Route path="/sign-in" element={<SignIn />} />
+						<Route path="/sign-out" element={<SignOut />} />
+						<Route path="*" element={<NotFoundPage />} />
+					</Route>
 				</Routes>
 			</div>
 		</div>

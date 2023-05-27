@@ -1,0 +1,22 @@
+.section {
+	width: 100%;
+	max-width: 1232px;
+	display: flex;
+	flex-direction: column;
+	padding-top: 62px;
+}
+
+.title {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+	padding-bottom: 38px;
+}
+
+.list {
+	display: flex;
+	gap: 16px;
+	width: 100%;
+	height: fit-content;
+	list-style-type: none;
+}
