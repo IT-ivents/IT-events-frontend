@@ -18,7 +18,7 @@ function App() {
 		<div className={styles.wrapper}>
 			<div className={styles.page}>
 				<Routes>
-					<Route path="/" element={<Layout />}>
+					<Route path="/" element={<Layout isLoggedIn={isLoggedIn} />}>
 						<Route index element={<MainPage />} />
 						<Route path="event" element={<EventPage />} />
 						<Route
