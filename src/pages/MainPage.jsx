@@ -9,7 +9,7 @@ import {
   interestingEvents,
 } from '../utils/constants';
 
-const MainPage = () => {
+const MainPage = ({ onCardClick }) => {
   return (
     <>
       <MainAppSection>
@@ -17,9 +17,21 @@ const MainPage = () => {
       </MainAppSection>
       <FilterBar />
 
-      <EventsList title="Популярное" list={popularEvents} />
-      <EventsList title="Ближайшие события" list={immediateEvents} />
-      <EventsList title="Может быть интересно" list={interestingEvents} />
+      <EventsList
+        title="Популярное"
+        list={popularEvents}
+        onCardClick={onCardClick}
+      />
+      <EventsList
+        title="Ближайшие события"
+        list={immediateEvents}
+        onCardClick={onCardClick}
+      />
+      <EventsList
+        title="Может быть интересно"
+        list={interestingEvents}
+        onCardClick={onCardClick}
+      />
     </>
   );
 };

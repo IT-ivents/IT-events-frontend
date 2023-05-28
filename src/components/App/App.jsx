@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './App.module.css';
 import { Routes, Route } from 'react-router-dom';
 import {
@@ -13,13 +13,21 @@ import Layout from '../Layout/Layout';
 
 function App() {
   const isLoggedIn = true;
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const handleCardClick = (event) => {
+    setSelectedEvent(event);
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <Routes>
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn} />}>
-            <Route index element={<MainPage />} />
-            <Route path="event" element={<EventPage />} />
+            <Route index element={<MainPage onCardClick={handleCardClick} />} />
+            <Route
+              path="event"
+              element={<EventPage selectedEvent={selectedEvent} />}
+            />
             <Route
               path="favorites"
               element={

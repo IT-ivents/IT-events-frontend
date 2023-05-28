@@ -1,15 +1,21 @@
 import styles from './Event.module.css';
-import EventImage from '../../images/cat.jpg';
+// import EventImage from '../../images/cat.jpg';
 import EventDescription from '../EventDescription/EventDescription';
 import EventsList from '../EventsList/EventsList';
 import { interestingEvents } from '../../utils/constants/index';
 
-function Event() {
+function Event({ selectedEvent }) {
+  console.log(selectedEvent);
+
   return (
     <div className={styles.eventContainer}>
-      <EventDescription />
+      <EventDescription selectedEvent={selectedEvent} />
       <aside>
-        <img className={styles.eventImage} src={EventImage} alt="Image" />
+        <img
+          className={styles.eventImage}
+          src={selectedEvent.image}
+          alt={selectedEvent.title}
+        />
       </aside>
       <EventsList title="Смотрите также" list={interestingEvents} />
     </div>
