@@ -1,80 +1,80 @@
 .eventDescription {
-	width: 600px;
+  width: 600px;
 }
 
 .eventHeader {
-	display: flex;
-	align-items: center;
-	gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .eventName {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 .eventFigure {
-	display: flex;
-	margin: 0;
-	gap: 10px;
-	color: #828080;
-	cursor: pointer;
+  display: flex;
+  margin: 0;
+  gap: 10px;
+  color: #828080;
+  cursor: pointer;
 }
 
 .eventDates {
-	display: flex;
-	gap: 25px;
-	padding: 0;
-	color: #828080;
-	padding-bottom: 18px;
+  display: flex;
+  gap: 25px;
+  padding: 0;
+  color: #828080;
+  padding-bottom: 18px;
 }
 
 .eventDate:first-child {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 .eventButton {
-	background: url('../../images/arrow.png') no-repeat;
-	background-position-x: 227px;
-	background-position-y: center;
-	background-color: black;
-	color: white;
-	border: 0;
-	border-radius: 8px;
-	width: 256px;
-	height: 32px;
-	font-size: 14px;
-	text-align: left;
-	padding-left: 15px;
-	cursor: pointer;
+  background: url('../../images/arrow.png') no-repeat;
+  background-position-x: 227px;
+  background-position-y: center;
+  background-color: black;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  width: 256px;
+  height: 32px;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 15px;
+  cursor: pointer;
 }
 
 .eventDetails {
-	margin-top: 60px;
+  margin-top: 60px;
 }
 
 nav {
-	display: flex;
-	gap: 30px;
-	margin-bottom: 27px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 27px;
 }
 
 a {
-	text-decoration: none;
-	color: #828080;
-	font-weight: 700;
-	font-size: 16px;
+  text-decoration: none;
+  color: #828080;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 a:hover {
-	color: black;
+  color: black;
 }
 
 p {
-	color: #828080;
+  color: #828080;
 }
 
 .eventPrice {
-	color: black;
-	font-size: 22px;
-	padding: 18px 0 40px;
+  color: black;
+  font-size: 22px;
+  padding: 18px 0 40px;
 }
