@@ -52,7 +52,7 @@
   margin-top: 60px;
 }
 
-nav {
+.nav {
   display: flex;
   gap: 30px;
   margin-bottom: 27px;
