@@ -1,5 +1,4 @@
 import styles from './Event.module.css';
-// import EventImage from '../../images/cat.jpg';
 import EventDescription from '../EventDescription/EventDescription';
 import EventsList from '../EventsList/EventsList';
 import { interestingEvents } from '../../utils/constants/index';

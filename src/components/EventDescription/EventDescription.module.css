@@ -48,31 +48,6 @@
   cursor: pointer;
 }
 
-.eventDetails {
-  margin-top: 60px;
-}
-
-.nav {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 27px;
-}
-
-a {
-  text-decoration: none;
-  color: #828080;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-a:hover {
-  color: black;
-}
-
-p {
-  color: #828080;
-}
-
 .eventPrice {
   color: black;
   font-size: 22px;

@@ -1,0 +1,36 @@
+.eventTabs {
+  width: fit-content;
+  margin: 60px 0 27px;
+  display: flex;
+  gap: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #8280807b;
+}
+
+.activeTab {
+  position: relative;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 102%;
+  height: 3px;
+  background-color: #828080;
+}
+
+.tab {
+  color: #828080;
+}
+
+.tabContent {
+  width: 560px;
+  height: 100px;
+  margin-left: 10px;
+  color: #828080;
+}
