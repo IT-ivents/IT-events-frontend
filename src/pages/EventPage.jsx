@@ -1,7 +1,8 @@
 import React from 'react';
+import Event from '../components/Event/Event';
 
 const EventPage = () => {
-	return <div>Event Page</div>;
+  return <Event />;
 };
 
 export default EventPage;

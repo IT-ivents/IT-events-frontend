@@ -4,15 +4,15 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 const Layout = ({ isLoggedIn }) => {
-	return (
-		<>
-			<Header isLoggedIn={isLoggedIn} />
-			<main className={styles.main}>
-				<Outlet />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Header isLoggedIn={isLoggedIn} />
+      <main className={styles.main}>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
 };
 
 export default Layout;
