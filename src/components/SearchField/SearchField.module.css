@@ -6,6 +6,7 @@
   border-radius: 34px;
   display: flex;
   padding: 19px 0;
+  border: 1px solid #f0ecec;
 }
 
 .form:hover {

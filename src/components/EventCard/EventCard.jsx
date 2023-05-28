@@ -1,9 +1,16 @@
 import styles from './EventCard.module.css';
+import { Link } from 'react-router-dom';
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, onCardClick }) => {
+  const handleCardClick = () => {
+    onCardClick(event);
+  };
+
   return (
     <li key={event.id} className={styles.li}>
-      <img src={event.image} alt="event-" className={styles.image} />
+      <Link to="/event" onClick={handleCardClick}>
+        <img src={event.image} alt="event_picture" className={styles.image} />
+      </Link>
       <div className={styles.buttonContainer}>
         <button className={styles.likeButton}></button>
       </div>
