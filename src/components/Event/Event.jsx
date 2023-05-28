@@ -4,6 +4,25 @@ import ShareImage from '../../images/share.png';
 import LikeImage from '../../images/like.png';
 import EventImage from '../../images/image.png';
 
+// function Event() {
+//   return (
+//     <div className={styles.eventContainer}>
+//       <EventDescription />
+//       <aside className={styles.eventImage}>
+//         <EventImage />
+//       </aside>
+//       <section>
+//         <h2>Смотрите также</h2>
+//         <div className={styles.relatedEvents}>
+//           <RelatedEvent />
+//           <RelatedEvent />
+//           <RelatedEvent />
+//         </div>
+//       </section>
+//     </div>
+//   );
+// }
+
 function Event() {
 	return (
 		<div className={styles.eventContainer}>
