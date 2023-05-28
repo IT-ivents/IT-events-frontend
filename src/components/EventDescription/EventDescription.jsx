@@ -1,4 +1,5 @@
 import styles from './EventDescription.module.css';
+import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
 import PlayImage from '../../images/play.png';
 import ShareImage from '../../images/share.png';
 import LikeImage from '../../images/like.png';
@@ -33,21 +34,7 @@ function EventDescription() {
         Перейти на сайт организатора
       </button>
 
-      {/* Тут будут <Tab /> */}
-      <section className={styles.eventDetails}>
-        <nav>
-          <a href="#">О мероприятии</a>
-          <a href="#">Программа и спикеры</a>
-          <a href="#">Организаторы</a>
-          <a href="#">Партнеры</a>
-        </nav>
-        <p>
-          25 мая в Петербурге и онлайне пройдет митап для разработчиков любого
-          уровня, тимлидов и целых команд, которые задумываются или уже начали
-          применять Go в коммерческой разработке. Поговорим, как писать
-          производительный и легко сопровождаемый код без «побочных эффектов»
-        </p>
-      </section>
+      <DescriptionTabs />
     </section>
   );
 }
