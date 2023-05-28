@@ -4,40 +4,40 @@ import styles from './FilterBar.module.css';
 import arrow from '../../images/select-arrow.svg';
 
 const FilterBar = () => {
-	const [openSelects, setOpenSelects] = useState([]);
+  const [openSelects, setOpenSelects] = useState([]);
 
-	const toggleSelect = (selectId) => {
-		if (openSelects.includes(selectId)) {
-			setOpenSelects(openSelects.filter((id) => id !== selectId));
-		} else {
-			setOpenSelects([...openSelects, selectId]);
-		}
-	};
+  const toggleSelect = (selectId) => {
+    if (openSelects.includes(selectId)) {
+      setOpenSelects(openSelects.filter((id) => id !== selectId));
+    } else {
+      setOpenSelects([...openSelects, selectId]);
+    }
+  };
 
-	return (
-		<ul className={styles.list}>
-			{filterSelects.map((select) => (
-				<li
-					className={styles.li}
-					key={select.id}
-					onClick={() => toggleSelect(select.id)}
-				>
-					<p>{select.title}</p>
-					<img src={arrow} alt="arrow" />
-					{openSelects.includes(select.id) && (
-						<ul className={styles.optionsList}>
-							{select.options &&
-								select.options.map((option, index) => (
-									<li key={index} className={styles.option}>
-										{option}
-									</li>
-								))}
-						</ul>
-					)}
-				</li>
-			))}
-		</ul>
-	);
+  return (
+    <ul className={styles.list}>
+      {filterSelects.map((select) => (
+        <li
+          className={styles.li}
+          key={select.id}
+          onClick={() => toggleSelect(select.id)}
+        >
+          <p>{select.title}</p>
+          <img src={arrow} alt="arrow" />
+          {openSelects.includes(select.id) && (
+            <ul className={styles.optionsList}>
+              {select.options &&
+                select.options.map((option, index) => (
+                  <li key={index} className={styles.option}>
+                    {option}
+                  </li>
+                ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default FilterBar;
