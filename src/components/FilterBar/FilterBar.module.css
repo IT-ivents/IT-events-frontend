@@ -1,0 +1,53 @@
+.list {
+	width: 100%;
+	max-width: 1232px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	gap: 10px;
+
+	gap: 44px;
+	list-style-type: none;
+	padding: 45px 0 25px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.optionsList {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	list-style-type: none;
+	background: #c4c4c4;
+	padding: 20px 20px;
+	border-radius: 24px;
+	position: absolute;
+	top: 50px;
+	width: 200px;
+	z-index: 1;
+}
+
+.select {
+	border: none;
+}
+
+.li {
+	display: flex;
+	align-items: center;
+	gap: 8.7px;
+	width: fit-content;
+	position: relative;
+	cursor: pointer;
+}
+
+.option {
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 18px;
+	letter-spacing: 0.2px;
+}
+
+.option:hover {
+	color: white;
+	cursor: pointer;
+}

@@ -1,0 +1,27 @@
+.header {
+	padding: 0 104px;
+	width: 100%;
+	height: 60px;
+	background: #c4c4c4;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logoLink {
+	font-weight: 700;
+	font-size: 29px;
+	line-height: 20px;
+	letter-spacing: 0.24px;
+	text-decoration: none;
+	color: #000;
+}
+
+.enterButton {
+	background: #181818;
+	padding: 8px 16px;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}
