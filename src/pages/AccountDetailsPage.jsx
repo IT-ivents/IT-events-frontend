@@ -1,7 +1,11 @@
-import React from 'react';
+import Security from '../components/Security/Security';
 
 const AccountDetailsPage = () => {
-  return <div>AccountDetailsPage</div>;
+  return (
+    <>
+      <Security />
+    </>
+  );
 };
 
 export default AccountDetailsPage;

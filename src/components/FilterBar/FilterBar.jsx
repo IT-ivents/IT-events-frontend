@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { filterSelects } from '../../utils/constants';
 import styles from './FilterBar.module.css';
 import arrow from '../../images/select-arrow.svg';
 
-const FilterBar = () => {
-  const location = useLocation();
-
+const FilterBar = ({ justify }) => {
   const [openSelects, setOpenSelects] = useState([]);
 
   const toggleSelect = (selectId) => {
@@ -18,7 +15,7 @@ const FilterBar = () => {
   };
 
   return (
-    <ul className={`${styles.list}`}>
+    <ul className={`${styles.list}`} style={{ justifyContent: justify }}>
       {filterSelects.map((select) => (
         <li
           className={styles.li}

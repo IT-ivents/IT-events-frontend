@@ -9,29 +9,62 @@ import {
   interestingEvents,
 } from '../utils/constants';
 
+const mainPageEvents = [
+  {
+    id: 1,
+    title: 'Популярное',
+    list: popularEvents,
+  },
+  {
+    id: 2,
+    title: 'Ближайшие события>',
+    list: immediateEvents,
+  },
+  {
+    id: 3,
+    title: 'Может быть интересно',
+    list: interestingEvents,
+  },
+];
+
 const MainPage = ({ onCardClick }) => {
   return (
     <>
       <MainAppSection>
         <SearchField />
       </MainAppSection>
-      <FilterBar />
+      <FilterBar justify={'center'} />
+      {mainPageEvents.map((event) => (
+        <EventsList
+          list={event.list}
+          title={event.title}
+          onCardClick={onCardClick}
+          listDirection={'row'}
+          sectionFlex={'column'}
+        />
+      ))}
 
-      <EventsList
+      {/* <EventsList
         title="Популярное"
         list={popularEvents}
         onCardClick={onCardClick}
+        listDirection={'row'}
+        sectionFlex={'column'}
       />
       <EventsList
         title="Ближайшие события"
         list={immediateEvents}
         onCardClick={onCardClick}
+        listDirection={'row'}
+        sectionFlex={'column'}
       />
       <EventsList
         title="Может быть интересно"
         list={interestingEvents}
         onCardClick={onCardClick}
-      />
+        listDirection={'row'}
+        sectionFlex={'column'}
+      /> */}
     </>
   );
 };
