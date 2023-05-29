@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Pages.module.css';
 import AccountBlock from '../components/AccountBlock/AccountBlock';
 import Person from './../images/person.png';
@@ -21,21 +20,27 @@ const AccountPage = () => {
             details="Редактирование личных данных"
           />
         </Link>
-        <AccountBlock
-          accoutBlockIcon={Notification}
-          title="Уведомления"
-          details="Расскажите, какие уведомления вы хотите получать"
-        />
-        <AccountBlock
-          accoutBlockIcon={Lock}
-          title="Безопасность"
-          details="Обновите пароль"
-        />
-        <AccountBlock
-          accoutBlockIcon={List}
-          title="Предпочтения"
-          details="Укажите свои интересы"
-        />
+        <Link to="details" className={styles.blockLink}>
+          <AccountBlock
+            accoutBlockIcon={Notification}
+            title="Уведомления"
+            details="Расскажите, какие уведомления вы хотите получать"
+          />
+        </Link>
+        <Link to="details" className={styles.blockLink}>
+          <AccountBlock
+            accoutBlockIcon={Lock}
+            title="Безопасность"
+            details="Обновите пароль"
+          />
+        </Link>
+        <Link to="details" className={styles.blockLink}>
+          <AccountBlock
+            accoutBlockIcon={List}
+            title="Предпочтения"
+            details="Укажите свои интересы"
+          />
+        </Link>
         <Link to="/" className={styles.blockLink}>
           <AccountBlock accoutBlockIcon={Logout} title="Выход из аккаунта" />
         </Link>
