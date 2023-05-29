@@ -1,0 +1,20 @@
+.blockBorder {
+  width: 400px;
+  height: 194px;
+  border: 1px solid #d6d6d6;
+  border-radius: 12px;
+  padding: 26px;
+  cursor: pointer;
+}
+
+.blockTitle {
+  font-size: 19px;
+  font-weight: 700;
+  padding: 36px 0 16px;
+}
+
+.blockDetails {
+  font-size: 16px;
+  font-weight: 400;
+  color: #767575;
+}
