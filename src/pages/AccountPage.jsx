@@ -6,6 +6,7 @@ import Notification from './../images/notification.png';
 import Lock from './../images/lock.png';
 import List from './../images/list.png';
 import Logout from './../images/logout.png';
+import { Link } from 'react-router-dom';
 
 const AccountPage = () => {
   return (
@@ -13,11 +14,13 @@ const AccountPage = () => {
       <h1>Аккаунт</h1>
       <p className={styles.accountGreeting}>С возвращением, Маша</p>
       <div className={styles.accountBlocks}>
-        <AccountBlock
-          accoutBlockIcon={Person}
-          title="Персональная информация"
-          details="Редактирование личных данных"
-        />
+        <Link to="details">
+          <AccountBlock
+            accoutBlockIcon={Person}
+            title="Персональная информация"
+            details="Редактирование личных данных"
+          />
+        </Link>
         <AccountBlock
           accoutBlockIcon={Notification}
           title="Уведомления"
@@ -34,12 +37,6 @@ const AccountPage = () => {
           details="Укажите свои интересы"
         />
         <AccountBlock accoutBlockIcon={Logout} title="Выход из аккаунта" />
-
-        {/* <PersonalInfo />
-        <Notifications />
-        <Security />
-        <Preferences />
-        <Logout /> */}
       </div>
     </section>
   );

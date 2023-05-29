@@ -5,6 +5,7 @@ import {
   MainPage,
   EventPage,
   AccountPage,
+  AccountDetailsPage,
   FavoritesPage,
   NotFoundPage,
 } from '../../pages';
@@ -18,6 +19,7 @@ function App() {
   const handleCardClick = (event) => {
     setSelectedEvent(event);
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.page}>
@@ -33,23 +35,38 @@ function App() {
                 />
               }
             />
-            <Route
-              path="favorites"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <FavoritesPage />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="*" element={<NotFoundPage />} />
+
             <Route
               path="account"
+              isLoggedIn={isLoggedIn}
               element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <AccountPage />
-                </ProtectedRoute>
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  children={<AccountPage />}
+                />
               }
             />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route
+              path="account/details"
+              isLoggedIn={isLoggedIn}
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  children={<AccountDetailsPage />}
+                />
+              }
+            />
+            <Route
+              path="favorites"
+              isLoggedIn={isLoggedIn}
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  children={<FavoritesPage />}
+                />
+              }
+            />
           </Route>
         </Routes>
       </div>
