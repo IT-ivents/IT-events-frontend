@@ -4,8 +4,6 @@ import EventsList from '../EventsList/EventsList';
 import { interestingEvents } from '../../utils/constants/index';
 
 function Event({ selectedEvent, onCardClick }) {
-  console.log(selectedEvent);
-
   return (
     <div className={styles.eventContainer}>
       <EventDescription selectedEvent={selectedEvent} />

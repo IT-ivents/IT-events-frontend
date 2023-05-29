@@ -2,7 +2,7 @@
   padding: 0 104px;
   width: 100%;
   max-width: 1232px;
-  height: 60px;
+  height: 80px;
   background: #c4c4c4;
   display: flex;
   justify-content: space-between;
@@ -12,7 +12,7 @@
 .loggedIn {
   width: 100%;
   max-width: 1232px;
-  height: 79px;
+  height: 80px;
   background: white;
   display: flex;
   justify-content: space-between;

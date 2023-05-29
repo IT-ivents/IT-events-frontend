@@ -2,16 +2,7 @@
   width: 100%;
   max-width: 1232px;
   display: flex;
-  flex-direction: column;
   padding-top: 62px;
-}
-
-.flexColumn {
-  flex-direction: column;
-}
-
-.flexRow {
-  flex-direction: row;
 }
 
 .title {
