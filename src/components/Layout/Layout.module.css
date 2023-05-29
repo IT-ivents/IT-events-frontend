@@ -1,7 +1,17 @@
 .main {
   width: 100%;
+  max-width: 1232px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.favorites {
+  width: 100%;
+  max-width: 1232px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }

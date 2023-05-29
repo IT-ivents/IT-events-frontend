@@ -5,6 +5,7 @@ import {
   MainPage,
   EventPage,
   AccountPage,
+  AccountDetailsPage,
   FavoritesPage,
   NotFoundPage,
 } from '../../pages';
@@ -37,7 +38,7 @@ function App() {
               path="favorites"
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <FavoritesPage />
+                  <FavoritesPage onCardClick={handleCardClick} />
                 </ProtectedRoute>
               }
             />
@@ -46,6 +47,7 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <AccountPage />
+                  <Route path="details" element={<AccountDetailsPage />} />
                 </ProtectedRoute>
               }
             />

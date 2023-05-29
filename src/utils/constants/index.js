@@ -97,6 +97,59 @@ export const interestingEvents = [
   },
 ];
 
+export const favoritesEvents = [
+  {
+    id: 1,
+    title: 'Customer Day 2021',
+
+    image:
+      'https://ucare.timepad.ru/1e8e2517-ab61-479b-8339-b7f9c36d1ac3/-/preview/600x600/',
+    date: '25 мая 2023',
+    location: 'Москва',
+    price: '20 000 - 38 000 р.',
+  },
+  {
+    id: 2,
+    title: 'Конференция "Электронная торговля"',
+
+    image:
+      'https://static.gorodzovet.ru/uploads/2023/6/24/photo600-9618799.webp',
+    date: '14 октября 2021',
+    location: 'Москва',
+    price: '0 - 26 400 р.',
+  },
+  {
+    id: 3,
+    title: 'CrossConf',
+
+    image:
+      'https://it-rating.top/image/cache/data/afisha/2022-ru/crossconf-22-438x187.jpg',
+    date: '8 апреля 2022',
+    location: 'Москва, Хлебзавод',
+    price: '4457 - 11314 р.',
+  },
+  {
+    id: 4,
+    title: 'Tech Week',
+
+    image:
+      'https://it-rating.top/image/cache/data/afisha/2021-ru/techweek-moscow-438x187.jpg',
+    date: '25 мая 2023',
+    location: 'Москва',
+    price: '26 000 - 65 000 р.',
+  },
+  {
+    id: 5,
+    title: 'Умный Город 2.0 Перезагрузка',
+
+    image:
+      'https://it-rating.top/image/cache/data/afisha/2021-ru/smart-sity-2-0-438x187.jpg',
+    date: '15 декабря 2021',
+    location: 'Москва, Хлебзавод',
+    price: 'Free',
+  },
+];
+
 export const filterSelects = [
   {
     id: 1,
