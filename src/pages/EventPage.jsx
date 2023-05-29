@@ -1,8 +1,8 @@
 import React from 'react';
 import Event from '../components/Event/Event';
 
-const EventPage = ({ selectedEvent }) => {
-  return <Event selectedEvent={selectedEvent} />;
+const EventPage = ({ selectedEvent, onCardClick }) => {
+  return <Event selectedEvent={selectedEvent} onCardClick={onCardClick} />;
 };
 
 export default EventPage;

@@ -3,7 +3,7 @@ import EventDescription from '../EventDescription/EventDescription';
 import EventsList from '../EventsList/EventsList';
 import { interestingEvents } from '../../utils/constants/index';
 
-function Event({ selectedEvent }) {
+function Event({ selectedEvent, onCardClick }) {
   console.log(selectedEvent);
 
   return (
@@ -16,7 +16,11 @@ function Event({ selectedEvent }) {
           alt={selectedEvent.title}
         />
       </aside>
-      <EventsList title="Смотрите также" list={interestingEvents} />
+      <EventsList
+        title="Смотрите также"
+        list={interestingEvents}
+        onCardClick={onCardClick}
+      />
     </div>
   );
 }

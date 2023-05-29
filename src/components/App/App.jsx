@@ -26,7 +26,12 @@ function App() {
             <Route index element={<MainPage onCardClick={handleCardClick} />} />
             <Route
               path="event"
-              element={<EventPage selectedEvent={selectedEvent} />}
+              element={
+                <EventPage
+                  selectedEvent={selectedEvent}
+                  onCardClick={handleCardClick}
+                />
+              }
             />
             <Route
               path="favorites"
