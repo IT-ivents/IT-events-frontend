@@ -20,7 +20,7 @@ const Header = ({ isLoggedIn }) => {
           <img src={notificationIcon} alt="notification-icon" />
           <p>Уведомления</p>
         </Link>
-        <Link className={styles.navLink}>
+        <Link to="/favorites" className={styles.navLink}>
           <img src={favoritesIcon} alt="notification-icon" />
           <p>Избранное</p>
         </Link>

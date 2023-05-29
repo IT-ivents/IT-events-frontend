@@ -14,6 +14,7 @@
 
 .eventFigure {
   display: flex;
+  align-items: center;
   margin: 0;
   gap: 10px;
   color: #828080;

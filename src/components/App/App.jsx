@@ -37,7 +37,7 @@ function App() {
               path="favorites"
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <FavoritesPage />
+                  <FavoritesPage onCardClick={handleCardClick} />
                 </ProtectedRoute>
               }
             />
