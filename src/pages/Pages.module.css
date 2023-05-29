@@ -1,0 +1,20 @@
+/* Страница: Главная */
+
+/* Страница: Событие */
+
+/* Страница: Избранное */
+
+/* Страница: Личный кабинет */
+.accountBlocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1232px;
+  margin-top: 60px;
+}
+
+.accountGreeting {
+  color: #525252;
+}
+
+/* Страница: 404 */
