@@ -1,8 +1,11 @@
-import React from 'react';
-import AccountMenu from './../components/AccountMenu/AccountMenu';
+import Security from '../components/Security/Security';
 
 const AccountDetailsPage = () => {
-  return <AccountMenu />;
+  return (
+    <>
+      <Security />
+    </>
+  );
 };
 
 export default AccountDetailsPage;

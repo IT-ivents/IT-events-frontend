@@ -7,8 +7,12 @@ const FavoritesPage = ({ onCardClick }) => {
   return (
     <>
       <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
-      <FilterBar />
-      <EventsList list={favoritesEvents} onCardClick={onCardClick} />
+      <FilterBar justify={'left'} />
+      <EventsList
+        list={favoritesEvents}
+        onCardClick={onCardClick}
+        listDirection={'column'}
+      />
     </>
   );
 };
