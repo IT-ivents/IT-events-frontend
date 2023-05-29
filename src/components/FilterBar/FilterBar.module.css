@@ -4,9 +4,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  gap: 10px;
-
   gap: 44px;
   list-style-type: none;
   padding: 45px 0 25px;

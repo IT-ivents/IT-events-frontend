@@ -1,6 +1,7 @@
 .header {
   padding: 0 104px;
   width: 100%;
+  max-width: 1232px;
   height: 60px;
   background: #c4c4c4;
   display: flex;
@@ -9,8 +10,8 @@
 }
 
 .loggedIn {
-  padding: 0 104px;
   width: 100%;
+  max-width: 1232px;
   height: 79px;
   background: white;
   display: flex;
