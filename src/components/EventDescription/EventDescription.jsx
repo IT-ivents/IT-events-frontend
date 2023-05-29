@@ -4,7 +4,7 @@ import PlayImage from '../../images/play.png';
 import ShareImage from '../../images/share.png';
 import LikeImage from '../../images/like.png';
 
-function EventDescription({ selectedEvent }) {
+const EventDescription = ({ selectedEvent }) => {
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
@@ -33,6 +33,6 @@ function EventDescription({ selectedEvent }) {
       <DescriptionTabs />
     </section>
   );
-}
+};
 
 export default EventDescription;

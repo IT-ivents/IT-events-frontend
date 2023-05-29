@@ -4,7 +4,7 @@
 
 /* Страница: Избранное */
 
-/* Страница: Личный кабинет */
+/* Страница: Личный кабинет (стартовая) */
 .accountBlocks {
   display: flex;
   flex-wrap: wrap;
@@ -16,5 +16,12 @@
 .accountGreeting {
   color: #525252;
 }
+
+.blockLink {
+  text-decoration: none;
+  color: black;
+}
+
+/* Страница: Личный кабинет (стартовая) */
 
 /* Страница: 404 */
