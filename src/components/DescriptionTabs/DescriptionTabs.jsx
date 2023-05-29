@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './DescriptionTabs.module.css';
 
-function DescriptionTabs() {
+const DescriptionTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {
@@ -52,6 +52,6 @@ function DescriptionTabs() {
       <div className={styles.tabContent}>{tabs[activeTab].content}</div>
     </>
   );
-}
+};
 
 export default DescriptionTabs;

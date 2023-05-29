@@ -1,7 +1,7 @@
 import styles from './AccountBlock.module.css';
 import { useNavigate } from 'react-router-dom';
 
-function AccountBlock({ accoutBlockIcon, title, details }) {
+const AccountBlock = ({ accoutBlockIcon, title, details }) => {
   const navigate = useNavigate();
 
   const handleBlockClick = () => {
@@ -15,6 +15,6 @@ function AccountBlock({ accoutBlockIcon, title, details }) {
       <div className={styles.blockDetails}>{details}</div>
     </div>
   );
-}
+};
 
 export default AccountBlock;

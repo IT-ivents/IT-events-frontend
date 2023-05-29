@@ -5,8 +5,9 @@ import Notification from './../../images/notification.png';
 import Lock from './../../images/lock.png';
 import List from './../../images/list.png';
 import Logout from './../../images/logout.png';
+import Security from '../../components/Security/Security';
 
-function AccountMenu() {
+const AccountMenu = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {
@@ -27,7 +28,7 @@ function AccountMenu() {
     {
       image: Lock,
       title: 'Безопасность',
-      content: <p>Безопасность</p>,
+      content: <Security />,
     },
     {
       image: List,
@@ -67,6 +68,6 @@ function AccountMenu() {
       </div>
     </section>
   );
-}
+};
 
 export default AccountMenu;

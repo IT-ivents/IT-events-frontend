@@ -3,7 +3,7 @@ import EventDescription from '../EventDescription/EventDescription';
 import EventsList from '../EventsList/EventsList';
 import { interestingEvents } from '../../utils/constants/index';
 
-function Event({ selectedEvent, onCardClick }) {
+const Event = ({ selectedEvent, onCardClick }) => {
   return (
     <div className={styles.eventContainer}>
       <EventDescription selectedEvent={selectedEvent} />
@@ -21,6 +21,6 @@ function Event({ selectedEvent, onCardClick }) {
       />
     </div>
   );
-}
+};
 
 export default Event;

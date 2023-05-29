@@ -1,11 +1,7 @@
-import Security from '../components/Security/Security';
+import AccountMenu from '../components/AccountMenu/AccountMenu';
 
 const AccountDetailsPage = () => {
-  return (
-    <>
-      <Security />
-    </>
-  );
+  return <AccountMenu />;
 };
 
 export default AccountDetailsPage;

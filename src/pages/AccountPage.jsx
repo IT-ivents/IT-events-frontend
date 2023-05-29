@@ -14,7 +14,7 @@ const AccountPage = () => {
       <h1>Аккаунт</h1>
       <p className={styles.accountGreeting}>С возвращением, Маша</p>
       <div className={styles.accountBlocks}>
-        <Link to="details">
+        <Link to="details" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Person}
             title="Персональная информация"
@@ -36,7 +36,9 @@ const AccountPage = () => {
           title="Предпочтения"
           details="Укажите свои интересы"
         />
-        <AccountBlock accoutBlockIcon={Logout} title="Выход из аккаунта" />
+        <Link to="/" className={styles.blockLink}>
+          <AccountBlock accoutBlockIcon={Logout} title="Выход из аккаунта" />
+        </Link>
       </div>
     </section>
   );
