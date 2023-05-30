@@ -36,6 +36,7 @@ const MainPage = ({ onCardClick }) => {
       <FilterBar justify={'center'} />
       {mainPageEvents.map((event) => (
         <EventsList
+          key={event.id}
           list={event.list}
           title={event.title}
           onCardClick={onCardClick}
