@@ -1,12 +1,7 @@
-import Security from '../components/Security/Security';
-import Notifications from '../components/Notifications/Notifications';
+import AccountMenu from '../components/AccountMenu/AccountMenu';
+
 const AccountDetailsPage = () => {
-  return (
-    <>
-      {/* <Security /> */}
-      <Notifications />
-    </>
-  );
+  return <AccountMenu />;
 };
 
 export default AccountDetailsPage;

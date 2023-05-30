@@ -42,6 +42,7 @@ const MainPage = ({ onCardClick }) => {
           onCardClick={onCardClick}
           listDirection={'row'}
           sectionFlex={'column'}
+          key={event.id}
         />
       ))}
 

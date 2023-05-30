@@ -1,0 +1,39 @@
+.accountMenu {
+  display: flex;
+  margin-top: 63px;
+  gap: 84px;
+}
+
+.headerName {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.headerEmail {
+  color: #525252;
+  padding-bottom: 84px;
+}
+
+.accountTabs {
+  width: 325px;
+  font-size: 20px;
+}
+
+.activeAccountTab {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-bottom: 24px;
+  font-weight: 700;
+}
+
+.accountTab {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-bottom: 24px;
+}
+
+.accountTabContent {
+  width: 823px;
+}
