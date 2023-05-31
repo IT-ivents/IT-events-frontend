@@ -1,6 +1,7 @@
 import styles from './SearchField.module.css';
 import searchIcon from '../../images/search-icon.svg';
 import { useState } from 'react';
+import SearchList from '../SearchList/SearchList';
 
 const SearchField = () => {
   const [value, setValue] = useState('');
@@ -20,6 +21,7 @@ const SearchField = () => {
           value={value}
           type="text"
         />
+        <SearchList />
       </fieldset>
     </form>
   );

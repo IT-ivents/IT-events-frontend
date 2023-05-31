@@ -7,6 +7,7 @@
   display: flex;
   padding: 19px 0;
   border: 1px solid #f0ecec;
+  position: relative;
 }
 
 .form:hover {
