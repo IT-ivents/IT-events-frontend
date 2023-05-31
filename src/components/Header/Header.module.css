@@ -1,7 +1,7 @@
 .header {
   padding: 0 104px;
   width: 100%;
-  max-width: 1232px;
+  /* max-width: 1232px; */
   height: 80px;
   background: #c4c4c4;
   display: flex;
@@ -10,14 +10,15 @@
 }
 
 .loggedIn {
+  padding: 0 104px;
   width: 100%;
-  max-width: 1232px;
+  /* max-width: 1232px; */
   height: 80px;
   background: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 2px solid rgba(0, 0, 0, 0.08); */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
 }
 
 .logoLink {

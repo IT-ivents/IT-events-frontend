@@ -5,6 +5,10 @@
 /* Страница: Избранное */
 
 /* Страница: Личный кабинет (стартовая) */
+.accountTitle {
+  margin: 63px 0 13px;
+}
+
 .accountBlocks {
   display: flex;
   flex-wrap: wrap;
@@ -25,3 +29,97 @@
 /* Страница: Личный кабинет (стартовая) */
 
 /* Страница: 404 */
+
+/* FILTER */
+.filterTitle {
+  margin: 45px 0 48px;
+}
+
+.filterForm {
+  width: 200px;
+}
+
+.filterList {
+  list-style-type: none;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2a2630;
+  margin-bottom: 20px;
+}
+
+.radioButton {
+  display: flex;
+  gap: 10px;
+  color: #797979;
+}
+
+.filterInput {
+  width: 192px;
+  height: 34px;
+  border-radius: 20px;
+  background: url('./../images/loupe.png') no-repeat;
+  background-position-x: 14.5px;
+  background-position-y: center;
+  padding-left: 40px;
+  border: 0;
+  box-shadow: 0px 1px 4px rgba(36, 63, 97, 0.1),
+    0px 0px 1px rgba(36, 63, 97, 0.16);
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tagElement {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 35px;
+  border: 1px solid #797979;
+  border-radius: 20px;
+  padding: 10px;
+  color: #797979;
+}
+
+/* КАСТОМНЫЙ ЧЕКБОКС */
+.checkboxInput {
+  display: none;
+}
+
+.checkboxLabel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 27px;
+  padding-bottom: 16px;
+  color: #797979;
+  cursor: pointer;
+}
+
+.checkboxLabel:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #797979;
+  border-radius: 2px;
+}
+
+.checkboxInput:checked + .checkboxLabel:before {
+  background: url('./../images/done.png') no-repeat;
+  background-position: center;
+  background-color: #674eae;
+  border-color: #674eae;
+}
