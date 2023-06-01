@@ -1,17 +1,23 @@
 .header {
   width: 100%;
-  /* max-width: 1232px; */
-  height: 80px;
-  background: white;
+
   display: flex;
-  gap: 56px;
   flex-direction: column;
   justify-content: space-between;
+  background: url(../../images/Cover.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 175px;
 }
 
 .linksContainer {
   display: flex;
   justify-content: space-between;
+  padding: 37px 104px 0;
 }
 
 .logoLink {
