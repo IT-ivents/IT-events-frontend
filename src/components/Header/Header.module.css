@@ -9,24 +9,10 @@
   justify-content: space-between;
 }
 
-
 .linksContainer {
   display: flex;
   justify-content: space-between;
 }
-/* .loggedIn {
-  width: 100%;
-  max-width: 1232px;
-  height: 113px;
-  width: 100%;
-  /* max-width: 1232px; */
-  height: 80px;
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
-} */
 
 .logoLink {
   font-weight: 700;
