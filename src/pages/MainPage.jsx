@@ -8,6 +8,8 @@ import {
   immediateEvents,
   interestingEvents,
 } from '../utils/constants';
+import Modal from '../components/Modals/Modal/Modal';
+import useModal from '../utils/hooks/useModal';
 
 const mainPageEvents = [
   {
@@ -28,11 +30,19 @@ const mainPageEvents = [
 ];
 
 const MainPage = ({ onCardClick }) => {
+  const { isOpen, handleOpen, handleClose } = useModal();
+
   return (
     <>
       <MainAppSection>
         <SearchField />
       </MainAppSection>
+      <button onClick={() => handleOpen()} type="button">
+        openModal
+      </button>
+      <Modal isOpen={isOpen} handleClose={handleClose}>
+        <button>modal</button>
+      </Modal>
       <FilterBar justify={'center'} />
       {mainPageEvents.map((event) => (
         <EventsList
