@@ -1,72 +1,32 @@
 import React from 'react';
-import MainAppSection from '../components/MainAppSection/MainAppSection';
-import SearchField from '../components/SearchField/SearchField';
-import FilterBar from '../components/FilterBar/FilterBar';
-import EventsList from '../components/EventsList/EventsList';
-import {
-  popularEvents,
-  immediateEvents,
-  interestingEvents,
-} from '../utils/constants';
+import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
+import { favoritesEvents, popularEvents } from '../utils/constants';
 
 const mainPageEvents = [
   {
     id: 1,
-    title: 'Популярное',
-    list: popularEvents,
+    title: 'Самые ожидаемые события года',
+    list: favoritesEvents,
   },
   {
     id: 2,
-    title: 'Ближайшие события>',
-    list: immediateEvents,
-  },
-  {
-    id: 3,
-    title: 'Может быть интересно',
-    list: interestingEvents,
+    title: 'Популярное',
+    list: popularEvents,
   },
 ];
 
 const MainPage = ({ onCardClick }) => {
   return (
     <>
-      <MainAppSection>
-        <SearchField />
-      </MainAppSection>
-      <FilterBar justify={'center'} />
       {mainPageEvents.map((event) => (
-        <EventsList
+        <HorizontalEventList
           key={event.id}
-          list={event.list}
           title={event.title}
+          list={event.list}
+          elseButton={true}
           onCardClick={onCardClick}
-          listDirection={'row'}
-          sectionFlex={'column'}
-          key={event.id}
         />
       ))}
-
-      {/* <EventsList
-        title="Популярное"
-        list={popularEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      />
-      <EventsList
-        title="Ближайшие события"
-        list={immediateEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      />
-      <EventsList
-        title="Может быть интересно"
-        list={interestingEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      /> */}
     </>
   );
 };

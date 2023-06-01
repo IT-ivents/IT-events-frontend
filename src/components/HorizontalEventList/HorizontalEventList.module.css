@@ -1,0 +1,42 @@
+.section {
+  width: 100%;
+  max-width: 1232px;
+  display: flex;
+  flex-direction: column;
+  padding: 64px 0 calc(148px - 64px);
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 32px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 296px);
+  gap: 16px;
+  width: 920px;
+  height: fit-content;
+  list-style-type: none;
+  position: relative;
+}
+
+.elseButton {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  border: none;
+  background: transparent;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28.8px;
+  color: #797979;
+}

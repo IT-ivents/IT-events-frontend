@@ -37,7 +37,7 @@ const notificationsList = [
 
 const Notifications = () => {
   return (
-    <>
+    <section style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
       <PageTitle
         title="Уведомления"
         subtitle="Расскажите, какие уведомления вы хотите получать"
@@ -63,7 +63,7 @@ const Notifications = () => {
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 };
 

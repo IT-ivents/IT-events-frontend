@@ -1,6 +1,6 @@
 import styles from './EventDescription.module.css';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
-import PlayImage from '../../images/play.png';
+import playIcon from '../../images/play-icon.svg';
 import ShareImage from '../../images/share.png';
 import LikeImage from '../../images/like.png';
 
@@ -22,7 +22,7 @@ const EventDescription = ({ selectedEvent }) => {
         <li className={styles.eventDate}>{selectedEvent.location}</li>
       </ul>
       <figure className={styles.eventFigure}>
-        <img src={PlayImage} alt="Play" />
+        <img src={playIcon} alt="Play" />
         <figcaption>Online-трансляция</figcaption>
       </figure>
       <p className={styles.eventPrice}>{selectedEvent.price}</p>

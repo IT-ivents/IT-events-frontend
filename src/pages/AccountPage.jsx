@@ -20,14 +20,14 @@ const AccountPage = () => {
             details="Редактирование личных данных"
           />
         </Link>
-        <Link to="details" className={styles.blockLink}>
+        <Link to="notifications" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Notification}
             title="Уведомления"
             details="Расскажите, какие уведомления вы хотите получать"
           />
         </Link>
-        <Link to="details" className={styles.blockLink}>
+        <Link to="security" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Lock}
             title="Безопасность"
