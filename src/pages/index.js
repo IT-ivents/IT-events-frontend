@@ -4,6 +4,7 @@ import AccountPage from './AccountPage';
 import AccountDetailsPage from './AccountDetailsPage';
 import FavoritesPage from './FavoritesPage';
 import NotFoundPage from './NotFoundPage';
+import SearchResultPage from './SearchResultPage';
 
 export {
   MainPage,
@@ -12,4 +13,5 @@ export {
   AccountDetailsPage,
   FavoritesPage,
   NotFoundPage,
+  SearchResultPage,
 };

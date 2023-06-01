@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const AccountPage = () => {
   return (
     <section>
-      <h1>Аккаунт</h1>
+      <h1 className={styles.accountTitle}>Аккаунт</h1>
       <p className={styles.accountGreeting}>С возвращением, Маша</p>
       <div className={styles.accountBlocks}>
         <Link to="details" className={styles.blockLink}>

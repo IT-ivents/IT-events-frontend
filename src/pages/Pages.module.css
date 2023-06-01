@@ -5,6 +5,10 @@
 /* Страница: Избранное */
 
 /* Страница: Личный кабинет (стартовая) */
+.accountTitle {
+  margin: 63px 0 13px;
+}
+
 .accountBlocks {
   display: flex;
   flex-wrap: wrap;
