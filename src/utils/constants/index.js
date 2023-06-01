@@ -5,9 +5,10 @@ export const popularEvents = [
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/1230_675.png?itok=w13Fb8AG',
-    date: '25 мая 2023',
-    location: 'Москва, Хлебзавод',
-    price: 'Free',
+    date: '25 мая',
+    location: 'Санкт-Петербург',
+    price: 'Бесплатно',
+    time: '10:00 - 20:00',
   },
   {
     id: 2,
@@ -15,9 +16,10 @@ export const popularEvents = [
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/content_2_1.jpg?itok=5yAxGD9s',
-    date: '25 мая 2023',
-    location: 'Москва, Хлебзавод',
-    price: '24 000 - 48 000 р.',
+    date: '25 мая',
+    location: 'Санкт-Петербург',
+    price: '24 000 - 48 000',
+    time: '10:00 - 20:00',
   },
   {
     id: 3,
@@ -26,8 +28,9 @@ export const popularEvents = [
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/09/29/2359/content_580_400_1.png?itok=5CZS324J',
     date: '8 декабря 2023',
-    location: 'Москва, Хлебзавод',
-    price: '4900 - 19 900 р.',
+    location: 'Санкт-Петербург',
+    price: '4900 - 19 900',
+    time: '10:00 - 20:00',
   },
 ];
 
@@ -106,7 +109,7 @@ export const favoritesEvents = [
       'https://ucare.timepad.ru/1e8e2517-ab61-479b-8339-b7f9c36d1ac3/-/preview/600x600/',
     date: '25 мая 2023',
     location: 'Москва',
-    price: '20 000 - 38 000 р.',
+    price: '20 000 - 38 000',
   },
   {
     id: 2,
@@ -116,7 +119,7 @@ export const favoritesEvents = [
       'https://static.gorodzovet.ru/uploads/2023/6/24/photo600-9618799.webp',
     date: '14 октября 2021',
     location: 'Москва',
-    price: '0 - 26 400 р.',
+    price: '0 - 26 400',
   },
   {
     id: 3,
@@ -126,7 +129,7 @@ export const favoritesEvents = [
       'https://it-rating.top/image/cache/data/afisha/2022-ru/crossconf-22-438x187.jpg',
     date: '8 апреля 2022',
     location: 'Москва, Хлебзавод',
-    price: '4457 - 11314 р.',
+    price: '4457 - 11314',
   },
   {
     id: 4,
@@ -134,9 +137,9 @@ export const favoritesEvents = [
 
     image:
       'https://it-rating.top/image/cache/data/afisha/2021-ru/techweek-moscow-438x187.jpg',
-    date: '25 мая 2023',
+    date: '25 мая',
     location: 'Москва',
-    price: '26 000 - 65 000 р.',
+    price: '26 000 - 65 000',
   },
   {
     id: 5,
@@ -144,9 +147,9 @@ export const favoritesEvents = [
 
     image:
       'https://it-rating.top/image/cache/data/afisha/2021-ru/smart-sity-2-0-438x187.jpg',
-    date: '15 декабря 2021',
-    location: 'Москва, Хлебзавод',
-    price: 'Free',
+    date: '15 декабря',
+    location: 'Москва',
+    price: 'Бесплатно',
   },
 ];
 

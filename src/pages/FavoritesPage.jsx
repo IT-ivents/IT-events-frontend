@@ -1,17 +1,19 @@
-import EventsList from '../components/EventsList/EventsList';
-import FilterBar from '../components/FilterBar/FilterBar';
-import PageTitle from '../components/PageTitle/PageTitle';
+import SearchField from '../components/SearchField/SearchField';
+import DividerLine from '../components/DividerLine/DividerLine';
+import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
+
+//import PageTitle from '../components/PageTitle/PageTitle';
 import { favoritesEvents } from '../utils/constants';
 
 const FavoritesPage = ({ onCardClick }) => {
   return (
     <>
-      <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
-      <FilterBar justify={'left'} />
-      <EventsList
+      <SearchField />
+      <DividerLine />
+      <VerticalEventList
         list={favoritesEvents}
+        title={'Избранное'}
         onCardClick={onCardClick}
-        listDirection={'column'}
       />
     </>
   );

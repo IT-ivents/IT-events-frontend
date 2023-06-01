@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
 import { Routes, Route } from 'react-router-dom';
-import {
-  MainPage,
-  EventPage,
-  AccountPage,
-  AccountDetailsPage,
-  FavoritesPage,
-  NotFoundPage,
-  SearchResultPage,
-} from '../../pages';
-import ProtectedRoute from '../../utils/router/ProtectedRoute';
+import { MainPage, EventPage, FavoritesPage, NotFoundPage } from '../../pages';
+
+
 import Layout from '../Layout/Layout';
 
 function App() {
@@ -39,34 +32,9 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
 
             <Route
-              path="account"
-              isLoggedIn={isLoggedIn}
-              element={
-                <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
-                  children={<AccountPage />}
-                />
-              }
-            />
-            <Route
-              path="account/details"
-              isLoggedIn={isLoggedIn}
-              element={
-                <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
-                  children={<AccountDetailsPage />}
-                />
-              }
-            />
-            <Route
               path="favorites"
               isLoggedIn={isLoggedIn}
-              element={
-                <ProtectedRoute
-                  isLoggedIn={isLoggedIn}
-                  children={<FavoritesPage />}
-                />
-              }
+              element={<FavoritesPage onCardClick={handleCardClick} />}
             />
             <Route path="results" element={<SearchResultPage />} />
           </Route>

@@ -2,7 +2,7 @@ import styles from './SearchField.module.css';
 import searchIcon from '../../images/search-icon.svg';
 import { useState } from 'react';
 
-const SearchField = () => {
+const SearchField = ({ alignSelf }) => {
   const [value, setValue] = useState('');
 
   const handleChange = (e) => {
@@ -10,7 +10,7 @@ const SearchField = () => {
   };
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} style={{ alignSelf: alignSelf }}>
       <fieldset className={styles.fieldset}>
         <img src={searchIcon} alt="search-icon" className={styles.icon} />
         <input
