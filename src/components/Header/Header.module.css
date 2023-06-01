@@ -9,6 +9,10 @@
   justify-content: space-between;
 }
 
+.loggedIn {
+  padding: 0 104px;
+}
+
 .linksContainer {
   display: flex;
   justify-content: space-between;
@@ -21,6 +25,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
   border-bottom: 2px solid rgba(0, 0, 0, 0.08);
 } */
 
