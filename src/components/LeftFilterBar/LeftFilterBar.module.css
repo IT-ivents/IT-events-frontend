@@ -1,7 +1,9 @@
 .filterTitle {
-  margin: 45px 0 50px;
+  margin: 64px 0 50px;
   font-size: 32px;
-  color: #1e0a3c;
+  font-weight: 700;
+  line-height: 38px;
+  color: #242424;
 }
 
 .filterForm {

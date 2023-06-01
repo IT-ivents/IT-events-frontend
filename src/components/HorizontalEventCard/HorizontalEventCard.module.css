@@ -4,18 +4,19 @@
   height: fit-content;
   display: flex;
   gap: 24px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .imageContainer {
   position: relative;
-  width: fit-content;
-  height: fit-content;
+  width: 296px;
+  height: 180px;
 }
 
 .image {
   border-radius: 8px;
   width: 296px;
-  height: 240px;
+  height: 180px;
   object-fit: cover;
 }
 
@@ -46,7 +47,7 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 28.8px;
-  max-width: 90%;
+  width: 100%;
 }
 
 .location {
@@ -64,17 +65,13 @@
 }
 
 .price {
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  color: #f1f0eb;
-  background-color: rgba(103, 78, 174, 0.8);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+  color: #674eae;
+
   width: fit-content;
-  padding: 8px;
   border-radius: 8px;
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
 }
 
 .rowContainer {
@@ -85,18 +82,18 @@
   font-size: 16px;
   line-height: 24px;
   color: #797979;
-  padding-top: 4px;
 }
 
 .titleContainer {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
 }
 
 .descriptionContainer {
   display: flex;
   flex-direction: column;
+  gap: 24px;
   flex-grow: 1;
 }
 
@@ -107,7 +104,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  padding-bottom: 24px;
+  margin-top: -8px;
   color: #797979;
   cursor: pointer;
 }

@@ -10,11 +10,13 @@ const mainPageEvents = [
     id: 1,
     title: 'Самые ожидаемые события года',
     list: favoritesEvents,
+    else: false,
   },
   {
     id: 2,
     title: 'Популярное',
     list: popularEvents,
+    else: true,
   },
 ];
 
@@ -26,8 +28,9 @@ const MainPage = ({ onCardClick }) => {
           <HorizontalEventList
             list={list.list}
             onCardClick={onCardClick}
-            key={list.key}
+            key={list.id}
             title={list.title}
+            elseButton={list.else}
           />
         ))}
       </div>

@@ -1,20 +1,17 @@
-import SearchField from '../components/SearchField/SearchField';
+import styles from './Pages.module.css';
 import DividerLine from '../components/DividerLine/DividerLine';
+import PageTitle from '../components/PageTitle/PageTitle';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
-
-//import PageTitle from '../components/PageTitle/PageTitle';
 import { favoritesEvents } from '../utils/constants';
 
 const FavoritesPage = ({ onCardClick }) => {
   return (
     <>
-      <SearchField />
       <DividerLine />
-      <VerticalEventList
-        list={favoritesEvents}
-        title={'Избранное'}
-        onCardClick={onCardClick}
-      />
+      <section className={styles.favoritesPageWrapper}>
+        <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
+        <VerticalEventList list={favoritesEvents} onCardClick={onCardClick} />
+      </section>
     </>
   );
 };
