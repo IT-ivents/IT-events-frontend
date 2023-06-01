@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
 import { Routes, Route } from 'react-router-dom';
-import { MainPage, EventPage, FavoritesPage, NotFoundPage } from '../../pages';
-
+import {
+  MainPage,
+  EventPage,
+  FavoritesPage,
+  NotFoundPage,
+  SearchResultPage,
+} from '../../pages';
 
 import Layout from '../Layout/Layout';
 
