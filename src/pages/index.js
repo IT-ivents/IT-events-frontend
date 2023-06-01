@@ -6,6 +6,7 @@ import AccountSecurityPage from './AccountSecurityPage';
 import AccoundNotificationsPage from './AccoundNotificationsPage';
 import FavoritesPage from './FavoritesPage';
 import NotFoundPage from './NotFoundPage';
+import SearchResultPage from './SearchResultPage';
 
 export {
   MainPage,
@@ -14,6 +15,5 @@ export {
   AccountDetailsPage,
   FavoritesPage,
   NotFoundPage,
-  AccountSecurityPage,
-  AccoundNotificationsPage,
+  SearchResultPage,
 };

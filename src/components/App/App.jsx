@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './App.module.css';
 import { Routes, Route } from 'react-router-dom';
 import { MainPage, EventPage, FavoritesPage, NotFoundPage } from '../../pages';
+
+
 import Layout from '../Layout/Layout';
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               element={<FavoritesPage onCardClick={handleCardClick} />}
             />
+            <Route path="results" element={<SearchResultPage />} />
           </Route>
         </Routes>
       </div>
