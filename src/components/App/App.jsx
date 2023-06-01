@@ -8,6 +8,7 @@ import {
   AccountDetailsPage,
   FavoritesPage,
   NotFoundPage,
+  SearchResultPage,
 } from '../../pages';
 import ProtectedRoute from '../../utils/router/ProtectedRoute';
 import Layout from '../Layout/Layout';
@@ -67,6 +68,7 @@ function App() {
                 />
               }
             />
+            <Route path="results" element={<SearchResultPage />} />
           </Route>
         </Routes>
       </div>

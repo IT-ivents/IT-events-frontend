@@ -1,0 +1,142 @@
+.filterTitle {
+  margin: 45px 0 50px;
+  font-size: 32px;
+  color: #1e0a3c;
+}
+
+.filterForm {
+  width: 200px;
+}
+
+.filterList {
+  list-style-type: none;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2a2630;
+  margin-bottom: 25px;
+}
+
+.label {
+  width: fit-content;
+  color: #797979;
+}
+
+.radioButton {
+  display: flex;
+  gap: 10px;
+  color: #797979;
+}
+
+.filterInput {
+  width: 192px;
+  height: 34px;
+  border-radius: 20px;
+  background: url('./../../images/Actions/loop.svg') no-repeat;
+  background-position-x: 14.5px;
+  background-position-y: center;
+  padding-left: 40px;
+  border: 0;
+  box-shadow: 0px 1px 4px rgba(36, 63, 97, 0.1),
+    0px 0px 1px rgba(36, 63, 97, 0.16);
+  color: #2a2630;
+}
+
+.filterInput:focus {
+  box-shadow: 0px 1px 4px rgba(103, 78, 174, 0.3),
+    0px 0px 1px rgba(103, 78, 174, 0.3);
+  outline: none;
+}
+
+/* КАСТОМНЫЙ ЧЕКБОКС */
+.checkboxInput {
+  display: none;
+}
+
+.checkboxLabel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding-left: 27px;
+  padding-bottom: 16px;
+  color: #797979;
+  cursor: pointer;
+}
+
+.checkboxLabel:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #797979;
+  border-radius: 2px;
+}
+
+.checkboxLabel:hover:before {
+  border-color: #674eae;
+}
+
+.checkboxInput:checked + .checkboxLabel:before {
+  background: url('./../../images/Actions/Check.svg') no-repeat;
+  background-position: center;
+  background-color: #674eae;
+  border-color: #674eae;
+}
+
+/* КАСТОМНЫЕ РАДИОКНОПКИ */
+.radioButton input[type='radio'] {
+  display: none;
+}
+
+.radioButton span {
+  position: relative;
+  padding-left: 25px;
+  padding-bottom: 16px;
+  cursor: pointer;
+  color: #797979;
+}
+
+.radioButton span:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #797979;
+  border-radius: 50%;
+}
+
+.radioButton span:after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #f1f0eb;
+  display: none;
+}
+
+.radioButton input[type='radio']:checked + span:before {
+  background-color: #674eae;
+  border-color: #674eae;
+}
+
+.radioButton input[type='radio']:checked + span:after {
+  display: block;
+}
+
+.radioButton:hover span:before {
+  border-color: #674eae;
+}
