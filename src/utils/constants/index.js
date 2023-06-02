@@ -100,7 +100,7 @@ export const interestingEvents = [
   },
 ];
 
-export const favoritesEvents = [
+export const mainEvents = [
   {
     id: 1,
     title: 'Customer Day 2021',

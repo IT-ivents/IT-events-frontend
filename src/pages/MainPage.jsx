@@ -1,36 +1,31 @@
 import React from 'react';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
-import { favoritesEvents, popularEvents } from '../utils/constants';
+import { mainEvents } from '../utils/constants';
 
 import styles from './Pages.module.css'; ///////////////
 
-const mainPageEvents = [
-  {
-    id: 1,
-    title: 'Самые ожидаемые события года',
-    list: favoritesEvents,
-    else: false,
-  },
-  {
-    id: 2,
-    title: 'Популярное',
-    list: popularEvents,
-    else: true,
-  },
-];
+const MainPage = ({ onCardClick, onLikeClick, allEvents }) => {
+  const mainPageEvents = [
+    {
+      id: 1,
+      title: 'Самые ожидаемые события года',
+      list: allEvents,
+      else: false,
+    },
+  ];
 
-const MainPage = ({ onCardClick }) => {
   return (
     <div className={styles.mainPageWrapper}>
       <div className={styles.listWrapper}>
-        {mainPageEvents.map((list) => (
+        {mainPageEvents.map((event) => (
           <HorizontalEventList
-            list={list.list}
+            key={event.id}
+            list={event.list}
+            title={event.title}
             onCardClick={onCardClick}
-            key={list.id}
-            title={list.title}
-            elseButton={list.else}
+            onLikeClick={onLikeClick}
+            elseButton={event.else}
           />
         ))}
       </div>
