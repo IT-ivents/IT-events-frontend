@@ -4,13 +4,13 @@
   height: fit-content;
   display: flex;
   gap: 24px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .imageContainer {
   position: relative;
   width: 296px;
   height: 180px;
+  cursor: pointer;
 }
 
 .image {
@@ -18,10 +18,29 @@
   width: 296px;
   height: 180px;
   object-fit: cover;
+  transition: box-shadow 0.3s ease;
+}
+
+.image:hover {
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
 }
 
 .likeButton {
   background: url(../../images/like-button.svg) no-repeat center;
+  background-size: 19.5px 19px;
+  width: 19.5px;
+  height: 19px;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.likeButtonActive {
+  background: url(../../images/like-button_active.svg) no-repeat center;
   background-size: 19.5px 19px;
   width: 19.5px;
   height: 19px;

@@ -1,5 +1,4 @@
 /* Страница: Главная */
-
 .mainPageWrapper {
   display: flex;
   flex-direction: row-reverse;
@@ -17,6 +16,13 @@
   align-self: start;
   flex-grow: 1;
   padding-left: 104px;
+}
+
+.preferencesPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  flex-grow: 1;
 }
 
 /* Страница: Личный кабинет (стартовая) */
