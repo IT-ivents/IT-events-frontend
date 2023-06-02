@@ -106,35 +106,3 @@
   padding: 10px;
   color: #797979;
 }
-
-/* КАСТОМНЫЙ ЧЕКБОКС */
-.checkboxInput {
-  display: none;
-}
-
-.checkboxLabel {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 27px;
-  padding-bottom: 16px;
-  color: #797979;
-  cursor: pointer;
-}
-
-.checkboxLabel:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #797979;
-  border-radius: 2px;
-}
-
-.checkboxInput:checked + .checkboxLabel:before {
-  background: url('./../images/done.png') no-repeat;
-  background-position: center;
-  background-color: #674eae;
-  border-color: #674eae;
-}

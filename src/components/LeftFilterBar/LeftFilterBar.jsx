@@ -1,18 +1,81 @@
+import { useState } from 'react';
 import styles from './LeftFilterBar.module.css';
 import TagsBlock from './../TagsBlock/TagsBlock';
 
 const LeftFilerBar = () => {
+  const [showAllDates, setShowAllDates] = useState(false);
+  const [showAllSpecialities, setShowAllSpecialities] = useState(false);
+
+  const toggleShowAllDates = () => {
+    setShowAllDates(!showAllDates);
+  };
+
+  const toggleShowAllSpecialities = () => {
+    setShowAllSpecialities(!showAllSpecialities);
+  };
+
+  const renderDateOptions = () => {
+    const dateOptions = [
+      { id: 'today', value: 'Today', label: 'Сегодня' },
+      { id: 'tomorrow', value: 'Tomorrow', label: 'Завтра' },
+      { id: 'thisweekend', value: 'This weekend', label: 'В эти выходные' },
+      { id: 'pickdate', value: 'Pick date', label: 'Выбрать дату' },
+    ];
+
+    if (showAllDates) {
+      dateOptions.push(
+        { id: 'thisweek', value: 'This week', label: 'На этой неделе' },
+        { id: 'thismonth', value: 'This month', label: 'В этом месяце' },
+        { id: 'nextmonth', value: 'Next month', label: 'В следующем месяце' }
+      );
+    }
+
+    return dateOptions.map((option) => (
+      <label htmlFor={option.id} className={styles.radioButton} key={option.id}>
+        <input id={option.id} type="radio" value={option.value} name="date" />
+        <span>{option.label}</span>
+      </label>
+    ));
+  };
+
+  const renderSpecialityOptions = () => {
+    const specialityOptions = [
+      { id: 'backend', label: 'Backend' },
+      { id: 'frontend', label: 'Frontend' },
+      { id: 'qa', label: 'QA' },
+      { id: 'uxui', label: 'UX/UI дизайн' },
+    ];
+
+    if (showAllSpecialities) {
+      specialityOptions.push(
+        { id: 'web', label: 'Web-разработка' },
+        { id: 'datascience', label: 'Data Science' }
+      );
+    }
+
+    return specialityOptions.map((option) => (
+      <label htmlFor={option.id} key={option.id}>
+        <input
+          id={option.id}
+          type="checkbox"
+          className={styles.checkboxButton}
+        />
+        <span className={styles.checkboxLabel}>{option.label}</span>
+      </label>
+    ));
+  };
+
   return (
     <section className={styles.filterForm}>
       <h2 className={styles.filterTitle}>Фильтры</h2>
       <ul className={styles.filterList}>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Формат</h3>
           <label htmlFor="online">
             <input
               id="online"
               type="checkbox"
-              className={styles.checkboxInput}
+              className={styles.checkboxButton}
             />
             <span className={styles.checkboxLabel}>Online</span>
           </label>
@@ -20,12 +83,12 @@ const LeftFilerBar = () => {
             <input
               id="offline"
               type="checkbox"
-              className={styles.checkboxInput}
+              className={styles.checkboxButton}
             />
             <span className={styles.checkboxLabel}>Offline</span>
           </label>
         </li>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Город</h3>
           <input
             type="text"
@@ -33,61 +96,25 @@ const LeftFilerBar = () => {
             className={styles.filterInput}
           />
         </li>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Дата</h3>
-          <label htmlFor="today" className={styles.radioButton}>
-            <input id="today" type="radio" value="Today" name="date" />
-            <span>Сегодня</span>
-          </label>
-          <label htmlFor="tomorrow" className={styles.radioButton}>
-            <input id="tomorrow" type="radio" value="Tomorrow" name="date" />
-            <span>Завтра</span>
-          </label>
-          <label htmlFor="weekend" className={styles.radioButton}>
-            <input id="weekend" type="radio" value="Weekend" name="date" />
-            <span>В эти выходные</span>
-          </label>
-          <label htmlFor="otherdate" className={styles.radioButton}>
-            <input id="otherdate" type="radio" value="Other date" name="date" />
-            <span>Выбрать дату</span>
-          </label>
-          <label htmlFor="thismonth" className={styles.radioButton}>
-            <input id="thismonth" type="radio" value="This month" name="date" />
-            <span>В этом месяце</span>
-          </label>
-          <label htmlFor="nextmonth" className={styles.radioButton}>
-            <input id="nextmonth" type="radio" value="Next month" name="date" />
-            <span>В следующем месяце</span>
-          </label>
+          <div>
+            {renderDateOptions()}
+            <p onClick={toggleShowAllDates} className={styles.showMore}>
+              {showAllDates ? 'Показать меньше' : 'Показать больше'}
+            </p>
+          </div>
         </li>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Направление</h3>
-          <label htmlFor="backend">
-            <input
-              id="backend"
-              type="checkbox"
-              className={styles.checkboxInput}
-            />
-            <span className={styles.checkboxLabel}>Backend</span>
-          </label>
-          <label htmlFor="frontend">
-            <input
-              id="frontend"
-              type="checkbox"
-              className={styles.checkboxInput}
-            />
-            <span className={styles.checkboxLabel}>Frontend</span>
-          </label>
-          <label htmlFor="qa">
-            <input id="qa" type="checkbox" className={styles.checkboxInput} />
-            <span className={styles.checkboxLabel}>QA</span>
-          </label>
-          <label htmlFor="uxui">
-            <input id="uxui" type="checkbox" className={styles.checkboxInput} />
-            <span className={styles.checkboxLabel}>UX/UI дизайн</span>
-          </label>
+          <div>
+            {renderSpecialityOptions()}
+            <p onClick={toggleShowAllSpecialities} className={styles.showMore}>
+              {showAllSpecialities ? 'Показать меньше' : 'Показать больше'}
+            </p>
+          </div>
         </li>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Цена</h3>
           <label htmlFor="free" className={styles.radioButton}>
             <input id="free" type="radio" value="Free" name="price" />
@@ -98,7 +125,7 @@ const LeftFilerBar = () => {
             <span>Платно</span>
           </label>
         </li>
-        <li className={styles.listItem}>
+        <li>
           <h3 className={styles.itemTitle}>Теги</h3>
           <input
             type="text"
