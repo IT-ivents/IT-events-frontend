@@ -1,22 +1,22 @@
 .card {
   border-radius: 20px;
-  width: 100%;
   height: fit-content;
+  width: 296px;
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .imageContainer {
   position: relative;
-  width: 296px;
-  height: 180px;
-  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
 }
 
 .image {
   border-radius: 8px;
   width: 296px;
-  height: 180px;
+  height: 240px;
   object-fit: cover;
   transition: box-shadow 0.3s ease;
 }
@@ -25,6 +25,7 @@
   -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
 .likeButton {
@@ -52,8 +53,7 @@
 }
 
 .linkButton {
-  background: url(../../images/like-button.svg) no-repeat center;
-  background-size: 19.5px 19px;
+  background: url(../../images/Actions/Share.svg) no-repeat center;
   width: 19.5px;
   height: 19px;
   top: 10px;
@@ -63,10 +63,10 @@
 }
 
 .title {
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28.8px;
-  width: 100%;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  max-width: 90%;
 }
 
 .location {
@@ -84,13 +84,17 @@
 }
 
 .price {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 25px;
-  color: #674eae;
-
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #f1f0eb;
+  background-color: rgba(103, 78, 174, 0.8);
   width: fit-content;
+  padding: 8px;
   border-radius: 8px;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
 }
 
 .rowContainer {
@@ -101,18 +105,12 @@
   font-size: 16px;
   line-height: 24px;
   color: #797979;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
+  padding-top: 4px;
 }
 
 .descriptionContainer {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  justify-content: space-between;
   flex-grow: 1;
 }
 
@@ -123,7 +121,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  margin-top: -8px;
+  padding-bottom: 24px;
   color: #797979;
   cursor: pointer;
 }
