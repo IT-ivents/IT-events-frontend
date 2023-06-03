@@ -16,7 +16,10 @@ const Event = ({
 
   return (
     <div className={styles.eventContainer}>
-      <EventDescription selectedEvent={selectedEvent} />
+      <EventDescription
+        selectedEvent={selectedEvent}
+        onLikeClick={onLikeClick}
+      />
       <aside>
         <img
           className={styles.eventImage}

@@ -1,12 +1,7 @@
 import styles from './VerticalEventList.module.css';
 import HorizontalEventCard from '../HorizontalEventCard/HorizontalEventCard';
 
-const VerticalEventList = ({
-  title,
-  favoriteEvents,
-  onCardClick,
-  onLikeClick,
-}) => {
+const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
   return (
     <section className={`${styles.section}`}>
       {title && (
@@ -15,7 +10,7 @@ const VerticalEventList = ({
         </div>
       )}
       <ul className={`${styles.list}`}>
-        {favoriteEvents.map((event) => (
+        {events.map((event) => (
           <HorizontalEventCard
             key={event.id}
             isLiked={event.isLiked}
