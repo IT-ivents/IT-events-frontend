@@ -1,6 +1,7 @@
 import styles from './HorizontalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import playIcon from '../../images/Actions/PlayCircle.svg';
+import { parseEventDate } from '../../utils/helperFunctions';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
           {/* <button className={styles.linkButton} type="button"></button> */}
         </div>
         <div className={styles.rowContainer}>
-          <time>{event.date}</time>
+          <time>{parseEventDate(event.date)}</time>
           <span>&bull;</span>
           <p>{event.location}</p>
         </div>

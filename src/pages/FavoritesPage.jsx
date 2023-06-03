@@ -63,7 +63,7 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
         <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
         <FilterBar onFilter={handleFilter} />
         <VerticalEventList
-          favoriteEvents={filteredEvents}
+          events={filteredEvents}
           onCardClick={onCardClick}
           onLikeClick={onLikeClick}
         />

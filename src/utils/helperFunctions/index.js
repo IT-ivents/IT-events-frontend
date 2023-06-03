@@ -29,3 +29,27 @@ export const parseMonth = (monthString) => {
   ];
   return monthNames.indexOf(monthString);
 };
+
+export const parseEventDate = (dateString) => {
+  const months = [
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря',
+  ];
+
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const month = months[monthIndex];
+
+  return `${day} ${month}`;
+};
