@@ -59,13 +59,60 @@
 /* Страница: Личный кабинет (меню) */
 
 /* Страница: 404 */
+.notSection {
+  display: flex;
+  width: 100%;
+  height: calc(100% - 125px - 64px);
+  background-color: #ececec;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 815px;
+  height: 580px;
+  padding: 242px 142px 153px;
+  background: url('./../images/404.svg') no-repeat;
+  background-position-x: center;
+  background-position-y: 23px;
+  background-color: white;
+  margin: auto;
+}
+
 .notTitle {
   color: #242424;
-  margin: 7px 0 0;
+  margin: 7px 0 20px;
+}
+
+.notBlock {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  font-size: 20px;
+  gap: 20px;
 }
 
 .notText {
   color: #242424;
+}
+
+.notButton {
+  width: 163px;
+  height: 44px;
+  border-radius: 8px;
+  text-align: left;
+  padding-left: 24px;
+  background: url('./../images/Arrows/arrow-right.svg') no-repeat;
+  background-position-x: 118px;
+  background-position-y: center;
+  background-color: #674eae;
+  font-size: 16px;
+  color: #f1f0eb;
+}
+
+.notLink {
+  color: #674eae;
 }
 
 /* Страница: Предпочтения */

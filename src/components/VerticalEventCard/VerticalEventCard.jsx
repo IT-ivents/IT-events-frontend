@@ -1,6 +1,5 @@
 import styles from './VerticalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
-//import playIcon from '../../images/play-icon.svg';
 import { parseEventDate } from '../../utils/helperFunctions';
 
 const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
@@ -47,11 +46,6 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <span>&bull;</span>
         <p>{event.location}</p>
       </div>
-
-      {/* <figure className={styles.eventFigure}>
-          <img src={playIcon} alt="play-icon" />
-          <figcaption>Online-трансляция</figcaption>
-        </figure> */}
     </li>
   );
 };
