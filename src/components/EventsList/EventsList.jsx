@@ -1,10 +1,7 @@
-import { useLocation } from 'react-router-dom';
 import styles from './EventsList.module.css';
 import EventCard from '../VerticalEventCard/VerticalEventCard';
 
 const EventsList = ({ title, list, onCardClick }) => {
-  const location = useLocation();
-
   return (
     <section className={`${styles.section}`}>
       {title && (

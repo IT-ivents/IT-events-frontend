@@ -10,6 +10,7 @@ import {
   NotificationsPage,
   NotFoundPage,
   SearchResultPage,
+  PreferencesPage,
 } from '../../pages';
 import { popularEvents, interestingEvents } from '../../utils/constants';
 
@@ -152,8 +153,6 @@ function App() {
               />
             }
           />
-          <Route path="*" element={<NotFoundPage />} />
-
           <Route
             path="favorites"
             element={
@@ -175,6 +174,8 @@ function App() {
               />
             }
           />
+          <Route path="preferences" element={<PreferencesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </div>
