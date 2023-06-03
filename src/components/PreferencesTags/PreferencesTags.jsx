@@ -17,30 +17,38 @@ const PreferencesTags = () => {
       <div className={styles.tagBlock}>
         <img src={DSImage} alt="Tags Icons" />
         <h1>Анализ данных</h1>
-        {tagsDs.map((value, index) => (
-          <TagButton value={value} key={index} />
-        ))}
+        <div className={styles.tagsList}>
+          {tagsDs.map((value, index) => (
+            <TagButton value={value} key={index} />
+          ))}
+        </div>
       </div>
       <div className={styles.tagBlock}>
         <img src={DesignImage} alt="Tags Icons" />
         <h1>Дизайн</h1>
-        {tagsDesign.map((value, index) => (
-          <TagButton value={value} key={index} />
-        ))}
+        <div className={styles.tagsList}>
+          {tagsDesign.map((value, index) => (
+            <TagButton value={value} key={index} />
+          ))}
+        </div>
       </div>
       <div className={styles.tagBlock}>
         <img src={ManagementImage} alt="Tags Icons" />
         <h1>Менеджмент</h1>
-        {tagsManagement.map((value, index) => (
-          <TagButton value={value} key={index} />
-        ))}
+        <div className={styles.tagsList}>
+          {tagsManagement.map((value, index) => (
+            <TagButton value={value} key={index} />
+          ))}
+        </div>
       </div>
       <div className={styles.tagBlock}>
         <img src={DevImage} alt="Tags Icons" />
         <h1>Разработка</h1>
-        {tagsDev.map((value, index) => (
-          <TagButton value={value} key={index} />
-        ))}
+        <div className={styles.tagsList}>
+          {tagsDev.map((value, index) => (
+            <TagButton value={value} key={index} />
+          ))}
+        </div>
       </div>
     </>
   );
