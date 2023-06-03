@@ -69,7 +69,7 @@ export const immediateEvents = [
 
 export const interestingEvents = [
   {
-    id: 1,
+    id: 11,
     title: 'Customer Day 2021',
 
     image:
@@ -79,7 +79,7 @@ export const interestingEvents = [
     price: '20 000 - 38 000 р.',
   },
   {
-    id: 2,
+    id: 22,
     title: 'Конференция "Электронная торговля"',
 
     image:
@@ -89,7 +89,7 @@ export const interestingEvents = [
     price: '0 - 26 400 р.',
   },
   {
-    id: 3,
+    id: 33,
     title: 'CrossConf',
 
     image:
@@ -100,7 +100,7 @@ export const interestingEvents = [
   },
 ];
 
-export const favoritesEvents = [
+export const mainEvents = [
   {
     id: 1,
     title: 'Customer Day 2021',

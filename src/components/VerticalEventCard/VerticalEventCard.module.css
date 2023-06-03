@@ -18,6 +18,14 @@
   width: 296px;
   height: 240px;
   object-fit: cover;
+  transition: box-shadow 0.3s ease;
+}
+
+.image:hover {
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
 
 .likeButton {
@@ -32,9 +40,20 @@
   position: absolute;
 }
 
-.linkButton {
-  background: url(../../images/like-button.svg) no-repeat center;
+.likeButtonActive {
+  background: url(../../images/like-button_active.svg) no-repeat center;
   background-size: 19.5px 19px;
+  width: 19.5px;
+  height: 19px;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.linkButton {
+  background: url(../../images/Actions/Share.svg) no-repeat center;
   width: 19.5px;
   height: 19px;
   top: 10px;

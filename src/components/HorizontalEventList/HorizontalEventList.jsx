@@ -1,7 +1,15 @@
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 
-const HorizontalEventList = ({ list, title, onCardClick, elseButton }) => {
+const HorizontalEventList = ({
+  list,
+  title,
+  onCardClick,
+  onLikeClick,
+  elseButton,
+}) => {
+  console.log();
+
   return (
     <section className={`${styles.section}`}>
       {title && (
@@ -15,6 +23,8 @@ const HorizontalEventList = ({ list, title, onCardClick, elseButton }) => {
             key={event.id}
             event={event}
             onCardClick={onCardClick}
+            onLikeClick={onLikeClick}
+            isLiked={event.isLiked}
           />
         ))}
         {elseButton && (

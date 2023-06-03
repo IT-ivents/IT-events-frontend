@@ -1,13 +1,17 @@
 import styles from './HorizontalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import playIcon from '../../images/play-icon.svg';
+import playIcon from '../../images/Actions/PlayCircle.svg';
 
-const HorizontalEventCard = ({ event, onCardClick }) => {
+const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
     onCardClick(event);
     navigate('/event');
+  };
+
+  const handleLikeClick = () => {
+    onLikeClick(event);
   };
 
   return (
@@ -19,7 +23,13 @@ const HorizontalEventCard = ({ event, onCardClick }) => {
           className={styles.image}
           onClick={handleCardClick}
         />
-        <button className={styles.likeButton} type="button"></button>
+        <button
+          className={`${
+            event.isLiked ? styles.likeButtonActive : styles.likeButton
+          }`}
+          type="button"
+          onClick={handleLikeClick}
+        ></button>
       </div>
 
       <div className={`${styles.descriptionContainer}`}>

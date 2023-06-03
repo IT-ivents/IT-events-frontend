@@ -4,12 +4,18 @@
 
 .eventHeader {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .eventName {
   font-size: 24px;
+  width: 504px;
+}
+
+.eventFigures {
+  display: flex;
+  gap: 10px;
 }
 
 .eventFigure {

@@ -2,12 +2,17 @@ import styles from './VerticalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
 //import playIcon from '../../images/play-icon.svg';
 
-const VerticalEventCard = ({ event, onCardClick }) => {
+const VerticalEventCard = ({ event, onCardClick, onLikeClick, isLiked }) => {
   const navigate = useNavigate();
+  console.log(isLiked);
 
   const handleCardClick = () => {
     onCardClick(event);
     navigate('/event');
+  };
+
+  const handleLikeClick = () => {
+    onLikeClick(event);
   };
 
   return (
@@ -24,7 +29,13 @@ const VerticalEventCard = ({ event, onCardClick }) => {
           className={styles.image}
           onClick={handleCardClick}
         />
-        <button className={styles.likeButton} type="button"></button>
+        <button
+          className={`${
+            event.isLiked ? styles.likeButtonActive : styles.likeButton
+          }`}
+          type="button"
+          onClick={handleLikeClick}
+        ></button>
       </div>
 
       <div className={`${styles.descriptionContainer}`}>
