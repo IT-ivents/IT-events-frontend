@@ -1,8 +1,6 @@
 import styles from './HeroSection.module.css';
-import { useLocation } from 'react-router-dom';
 
 const HeroSection = () => {
-  const location = useLocation();
   const headText = 'Не пропусти главные события IT';
   const subtext = 'Сотни ивентов уже ждут тебя. И мы собрали их все';
   return (
