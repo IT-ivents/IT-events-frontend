@@ -22,7 +22,7 @@ const navLinks = [
   },
 ];
 
-const Header = () => {
+const Header = ({ onSearch }) => {
   const location = useLocation();
 
   return location.pathname === '/' ? (
@@ -43,7 +43,7 @@ const Header = () => {
           </nav>
         </div>
         <HeroSection />
-        <SearchField />
+        <SearchField onSearch={onSearch} />
       </div>
     </header>
   ) : (
@@ -52,7 +52,7 @@ const Header = () => {
         <Link to="/" className={styles.logoLink}>
           Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
         </Link>
-        <SearchField />
+        <SearchField onSearch={onSearch} />
         <nav className={styles.navigationBar}>
           {navLinks.map((link) => (
             <Link className={styles.navLink} key={link.id} to={link.path}>

@@ -7,6 +7,14 @@
   align-items: start;
 }
 
+.searchResultPageWrapper {
+  display: flex;
+  gap: 136px;
+  align-self: start;
+  flex-grow: 1;
+  padding: 0 104px;
+}
+
 /* Страница: Событие */
 
 /* Страница: Избранное */
@@ -16,7 +24,6 @@
   align-self: start;
   flex-grow: 1;
   padding: 0 104px;
-  width: 100%;
 }
 
 /* Страница: Уведомления */

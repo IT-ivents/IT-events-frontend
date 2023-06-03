@@ -1,7 +1,6 @@
 import React from 'react';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
-import { mainEvents } from '../utils/constants';
 
 import styles from './Pages.module.css'; ///////////////
 

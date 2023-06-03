@@ -12,7 +12,7 @@ const EventPage = ({
       selectedEvent={selectedEvent}
       onCardClick={onCardClick}
       onLikeClick={onLikeClick}
-      interestingEvents={interestingEvents}
+      interestingEvents={interestingEvents.slice(1, 5)}
     />
   );
 };
