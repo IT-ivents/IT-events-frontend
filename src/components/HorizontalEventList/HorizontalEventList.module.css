@@ -1,6 +1,5 @@
 .section {
   width: 100%;
-  max-width: 1232px;
   display: flex;
   flex-direction: column;
   padding: 64px 0 calc(148px - 64px);
@@ -20,8 +19,11 @@
 }
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  min-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
+  grid-auto-flow: dense;
   gap: 16px;
   height: fit-content;
   list-style-type: none;

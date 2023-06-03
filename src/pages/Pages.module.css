@@ -5,6 +5,15 @@
   gap: 120px;
   flex-grow: 1;
   align-items: start;
+  margin-bottom: 80px;
+}
+
+.searchResultPageWrapper {
+  display: flex;
+  gap: 136px;
+  align-self: start;
+  flex-grow: 1;
+  padding: 0 104px;
 }
 
 /* Страница: Событие */
@@ -16,7 +25,6 @@
   align-self: start;
   flex-grow: 1;
   padding: 0 104px;
-  width: 100%;
 }
 
 /* Страница: Уведомления */
@@ -59,4 +67,44 @@
 
 .notText {
   color: #242424;
+}
+
+/* Страница: Предпочтения */
+.preferencesPageWrapper {
+  display: flex;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 35.14%,
+    #f8f7fa 35.28%,
+    #f8f7fa 100%
+  );
+}
+
+.asideBlock {
+  width: 502px;
+  background: #ffffff;
+}
+
+.asideTitle {
+  width: 320px;
+  margin: 64px auto 0;
+  font-size: 48px;
+  color: #181818;
+}
+
+.asideText {
+  width: 320px;
+  margin: 64.5px auto 0;
+  font-size: 16px;
+  color: #39364f;
+}
+
+.tagsBlocks {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 502px);
+  gap: 32px;
+  margin: 64px 0 80px;
 }

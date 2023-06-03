@@ -1,0 +1,23 @@
+.tagElement {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 35px;
+  border: 1px solid #797979;
+  border-radius: 20px;
+  padding: 12px;
+  color: #797979;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.tagElement:hover {
+  border-color: #674eae;
+  color: #674eae;
+}
+
+.tagElement.clicked {
+  border-color: #674eae;
+  color: #fefefe;
+  background-color: #674eae;
+}

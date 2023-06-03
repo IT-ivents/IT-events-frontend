@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import {
@@ -21,6 +21,8 @@ function App() {
     favorites: [],
     searchResult: [],
   });
+
+  const navigate = useNavigate();
 
   // selectedEvent храним в localStorage для страницы EventPage
   useEffect(() => {
@@ -50,6 +52,14 @@ function App() {
         favorites: updateList(prevEventsList.favorites, event),
         searchResult: updateList(prevEventsList.searchResult, event),
       };
+
+      // Обновление isLiked у selectedEvent
+      const updatedSelectedEvent = { ...selectedEvent };
+      if (selectedEvent && selectedEvent.id === event.id) {
+        updatedSelectedEvent.isLiked = !updatedSelectedEvent.isLiked;
+      }
+
+      setSelectedEvent(updatedSelectedEvent);
 
       return updatedEventsList;
     });
@@ -88,10 +98,37 @@ function App() {
     localStorage.setItem('eventsList', JSON.stringify(eventsList));
   }, [eventsList]);
 
+  const searchEvents = (query) => {
+    const filteredEvents = [...popularEvents, ...interestingEvents].filter(
+      (event) => {
+        const { title, location, price } = event;
+
+        return (
+          title.toLowerCase().includes(query.toLowerCase()) ||
+          location.toLowerCase().includes(query.toLowerCase()) ||
+          price.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+    );
+    console.log('Filtered events:', filteredEvents); // Отладочный вывод
+    return filteredEvents;
+  };
+
+  const handleSearch = (query) => {
+    const filteredEvents = searchEvents(query);
+
+    setEventsList((prevEventsList) => ({
+      ...prevEventsList,
+      searchResult: filteredEvents,
+    }));
+
+    navigate('/results'); // Перенаправление на страницу /results
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.page}>
-        <Header />
+        <Header onSearch={handleSearch} />
         <Routes>
           <Route
             path="/"
@@ -128,7 +165,16 @@ function App() {
             }
           />
           <Route path="notifications" element={<NotificationsPage />} />
-          <Route path="results" element={<SearchResultPage />} />
+          <Route
+            path="results"
+            element={
+              <SearchResultPage
+                searchResult={eventsList.searchResult}
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+              />
+            }
+          />
         </Routes>
         <Footer />
       </div>
