@@ -4,6 +4,7 @@ import FavoritesPage from './FavoritesPage';
 import NotificationsPage from './NotificationsPage';
 import NotFoundPage from './NotFoundPage';
 import SearchResultPage from './SearchResultPage';
+import PreferencesPage from './PreferencesPage';
 
 export {
   MainPage,
@@ -12,4 +13,5 @@ export {
   NotificationsPage,
   NotFoundPage,
   SearchResultPage,
+  PreferencesPage,
 };

@@ -1,12 +1,6 @@
 .section {
-  width: 100%;
-  /* padding-bottom: 175px; */
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-
-  background-size: cover;
+  display: block;
+  margin-top: -50px;
 }
 
 .textContainer {

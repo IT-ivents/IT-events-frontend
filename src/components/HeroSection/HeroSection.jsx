@@ -1,6 +1,4 @@
 import styles from './HeroSection.module.css';
-import Header from '../Header/Header';
-import SearchField from '../SearchField/SearchField';
 import { useLocation } from 'react-router-dom';
 
 const HeroSection = () => {

@@ -48,19 +48,21 @@ const Header = () => {
     </header>
   ) : (
     <header className={styles.header} style={{ background: 'none' }}>
-      <div className={styles.linksContainer}>
-        <Link to="/" className={styles.logoLink}>
-          Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
-        </Link>
-        <SearchField />
-        <nav className={styles.navigationBar}>
-          {navLinks.map((link) => (
-            <Link className={styles.navLink} key={link.id} to={link.path}>
-              <img src={link.src} alt={link.alt} />
-              <p>{link.name}</p>
-            </Link>
-          ))}
-        </nav>
+      <div className={styles.borderContainer}>
+        <div className={styles.linksContainer}>
+          <Link to="/" className={styles.logoLink}>
+            Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
+          </Link>
+          <SearchField />
+          <nav className={styles.navigationBar}>
+            {navLinks.map((link) => (
+              <Link className={styles.navLink} key={link.id} to={link.path}>
+                <img src={link.src} alt={link.alt} />
+                <p>{link.name}</p>
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
     </header>
   );
