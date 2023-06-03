@@ -27,7 +27,7 @@ export const popularEvents = [
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/09/29/2359/content_580_400_1.png?itok=5CZS324J',
-    date: '8 декабря 2023',
+    date: '8 декабря',
     location: 'Санкт-Петербург',
     price: '4900 - 19 900',
     time: '10:00 - 20:00',
@@ -41,7 +41,7 @@ export const immediateEvents = [
 
     image:
       'https://it-rating.top/image/cache/data/afisha/2021-ru/agima-partners-weekend-2021-438x187.png',
-    date: '25 мая 2023',
+    date: '25 мая',
     location: 'Санкт-Петербург',
     price: '21 000 - 27 500 р.',
   },
@@ -74,7 +74,7 @@ export const interestingEvents = [
 
     image:
       'https://ucare.timepad.ru/1e8e2517-ab61-479b-8339-b7f9c36d1ac3/-/preview/600x600/',
-    date: '25 мая 2023',
+    date: '25 мая',
     location: 'Москва',
     price: '20 000 - 38 000 р.',
   },
@@ -84,7 +84,7 @@ export const interestingEvents = [
 
     image:
       'https://static.gorodzovet.ru/uploads/2023/6/24/photo600-9618799.webp',
-    date: '14 октября 2021',
+    date: '14 октября',
     location: 'Москва',
     price: '0 - 26 400 р.',
   },
@@ -94,7 +94,7 @@ export const interestingEvents = [
 
     image:
       'https://it-rating.top/image/cache/data/afisha/2022-ru/crossconf-22-438x187.jpg',
-    date: '8 апреля 2022',
+    date: '8 апреля',
     location: 'Москва, Хлебзавод',
     price: '4457 - 11314 р.',
   },

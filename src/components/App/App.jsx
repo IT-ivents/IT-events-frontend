@@ -22,6 +22,22 @@ function App() {
     searchResult: [],
   });
 
+  // selectedEvent храним в localStorage для страницы EventPage
+  useEffect(() => {
+    const savedSelectedEvent = JSON.parse(
+      localStorage.getItem('selectedEvent')
+    );
+    if (savedSelectedEvent) {
+      setSelectedEvent(savedSelectedEvent);
+    } else {
+      setSelectedEvent(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
+  }, [selectedEvent]);
+
   const handleCardClick = (event) => {
     setSelectedEvent(event);
   };
@@ -92,8 +108,10 @@ function App() {
             path="event"
             element={
               <EventPage
+                interestingEvents={eventsList.interesting}
                 selectedEvent={selectedEvent}
                 onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
               />
             }
           />

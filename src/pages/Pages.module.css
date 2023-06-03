@@ -15,7 +15,8 @@
   flex-direction: column;
   align-self: start;
   flex-grow: 1;
-  padding-left: 104px;
+  padding: 0 104px;
+  width: 100%;
 }
 
 /* Страница: Уведомления */

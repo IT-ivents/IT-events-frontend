@@ -24,7 +24,6 @@ const HorizontalEventList = ({
             event={event}
             onCardClick={onCardClick}
             onLikeClick={onLikeClick}
-            isLiked={event.isLiked}
           />
         ))}
         {elseButton && (

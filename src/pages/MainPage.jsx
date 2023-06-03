@@ -20,7 +20,7 @@ const MainPage = ({
     },
     {
       id: 2,
-      title: 'Самые ожидаемые события года',
+      title: 'Популярное',
       list: interestingEvents,
       else: true,
     },
