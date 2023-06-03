@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "./static/css/main.cdb766ca.css",
-    "main.js": "./static/js/main.fd592df9.js",
+    "main.css": "./static/css/main.19129217.css",
+    "main.js": "./static/js/main.f06e054a.js",
     "static/media/Cover.jpg": "./static/media/Cover.99885bdfc3be422154d8.jpg",
     "static/media/404.svg": "./static/media/404.10cb615c1f8461980752499ee91ff20d.svg",
     "static/media/search-icon.svg": "./static/media/search-icon.0a4701b25689cb5bfe40a8f3abd6a191.svg",
-    "static/media/like-button_active.svg": "./static/media/like-button_active.264ad6060729cf48ba2f.svg",
+    "static/media/like-button_active.svg": "./static/media/like-button_active.264ad6060729cf48ba2f610ef8fe1303.svg",
     "static/media/Close.svg": "./static/media/Close.7d299494e04d6199a0df6ad32674d19d.svg",
     "static/media/like-button.svg": "./static/media/like-button.34a31c77ee5a43c3c51ed9792e40a47f.svg",
     "static/media/favorites-header-icon.svg": "./static/media/favorites-header-icon.1d04bb83dfee8bbf6ed76b475f42259e.svg",
@@ -15,11 +15,11 @@
     "static/media/Share.svg": "./static/media/Share.63e0298dde91c4c4b672b21e10e5a39b.svg",
     "static/media/PlayCircle.svg": "./static/media/PlayCircle.cafb2616b66d5d4d51e90cd2a5b29166.svg",
     "static/media/Check.svg": "./static/media/Check.4f108fa1275ab3b84ccb.svg",
-    "main.cdb766ca.css.map": "./static/css/main.cdb766ca.css.map",
-    "main.fd592df9.js.map": "./static/js/main.fd592df9.js.map"
+    "main.19129217.css.map": "./static/css/main.19129217.css.map",
+    "main.f06e054a.js.map": "./static/js/main.f06e054a.js.map"
   },
   "entrypoints": [
-    "static/css/main.cdb766ca.css",
-    "static/js/main.fd592df9.js"
+    "static/css/main.19129217.css",
+    "static/js/main.f06e054a.js"
   ]
 }
