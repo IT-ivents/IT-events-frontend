@@ -1,9 +1,19 @@
 import styles from './Event.module.css';
 import EventDescription from '../EventDescription/EventDescription';
-import EventsList from '../EventsList/EventsList';
-import { interestingEvents } from '../../utils/constants/index';
+import HorizontalEventsList from '../HorizontalEventList/HorizontalEventList';
 
-const Event = ({ selectedEvent, onCardClick }) => {
+const Event = ({
+  selectedEvent,
+  onCardClick,
+  onLikeClick,
+  interestingEvents,
+}) => {
+  // Здесь нужен будет Loader потому что Event монтируется раньше того как приходит selectedEvent
+  // и приложение крашится
+  if (!selectedEvent) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.eventContainer}>
       <EventDescription selectedEvent={selectedEvent} />
@@ -14,10 +24,11 @@ const Event = ({ selectedEvent, onCardClick }) => {
           alt={selectedEvent.title}
         />
       </aside>
-      <EventsList
+      <HorizontalEventsList
         title="Смотрите также"
         list={interestingEvents}
         onCardClick={onCardClick}
+        onLikeClick={onLikeClick}
       />
     </div>
   );

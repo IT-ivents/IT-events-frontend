@@ -2,9 +2,8 @@ import styles from './VerticalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
 //import playIcon from '../../images/play-icon.svg';
 
-const VerticalEventCard = ({ event, onCardClick, onLikeClick, isLiked }) => {
+const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const navigate = useNavigate();
-  console.log(isLiked);
 
   const handleCardClick = () => {
     onCardClick(event);

@@ -1,42 +1,51 @@
-import { useState } from 'react';
-import { filterSelects } from '../../utils/constants';
 import styles from './FilterBar.module.css';
-import arrow from '../../images/select-arrow.svg';
 
-const FilterBar = ({ justify }) => {
-  const [openSelects, setOpenSelects] = useState([]);
-
-  const toggleSelect = (selectId) => {
-    if (openSelects.includes(selectId)) {
-      setOpenSelects(openSelects.filter((id) => id !== selectId));
-    } else {
-      setOpenSelects([...openSelects, selectId]);
+const FilterBar = ({ onFilter }) => {
+  const handleFilterClick = (option) => {
+    if (onFilter) {
+      onFilter(option);
     }
   };
 
   return (
-    <ul className={`${styles.list}`} style={{ justifyContent: justify }}>
-      {filterSelects.map((select) => (
-        <li
-          className={styles.li}
-          key={select.id}
-          onClick={() => toggleSelect(select.id)}
-        >
-          <p>{select.title}</p>
-          <img src={arrow} alt="arrow" />
-          {openSelects.includes(select.id) && (
-            <ul className={styles.optionsList}>
-              {select.options &&
-                select.options.map((option, index) => (
-                  <li key={index} className={styles.option}>
-                    {option}
-                  </li>
-                ))}
-            </ul>
-          )}
+    <>
+      <ul className={`${styles.list}`}>
+        <li className={styles.item}>
+          <button
+            type="button"
+            className={styles.filterButton}
+            onClick={() => {
+              handleFilterClick('name');
+            }}
+          >
+            Название
+          </button>
         </li>
-      ))}
-    </ul>
+        <li className={styles.item}>
+          <button
+            type="button"
+            className={styles.filterButton}
+            onClick={() => {
+              handleFilterClick('date');
+            }}
+          >
+            Дата
+          </button>
+        </li>
+        <li className={styles.item}>
+          <button
+            type="button"
+            className={styles.filterButton}
+            onClick={() => {
+              handleFilterClick('price');
+            }}
+          >
+            Цена
+          </button>
+        </li>
+      </ul>
+      <div className={styles.divider}></div>
+    </>
   );
 };
 
