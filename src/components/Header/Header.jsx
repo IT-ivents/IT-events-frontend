@@ -9,7 +9,7 @@ const navLinks = [
   {
     id: 1,
     name: 'Уведомления',
-    path: '/preferences',
+    path: '/notifications',
     src: notificationIcon,
     alt: 'Иконка, Колокольчик',
   },

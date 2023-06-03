@@ -1,23 +1,19 @@
-.filterTitle {
-  margin: 64px 0 50px;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 38px;
-  color: #242424;
-}
-
 .filterForm {
   width: 200px;
 }
 
-.filterList {
-  list-style-type: none;
+.filterTitle {
+  margin: 64px 0 50px;
+  font-size: 32px;
+  color: #242424;
 }
 
-.listItem {
+.filterList {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  list-style-type: none;
+  gap: 30px;
+  padding-bottom: 30px;
 }
 
 .itemTitle {
@@ -27,22 +23,11 @@
   margin-bottom: 25px;
 }
 
-.label {
-  width: fit-content;
-  color: #797979;
-}
-
-.radioButton {
-  display: flex;
-  gap: 10px;
-  color: #797979;
-}
-
 .filterInput {
   width: 192px;
   height: 34px;
   border-radius: 20px;
-  background: url('./../../images/Actions/loop.svg') no-repeat;
+  background: url('./../../images/Actions/loupe.svg') no-repeat;
   background-position-x: 14.5px;
   background-position-y: center;
   padding-left: 40px;
@@ -58,8 +43,14 @@
   outline: none;
 }
 
+.showMore {
+  font-size: 12px;
+  font-weight: 700;
+  color: #674eae;
+}
+
 /* КАСТОМНЫЙ ЧЕКБОКС */
-.checkboxInput {
+.checkboxButton {
   display: none;
 }
 
@@ -88,7 +79,7 @@
   border-color: #674eae;
 }
 
-.checkboxInput:checked + .checkboxLabel:before {
+.checkboxButton:checked + .checkboxLabel:before {
   background: url('./../../images/Actions/Check.svg') no-repeat;
   background-position: center;
   background-color: #674eae;
@@ -96,6 +87,12 @@
 }
 
 /* КАСТОМНЫЕ РАДИОКНОПКИ */
+.radioButton {
+  display: flex;
+  gap: 10px;
+  color: #797979;
+}
+
 .radioButton input[type='radio'] {
   display: none;
 }

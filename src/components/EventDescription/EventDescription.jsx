@@ -1,20 +1,22 @@
 import styles from './EventDescription.module.css';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
-import playIcon from '../../images/play-icon.svg';
-import ShareImage from '../../images/share.png';
-import LikeImage from '../../images/like.png';
+import playIcon from '../../images/Actions/PlayCircle.svg';
+import LikeImage from '../../images/like-button.svg';
+import ShareImage from '../../images/Actions/Share.svg';
 
 const EventDescription = ({ selectedEvent }) => {
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
         <h1 className={styles.eventName}>{selectedEvent.title}</h1>
-        <figure className={styles.eventFigure}>
-          <img src={ShareImage} alt="Share" />
-        </figure>
-        <figure className={styles.eventFigure}>
-          <img src={LikeImage} alt="Like" />
-        </figure>
+        <div className={styles.eventFigures}>
+          <figure className={styles.eventFigure}>
+            <img src={LikeImage} alt="Like" />
+          </figure>
+          <figure className={styles.eventFigure}>
+            <img src={ShareImage} alt="Share" />
+          </figure>
+        </div>
       </header>
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>{selectedEvent.date}</li>

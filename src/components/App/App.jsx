@@ -7,7 +7,7 @@ import {
   MainPage,
   EventPage,
   FavoritesPage,
-  PreferencesPage,
+  NotificationsPage,
   NotFoundPage,
   SearchResultPage,
 } from '../../pages';
@@ -109,9 +109,8 @@ function App() {
               />
             }
           />
-          <Route path="preferences" element={<PreferencesPage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
           <Route path="results" element={<SearchResultPage />} />
-          {/* </Route> */}
         </Routes>
         <Footer />
       </div>

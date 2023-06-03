@@ -53,8 +53,7 @@
 }
 
 .linkButton {
-  background: url(../../images/like-button.svg) no-repeat center;
-  background-size: 19.5px 19px;
+  background: url(../../images/Actions/Share.svg) no-repeat center;
   width: 19.5px;
   height: 19px;
   top: 10px;
