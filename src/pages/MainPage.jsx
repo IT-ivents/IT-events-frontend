@@ -5,13 +5,24 @@ import { mainEvents } from '../utils/constants';
 
 import styles from './Pages.module.css'; ///////////////
 
-const MainPage = ({ onCardClick, onLikeClick, allEvents }) => {
+const MainPage = ({
+  onCardClick,
+  onLikeClick,
+  popularEvents,
+  interestingEvents,
+}) => {
   const mainPageEvents = [
     {
       id: 1,
       title: 'Самые ожидаемые события года',
-      list: allEvents,
+      list: popularEvents,
       else: false,
+    },
+    {
+      id: 2,
+      title: 'Самые ожидаемые события года',
+      list: interestingEvents,
+      else: true,
     },
   ];
 

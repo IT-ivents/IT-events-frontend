@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -11,58 +11,66 @@ import {
   NotFoundPage,
   SearchResultPage,
 } from '../../pages';
-import { mainEvents } from '../../utils/constants';
+import { popularEvents, interestingEvents } from '../../utils/constants';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [favoriteEvents, setFavoriteEvents] = useState([]);
-  const [allEvents, setAllEvents] = useState(mainEvents);
+  const [eventsList, setEventsList] = useState({
+    popular: [...popularEvents],
+    interesting: [...interestingEvents],
+    favorites: [],
+    searchResult: [],
+  });
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
   };
 
   const toggleFavorite = (event) => {
-    const isEventInFavorites = favoriteEvents.some(
-      (favorite) => favorite.id === event.id
-    );
-    if (isEventInFavorites) {
-      // Карточка уже в избранном, удаляем ее
-      const updatedFavorites = favoriteEvents.filter(
-        (favorite) => favorite.id !== event.id
-      );
-      setFavoriteEvents(updatedFavorites);
-    } else {
-      // Карточка не в избранном, добавляем ее
-      const updatedFavorites = [...favoriteEvents, { ...event, isLiked: true }];
-      setFavoriteEvents(updatedFavorites);
+    setEventsList((prevEventsList) => {
+      const updatedEventsList = {
+        popular: updateList(prevEventsList.popular, event),
+        interesting: updateList(prevEventsList.interesting, event),
+        favorites: updateList(prevEventsList.favorites, event),
+        searchResult: updateList(prevEventsList.searchResult, event),
+      };
+
+      return updatedEventsList;
+    });
+  };
+  function updateList(list, event) {
+    if (list === eventsList.favorites) {
+      const isEventInFavorites = list.some((item) => item.id === event.id);
+      if (!isEventInFavorites) {
+        const updatedList = [...list, { ...event, isLiked: true }];
+        return updatedList;
+      } else {
+        const updatedList = list.filter((item) => item.id !== event.id);
+        return updatedList;
+      }
     }
 
-    // Обновление состояния allEvents
-    const updatedAllEvents = allEvents.map((item) => {
+    const updatedList = list.map((item) => {
       if (item.id === event.id) {
-        return {
-          ...item,
-          isLiked: !isEventInFavorites,
-        };
+        const updatedItem = { ...item, isLiked: !item.isLiked };
+        return updatedItem;
       }
       return item;
     });
-    setAllEvents(updatedAllEvents);
-  };
 
-  // Эффект для загрузки сохраненных карточек из локального хранилища при запуске приложения
+    return updatedList;
+  }
+
   useEffect(() => {
-    const savedEvents = localStorage.getItem('favoriteEvents');
-    if (savedEvents) {
-      setFavoriteEvents(JSON.parse(savedEvents));
+    const savedEventsList = JSON.parse(localStorage.getItem('eventsList'));
+    if (savedEventsList) {
+      setEventsList(savedEventsList);
     }
   }, []);
 
-  // Эффект для сохранения изменений в локальном хранилище при обновлении состояния favoriteEvents
   useEffect(() => {
-    localStorage.setItem('favoriteEvents', JSON.stringify(favoriteEvents));
-  }, [favoriteEvents]);
+    localStorage.setItem('eventsList', JSON.stringify(eventsList));
+  }, [eventsList]);
 
   return (
     <div className={styles.wrapper}>
@@ -75,7 +83,8 @@ function App() {
               <MainPage
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
-                allEvents={allEvents}
+                popularEvents={eventsList.popular}
+                interestingEvents={eventsList.interesting}
               />
             }
           />
@@ -96,7 +105,7 @@ function App() {
               <FavoritesPage
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
-                favoriteEvents={favoriteEvents}
+                favoriteEvents={eventsList.favorites}
               />
             }
           />

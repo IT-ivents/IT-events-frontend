@@ -21,7 +21,7 @@ const VerticalEventList = ({
             isLiked={event.isLiked}
             event={event}
             onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
+            onLikeClick={(event) => onLikeClick(event)}
           />
         ))}
       </ul>
