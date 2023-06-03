@@ -36,7 +36,6 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
       <div className={`${styles.descriptionContainer}`}>
         <div className={styles.titleContainer}>
           <h3 className={styles.title}>{event.title}</h3>
-          {/* <button className={styles.linkButton} type="button"></button> */}
         </div>
         <div className={styles.rowContainer}>
           <time>{parseEventDate(event.date)}</time>
