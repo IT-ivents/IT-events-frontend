@@ -1,6 +1,5 @@
-import styles from './Pages.module.css';
 import { useState, useEffect } from 'react';
-import DividerLine from '../components/DividerLine/DividerLine';
+import styles from './Pages.module.css';
 import PageTitle from '../components/PageTitle/PageTitle';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
 import FilterBar from '../components/FilterBar/FilterBar';
@@ -57,18 +56,15 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
   };
 
   return (
-    <>
-      <DividerLine />
-      <section className={styles.favoritesPageWrapper}>
-        <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
-        <FilterBar onFilter={handleFilter} />
-        <VerticalEventList
-          events={filteredEvents}
-          onCardClick={onCardClick}
-          onLikeClick={onLikeClick}
-        />
-      </section>
-    </>
+    <section className={styles.favoritesPageWrapper}>
+      <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
+      <FilterBar onFilter={handleFilter} />
+      <VerticalEventList
+        events={filteredEvents}
+        onCardClick={onCardClick}
+        onLikeClick={onLikeClick}
+      />
+    </section>
   );
 };
 
