@@ -1,15 +1,17 @@
 import MainPage from './MainPage';
 import EventPage from './EventPage';
-import AccountPage from './AccountPage';
-import AccountDetailsPage from './AccountDetailsPage';
 import FavoritesPage from './FavoritesPage';
+import NotificationsPage from './NotificationsPage';
 import NotFoundPage from './NotFoundPage';
+import SearchResultPage from './SearchResultPage';
+import PreferencesPage from './PreferencesPage';
 
 export {
   MainPage,
   EventPage,
-  AccountPage,
-  AccountDetailsPage,
   FavoritesPage,
+  NotificationsPage,
   NotFoundPage,
+  SearchResultPage,
+  PreferencesPage,
 };

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const AccountPage = () => {
   return (
     <section>
-      <h1>Аккаунт</h1>
+      <h1 className={styles.accountTitle}>Аккаунт</h1>
       <p className={styles.accountGreeting}>С возвращением, Маша</p>
       <div className={styles.accountBlocks}>
         <Link to="details" className={styles.blockLink}>
@@ -20,14 +20,14 @@ const AccountPage = () => {
             details="Редактирование личных данных"
           />
         </Link>
-        <Link to="details" className={styles.blockLink}>
+        <Link to="notifications" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Notification}
             title="Уведомления"
             details="Расскажите, какие уведомления вы хотите получать"
           />
         </Link>
-        <Link to="details" className={styles.blockLink}>
+        <Link to="security" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Lock}
             title="Безопасность"

@@ -1,0 +1,26 @@
+.tagBlock {
+  width: 674px;
+  height: fit-content;
+  background: #ffffff;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 25px 20px;
+  border: 1px solid #d6d6d6;
+}
+
+.tagFigure {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 38px;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap: 10px;
+  list-style-type: none;
+}

@@ -1,42 +1,56 @@
 .header {
-  padding: 0 104px;
   width: 100%;
-  max-width: 1232px;
-  height: 80px;
-  background: #c4c4c4;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  background: url(../../images/Cover.jpg) no-repeat center center;
+  background-size: cover;
 }
 
-.loggedIn {
-  width: 100%;
-  max-width: 1232px;
-  height: 80px;
-  background: white;
+.container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  padding-bottom: 125px;
+}
+
+.borderContainer {
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.linksContainer {
+  display: flex;
   align-items: center;
-  /* border-bottom: 2px solid rgba(0, 0, 0, 0.08); */
+  justify-content: space-between;
+  padding: 37px 104px 38px;
+  height: 125px;
 }
 
 .logoLink {
   font-weight: 700;
-  font-size: 29px;
-  line-height: 20px;
+  font-size: 32px;
+  line-height: 38.4px;
   letter-spacing: 0.24px;
   text-decoration: none;
   color: #000;
 }
 
+.logoSpan {
+  color: #674eae;
+}
+
 .navigationBar {
   display: flex;
-  gap: 40px;
+  align-items: center;
+  gap: 56px;
 }
 
 .navLink {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
   text-decoration: none;
-  color: #000;
+  color: #181818;
   display: flex;
   flex-direction: column;
   align-items: center;

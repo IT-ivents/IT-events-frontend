@@ -1,0 +1,127 @@
+.card {
+  border-radius: 20px;
+  height: fit-content;
+  width: 296px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imageContainer {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.image {
+  border-radius: 8px;
+  width: 296px;
+  height: 240px;
+  object-fit: cover;
+  transition: box-shadow 0.3s ease;
+}
+
+.image:hover {
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.likeButton {
+  background: url(../../images/like-button.svg) no-repeat center;
+  background-size: 19.5px 19px;
+  width: 19.5px;
+  height: 19px;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.likeButtonActive {
+  background: url(../../images/like-button_active.svg) no-repeat center;
+  background-size: 19.5px 19px;
+  width: 19.5px;
+  height: 19px;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.linkButton {
+  background: url(../../images/Actions/Share.svg) no-repeat center;
+  width: 19.5px;
+  height: 19px;
+  top: 10px;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  max-width: 90%;
+}
+
+.location {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #878787;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #878787;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #f1f0eb;
+  background-color: rgba(103, 78, 174, 0.8);
+  width: fit-content;
+  padding: 8px;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #797979;
+  padding-top: 4px;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.eventFigure {
+  display: flex;
+  align-items: center;
+  gap: 10.5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding-bottom: 24px;
+  color: #797979;
+  cursor: pointer;
+}

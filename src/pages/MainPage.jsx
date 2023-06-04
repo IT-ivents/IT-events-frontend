@@ -1,82 +1,46 @@
 import React from 'react';
-import MainAppSection from '../components/MainAppSection/MainAppSection';
-import SearchField from '../components/SearchField/SearchField';
-import FilterBar from '../components/FilterBar/FilterBar';
-import EventsList from '../components/EventsList/EventsList';
-import {
+import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
+import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
+
+import styles from './Pages.module.css'; ///////////////
+
+const MainPage = ({
+  onCardClick,
+  onLikeClick,
   popularEvents,
-  immediateEvents,
   interestingEvents,
-} from '../utils/constants';
-import Modal from '../components/Modals/Modal/Modal';
-import useModal from '../utils/hooks/useModal';
-
-const mainPageEvents = [
-  {
-    id: 1,
-    title: 'Популярное',
-    list: popularEvents,
-  },
-  {
-    id: 2,
-    title: 'Ближайшие события>',
-    list: immediateEvents,
-  },
-  {
-    id: 3,
-    title: 'Может быть интересно',
-    list: interestingEvents,
-  },
-];
-
-const MainPage = ({ onCardClick }) => {
-  const { isOpen, handleOpen, handleClose } = useModal();
+}) => {
+  const mainPageEvents = [
+    {
+      id: 1,
+      title: 'Самые ожидаемые события года',
+      list: popularEvents,
+      else: false,
+    },
+    {
+      id: 2,
+      title: 'Популярное',
+      list: interestingEvents,
+      else: true,
+    },
+  ];
 
   return (
-    <>
-      <MainAppSection>
-        <SearchField />
-      </MainAppSection>
-      <button onClick={() => handleOpen()} type="button">
-        openModal
-      </button>
-      <Modal isOpen={isOpen} handleClose={handleClose}>
-        <button>modal</button>
-      </Modal>
-      <FilterBar justify={'center'} />
-      {mainPageEvents.map((event) => (
-        <EventsList
-          list={event.list}
-          title={event.title}
-          onCardClick={onCardClick}
-          listDirection={'row'}
-          sectionFlex={'column'}
-          key={event.id}
-        />
-      ))}
-
-      {/* <EventsList
-        title="Популярное"
-        list={popularEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      />
-      <EventsList
-        title="Ближайшие события"
-        list={immediateEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      />
-      <EventsList
-        title="Может быть интересно"
-        list={interestingEvents}
-        onCardClick={onCardClick}
-        listDirection={'row'}
-        sectionFlex={'column'}
-      /> */}
-    </>
+    <div className={styles.mainPageWrapper}>
+      <div className={styles.listWrapper}>
+        {mainPageEvents.map((event) => (
+          <HorizontalEventList
+            key={event.id}
+            list={event.list}
+            title={event.title}
+            onCardClick={onCardClick}
+            onLikeClick={onLikeClick}
+            elseButton={event.else}
+          />
+        ))}
+      </div>
+      <LeftFilerBar />
+    </div>
   );
 };
 

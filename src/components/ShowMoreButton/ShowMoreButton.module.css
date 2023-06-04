@@ -1,0 +1,33 @@
+.button {
+  background: url('../../images/Arrows/arrow-right_gray.svg') no-repeat;
+  background-position-x: 140px;
+  background-position-y: center;
+  background-color: transparent;
+  color: #797979;
+  border: 1px solid #797979;
+  border-radius: 8px;
+  width: 180px;
+  min-height: 44px;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 24px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.button:hover {
+  background: url('../../images/Arrows/arrow-right_violet.svg') no-repeat;
+  background-position-x: 140px;
+  background-position-y: center;
+  border: 1px solid #674eae;
+  color: #674eae;
+}
+
+.button:active {
+  background: url('../../images/Arrows/arrow-right_white.svg') no-repeat;
+  background-position-x: 140px;
+  background-position-y: center;
+  border: 1px solid #674eae;
+  background-color: #674eae;
+  color: white;
+}

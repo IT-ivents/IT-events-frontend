@@ -1,0 +1,29 @@
+.section {
+  width: 100%;
+  max-width: 1232px;
+  display: flex;
+  flex-direction: column;
+  margin: 56px 0 80px;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 32px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  height: fit-content;
+  list-style-type: none;
+}

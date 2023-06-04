@@ -4,12 +4,18 @@
 
 .eventHeader {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .eventName {
   font-size: 24px;
+  width: 504px;
+}
+
+.eventFigures {
+  display: flex;
+  gap: 10px;
 }
 
 .eventFigure {
@@ -34,18 +40,18 @@
 }
 
 .eventButton {
-  background: url('../../images/arrow.png') no-repeat;
-  background-position-x: 227px;
+  background: url('../../images/Arrows/arrow-right.svg') no-repeat;
+  background-position-x: 262px;
   background-position-y: center;
-  background-color: black;
+  background-color: #674eae;
   color: white;
   border: 0;
   border-radius: 8px;
-  width: 256px;
-  height: 32px;
-  font-size: 14px;
+  width: 306px;
+  height: 44px;
+  font-size: 16px;
   text-align: left;
-  padding-left: 15px;
+  padding-left: 24px;
   cursor: pointer;
 }
 

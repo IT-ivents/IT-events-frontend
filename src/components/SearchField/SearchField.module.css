@@ -5,12 +5,9 @@
   background: #fff;
   border-radius: 34px;
   display: flex;
-  padding: 19px 0;
-  border: 1px solid #f0ecec;
-}
-
-.form:hover {
-  outline: 1px solid #06b6d4;
+  align-self: center;
+  padding: 16px 0;
+  border: 2px solid #674eae;
 }
 
 .fieldset {
@@ -21,6 +18,7 @@
   border: none;
   gap: 18px;
   margin-left: 22px;
+  padding: 0;
 }
 
 .icon {
@@ -30,14 +28,17 @@
 }
 
 .input {
-  width: 100%;
+  width: 70%;
   outline: none;
   border: none;
+  color: #242424;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19.5px;
 }
 
 .input::placeholder {
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
-  letter-spacing: 0.2px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }

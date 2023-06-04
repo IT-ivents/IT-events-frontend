@@ -1,9 +1,8 @@
 .eventContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
-  max-width: 1232px;
-  margin: 50px auto 0;
+  justify-content: space-between;
+  margin: 50px 104px 0;
 }
 
 .eventImage {

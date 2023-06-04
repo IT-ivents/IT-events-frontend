@@ -1,29 +1,15 @@
-import { useLocation } from 'react-router-dom';
 import styles from './EventsList.module.css';
-import EventCard from '../EventCard/EventCard';
-import ListSelector from '../ListSelector/ListSelector';
+import EventCard from '../VerticalEventCard/VerticalEventCard';
 
-const EventsList = ({
-  title,
-  list,
-  onCardClick,
-  listDirection,
-  sectionFlex,
-}) => {
-  const location = useLocation();
-
+const EventsList = ({ title, list, onCardClick }) => {
   return (
-    <section
-      className={`${styles.section}`}
-      style={{ flexDirection: sectionFlex }}
-    >
-      {location.pathname !== '/favorites' && (
+    <section className={`${styles.section}`}>
+      {title && (
         <div className={styles.container}>
           <h2 className={styles.title}>{title}</h2>
-          {location.pathname === '/' && <ListSelector />}
         </div>
       )}
-      <ul className={`${styles.list}`} style={{ flexDirection: listDirection }}>
+      <ul className={`${styles.list}`}>
         {list.map((event) => (
           <EventCard key={event.id} event={event} onCardClick={onCardClick} />
         ))}
