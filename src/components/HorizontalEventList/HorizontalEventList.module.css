@@ -41,3 +41,9 @@
   line-height: 28.8px;
   color: #797979;
 }
+
+.navigationContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 84px;
+}
