@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 64px 0 calc(148px - 64px);
+  padding: 64px 0 0;
 }
 
 .titleContainer {
@@ -21,23 +21,18 @@
 .list {
   width: 100%;
   min-width: 900px;
+  gap: 16px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
-  grid-auto-flow: dense;
-  gap: 16px;
   height: fit-content;
   list-style-type: none;
   position: relative;
 }
 
-.elseButton {
-  position: absolute;
-  top: -48px;
-  right: 0;
-  border: none;
-  background: transparent;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28.8px;
-  color: #797979;
+.list > li {
+  margin-bottom: calc(64px - 16px);
+}
+
+.list > li:last-child {
+  margin-bottom: 0;
 }

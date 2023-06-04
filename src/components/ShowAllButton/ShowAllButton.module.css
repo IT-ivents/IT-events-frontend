@@ -1,0 +1,25 @@
+.showAllButton {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  border: none;
+  background: transparent;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28.8px;
+  color: #797979;
+  cursor: pointer;
+}
+
+.showAllButton:hover {
+  color: #674eae;
+  transition: 0.3s ease;
+}
+
+.showAllButton:active {
+  color: #443375;
+}
+
+.showAllButton:disabled {
+  color: #c9ccd8;
+}

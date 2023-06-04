@@ -1,5 +1,6 @@
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
+import ShowAllButton from '../ShowAllButton/ShowAllButton';
 
 const HorizontalEventList = ({
   list,
@@ -26,11 +27,7 @@ const HorizontalEventList = ({
             onLikeClick={onLikeClick}
           />
         ))}
-        {elseButton && (
-          <button className={styles.elseButton} type="button">
-            Показать все
-          </button>
-        )}
+        {elseButton && <ShowAllButton />}
       </ul>
     </section>
   );

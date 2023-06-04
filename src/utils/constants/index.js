@@ -2,6 +2,8 @@ export const popularEvents = [
   {
     id: 1,
     title: 'Название мероприятия в две строки выглядит так',
+    description:
+      'Экспертиза HR находится на стыке между Management, Marketing, Sales, Аналитикой, Психологии, копирайтера и этот список можно бесконечно пополнять. Наши скиллы нужны почти на каждой позиции в бизнесе. ',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/1230_675.png?itok=w13Fb8AG',
@@ -14,6 +16,8 @@ export const popularEvents = [
   {
     id: 2,
     title: 'QA & Soft Skils MEETUP',
+    description:
+      '10 июня в 11:00 часть Малоохтинского парка превратится в игровое пространство. Матёрые и начинающие разработчики встретят свою аудиторию — игроков, а гости смогут прикоснуться к новым играм и повлиять на их развитие.',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/content_2_1.jpg?itok=5yAxGD9s',
@@ -26,6 +30,8 @@ export const popularEvents = [
   {
     id: 3,
     title: 'UX/UI Meetup',
+    description:
+      'Игра развивает скиллы в архитектуре как и начинающим архитекторам, так и разработчикам, аналитикам, и даже менеджерам.',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/09/29/2359/content_580_400_1.png?itok=5CZS324J',
@@ -125,6 +131,18 @@ export const interestingEvents = [
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/07/28/2359/900x672.png?itok=a2R9U_nm',
     date: '2023-08-01T09:30:00Z',
     location: 'Москва',
+    price: 'Бесплатно',
+    format: 1,
+  },
+  {
+    id: 77,
+    title: 'Встреча SpbDotNet №89',
+    description:
+      'Встреча будет проходить по адресу: Санкт-Петербург, Выборгская набережная, д. 47 (БЦ «Гренадерский»), офис компании «ATI.SU» Участие бесплатное, регистрация обязательна, количество мест ограничено!',
+    image:
+      'https://ucare.timepad.ru/b5519b3f-77b2-43c1-a2eb-1184af044fbb/-/preview/600x600/',
+    date: '2023-08-08T09:30:00Z',
+    location: 'Санкт-Петербург',
     price: 'Бесплатно',
     format: 1,
   },

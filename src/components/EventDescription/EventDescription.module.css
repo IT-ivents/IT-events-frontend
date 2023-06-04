@@ -9,6 +9,8 @@
 }
 
 .eventName {
+  font-weight: 700;
+  line-height: 38.4px;
   font-size: 24px;
   width: 504px;
 }
@@ -23,40 +25,32 @@
   align-items: center;
   margin: 0;
   gap: 10px;
-  color: #828080;
+  color: #797979;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .eventDates {
   display: flex;
   gap: 25px;
   padding: 0;
-  color: #828080;
+  color: #797979;
   padding-bottom: 18px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .eventDate:first-child {
   list-style-type: none;
 }
 
-.eventButton {
-  background: url('../../images/Arrows/arrow-right.svg') no-repeat;
-  background-position-x: 262px;
-  background-position-y: center;
-  background-color: #674eae;
-  color: white;
-  border: 0;
-  border-radius: 8px;
-  width: 306px;
-  height: 44px;
-  font-size: 16px;
-  text-align: left;
-  padding-left: 24px;
-  cursor: pointer;
-}
-
 .eventPrice {
-  color: black;
-  font-size: 22px;
+  color: #674eae;
+  font-weight: 500;
+  line-height: 25px;
+  font-size: 20px;
   padding: 18px 0 40px;
 }

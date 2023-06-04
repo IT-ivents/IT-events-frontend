@@ -37,11 +37,14 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <div className={styles.titleContainer}>
           <h3 className={styles.title}>{event.title}</h3>
         </div>
-        <div className={styles.rowContainer}>
-          <time>{parseEventDate(event.date)}</time>
-          <span>&bull;</span>
-          <p>{event.location}</p>
-        </div>
+        <ul className={styles.rowContainer}>
+          <li className={styles.rowItem}>
+            <time>{parseEventDate(event.date)}</time>
+          </li>
+          <li className={styles.rowItem}>
+            <p>{event.location}</p>
+          </li>
+        </ul>
         <figure className={styles.eventFigure}>
           <img src={playIcon} alt="play-icon" />
           <figcaption>Online-трансляция</figcaption>

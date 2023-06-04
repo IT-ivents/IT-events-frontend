@@ -12,10 +12,11 @@
 }
 
 .footerList {
-  list-style-type: none;
   color: #c9ccd8;
   display: flex;
   gap: 16px;
+  padding: 0;
+  list-style-type: none;
 }
 
 .year {

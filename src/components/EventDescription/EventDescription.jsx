@@ -1,5 +1,6 @@
 import styles from './EventDescription.module.css';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
+import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import playIcon from '../../images/Actions/PlayCircle.svg';
 import LikeImage from '../../images/like-button.svg';
 import LikeImageActive from '../../images/like-button_active.svg';
@@ -39,10 +40,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
         <figcaption>Online-трансляция</figcaption>
       </figure>
       <p className={styles.eventPrice}>{selectedEvent.price}</p>
-      <button className={styles.eventButton}>
-        Перейти на сайт организатора
-      </button>
-
+      <PrimaryButton title="Перейти на сайт организатора" />
       <DescriptionTabs />
     </section>
   );

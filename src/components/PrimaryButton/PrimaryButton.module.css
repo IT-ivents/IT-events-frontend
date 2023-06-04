@@ -1,0 +1,24 @@
+.primaryButton {
+  background: url('../../images/Arrows/arrow-right.svg') no-repeat;
+  background-position-x: 262px;
+  background-position-y: center;
+  background-color: #674eae;
+  color: #f1f0eb;
+  border: 0;
+  border-radius: 8px;
+  width: 306px;
+  height: 44px;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 24px;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background-color: #443375;
+  transition: 0.3s ease-in-out;
+}
+
+.primaryButton:active {
+  background-color: #291b51;
+}
