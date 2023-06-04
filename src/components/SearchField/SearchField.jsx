@@ -1,26 +1,23 @@
 import styles from './SearchField.module.css';
 import searchIcon from '../../images/search-icon.svg';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const SearchField = ({ onSearch }) => {
   const [value, setValue] = useState('');
-  let timeoutId;
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+  const timeoutIdRef = useRef();
 
   // Метод debounce чтобы отправлять запрос на поиск не на каждый ввод, а с задержкой 500мс.
-  const handleSubmit = (e) => {
-    clearTimeout(timeoutId);
-    e.preventDefault();
-    timeoutId = setTimeout(() => {
-      onSearch(value);
-    }, 500);
+  const handleChange = (e) => {
+    const searchQuery = e.target.value;
+    setValue(searchQuery);
+    clearTimeout(timeoutIdRef.current);
+    timeoutIdRef.current = setTimeout(() => {
+      onSearch(searchQuery);
+    }, 1000);
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form}>
       <fieldset className={styles.fieldset}>
         <img src={searchIcon} alt="search-icon" className={styles.icon} />
         <input
