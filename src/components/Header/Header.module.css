@@ -5,16 +5,17 @@
   justify-content: space-between;
   background: url(../../images/Cover.jpg) no-repeat center center;
   background-size: cover;
+  background-position-y: bottom;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  padding-bottom: 125px;
+  padding-bottom: 112px;
 }
 
 .borderContainer {
-  background: white;
+  background: #fefefe;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -22,17 +23,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 37px 104px 38px;
-  height: 125px;
+  padding: 0 104px;
+  height: 113px;
 }
 
 .logoLink {
   font-weight: 700;
   font-size: 32px;
-  line-height: 38.4px;
-  letter-spacing: 0.24px;
   text-decoration: none;
-  color: #000;
+  color: #000000;
 }
 
 .logoSpan {
@@ -57,7 +56,7 @@
   gap: 4px;
 }
 
-.profile {
+/* .profile {
   background: gray;
   width: 40px;
   height: 40px;
@@ -70,8 +69,8 @@
 .enterButton {
   background: #181818;
   padding: 8px 16px;
-  color: white;
+  color: #fefefe;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
+} */

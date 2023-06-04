@@ -32,8 +32,8 @@
 .submitButton {
   width: fit-content;
   padding: 15px 25px;
-  background-color: black;
-  color: white;
+  background-color: #000000;
+  color: #fefefe;
   border-radius: 8px;
   margin-top: 80px;
   align-self: end;

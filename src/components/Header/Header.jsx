@@ -1,9 +1,9 @@
 import styles from './Header.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import SearchField from '../SearchField/SearchField';
+import HeroSection from '../HeroSection/HeroSection';
 import notificationIcon from '../../images/notifications-icon.svg';
 import favoritesIcon from '../../images/favorites-header-icon.svg';
-import HeroSection from '../HeroSection/HeroSection';
 
 const navLinks = [
   {
@@ -21,6 +21,21 @@ const navLinks = [
     alt: 'Иконка, Избранное',
   },
 ];
+
+const smallForm = {
+  width: '449px',
+  height: '44px',
+  border: '1px solid #C9CCD8',
+};
+
+const smallFieldset = {
+  gap: '9px',
+  marginLeft: '16px',
+};
+
+const smallInput = {
+  width: '388px',
+};
 
 const Header = ({ onSearch }) => {
   const location = useLocation();
@@ -53,7 +68,12 @@ const Header = ({ onSearch }) => {
           <Link to="/" className={styles.logoLink}>
             Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
           </Link>
-          <SearchField onSearch={onSearch} />
+          <SearchField
+            onSearch={onSearch}
+            smallForm={smallForm}
+            smallFieldset={smallFieldset}
+            smallInput={smallInput}
+          />
           <nav className={styles.navigationBar}>
             {navLinks.map((link) => (
               <Link className={styles.navLink} key={link.id} to={link.path}>
