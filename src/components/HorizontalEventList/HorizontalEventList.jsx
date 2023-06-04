@@ -48,12 +48,14 @@ const HorizontalEventList = ({
           </button>
         )}
       </ul>
-      <div className={styles.navigationContainer}>
-        {page < totalPages && (
-          <ShowMoreButton handleShowMore={handleShowMore} />
-        )}
-        <Pagination page={page} totalPages={totalPages} />
-      </div>
+      {elseButton && (
+        <div className={styles.navigationContainer}>
+          {page < totalPages && (
+            <ShowMoreButton handleShowMore={handleShowMore} />
+          )}
+          <Pagination page={page} totalPages={totalPages} />
+        </div>
+      )}
     </section>
   );
 };
