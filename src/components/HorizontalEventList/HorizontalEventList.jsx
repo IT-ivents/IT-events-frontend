@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
+import ShowAllButton from '../ShowAllButton/ShowAllButton';
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
 
@@ -42,11 +43,7 @@ const HorizontalEventList = ({
             onLikeClick={onLikeClick}
           />
         ))}
-        {elseButton && (
-          <button className={styles.elseButton} type="button">
-            Показать все
-          </button>
-        )}
+        {elseButton && <ShowAllButton />}
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>

@@ -2,6 +2,8 @@ export const popularEvents = [
   {
     id: 1,
     title: 'Название мероприятия в две строки выглядит так',
+    description:
+      'Экспертиза HR находится на стыке между Management, Marketing, Sales, Аналитикой, Психологии, копирайтера и этот список можно бесконечно пополнять. Наши скиллы нужны почти на каждой позиции в бизнесе. ',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/1230_675.png?itok=w13Fb8AG',
@@ -14,6 +16,8 @@ export const popularEvents = [
   {
     id: 2,
     title: 'QA & Soft Skils MEETUP',
+    description:
+      '10 июня в 11:00 часть Малоохтинского парка превратится в игровое пространство. Матёрые и начинающие разработчики встретят свою аудиторию — игроков, а гости смогут прикоснуться к новым играм и повлиять на их развитие.',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/mainimage/2021/11/content_2_1.jpg?itok=5yAxGD9s',
@@ -26,6 +30,8 @@ export const popularEvents = [
   {
     id: 3,
     title: 'UX/UI Meetup',
+    description:
+      'Игра развивает скиллы в архитектуре как и начинающим архитекторам, так и разработчикам, аналитикам, и даже менеджерам.',
 
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/09/29/2359/content_580_400_1.png?itok=5CZS324J',
@@ -67,42 +73,6 @@ export const popularEvents = [
   },
 ];
 
-export const immediateEvents = [
-  {
-    id: 1,
-    title: 'AGIMA Partners Weekend 2021',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2021-ru/agima-partners-weekend-2021-438x187.png',
-    date: '2023-12-12T09:30:00Z',
-    location: 'Санкт-Петербург',
-    price: '21 000 - 27 500 р.',
-    format: 0,
-  },
-  {
-    id: 2,
-    title: 'Tech Week',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2021-ru/techweek-moscow-438x187.jpg',
-    date: '2023-02-03T09:30:00Z',
-    location: 'Москва',
-    price: '26 000 - 65 000 р.',
-    format: 1,
-  },
-  {
-    id: 3,
-    title: 'Умный Город 2.0 Перезагрузка',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2021-ru/smart-sity-2-0-438x187.jpg',
-    date: '2023-01-05T09:30:00Z',
-    location: 'Москва, Хлебзавод',
-    price: 'Free',
-    format: 1,
-  },
-];
-
 export const interestingEvents = [
   {
     id: 11,
@@ -135,7 +105,7 @@ export const interestingEvents = [
     price: '4457 - 11314 р.',
   },
   {
-    id: 6,
+    id: 44,
     title: 'Feel.IT',
     image:
       'https://www.afisha45.ru/upload/event/33983/57318709ffbda6c91a0c23ce0ee06ef4_303x305.jpg',
@@ -145,7 +115,7 @@ export const interestingEvents = [
     format: 1,
   },
   {
-    id: 7,
+    id: 55,
     title: 'День открытых дверей',
     image:
       'https://img08.rl0.ru/afisha/904x508q85i/s4.afisha.ru/upload/4689101/47Q1NxNMZRFvuDUKLSLbLNWTAci1dYcJccRXBFY2HQE.jpg',
@@ -155,7 +125,7 @@ export const interestingEvents = [
     format: 1,
   },
   {
-    id: 9,
+    id: 66,
     title: 'Мечтатели',
     image:
       'https://www.kv.by/sites/default/files/styles/post_picture/public/pictures/userpictures/2020/07/28/2359/900x672.png?itok=a2R9U_nm',
@@ -164,58 +134,17 @@ export const interestingEvents = [
     price: 'Бесплатно',
     format: 1,
   },
-];
-
-export const mainEvents = [
   {
-    id: 1,
-    title: 'Customer Day 2021',
-
+    id: 77,
+    title: 'Встреча SpbDotNet №89',
+    description:
+      'Встреча будет проходить по адресу: Санкт-Петербург, Выборгская набережная, д. 47 (БЦ «Гренадерский»), офис компании «ATI.SU» Участие бесплатное, регистрация обязательна, количество мест ограничено!',
     image:
-      'https://ucare.timepad.ru/1e8e2517-ab61-479b-8339-b7f9c36d1ac3/-/preview/600x600/',
-    date: '25 мая 2023',
-    location: 'Москва',
-    price: '20 000 - 38 000',
-  },
-  {
-    id: 2,
-    title: 'Конференция "Электронная торговля"',
-
-    image:
-      'https://static.gorodzovet.ru/uploads/2023/6/24/photo600-9618799.webp',
-    date: '14 октября 2021',
-    location: 'Москва',
-    price: '0 - 26 400',
-  },
-  {
-    id: 3,
-    title: 'CrossConf',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2022-ru/crossconf-22-438x187.jpg',
-    date: '8 апреля 2022',
-    location: 'Москва, Хлебзавод',
-    price: '4457 - 11314',
-  },
-  {
-    id: 4,
-    title: 'Tech Week',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2021-ru/techweek-moscow-438x187.jpg',
-    date: '25 мая',
-    location: 'Москва',
-    price: '26 000 - 65 000',
-  },
-  {
-    id: 5,
-    title: 'Умный Город 2.0 Перезагрузка',
-
-    image:
-      'https://it-rating.top/image/cache/data/afisha/2021-ru/smart-sity-2-0-438x187.jpg',
-    date: '15 декабря',
-    location: 'Москва',
+      'https://ucare.timepad.ru/b5519b3f-77b2-43c1-a2eb-1184af044fbb/-/preview/600x600/',
+    date: '2023-08-08T09:30:00Z',
+    location: 'Санкт-Петербург',
     price: 'Бесплатно',
+    format: 1,
   },
 ];
 

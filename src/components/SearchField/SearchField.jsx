@@ -1,22 +1,28 @@
 import styles from './SearchField.module.css';
 import searchIcon from '../../images/search-icon.svg';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const SearchField = ({ onSearch }) => {
   const [value, setValue] = useState('');
-  let timeoutId;
+  //const timeoutIdRef = useRef();
+
+  // // Метод debounce чтобы отправлять запрос на поиск не на каждый ввод, а с задержкой 500мс.
+  // const handleChange = (e) => {
+  //   const searchQuery = e.target.value;
+  //   setValue(searchQuery);
+  //   clearTimeout(timeoutIdRef.current);
+  //   timeoutIdRef.current = setTimeout(() => {
+  //     onSearch(searchQuery);
+  //   }, 1000);
+  // };
 
   const handleChange = (e) => {
     setValue(e.target.value);
   };
 
-  // Метод debounce чтобы отправлять запрос на поиск не на каждый ввод, а с задержкой 500мс.
   const handleSubmit = (e) => {
-    clearTimeout(timeoutId);
     e.preventDefault();
-    timeoutId = setTimeout(() => {
-      onSearch(value);
-    }, 500);
+    onSearch(value);
   };
 
   return (
