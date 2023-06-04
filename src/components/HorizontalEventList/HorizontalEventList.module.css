@@ -36,3 +36,9 @@
 .list > li:last-child {
   margin-bottom: 0;
 }
+
+.navigationContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 84px;
+}
