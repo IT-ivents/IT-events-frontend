@@ -7,11 +7,15 @@ const Footer = () => {
     <footer className={styles.footer}>
       <span className={styles.year}>&copy; {date} IT-events</span>
       <ul className={styles.footerList}>
-        <li className={styles.footerItem}>О нас&emsp;&bull;</li>
         <li className={styles.footerItem}>
-          Политика конфиденциональности&emsp;&bull;
+          <span>О нас</span>
         </li>
-        <li className={styles.footerItem}>Cookies</li>
+        <li className={styles.footerItem}>
+          <span>Политика конфиденциональности</span>
+        </li>
+        <li className={styles.footerItem}>
+          <span>Cookies</span>
+        </li>
       </ul>
       <div></div>
     </footer>

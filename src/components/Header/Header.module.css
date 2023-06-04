@@ -5,6 +5,7 @@
   justify-content: space-between;
   background: url(../../images/Cover.jpg) no-repeat center center;
   background-size: cover;
+  background-position-y: bottom;
 }
 
 .container {
@@ -22,15 +23,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 37px 104px 38px;
+  padding: 0 104px;
   height: 113px;
 }
 
 .logoLink {
   font-weight: 700;
   font-size: 32px;
-  line-height: 38.4px;
-  letter-spacing: 0.24px;
   text-decoration: none;
   color: #000000;
 }
@@ -57,7 +56,7 @@
   gap: 4px;
 }
 
-.profile {
+/* .profile {
   background: gray;
   width: 40px;
   height: 40px;
@@ -74,4 +73,4 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
+} */

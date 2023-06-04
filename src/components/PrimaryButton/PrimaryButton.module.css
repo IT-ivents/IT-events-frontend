@@ -1,16 +1,15 @@
 .primaryButton {
-  background: url('../../images/Arrows/arrow-right.svg') no-repeat;
-  background-position-x: 262px;
-  background-position-y: center;
+  display: flex;
+  align-items: center;
+  gap: 11px;
   background-color: #674eae;
   color: #f1f0eb;
   border: 0;
   border-radius: 8px;
-  width: 306px;
+  width: fit-content;
   height: 44px;
   font-size: 16px;
-  text-align: left;
-  padding-left: 24px;
+  padding: 0 18px 0 24px;
   cursor: pointer;
 }
 

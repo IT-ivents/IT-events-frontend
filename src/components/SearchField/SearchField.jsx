@@ -2,7 +2,7 @@ import styles from './SearchField.module.css';
 import searchIcon from '../../images/search-icon.svg';
 import { useState, useRef } from 'react';
 
-const SearchField = ({ onSearch }) => {
+const SearchField = ({ onSearch, smallForm, smallFieldset, smallInput }) => {
   const [value, setValue] = useState('');
   //const timeoutIdRef = useRef();
 
@@ -26,8 +26,8 @@ const SearchField = ({ onSearch }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <fieldset className={styles.fieldset}>
+    <form className={styles.form} onSubmit={handleSubmit} style={smallForm}>
+      <fieldset className={styles.fieldset} style={smallFieldset}>
         <img src={searchIcon} alt="search-icon" className={styles.icon} />
         <input
           className={styles.input}
@@ -35,6 +35,7 @@ const SearchField = ({ onSearch }) => {
           onChange={handleChange}
           value={value}
           type="text"
+          style={smallInput}
         />
       </fieldset>
     </form>

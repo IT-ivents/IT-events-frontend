@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Pages.module.css';
 import { Link } from 'react-router-dom';
+import PrimaryButton from './../components/PrimaryButton/PrimaryButton';
 
 const NotFoundPage = () => {
   return (
@@ -12,7 +13,7 @@ const NotFoundPage = () => {
             С этой страницей что-то случилось или не верно указан адрес
           </p>
           <Link to="/" className={styles.notText}>
-            <button className={styles.notButton}>На главную</button>
+            <PrimaryButton title="На главную" />
           </Link>
           <p>Расскажите нам о своих интересах и мы подберём лучшие события</p>
           <Link to="/preferences" className={styles.notLink}>

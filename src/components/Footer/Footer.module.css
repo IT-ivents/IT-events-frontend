@@ -12,11 +12,23 @@
 }
 
 .footerList {
-  color: #c9ccd8;
   display: flex;
-  gap: 16px;
-  padding: 0;
+  gap: 37px;
+  color: #c9ccd8;
+}
+
+.footerItem {
+  padding-left: 16px;
+  color: #797979;
+}
+
+.footerItem:first-child {
   list-style-type: none;
+}
+
+.footerItem span {
+  color: #c9ccd8;
+  cursor: pointer;
 }
 
 .year {
