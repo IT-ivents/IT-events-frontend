@@ -44,7 +44,7 @@
   background-position-x: 262px;
   background-position-y: center;
   background-color: #674eae;
-  color: white;
+  color: #fefefe;
   border: 0;
   border-radius: 8px;
   width: 306px;
@@ -56,7 +56,7 @@
 }
 
 .eventPrice {
-  color: black;
+  color: #000000;
   font-size: 22px;
   padding: 18px 0 40px;
 }
