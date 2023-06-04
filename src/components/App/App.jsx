@@ -100,17 +100,24 @@ function App() {
   }, [eventsList]);
 
   const searchEvents = (query) => {
-    const filteredEvents = [...popularEvents, ...interestingEvents].filter(
-      (event) => {
-        const { title, location, price } = event;
-
-        return (
-          title.toLowerCase().includes(query.toLowerCase()) ||
-          location.toLowerCase().includes(query.toLowerCase()) ||
-          price.toLowerCase().includes(query.toLowerCase())
+    // Собираем массивы в которых будем искать и расставляем лайки на карточках,
+    // если они есть в избранном
+    const filteredEvents = [...popularEvents, ...interestingEvents]
+      .map((event) => {
+        const isLiked = eventsList.favorites.some(
+          (item) => item.id === event.id
         );
-      }
-    );
+        return { ...event, isLiked };
+      })
+      .filter((event) => {
+        const { title, description, location, price } = event;
+        return (
+          title?.toLowerCase().trim().includes(query.toLowerCase()) ||
+          description?.toLowerCase().trim().includes(query.toLowerCase()) ||
+          location?.toLowerCase().trim().includes(query.toLowerCase()) ||
+          price?.toLowerCase().trim().includes(query.toLowerCase())
+        );
+      });
     console.log('Filtered events:', filteredEvents); // Отладочный вывод
     return filteredEvents;
   };
