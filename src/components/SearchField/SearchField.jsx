@@ -1,6 +1,6 @@
 import styles from './SearchField.module.css';
-import searchIcon from '../../images/search-icon.svg';
 import { useState, useRef } from 'react';
+import searchIcon from '../../images/search-icon.svg';
 
 const SearchField = ({ onSearch, smallForm, smallFieldset, smallInput }) => {
   const [value, setValue] = useState('');

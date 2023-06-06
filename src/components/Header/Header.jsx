@@ -23,7 +23,7 @@ const navLinks = [
 ];
 
 const smallForm = {
-  width: '449px',
+  width: '460px', // '449px'
   height: '44px',
   border: '1px solid #C9CCD8',
 };
@@ -34,7 +34,7 @@ const smallFieldset = {
 };
 
 const smallInput = {
-  width: '388px',
+  width: '397px', // '388px' + font-weight: 400 (::placeholder!)
 };
 
 const Header = ({ onSearch }) => {
