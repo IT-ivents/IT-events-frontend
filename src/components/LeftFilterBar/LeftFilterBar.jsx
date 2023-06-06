@@ -1,63 +1,31 @@
 import { useState } from 'react';
 import styles from './LeftFilterBar.module.css';
-import TagsBlock from './../TagsBlock/TagsBlock';
+import TagsSection from './../TagsSection/TagsSection';
 
 const LeftFilerBar = () => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
 
-  const toggleShowAllDates = () => {
-    setShowAllDates(!showAllDates);
+  const toggleShowAll = (setter) => {
+    setter((prevValue) => !prevValue);
   };
 
-  const toggleShowAllSpecialities = () => {
-    setShowAllSpecialities(!showAllSpecialities);
-  };
+  const renderOptions = (options, inputType, showAll, toggleShow) => {
+    const renderedOptions = options.slice();
 
-  const renderDateOptions = () => {
-    const dateOptions = [
-      { id: 'today', value: 'Today', label: 'Сегодня' },
-      { id: 'tomorrow', value: 'Tomorrow', label: 'Завтра' },
-      { id: 'thisweekend', value: 'This weekend', label: 'В эти выходные' },
-      { id: 'pickdate', value: 'Pick date', label: 'Выбрать дату' },
-    ];
-
-    if (showAllDates) {
-      dateOptions.push(
+    if (showAll) {
+      renderedOptions.push(
         { id: 'thisweek', value: 'This week', label: 'На этой неделе' },
         { id: 'thismonth', value: 'This month', label: 'В этом месяце' },
         { id: 'nextmonth', value: 'Next month', label: 'В следующем месяце' }
       );
     }
 
-    return dateOptions.map((option) => (
-      <label htmlFor={option.id} className={styles.radioButton} key={option.id}>
-        <input id={option.id} type="radio" value={option.value} name="date" />
-        <span>{option.label}</span>
-      </label>
-    ));
-  };
-
-  const renderSpecialityOptions = () => {
-    const specialityOptions = [
-      { id: 'backend', label: 'Backend' },
-      { id: 'frontend', label: 'Frontend' },
-      { id: 'qa', label: 'QA' },
-      { id: 'uxui', label: 'UX/UI дизайн' },
-    ];
-
-    if (showAllSpecialities) {
-      specialityOptions.push(
-        { id: 'web', label: 'Web-разработка' },
-        { id: 'datascience', label: 'Data Science' }
-      );
-    }
-
-    return specialityOptions.map((option) => (
+    return renderedOptions.map((option) => (
       <label htmlFor={option.id} key={option.id}>
         <input
           id={option.id}
-          type="checkbox"
+          type={inputType}
           className={styles.checkboxButton}
         />
         <span className={styles.checkboxLabel}>{option.label}</span>
@@ -99,8 +67,25 @@ const LeftFilerBar = () => {
         <li>
           <h3 className={styles.itemTitle}>Дата</h3>
           <div>
-            {renderDateOptions()}
-            <p onClick={toggleShowAllDates} className={styles.showMore}>
+            {renderOptions(
+              [
+                { id: 'today', value: 'Today', label: 'Сегодня' },
+                { id: 'tomorrow', value: 'Tomorrow', label: 'Завтра' },
+                {
+                  id: 'thisweekend',
+                  value: 'This weekend',
+                  label: 'В эти выходные',
+                },
+                { id: 'pickdate', value: 'Pick date', label: 'Выбрать дату' },
+              ],
+              'radio',
+              showAllDates,
+              () => toggleShowAll(setShowAllDates)
+            )}
+            <p
+              onClick={() => toggleShowAll(setShowAllDates)}
+              className={styles.showMore}
+            >
               {showAllDates ? 'Показать меньше' : 'Показать больше'}
             </p>
           </div>
@@ -108,8 +93,21 @@ const LeftFilerBar = () => {
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
           <div>
-            {renderSpecialityOptions()}
-            <p onClick={toggleShowAllSpecialities} className={styles.showMore}>
+            {renderOptions(
+              [
+                { id: 'backend', label: 'Backend' },
+                { id: 'frontend', label: 'Frontend' },
+                { id: 'qa', label: 'QA' },
+                { id: 'uxui', label: 'UX/UI дизайн' },
+              ],
+              'checkbox',
+              showAllSpecialities,
+              () => toggleShowAll(setShowAllSpecialities)
+            )}
+            <p
+              onClick={() => toggleShowAll(setShowAllSpecialities)}
+              className={styles.showMore}
+            >
               {showAllSpecialities ? 'Показать меньше' : 'Показать больше'}
             </p>
           </div>
@@ -134,7 +132,7 @@ const LeftFilerBar = () => {
           />
         </li>
       </ul>
-      <TagsBlock />
+      <TagsSection />
     </section>
   );
 };

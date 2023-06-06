@@ -1,8 +1,7 @@
 import React from 'react';
+import styles from './Pages.module.css';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
-
-import styles from './Pages.module.css'; ///////////////
 
 const MainPage = ({
   onCardClick,
