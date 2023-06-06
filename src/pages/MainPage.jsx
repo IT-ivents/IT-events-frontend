@@ -15,16 +15,16 @@ const MainPage = ({
     {
       id: 1,
       title: 'Самые ожидаемые события года',
-      list: popularEvents,
+      list: mostAnticipatedEvents,
       else: false,
       span: false,
     },
     {
       id: 2,
       title: 'Популярное',
-      list: interestingEvents,
+      list: popularEvents,
       else: true,
-      span: true,
+      span: false,
     },
     {
       id: 3,
@@ -36,9 +36,9 @@ const MainPage = ({
     {
       id: 4,
       title: 'Это интересно',
-      list: mostAnticipatedEvents,
-      else: false,
-      span: false,
+      list: interestingEvents,
+      else: true,
+      span: true,
     },
   ];
 
