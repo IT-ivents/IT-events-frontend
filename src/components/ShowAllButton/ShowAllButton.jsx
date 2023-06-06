@@ -1,8 +1,12 @@
 import styles from './ShowAllButton.module.css';
 
-const ShowAllButton = () => {
+const ShowAllButton = ({ handleShowAll }) => {
   return (
-    <button className={styles.showAllButton} type="button">
+    <button
+      className={styles.showAllButton}
+      onClick={handleShowAll}
+      type="button"
+    >
       Показать все
     </button>
   );
