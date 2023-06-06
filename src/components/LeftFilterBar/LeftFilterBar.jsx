@@ -1,10 +1,21 @@
 import { useState } from 'react';
 import styles from './LeftFilterBar.module.css';
 import TagsBlock from './../TagsBlock/TagsBlock';
+import { useFilter } from '../../utils/hooks/useFilter';
 
 const LeftFilerBar = () => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
+  const {
+    values,
+    handleInputChange,
+    handleButtonChange,
+    findValues,
+    setItemOnClick,
+  } = useFilter();
+
+  console.log(values);
+  console.log(findValues);
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
@@ -32,7 +43,13 @@ const LeftFilerBar = () => {
 
     return dateOptions.map((option) => (
       <label htmlFor={option.id} className={styles.radioButton} key={option.id}>
-        <input id={option.id} type="radio" value={option.value} name="date" />
+        <input
+          onChange={handleInputChange}
+          id={option.id}
+          type="radio"
+          value={option.value}
+          name="date"
+        />
         <span>{option.label}</span>
       </label>
     ));
@@ -56,8 +73,11 @@ const LeftFilerBar = () => {
     return specialityOptions.map((option) => (
       <label htmlFor={option.id} key={option.id}>
         <input
+          onChange={handleInputChange}
           id={option.id}
           type="checkbox"
+          value={option.id}
+          name="specialities"
           className={styles.checkboxButton}
         />
         <span className={styles.checkboxLabel}>{option.label}</span>
@@ -73,7 +93,10 @@ const LeftFilerBar = () => {
           <h3 className={styles.itemTitle}>Формат</h3>
           <label htmlFor="online">
             <input
+              onChange={handleInputChange}
               id="online"
+              name="status"
+              value="online"
               type="checkbox"
               className={styles.checkboxButton}
             />
@@ -81,7 +104,10 @@ const LeftFilerBar = () => {
           </label>
           <label htmlFor="offline">
             <input
+              onChange={handleInputChange}
               id="offline"
+              name="status"
+              value="offline"
               type="checkbox"
               className={styles.checkboxButton}
             />
@@ -91,50 +117,101 @@ const LeftFilerBar = () => {
         <li>
           <h3 className={styles.itemTitle}>Город</h3>
           <input
+            onChange={handleInputChange}
+            name="city"
             type="text"
+            value={values.city || ''}
             placeholder="Поиск города"
             className={styles.filterInput}
           />
+          {findValues && findValues.city && findValues.city !== '' && (
+            <div className={styles.serchContainer}>
+              {findValues.city.map((item, index) => {
+                return (
+                  <button
+                    onClick={() => setItemOnClick({ city: item })}
+                    className={styles.findItem}
+                    key={index}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </li>
         <li>
           <h3 className={styles.itemTitle}>Дата</h3>
           <div>
             {renderDateOptions()}
-            <p onClick={toggleShowAllDates} className={styles.showMore}>
+            <button onClick={toggleShowAllDates} className={styles.showMore}>
               {showAllDates ? 'Показать меньше' : 'Показать больше'}
-            </p>
+            </button>
           </div>
         </li>
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
           <div>
             {renderSpecialityOptions()}
-            <p onClick={toggleShowAllSpecialities} className={styles.showMore}>
+            <button
+              onClick={toggleShowAllSpecialities}
+              className={styles.showMore}
+            >
               {showAllSpecialities ? 'Показать меньше' : 'Показать больше'}
-            </p>
+            </button>
           </div>
         </li>
         <li>
           <h3 className={styles.itemTitle}>Цена</h3>
           <label htmlFor="free" className={styles.radioButton}>
-            <input id="free" type="radio" value="Free" name="price" />
+            <input
+              onChange={handleInputChange}
+              id="free"
+              type="radio"
+              value="Free"
+              name="price"
+            />
             <span>Бесплатно</span>
           </label>
           <label htmlFor="paid" className={styles.radioButton}>
-            <input id="paid" type="radio" value="Paid" name="price" />
+            <input
+              onChange={handleInputChange}
+              id="paid"
+              type="radio"
+              value="Paid"
+              name="price"
+            />
             <span>Платно</span>
           </label>
         </li>
         <li>
           <h3 className={styles.itemTitle}>Теги</h3>
           <input
+            onChange={handleInputChange}
+            name="findTags"
             type="text"
+            value={values.findTags || ''}
             placeholder="Поиск тега"
             className={styles.filterInput}
           />
+          {findValues && findValues.findTags && findValues.findTags !== '' && (
+            <div className={styles.serchContainer}>
+              {findValues.findTags.map((item, index) => {
+                return (
+                  <button
+                    onClick={() => setItemOnClick({ findTags: item })}
+                    className={styles.findItem}
+                    key={index}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </li>
       </ul>
-      <TagsBlock />
+      <TagsBlock handleChange={handleButtonChange} />
     </section>
   );
 };

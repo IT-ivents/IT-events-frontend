@@ -13,7 +13,7 @@ const HorizontalEventList = ({
   elseButton,
 }) => {
   const eventOnPage = 6;
-  const totalPages = Math.floor(list.length / eventOnPage);
+  const totalPages = Math.ceil(list.length / eventOnPage);
   const [events, setEvents] = useState([]);
   const [page, setPage] = useState(1);
 

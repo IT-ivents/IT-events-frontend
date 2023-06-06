@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   padding: 64px 0 0;
+  margin-bottom: 105px;
 }
 
 .titleContainer {
@@ -40,5 +41,5 @@
 .navigationContainer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 84px;
+  /* margin-top: 84px; */
 }
