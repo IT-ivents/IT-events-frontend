@@ -22,12 +22,12 @@ import {
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventsList, setEventsList] = useState({
+    mostAnticipated: [...mostAnticipatedEvents],
     popular: [...popularEvents],
+    soon: [...soonEvents],
     interesting: [...interestingEvents],
     favorites: [],
     searchResult: [],
-    soon: soonEvents,
-    mostAnticipated: mostAnticipatedEvents,
   });
 
   const navigate = useNavigate();
@@ -55,7 +55,9 @@ function App() {
   const toggleFavorite = (event) => {
     setEventsList((prevEventsList) => {
       const updatedEventsList = {
+        mostAnticipated: updateList(prevEventsList.mostAnticipated, event),
         popular: updateList(prevEventsList.popular, event),
+        soon: updateList(prevEventsList.popular, event),
         interesting: updateList(prevEventsList.interesting, event),
         favorites: updateList(prevEventsList.favorites, event),
         searchResult: updateList(prevEventsList.searchResult, event),
@@ -151,10 +153,10 @@ function App() {
               <MainPage
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
-                popularEvents={eventsList.popular}
-                interestingEvents={eventsList.interesting}
                 mostAnticipatedEvents={eventsList.mostAnticipated}
+                popularEvents={eventsList.popular}
                 soonEvents={eventsList.soon}
+                interestingEvents={eventsList.interesting}
               />
             }
           />

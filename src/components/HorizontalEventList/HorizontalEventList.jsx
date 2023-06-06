@@ -44,17 +44,26 @@ const HorizontalEventList = ({
   }, [list, page]);
 
   return (
-    <section className={`${styles.section}`}>
+    <section className={styles.section}>
       {title && (
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>{title}</h2>
         </div>
       )}
-      <ul className={`${styles.list}`}>
+      <ul className={styles.list}>
         {events.map((event, index) =>
-          index === 2 && span ? (
-            <SpanCard key={index} />
+          index === 2 && span ? ( // Заменяем event по индексу 2 на SpanCard, оригинальный event в массив.
+            <React.Fragment key={index}>
+              <SpanCard />
+              <VerticalEventCard
+                key={event.id}
+                event={event}
+                onCardClick={onCardClick}
+                onLikeClick={onLikeClick}
+              />
+            </React.Fragment>
           ) : (
+            // Отображение событий без наличия SpanCard
             <VerticalEventCard
               key={event.id}
               event={event}
@@ -67,10 +76,13 @@ const HorizontalEventList = ({
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>
-          {page < totalPages && (
-            <ShowMoreButton handleShowMore={handleShowMore} />
+          {events.length < list.length && (
+            // Если были показаны все события, то отображать пагинацию не нужно.
+            <>
+              <ShowMoreButton handleShowMore={handleShowMore} />
+              <Pagination page={page} totalPages={totalPages} />
+            </>
           )}
-          <Pagination page={page} totalPages={totalPages} />
         </div>
       )}
     </section>
