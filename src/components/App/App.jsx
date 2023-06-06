@@ -12,7 +12,12 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
-import { popularEvents, interestingEvents } from '../../utils/constants';
+import {
+  popularEvents,
+  interestingEvents,
+  mostAnticipatedEvents,
+  soonEvents,
+} from '../../utils/constants';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -21,6 +26,8 @@ function App() {
     interesting: [...interestingEvents],
     favorites: [],
     searchResult: [],
+    soon: soonEvents,
+    mostAnticipated: mostAnticipatedEvents,
   });
 
   const navigate = useNavigate();
@@ -146,6 +153,8 @@ function App() {
                 onLikeClick={toggleFavorite}
                 popularEvents={eventsList.popular}
                 interestingEvents={eventsList.interesting}
+                mostAnticipatedEvents={eventsList.mostAnticipated}
+                soonEvents={eventsList.soon}
               />
             }
           />
@@ -176,6 +185,7 @@ function App() {
             element={
               <SearchResultPage
                 searchResult={eventsList.searchResult}
+                popularEvents={eventsList.popular}
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
               />

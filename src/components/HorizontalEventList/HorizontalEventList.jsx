@@ -4,22 +4,38 @@ import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
+import SpanCard from '../SpanCard/SpanCard';
 
 const HorizontalEventList = ({
   list,
   title,
+  span,
   onCardClick,
   onLikeClick,
   elseButton,
 }) => {
-  const eventOnPage = 6;
-  const totalPages = Math.floor(list.length / eventOnPage);
   const [events, setEvents] = useState([]);
+  const [previousEvents, setPreviousEvents] = useState([]);
   const [page, setPage] = useState(1);
+  const [isAllShown, setIsAllShown] = useState(false);
+  const eventOnPage = 12;
+  const totalPages = Math.ceil(list.length / eventOnPage);
 
   const handleShowMore = () => {
     if (page < totalPages) {
-      setPage(page + 1);
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const handleShowAll = () => {
+    if (isAllShown) {
+      setEvents(previousEvents); // Возвращаем предыдущие события
+      setIsAllShown(false);
+      setPage(page);
+    } else {
+      setPreviousEvents(events); // Сохраняем текущие события
+      setEvents(list);
+      setIsAllShown(true);
     }
   };
 
@@ -35,15 +51,19 @@ const HorizontalEventList = ({
         </div>
       )}
       <ul className={`${styles.list}`}>
-        {events.map((event) => (
-          <VerticalEventCard
-            key={event.id}
-            event={event}
-            onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
-          />
-        ))}
-        {elseButton && <ShowAllButton />}
+        {events.map((event, index) =>
+          index === 2 && span ? (
+            <SpanCard key={index} />
+          ) : (
+            <VerticalEventCard
+              key={event.id}
+              event={event}
+              onCardClick={onCardClick}
+              onLikeClick={onLikeClick}
+            />
+          )
+        )}
+        {elseButton && <ShowAllButton handleShowAll={handleShowAll} />}
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>
