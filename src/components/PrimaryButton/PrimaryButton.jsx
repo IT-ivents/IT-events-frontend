@@ -1,9 +1,9 @@
 import styles from './PrimaryButton.module.css';
 import RightArrow from './../../images/Arrows/arrow-right.svg';
 
-const PrimaryButton = ({ title }) => {
+const PrimaryButton = ({ title, type }) => {
   return (
-    <button className={styles.primaryButton} type="button">
+    <button className={styles.primaryButton} type={type || 'button'}>
       {title}
       <img src={RightArrow} alt="Arrow" />
     </button>
