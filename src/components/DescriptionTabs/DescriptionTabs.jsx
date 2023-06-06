@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './DescriptionTabs.module.css';
+import { tabs } from './../../utils/constants/tabs';
 
 const DescriptionTabs = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -7,32 +8,6 @@ const DescriptionTabs = () => {
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-
-  const tabs = [
-    {
-      title: 'О мероприятии',
-      content: (
-        <p>
-          25 мая в Петербурге и онлайне пройдет митап для разработчиков любого
-          уровня, тимлидов и целых команд, которые задумываются или уже начали
-          применять Go в коммерческой разработке. Поговорим, как писать
-          производительный и легко сопровождаемый код без «побочных эффектов»
-        </p>
-      ),
-    },
-    {
-      title: 'Программа и спикеры',
-      content: <p>Программа и спикеры. Тут пока пусто.</p>,
-    },
-    {
-      title: 'Организаторы',
-      content: <p>Организаторы. Тут пока пусто.</p>,
-    },
-    {
-      title: 'Партнеры',
-      content: <p>Партнеры. Тут пока пусто.</p>,
-    },
-  ];
 
   return (
     <>
