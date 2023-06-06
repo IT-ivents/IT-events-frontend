@@ -5,6 +5,14 @@
   gap: 120px;
   flex-grow: 1;
   align-items: start;
+  padding-top: 64px;
+  position: relative;
+}
+
+.mainPageListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
 }
 
 .searchResultPageWrapper {
@@ -12,7 +20,13 @@
   gap: 136px;
   align-self: start;
   flex-grow: 1;
-  padding: 0 104px;
+  padding: 20px 104px 0;
+}
+
+.searchResultContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 124px;
 }
 
 /* Страница: Событие */
@@ -24,6 +38,10 @@
   align-self: start;
   flex-grow: 1;
   padding: 0 104px;
+}
+
+.favoritesPageListContainer {
+  padding-top: 56px;
 }
 
 /* Страница: Уведомления */

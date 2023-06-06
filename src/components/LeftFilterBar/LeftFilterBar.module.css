@@ -1,9 +1,12 @@
 .filterForm {
   width: 200px;
+  position: sticky;
+  left: 0;
+  top: 64px;
 }
 
 .filterTitle {
-  margin: 64px 0 50px;
+  margin: 0 0 50px;
   font-size: 32px;
   color: #242424;
 }

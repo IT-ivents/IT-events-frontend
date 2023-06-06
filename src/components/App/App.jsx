@@ -1,5 +1,5 @@
-import styles from './App.module.css';
 import React, { useState, useEffect } from 'react';
+import styles from './App.module.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -12,12 +12,19 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
-import { popularEvents, interestingEvents } from '../../utils/constants';
+import {
+  popularEvents,
+  interestingEvents,
+  mostAnticipatedEvents,
+  soonEvents,
+} from '../../utils/constants';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventsList, setEventsList] = useState({
+    mostAnticipated: [...mostAnticipatedEvents],
     popular: [...popularEvents],
+    soon: [...soonEvents],
     interesting: [...interestingEvents],
     favorites: [],
     searchResult: [],
@@ -48,7 +55,9 @@ function App() {
   const toggleFavorite = (event) => {
     setEventsList((prevEventsList) => {
       const updatedEventsList = {
+        mostAnticipated: updateList(prevEventsList.mostAnticipated, event),
         popular: updateList(prevEventsList.popular, event),
+        soon: updateList(prevEventsList.popular, event),
         interesting: updateList(prevEventsList.interesting, event),
         favorites: updateList(prevEventsList.favorites, event),
         searchResult: updateList(prevEventsList.searchResult, event),
@@ -144,7 +153,9 @@ function App() {
               <MainPage
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
+                mostAnticipatedEvents={eventsList.mostAnticipated}
                 popularEvents={eventsList.popular}
+                soonEvents={eventsList.soon}
                 interestingEvents={eventsList.interesting}
               />
             }
@@ -176,6 +187,7 @@ function App() {
             element={
               <SearchResultPage
                 searchResult={eventsList.searchResult}
+                popularEvents={eventsList.popular}
                 onCardClick={handleCardClick}
                 onLikeClick={toggleFavorite}
               />

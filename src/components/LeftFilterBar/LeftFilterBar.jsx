@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './LeftFilterBar.module.css';
-import TagsBlock from './../TagsBlock/TagsBlock';
+import TagsSection from './../TagsSection/TagsSection';
 import { useFilter } from '../../utils/hooks/useFilter';
 
 const LeftFilerBar = () => {
@@ -211,7 +211,7 @@ const LeftFilerBar = () => {
           )}
         </li>
       </ul>
-      <TagsBlock handleChange={handleButtonChange} />
+      <TagsSection handleChange={handleButtonChange} />
     </section>
   );
 };

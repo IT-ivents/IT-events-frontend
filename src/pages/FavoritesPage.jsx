@@ -59,11 +59,13 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
     <section className={styles.favoritesPageWrapper}>
       <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
       <FilterBar onFilter={handleFilter} />
-      <VerticalEventList
-        events={filteredEvents}
-        onCardClick={onCardClick}
-        onLikeClick={onLikeClick}
-      />
+      <div className={styles.favoritesPageListContainer}>
+        <VerticalEventList
+          events={filteredEvents}
+          onCardClick={onCardClick}
+          onLikeClick={onLikeClick}
+        />
+      </div>
     </section>
   );
 };

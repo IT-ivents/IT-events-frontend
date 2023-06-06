@@ -4,22 +4,38 @@ import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
+import SpanCard from '../SpanCard/SpanCard';
 
 const HorizontalEventList = ({
   list,
   title,
+  span,
   onCardClick,
   onLikeClick,
   elseButton,
 }) => {
-  const eventOnPage = 6;
-  const totalPages = Math.ceil(list.length / eventOnPage);
   const [events, setEvents] = useState([]);
+  const [previousEvents, setPreviousEvents] = useState([]);
   const [page, setPage] = useState(1);
+  const [isAllShown, setIsAllShown] = useState(false);
+  const eventOnPage = 12;
+  const totalPages = Math.ceil(list.length / eventOnPage);
 
   const handleShowMore = () => {
     if (page < totalPages) {
-      setPage(page + 1);
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const handleShowAll = () => {
+    if (isAllShown) {
+      setEvents(previousEvents); // Возвращаем предыдущие события
+      setIsAllShown(false);
+      setPage(page);
+    } else {
+      setPreviousEvents(events); // Сохраняем текущие события
+      setEvents(list);
+      setIsAllShown(true);
     }
   };
 
@@ -28,29 +44,45 @@ const HorizontalEventList = ({
   }, [list, page]);
 
   return (
-    <section className={`${styles.section}`}>
+    <section className={styles.section}>
       {title && (
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>{title}</h2>
         </div>
       )}
-      <ul className={`${styles.list}`}>
-        {events.map((event) => (
-          <VerticalEventCard
-            key={event.id}
-            event={event}
-            onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
-          />
-        ))}
-        {elseButton && <ShowAllButton />}
+      <ul className={styles.list}>
+        {events.map((event, index) =>
+          index === 2 && span ? ( // Заменяем event по индексу 2 на SpanCard, оригинальный event в массив.
+            <React.Fragment key={index}>
+              <SpanCard />
+              <VerticalEventCard
+                key={event.id}
+                event={event}
+                onCardClick={onCardClick}
+                onLikeClick={onLikeClick}
+              />
+            </React.Fragment>
+          ) : (
+            // Отображение событий без наличия SpanCard
+            <VerticalEventCard
+              key={event.id}
+              event={event}
+              onCardClick={onCardClick}
+              onLikeClick={onLikeClick}
+            />
+          )
+        )}
+        {elseButton && <ShowAllButton handleShowAll={handleShowAll} />}
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>
-          {page < totalPages && (
-            <ShowMoreButton handleShowMore={handleShowMore} />
+          {events.length < list.length && (
+            // Если были показаны все события, то отображать пагинацию не нужно.
+            <>
+              <ShowMoreButton handleShowMore={handleShowMore} />
+              <Pagination page={page} totalPages={totalPages} />
+            </>
           )}
-          <Pagination page={page} totalPages={totalPages} />
         </div>
       )}
     </section>
