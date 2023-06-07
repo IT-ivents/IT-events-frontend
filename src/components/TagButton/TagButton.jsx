@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './TagButton.module.css';
 import Cross from './../../images/Actions/Close.svg';
 
-const TagButton = ({ value }) => {
+const TagButton = ({ value, handleChange }) => {
   const [clickedButtons, setClickedButtons] = useState([]);
 
   const handleClick = (value) => {
@@ -11,14 +11,15 @@ const TagButton = ({ value }) => {
     } else {
       setClickedButtons([...clickedButtons, value]);
     }
+    handleChange({ tags: value });
   };
 
   return (
     <button
+      onClick={() => handleClick(value)}
       className={`${styles.tagElement} ${
         clickedButtons.includes(value) ? styles.clicked : ''
       }`}
-      onClick={() => handleClick(value)}
     >
       {value}
       {clickedButtons.includes(value) && <img src={Cross} alt="Cross" />}
