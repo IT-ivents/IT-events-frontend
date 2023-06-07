@@ -1,5 +1,7 @@
 .eventDescription {
   width: 600px;
+  cursor: default;
+  padding-bottom: 221px;
 }
 
 .eventHeader {

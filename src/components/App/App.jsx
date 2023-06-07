@@ -29,14 +29,13 @@ function App() {
     favorites: [],
     searchResult: [],
   });
-
+  const currentEvent = 'selectedEvent';
+  const events = 'eventsList';
   const navigate = useNavigate();
 
   // selectedEvent храним в localStorage для страницы EventPage
   useEffect(() => {
-    const savedSelectedEvent = JSON.parse(
-      localStorage.getItem('selectedEvent')
-    );
+    const savedSelectedEvent = JSON.parse(localStorage.getItem(currentEvent));
     if (savedSelectedEvent) {
       setSelectedEvent(savedSelectedEvent);
     } else {
@@ -45,7 +44,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
+    localStorage.setItem(currentEvent, JSON.stringify(selectedEvent));
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
@@ -98,14 +97,14 @@ function App() {
   }
 
   useEffect(() => {
-    const savedEventsList = JSON.parse(localStorage.getItem('eventsList'));
+    const savedEventsList = JSON.parse(localStorage.getItem(events));
     if (savedEventsList) {
       setEventsList(savedEventsList);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('eventsList', JSON.stringify(eventsList));
+    localStorage.setItem(events, JSON.stringify(eventsList));
   }, [eventsList]);
 
   const searchEvents = (query) => {
@@ -127,7 +126,6 @@ function App() {
           price?.toLowerCase().trim().includes(query.toLowerCase())
         );
       });
-    console.log('Filtered events:', filteredEvents); // Отладочный вывод
     return filteredEvents;
   };
 

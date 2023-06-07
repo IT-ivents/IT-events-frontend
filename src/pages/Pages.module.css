@@ -6,6 +6,7 @@
   flex-grow: 1;
   align-items: start;
   padding-top: 64px;
+  max-width: 1232px;
   position: relative;
 }
 

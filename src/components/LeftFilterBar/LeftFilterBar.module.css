@@ -2,7 +2,8 @@
   width: 200px;
   position: sticky;
   left: 0;
-  top: 64px;
+  top: 0;
+  cursor: default;
 }
 
 .filterTitle {
