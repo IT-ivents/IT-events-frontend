@@ -46,10 +46,60 @@
   outline: none;
 }
 
+.serchContainer {
+  position: relative;
+  width: 192px;
+  max-height: 269px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 1px 4px rgba(36, 63, 97, 0.1),
+    0px 0px 1px rgba(36, 63, 97, 0.16);
+  border-radius: 12px;
+  margin-top: 16px;
+  z-index: 10;
+}
+
+.serchContainer::after {
+  position: absolute;
+  content: '';
+  width: 182px;
+  height: 20px;
+  bottom: 10px;
+  left: 5px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) -185%,
+    #ffffff 100%
+  );
+  z-index: 5;
+}
+
+.findItem {
+  display: block;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  z-index: 2;
+}
+
+.findItem:last-child {
+  margin-bottom: 10px;
+}
+
 .showMore {
   font-size: 12px;
   font-weight: 700;
   color: #674eae;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
 }
 
