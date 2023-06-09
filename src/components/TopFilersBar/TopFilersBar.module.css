@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+}
+.button {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  background: #fefefe;
+  box-shadow: 0px 1px 4px rgba(36, 63, 97, 0.1),
+    0px 0px 1px rgba(36, 63, 97, 0.16);
+  border-radius: 18px;
+  border: none;
+  padding: 6px 16px 6px 16px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 135%;
+  color: #797979;
+  margin-right: 8px;
+}
+
+.text {
+  margin-right: 23px;
+}

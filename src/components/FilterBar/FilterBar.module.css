@@ -17,10 +17,6 @@
   cursor: pointer;
 }
 
-.filterButton:hover {
-  color: #674eae;
-}
-
 .optionsList {
   display: flex;
   flex-direction: column;

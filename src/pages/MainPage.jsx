@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Pages.module.css';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
-import Subscribe from '../components/Subscribe/Subscribe';
 
 const MainPage = ({
   onCardClick,
@@ -57,7 +56,6 @@ const MainPage = ({
             elseButton={event.else}
           />
         ))}
-        <Subscribe />
       </div>
       <LeftFilerBar />
     </div>

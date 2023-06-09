@@ -6,7 +6,6 @@
   flex-grow: 1;
   align-items: start;
   padding-top: 64px;
-  max-width: 1232px;
   position: relative;
 }
 
@@ -160,4 +159,8 @@
   width: calc(100% - 502px);
   gap: 32px;
   margin: 64px 0 80px;
+}
+
+.topFilterContainer {
+  margin-bottom: 80px;
 }
