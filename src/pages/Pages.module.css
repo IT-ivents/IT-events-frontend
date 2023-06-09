@@ -160,3 +160,7 @@
   gap: 32px;
   margin: 64px 0 80px;
 }
+
+.topFilterContainer {
+  margin-bottom: 80px;
+}

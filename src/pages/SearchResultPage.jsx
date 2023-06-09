@@ -33,7 +33,9 @@ const SearchResultPage = ({
         </div>
       ) : (
         <div>
-          <TopFilersBar></TopFilersBar>
+          <div className={styles.topFilterContainer}>
+            <TopFilersBar></TopFilersBar>
+          </div>
           <div className={styles.searchResultListContainer}>
             <VerticalEventList
               events={searchResult}
