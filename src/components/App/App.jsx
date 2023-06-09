@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
   EventPage,
@@ -29,6 +30,18 @@ function App() {
     favorites: [],
     searchResult: [],
   });
+
+  // стейты для поисковго фильтра
+  const [values, setValues] = useState({
+    status: [],
+    city: null,
+    date: null,
+    specialities: [],
+    price: null,
+    findTags: null,
+    tags: [],
+  });
+  const [findValues, setFindValues] = useState(null);
 
   const navigate = useNavigate();
 
@@ -143,62 +156,71 @@ function App() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.page}>
-        <Header onSearch={handleSearch} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <MainPage
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-                mostAnticipatedEvents={eventsList.mostAnticipated}
-                popularEvents={eventsList.popular}
-                soonEvents={eventsList.soon}
-                interestingEvents={eventsList.interesting}
-              />
-            }
-          />
-          <Route
-            path="event"
-            element={
-              <EventPage
-                interestingEvents={eventsList.interesting}
-                selectedEvent={selectedEvent}
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-              />
-            }
-          />
-          <Route
-            path="favorites"
-            element={
-              <FavoritesPage
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-                favoriteEvents={eventsList.favorites}
-              />
-            }
-          />
-          <Route path="notifications" element={<NotificationsPage />} />
-          <Route
-            path="results"
-            element={
-              <SearchResultPage
-                searchResult={eventsList.searchResult}
-                popularEvents={eventsList.popular}
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-              />
-            }
-          />
-          <Route path="preferences" element={<PreferencesPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <Footer />
+    <SearchFilterContext.Provider
+      value={{
+        values,
+        setValues,
+        findValues,
+        setFindValues,
+      }}
+    >
+      <div className={styles.wrapper}>
+        <div className={styles.page}>
+          <Header onSearch={handleSearch} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                  mostAnticipatedEvents={eventsList.mostAnticipated}
+                  popularEvents={eventsList.popular}
+                  soonEvents={eventsList.soon}
+                  interestingEvents={eventsList.interesting}
+                />
+              }
+            />
+            <Route
+              path="event"
+              element={
+                <EventPage
+                  interestingEvents={eventsList.interesting}
+                  selectedEvent={selectedEvent}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                />
+              }
+            />
+            <Route
+              path="favorites"
+              element={
+                <FavoritesPage
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                  favoriteEvents={eventsList.favorites}
+                />
+              }
+            />
+            <Route path="notifications" element={<NotificationsPage />} />
+            <Route
+              path="results"
+              element={
+                <SearchResultPage
+                  searchResult={eventsList.searchResult}
+                  popularEvents={eventsList.popular}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                />
+              }
+            />
+            <Route path="preferences" element={<PreferencesPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </SearchFilterContext.Provider>
   );
 }
 

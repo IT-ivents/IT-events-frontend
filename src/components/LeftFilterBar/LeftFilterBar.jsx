@@ -1,21 +1,24 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './LeftFilterBar.module.css';
 import TagsSection from './../TagsSection/TagsSection';
+import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import { useFilter } from '../../utils/hooks/useFilter';
+import TagButton from '../TagButton/TagButton';
 
 const LeftFilerBar = () => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
-  const {
+  const { values, setValues, findValues, setFindValues } =
+    useContext(SearchFilterContext);
+
+  const { handleInputChange, handleButtonChange, setItemOnClick } = useFilter({
     values,
-    handleInputChange,
-    handleButtonChange,
+    setValues,
     findValues,
-    setItemOnClick,
-  } = useFilter();
+    setFindValues,
+  });
 
   console.log(values);
-  console.log(findValues);
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
@@ -47,10 +50,21 @@ const LeftFilerBar = () => {
           onChange={handleInputChange}
           id={option.id}
           type="radio"
-          value={option.value}
+          value={option.label}
           name="date"
+          checked={values.date === option.label}
         />
-        <span>{option.label}</span>
+        <span className={`${option.id === 'pickdate' && styles.radioText}`}>
+          {option.label}
+        </span>
+        {option.id === 'pickdate' && (
+          <input
+            onChange={handleInputChange}
+            className={styles.pickdate}
+            name="date"
+            type="date"
+          ></input>
+        )}
       </label>
     ));
   };
@@ -76,8 +90,9 @@ const LeftFilerBar = () => {
           onChange={handleInputChange}
           id={option.id}
           type="checkbox"
-          value={option.id}
+          value={option.label}
           name="specialities"
+          checked={values.specialities.includes(option.label)}
           className={styles.checkboxButton}
         />
         <span className={styles.checkboxLabel}>{option.label}</span>
@@ -96,9 +111,10 @@ const LeftFilerBar = () => {
               onChange={handleInputChange}
               id="online"
               name="status"
-              value="online"
+              value="Online"
               type="checkbox"
               className={styles.checkboxButton}
+              checked={values.status.includes('Online')}
             />
             <span className={styles.checkboxLabel}>Online</span>
           </label>
@@ -107,9 +123,10 @@ const LeftFilerBar = () => {
               onChange={handleInputChange}
               id="offline"
               name="status"
-              value="offline"
+              value="Offline"
               type="checkbox"
               className={styles.checkboxButton}
+              checked={values.status.includes('Offline')}
             />
             <span className={styles.checkboxLabel}>Offline</span>
           </label>
@@ -168,8 +185,9 @@ const LeftFilerBar = () => {
               onChange={handleInputChange}
               id="free"
               type="radio"
-              value="Free"
+              value="Бесплатно"
               name="price"
+              checked={values.price === 'Бесплатно'}
             />
             <span>Бесплатно</span>
           </label>
@@ -178,8 +196,9 @@ const LeftFilerBar = () => {
               onChange={handleInputChange}
               id="paid"
               type="radio"
-              value="Paid"
+              value="Платно"
               name="price"
+              checked={values.price === 'Платно'}
             />
             <span>Платно</span>
           </label>
@@ -196,17 +215,17 @@ const LeftFilerBar = () => {
           />
           {findValues && findValues.findTags && findValues.findTags !== '' && (
             <div className={styles.serchContainer}>
-              {findValues.findTags.map((item, index) => {
-                return (
-                  <button
-                    onClick={() => setItemOnClick({ findTags: item })}
-                    className={styles.findItem}
-                    key={index}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+              <div className={styles.tagsList}>
+                {findValues.findTags.map((item, index) => {
+                  return (
+                    <TagButton
+                      key={index}
+                      value={item}
+                      handleChange={handleButtonChange}
+                    />
+                  );
+                })}
+              </div>
             </div>
           )}
         </li>

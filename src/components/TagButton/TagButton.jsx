@@ -1,16 +1,12 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styles from './TagButton.module.css';
 import Cross from './../../images/Actions/Close.svg';
+import SearchFilterContext from '../../utils/context/SearchFilterContext';
 
 const TagButton = ({ value, handleChange }) => {
-  const [clickedButtons, setClickedButtons] = useState([]);
+  const { values } = useContext(SearchFilterContext);
 
   const handleClick = (value) => {
-    if (clickedButtons.includes(value)) {
-      setClickedButtons(clickedButtons.filter((button) => button !== value));
-    } else {
-      setClickedButtons([...clickedButtons, value]);
-    }
     handleChange({ tags: value });
   };
 
@@ -18,11 +14,11 @@ const TagButton = ({ value, handleChange }) => {
     <button
       onClick={() => handleClick(value)}
       className={`${styles.tagElement} ${
-        clickedButtons.includes(value) ? styles.clicked : ''
+        values.tags.includes(value) ? styles.clicked : ''
       }`}
     >
       {value}
-      {clickedButtons.includes(value) && <img src={Cross} alt="Cross" />}
+      {values.tags.includes(value) && <img src={Cross} alt="Cross" />}
     </button>
   );
 };
