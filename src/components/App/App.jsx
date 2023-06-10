@@ -45,6 +45,20 @@ function App() {
 
   const navigate = useNavigate();
 
+  // const fetchDataAndSaveToLocalStorage = () => {
+  //   fetch('http://80.87.107.15/api/v1/events/')
+  //     .then(response => response.json())
+  //     .then(data => {
+
+  //       localStorage.setItem('eventsData', JSON.stringify(data));
+  //     })
+  //     .catch(error => {
+  //       console.error('Ошибка при выполнении запроса:', error);
+  //     });
+  // };
+
+  // fetchDataAndSaveToLocalStorage();
+
   // selectedEvent храним в localStorage для страницы EventPage
   useEffect(() => {
     const savedSelectedEvent = JSON.parse(

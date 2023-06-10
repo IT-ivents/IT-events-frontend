@@ -62,7 +62,7 @@ const Header = ({ onSearch }) => {
       </div>
     </header>
   ) : (
-    <header className={styles.header}>
+    <header className={styles.header} style={{ height: 'fit-content' }}>
       <div className={styles.borderContainer}>
         <div className={styles.linksContainer}>
           <Link to="/" className={styles.logoLink}>

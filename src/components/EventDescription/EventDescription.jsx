@@ -5,7 +5,7 @@ import playIcon from '../../images/Actions/PlayCircle.svg';
 import LikeImage from '../../images/like-button.svg';
 import LikeImageActive from '../../images/like-button_active.svg';
 import ShareImage from '../../images/Actions/Share.svg';
-import { parseEventDate } from '../../utils/helperFunctions';
+import { formatDate } from '../../utils/helperFunctions';
 
 const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const handleLikeClick = () => {
@@ -29,9 +29,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
         </div>
       </header>
       <ul className={styles.eventDates}>
-        <li className={styles.eventDate}>
-          {parseEventDate(selectedEvent.date)}
-        </li>
+        <li className={styles.eventDate}>{formatDate(selectedEvent.date)}</li>
         <li className={styles.eventDate}>10:00–20:00</li>
         <li className={styles.eventDate}>{selectedEvent.location}</li>
       </ul>

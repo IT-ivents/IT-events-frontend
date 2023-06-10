@@ -53,3 +53,15 @@ export const parseEventDate = (dateString) => {
 
   return `${day} ${month}`;
 };
+
+export const formatDate = (dateString) => {
+  const options = { weekday: 'short', day: 'numeric', month: 'long' };
+  const date = new Date(dateString);
+  const formattedDay = date.toLocaleDateString('ru-RU', options).slice(0, 2);
+  const capitalizedDay =
+    formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1);
+  const formattedDate = date
+    .toLocaleDateString('ru-RU', options)
+    .replace(formattedDay, capitalizedDay);
+  return formattedDate;
+};
