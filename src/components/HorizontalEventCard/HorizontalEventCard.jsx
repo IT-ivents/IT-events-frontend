@@ -39,10 +39,10 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
         </div>
         <ul className={styles.rowContainer}>
           <li className={styles.rowItem}>
-            <time>{parseEventDate(event.date)}</time>
+            <time>{parseEventDate(event.date_start)}</time>
           </li>
           <li className={styles.rowItem}>
-            <p>{event.location}</p>
+            <p>{event.city?.name}</p>
           </li>
         </ul>
         <figure className={styles.eventFigure}>

@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Pages.module.css';
 import PageTitle from '../components/PageTitle/PageTitle';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
 import FilterBar from '../components/FilterBar/FilterBar';
-import { parseDate, parsePrice } from '../utils/helperFunctions';
+import { parsePrice } from '../utils/helperFunctions';
 
 const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
   const [sortByDate, setSortByDate] = useState(true);
+  const noEvents = !favoriteEvents.length;
 
   useEffect(() => {
     setFilteredEvents(favoriteEvents);
@@ -59,6 +61,20 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
     <section className={styles.favoritesPageWrapper}>
       <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
       <FilterBar onFilter={handleFilter} />
+      {noEvents && (
+        <div className={styles.noFavoritesContainer}>
+          <h3 className={styles.noFavoritesText}>Список пуст</h3>
+          <p className={styles.noFavoritesDesc}>
+            Вы пока ничего не сохранили в избранное, но вы можете начать
+            пополнять свой список избранного прямо сейчас. Для этого
+            воспользуйтесь поиском на нашем сайте и найдите интересующие вас
+            события.
+          </p>
+          <Link className={styles.noFavoritesLink} to="/">
+            Начать поиск
+          </Link>
+        </div>
+      )}
       <div className={styles.favoritesPageListContainer}>
         <VerticalEventList
           events={filteredEvents}

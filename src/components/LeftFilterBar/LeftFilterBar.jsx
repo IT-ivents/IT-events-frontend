@@ -18,7 +18,7 @@ const LeftFilerBar = () => {
     setFindValues,
   });
 
-  console.log(values);
+  //console.log(values);
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
