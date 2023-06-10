@@ -1,7 +1,6 @@
 /* Страница: Главная */
 .mainPageWrapper {
   display: flex;
-  flex-direction: row-reverse;
   gap: 120px;
   flex-grow: 1;
   align-items: start;

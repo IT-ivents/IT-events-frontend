@@ -1,6 +1,6 @@
 import styles from './HorizontalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { parseEventDate } from '../../utils/helperFunctions';
+import { parseEventDate, formatPrice } from '../../utils/helperFunctions';
 import playIcon from '../../images/Actions/PlayCircle.svg';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
@@ -44,16 +44,15 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
           <li className={styles.rowItem}>
             <p>{event.city?.name}</p>
           </li>
+          <li className={styles.rowItem}>
+            <p>{event?.address}</p>
+          </li>
         </ul>
         <figure className={styles.eventFigure}>
           <img src={playIcon} alt="play-icon" />
           <figcaption>Online-трансляция</figcaption>
         </figure>
-        {event.price !== 'Бесплатно' ? (
-          <span className={styles.price}>{event.price}&ensp;&#8381;</span>
-        ) : (
-          <span className={styles.price}>{event.price}</span>
-        )}
+        <span className={styles.price}>{formatPrice(event.price)}</span>
       </div>
     </li>
   );

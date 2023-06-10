@@ -29,7 +29,7 @@ const MainPage = ({
     },
     {
       id: 3,
-      title: 'Ближайшие события>',
+      title: 'Ближайшие события',
       list: soonEvents,
       else: true,
       span: false,
@@ -45,6 +45,7 @@ const MainPage = ({
 
   return (
     <div className={styles.mainPageWrapper}>
+      <LeftFilerBar />
       <div className={styles.mainPageListWrapper}>
         {mainPageEvents.map((event) => (
           <HorizontalEventList
@@ -59,7 +60,6 @@ const MainPage = ({
         ))}
         <Subscribe />
       </div>
-      <LeftFilerBar />
     </div>
   );
 };

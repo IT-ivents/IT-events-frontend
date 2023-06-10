@@ -2,11 +2,26 @@ import { useState } from 'react';
 import styles from './DescriptionTabs.module.css';
 import { tabs } from './../../utils/constants/tabs';
 
-const DescriptionTabs = () => {
+const DescriptionTabs = ({ selectedEvent }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
+  };
+
+  const getContentByTab = () => {
+    switch (activeTab) {
+      case 0:
+        return selectedEvent?.description || 'Нет данных';
+      case 1:
+        return selectedEvent?.program || 'Нет данных';
+      case 2:
+        return selectedEvent?.organizers || 'Нет данных';
+      case 3:
+        return selectedEvent?.partners || 'Нет данных';
+      default:
+        return '';
+    }
   };
 
   return (
@@ -24,7 +39,7 @@ const DescriptionTabs = () => {
           </div>
         ))}
       </div>
-      <div className={styles.tabContent}>{tabs[activeTab].content}</div>
+      <div className={styles.tabContent}>{getContentByTab()}</div>
     </>
   );
 };
