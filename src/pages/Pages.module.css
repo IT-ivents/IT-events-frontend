@@ -7,6 +7,7 @@
   align-items: start;
   padding-top: 64px;
   position: relative;
+  max-width: 1232px;
 }
 
 .mainPageListWrapper {
