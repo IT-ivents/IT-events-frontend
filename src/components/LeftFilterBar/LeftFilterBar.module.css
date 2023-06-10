@@ -2,8 +2,7 @@
   width: 200px;
   position: sticky;
   left: 0;
-  top: 0;
-  cursor: default;
+  top: 64px;
 }
 
 .filterTitle {
@@ -52,7 +51,12 @@
   width: 192px;
   max-height: 269px;
   overflow: hidden;
-  background: #ffffff;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) -185%,
+    #ffffff 100%
+  );
+  /* background: #ffffff; */
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0px 1px 4px rgba(36, 63, 97, 0.1),
     0px 0px 1px rgba(36, 63, 97, 0.16);
@@ -73,7 +77,7 @@
     rgba(255, 255, 255, 0) -185%,
     #ffffff 100%
   );
-  z-index: 5;
+  z-index: -1;
 }
 
 .findItem {
@@ -88,7 +92,8 @@
   border: none;
   cursor: pointer;
   background-color: transparent;
-  z-index: 2;
+  mix-blend-mode: normal;
+  z-index: 7;
 }
 
 .findItem:last-child {
@@ -193,4 +198,28 @@
 
 .radioButton:hover span:before {
   border-color: #674eae;
+}
+
+.pickdate {
+  display: none;
+  height: 34.39px;
+}
+
+.radioButton input[type='radio']:checked ~ .pickdate {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 10px;
+  border: none;
+  color: #797979;
+}
+
+.radioButton input[type='radio']:checked ~ .radioText {
+  display: none;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  gap: 10px;
 }

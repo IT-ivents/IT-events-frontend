@@ -1,6 +1,6 @@
 import styles from './VerticalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { parseEventDate } from '../../utils/helperFunctions';
+import { formatDate } from '../../utils/helperFunctions';
 
 const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <button className={styles.linkButton} type="button"></button>
       </div>
       <div className={styles.rowContainer}>
-        <time>{parseEventDate(event.date)}</time>
+        <time>{formatDate(event.date)}</time>
         <span>&bull;</span>
         <p>{event.location}</p>
       </div>

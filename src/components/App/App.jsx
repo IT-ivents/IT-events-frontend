@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
   EventPage,
@@ -29,13 +30,40 @@ function App() {
     favorites: [],
     searchResult: [],
   });
-  const currentEvent = 'selectedEvent';
-  const events = 'eventsList';
+
+  // стейты для поисковго фильтра
+  const [values, setValues] = useState({
+    status: [],
+    city: null,
+    date: null,
+    specialities: [],
+    price: null,
+    findTags: null,
+    tags: [],
+  });
+  const [findValues, setFindValues] = useState(null);
+
   const navigate = useNavigate();
+
+  // const fetchDataAndSaveToLocalStorage = () => {
+  //   fetch('http://80.87.107.15/api/v1/events/')
+  //     .then(response => response.json())
+  //     .then(data => {
+
+  //       localStorage.setItem('eventsData', JSON.stringify(data));
+  //     })
+  //     .catch(error => {
+  //       console.error('Ошибка при выполнении запроса:', error);
+  //     });
+  // };
+
+  // fetchDataAndSaveToLocalStorage();
 
   // selectedEvent храним в localStorage для страницы EventPage
   useEffect(() => {
-    const savedSelectedEvent = JSON.parse(localStorage.getItem(currentEvent));
+    const savedSelectedEvent = JSON.parse(
+      localStorage.getItem('selectedEvent')
+    );
     if (savedSelectedEvent) {
       setSelectedEvent(savedSelectedEvent);
     } else {
@@ -44,7 +72,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(currentEvent, JSON.stringify(selectedEvent));
+    localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
@@ -97,14 +125,14 @@ function App() {
   }
 
   useEffect(() => {
-    const savedEventsList = JSON.parse(localStorage.getItem(events));
+    const savedEventsList = JSON.parse(localStorage.getItem('eventsList'));
     if (savedEventsList) {
       setEventsList(savedEventsList);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(events, JSON.stringify(eventsList));
+    localStorage.setItem('eventsList', JSON.stringify(eventsList));
   }, [eventsList]);
 
   const searchEvents = (query) => {
@@ -126,6 +154,7 @@ function App() {
           price?.toLowerCase().trim().includes(query.toLowerCase())
         );
       });
+    console.log('Filtered events:', filteredEvents); // Отладочный вывод
     return filteredEvents;
   };
 
@@ -141,62 +170,71 @@ function App() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.page}>
-        <Header onSearch={handleSearch} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <MainPage
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-                mostAnticipatedEvents={eventsList.mostAnticipated}
-                popularEvents={eventsList.popular}
-                soonEvents={eventsList.soon}
-                interestingEvents={eventsList.interesting}
-              />
-            }
-          />
-          <Route
-            path="event"
-            element={
-              <EventPage
-                interestingEvents={eventsList.interesting}
-                selectedEvent={selectedEvent}
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-              />
-            }
-          />
-          <Route
-            path="favorites"
-            element={
-              <FavoritesPage
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-                favoriteEvents={eventsList.favorites}
-              />
-            }
-          />
-          <Route path="notifications" element={<NotificationsPage />} />
-          <Route
-            path="results"
-            element={
-              <SearchResultPage
-                searchResult={eventsList.searchResult}
-                popularEvents={eventsList.popular}
-                onCardClick={handleCardClick}
-                onLikeClick={toggleFavorite}
-              />
-            }
-          />
-          <Route path="preferences" element={<PreferencesPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <Footer />
+    <SearchFilterContext.Provider
+      value={{
+        values,
+        setValues,
+        findValues,
+        setFindValues,
+      }}
+    >
+      <div className={styles.wrapper}>
+        <div className={styles.page}>
+          <Header onSearch={handleSearch} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                  mostAnticipatedEvents={eventsList.mostAnticipated}
+                  popularEvents={eventsList.popular}
+                  soonEvents={eventsList.soon}
+                  interestingEvents={eventsList.interesting}
+                />
+              }
+            />
+            <Route
+              path="event"
+              element={
+                <EventPage
+                  interestingEvents={eventsList.interesting}
+                  selectedEvent={selectedEvent}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                />
+              }
+            />
+            <Route
+              path="favorites"
+              element={
+                <FavoritesPage
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                  favoriteEvents={eventsList.favorites}
+                />
+              }
+            />
+            <Route path="notifications" element={<NotificationsPage />} />
+            <Route
+              path="results"
+              element={
+                <SearchResultPage
+                  searchResult={eventsList.searchResult}
+                  popularEvents={eventsList.popular}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                />
+              }
+            />
+            <Route path="preferences" element={<PreferencesPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </SearchFilterContext.Provider>
   );
 }
 
