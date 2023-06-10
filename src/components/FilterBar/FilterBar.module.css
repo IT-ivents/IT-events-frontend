@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   gap: 73px;
   list-style-type: none;
-  padding: 69px 0 32px;
+  padding: 69px 0 32px 10px;
 }
 
 .filterButton {
@@ -15,10 +15,6 @@
   line-height: 25px;
   color: #181818;
   cursor: pointer;
-}
-
-.filterButton:hover {
-  color: #674eae;
 }
 
 .optionsList {

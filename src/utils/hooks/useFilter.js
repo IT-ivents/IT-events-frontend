@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import debounce from '../debounce';
 
 const testData = {
@@ -6,18 +6,7 @@ const testData = {
   findTags: ['html', 'css', 'react', 'redux'],
 };
 
-export function useFilter() {
-  const [values, setValues] = useState({
-    status: [],
-    city: null,
-    date: null,
-    specialities: [],
-    price: null,
-    findTags: null,
-    tags: [],
-  });
-  const [findValues, setFindValues] = useState(null);
-
+export function useFilter({ values, setValues, setFindValues }) {
   const handleFilter = ({ name, value }) => {
     const searchList = testData[name];
     const debouncedSetFindValues = debounce((data) => setFindValues(data), 500);
@@ -73,11 +62,16 @@ export function useFilter() {
     setFindValues(null);
   };
 
+  const deleteValue = (item) => {
+    if (item === 'status' || item === 'tags' || item === 'specialities') {
+      setValues({ ...values, [item]: [] });
+    } else setValues({ ...values, [item]: null });
+  };
+
   return {
-    values,
     handleInputChange,
     handleButtonChange,
-    findValues,
     setItemOnClick,
+    deleteValue,
   };
 }

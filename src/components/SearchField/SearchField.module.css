@@ -2,7 +2,7 @@
   width: 608px;
   height: 56px;
   background: #fefefe;
-  border-radius: 34px;
+  border-radius: 30px;
   display: flex;
   align-self: center;
   border: 2px solid #674eae;
@@ -12,10 +12,10 @@
   width: 100%;
   display: flex;
   align-items: center;
-  outline: none;
+  /* outline: none; */
   border: none;
-  gap: 19px;
-  margin-left: 23px;
+  gap: 18px;
+  margin-left: 22px;
   padding: 0;
 }
 

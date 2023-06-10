@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 13px;
-  padding-top: 63px;
+  /* padding-top: 63px; */
   width: 100%;
   color: #181818;
-  cursor: default;
+  max-width: 468px;
 }
 
 .title {
