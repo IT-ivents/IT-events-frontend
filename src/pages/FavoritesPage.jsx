@@ -44,8 +44,8 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
       case 'date':
         sortedList.sort((a, b) => {
           const sortOrder = sortByDate ? 1 : -1;
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
+          const dateA = new Date(a.date_start).getTime();
+          const dateB = new Date(b.date_start).getTime();
           return (dateA - dateB) * sortOrder;
         });
         setSortByDate((prevValue) => !prevValue);

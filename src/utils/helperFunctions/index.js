@@ -3,6 +3,15 @@ export const parsePrice = (priceString) => {
   return parseInt(price);
 };
 
+export const formatPrice = (price) => {
+  if (price === '0.00') {
+    return 'Бесплатно';
+  } else {
+    const formattedPrice = parseFloat(price).toFixed(2);
+    return `${formattedPrice.replace('.00', '')} ₽`;
+  }
+};
+
 export const parseDate = (dateString) => {
   const parts = dateString.split(' ');
   const day = parseInt(parts[0]);

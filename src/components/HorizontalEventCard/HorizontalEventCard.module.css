@@ -118,6 +118,7 @@
   flex-direction: column;
   gap: 24px;
   flex-grow: 1;
+  white-space: nowrap;
 }
 
 .eventFigure {
