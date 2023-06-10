@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
+import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -13,23 +14,17 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
-import {
-  popularEvents,
-  interestingEvents,
-  mostAnticipatedEvents,
-  soonEvents,
-} from '../../utils/constants';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [eventsList, setEventsList] = useState({
-    mostAnticipated: [...mostAnticipatedEvents],
-    popular: [...popularEvents],
-    soon: [...soonEvents],
-    interesting: [...interestingEvents],
-    favorites: [],
-    searchResult: [],
-  });
+  const [eventsFromApi, setEventsFromApi] = useState([]);
+
+  const [mostAnticipatedEvents, setMostAnticipatedEvents] = useState([]);
+  const [popularEvents, setPopularEvents] = useState([]);
+  const [soonEvents, setSoonEvents] = useState([]);
+  const [interestingEvents, setInterestingEvents] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
@@ -45,21 +40,77 @@ function App() {
 
   const navigate = useNavigate();
 
-  // const fetchDataAndSaveToLocalStorage = () => {
-  //   fetch('http://80.87.107.15/api/v1/events/')
-  //     .then(response => response.json())
-  //     .then(data => {
+  useEffect(() => {
+    const fetchDataAndSaveToLocalStorage = async () => {
+      try {
+        const response = await axios.get('http://80.87.107.15/api/v1/events/');
+        const data = response.data.results;
+        console.log(data);
+        setEventsFromApi(data);
+        localStorage.setItem('eventsData', JSON.stringify(data));
+        // Разложить события по разным массивам
+        if (data) {
+          const mostAnticipated = data.slice(0, 6);
+          const popular = data.slice(7, 19);
+          const interesting = data.slice(19, 31);
+          const soon = data.slice(32, 37);
 
-  //       localStorage.setItem('eventsData', JSON.stringify(data));
-  //     })
-  //     .catch(error => {
-  //       console.error('Ошибка при выполнении запроса:', error);
-  //     });
-  // };
+          setMostAnticipatedEvents(mostAnticipated);
+          setPopularEvents(popular);
+          setInterestingEvents(interesting);
+          setSoonEvents(soon);
 
-  // fetchDataAndSaveToLocalStorage();
+          // Поиск событий по значению из поискового фильтра
+          const filteredEvents = searchEvents(findValues);
+          setSearchResult(filteredEvents);
+        } else {
+          throw new Error('Неверный формат данных eventsData:');
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
+      }
+    };
+    // Если есть в сторадж, достаем оттуда
+    const storagedEventsData = localStorage.getItem('eventsData');
+    if (!storagedEventsData) {
+      fetchDataAndSaveToLocalStorage();
+    } else {
+      try {
+        const parsedData = JSON.parse(storagedEventsData);
+        setEventsFromApi(parsedData);
+        // Разложить события по разным массивам
+        const mostAnticipated = parsedData.slice(0, 6);
+        const popular = parsedData.slice(7, 19);
+        const interesting = parsedData.slice(19, 31);
+        const soon = parsedData.slice(32, 37);
 
-  // selectedEvent храним в localStorage для страницы EventPage
+        setMostAnticipatedEvents(mostAnticipated);
+        setPopularEvents(popular);
+        setInterestingEvents(interesting);
+        setSoonEvents(soon);
+
+        // Поиск событий по значению из поискового фильтра
+        const filteredEvents = searchEvents(findValues);
+        setSearchResult(filteredEvents);
+      } catch (error) {
+        console.error('Invalid eventsData format:', error);
+      }
+    }
+  }, []);
+
+  // Загрузка избранных событий из локального хранилища
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    if (savedFavorites) {
+      setFavorites(savedFavorites);
+    }
+  }, []);
+
+  // Сохранение избранных событий в локальное хранилище
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
   useEffect(() => {
     const savedSelectedEvent = JSON.parse(
       localStorage.getItem('selectedEvent')
@@ -79,93 +130,68 @@ function App() {
     setSelectedEvent(event);
   };
 
+  // Функция обновления массива избранных событий
+  const updateFavorites = (event) => {
+    const isEventInFavorites = favorites.some((item) => item.id === event.id);
+    if (!isEventInFavorites) {
+      const updatedFavorites = [...favorites, { ...event, isLiked: true }];
+      setFavorites(updatedFavorites);
+    } else {
+      const updatedFavorites = favorites.filter((item) => item.id !== event.id);
+      setFavorites(updatedFavorites);
+    }
+  };
+
   const toggleFavorite = (event) => {
-    setEventsList((prevEventsList) => {
-      const updatedEventsList = {
-        mostAnticipated: updateList(prevEventsList.mostAnticipated, event),
-        popular: updateList(prevEventsList.popular, event),
-        soon: updateList(prevEventsList.popular, event),
-        interesting: updateList(prevEventsList.interesting, event),
-        favorites: updateList(prevEventsList.favorites, event),
-        searchResult: updateList(prevEventsList.searchResult, event),
-      };
+    updateFavorites(event);
 
-      // Обновление isLiked у selectedEvent
-      const updatedSelectedEvent = { ...selectedEvent };
-      if (selectedEvent && selectedEvent.id === event.id) {
-        updatedSelectedEvent.isLiked = !updatedSelectedEvent.isLiked;
-      }
+    // Обновление isLiked у selectedEvent
+    const updatedSelectedEvent = { ...selectedEvent };
+    if (selectedEvent && selectedEvent.id === event.id) {
+      updatedSelectedEvent.isLiked = !updatedSelectedEvent.isLiked;
+    }
+    setSelectedEvent(updatedSelectedEvent);
+  };
 
-      setSelectedEvent(updatedSelectedEvent);
+  // Функция обновления массивов событий при изменении избранных
+  useEffect(() => {
+    setMostAnticipatedEvents((prevEvents) => updateEvents(prevEvents));
+    setPopularEvents((prevEvents) => updateEvents(prevEvents));
+    setSoonEvents((prevEvents) => updateEvents(prevEvents));
+    setInterestingEvents((prevEvents) => updateEvents(prevEvents));
+    setSearchResult((prevEvents) => updateEvents(prevEvents));
+  }, [favorites]);
 
-      return updatedEventsList;
+  // Функция обновления массивов событий
+  const updateEvents = (events) => {
+    return events.map((event) => {
+      const isLiked = favorites.some((item) => item.id === event.id);
+      return { ...event, isLiked };
     });
   };
-  function updateList(list, event) {
-    if (list === eventsList.favorites) {
-      const isEventInFavorites = list.some((item) => item.id === event.id);
-      if (!isEventInFavorites) {
-        const updatedList = [...list, { ...event, isLiked: true }];
-        return updatedList;
-      } else {
-        const updatedList = list.filter((item) => item.id !== event.id);
-        return updatedList;
-      }
-    }
-
-    const updatedList = list.map((item) => {
-      if (item.id === event.id) {
-        const updatedItem = { ...item, isLiked: !item.isLiked };
-        return updatedItem;
-      }
-      return item;
-    });
-
-    return updatedList;
-  }
-
-  useEffect(() => {
-    const savedEventsList = JSON.parse(localStorage.getItem('eventsList'));
-    if (savedEventsList) {
-      setEventsList(savedEventsList);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('eventsList', JSON.stringify(eventsList));
-  }, [eventsList]);
 
   const searchEvents = (query) => {
-    // Собираем массивы в которых будем искать и расставляем лайки на карточках,
-    // если они есть в избранном
-    const filteredEvents = [...popularEvents, ...interestingEvents]
+    const filteredEvents = [...eventsFromApi]
       .map((event) => {
-        const isLiked = eventsList.favorites.some(
-          (item) => item.id === event.id
-        );
+        const isLiked = favorites.some((item) => item.id === event.id);
         return { ...event, isLiked };
       })
       .filter((event) => {
-        const { title, description, location, price } = event;
+        const { title, description, price } = event;
         return (
           title?.toLowerCase().trim().includes(query.toLowerCase()) ||
           description?.toLowerCase().trim().includes(query.toLowerCase()) ||
-          location?.toLowerCase().trim().includes(query.toLowerCase()) ||
           price?.toLowerCase().trim().includes(query.toLowerCase())
         );
       });
-    console.log('Filtered events:', filteredEvents); // Отладочный вывод
+
+    console.log('Filtered events:', filteredEvents); // Debug output
     return filteredEvents;
   };
 
   const handleSearch = (query) => {
     const filteredEvents = searchEvents(query);
-
-    setEventsList((prevEventsList) => ({
-      ...prevEventsList,
-      searchResult: filteredEvents,
-    }));
-
+    setSearchResult(filteredEvents);
     navigate('/results'); // Перенаправление на страницу /results
   };
 
@@ -188,10 +214,10 @@ function App() {
                 <MainPage
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
-                  mostAnticipatedEvents={eventsList.mostAnticipated}
-                  popularEvents={eventsList.popular}
-                  soonEvents={eventsList.soon}
-                  interestingEvents={eventsList.interesting}
+                  mostAnticipatedEvents={mostAnticipatedEvents}
+                  popularEvents={popularEvents}
+                  soonEvents={soonEvents}
+                  interestingEvents={interestingEvents}
                 />
               }
             />
@@ -199,7 +225,7 @@ function App() {
               path="event"
               element={
                 <EventPage
-                  interestingEvents={eventsList.interesting}
+                  interestingEvents={interestingEvents}
                   selectedEvent={selectedEvent}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
@@ -212,7 +238,7 @@ function App() {
                 <FavoritesPage
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
-                  favoriteEvents={eventsList.favorites}
+                  favoriteEvents={favorites}
                 />
               }
             />
@@ -221,8 +247,8 @@ function App() {
               path="results"
               element={
                 <SearchResultPage
-                  searchResult={eventsList.searchResult}
-                  popularEvents={eventsList.popular}
+                  searchResult={searchResult}
+                  popularEvents={popularEvents}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                 />

@@ -55,6 +55,8 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  width: fit-content;
+  height: fit-content;
 }
 
 /* .profile {
