@@ -19,6 +19,8 @@ import {
   soonEvents,
 } from '../../utils/constants';
 
+import { apiEvents } from '../../utils/api';
+
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventsList, setEventsList] = useState({
@@ -139,6 +141,22 @@ function App() {
 
     navigate('/results'); // Перенаправление на страницу /results
   };
+
+  const [eventList, setEventList] = useState([]);
+
+  useEffect(() => {
+    apiEvents
+      .getEvents()
+      .then(({ success, data }) => {
+        if (success) {
+          setEventList(data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  console.dir(eventList);
 
   return (
     <div className={styles.wrapper}>
