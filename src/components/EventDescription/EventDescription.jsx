@@ -5,7 +5,7 @@ import playIcon from '../../images/Actions/PlayCircle.svg';
 import LikeImage from '../../images/like-button.svg';
 import LikeImageActive from '../../images/like-button_active.svg';
 import ShareImage from '../../images/Actions/Share.svg';
-import { formatDate } from '../../utils/helperFunctions';
+import { formatDate, formatPrice } from '../../utils/helperFunctions';
 
 const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const handleLikeClick = () => {
@@ -37,9 +37,12 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
         <img src={playIcon} alt="Play" />
         <figcaption>Online-трансляция</figcaption>
       </figure>
-      <p className={styles.eventPrice}>{selectedEvent.price}</p>
-      <PrimaryButton title="Перейти на сайт организатора" />
-      <DescriptionTabs />
+      <p className={styles.eventPrice}>{formatPrice(selectedEvent.price)}</p>
+      <PrimaryButton
+        title="Перейти на сайт организатора"
+        to={selectedEvent?.url}
+      />
+      <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );
 };

@@ -1,8 +1,9 @@
 .TagsSection {
-  margin-bottom: 80px;
+  margin: 6px 0 80px;
 }
 
 .tagsListTitle {
+  padding-bottom: 3px;
   font-size: 12px;
   color: #797979;
 }
@@ -11,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  gap: 10px;
+  gap: 12px;
+  font-size: 12px;
   list-style-type: none;
 }

@@ -1,8 +1,5 @@
 .filterForm {
-  width: 192px;
-  /* position: sticky;
-  left: 0;
-  top: 64px; */
+  cursor: default;
 }
 
 .filterTitle {
@@ -15,8 +12,9 @@
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  gap: 29px;
-  padding-bottom: 30px;
+  gap: 30px;
+  /* padding-bottom: 30px;
+  margin-bottom: 0; */
 }
 
 .itemTitle {
@@ -101,6 +99,10 @@
   margin-bottom: 10px;
 }
 
+.lessBlock {
+  margin-bottom: 10px;
+}
+
 .showMore {
   font-size: 12px;
   font-weight: 700;
@@ -161,7 +163,7 @@
 .radioButton span {
   position: relative;
   padding-left: 28px;
-  padding-bottom: 18px;
+  padding-bottom: 17px;
   cursor: pointer;
   color: #797979;
 }

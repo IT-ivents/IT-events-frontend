@@ -1,6 +1,6 @@
 import styles from './VerticalEventCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { formatDate } from '../../utils/helperFunctions';
+import { formatDate, formatPrice } from '../../utils/helperFunctions';
 import defaultImage from '../../images/default-image.png';
 
 const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
@@ -22,11 +22,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   return (
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
-        {event.price !== 'Бесплатно' ? (
-          <span className={styles.price}>{event.price}&ensp;&#8381;</span>
-        ) : (
-          <span className={styles.price}>{event.price}</span>
-        )}
+        <span className={styles.price}>{formatPrice(event.price)}</span>
         <img
           src={event.image ? event.image : defaultImage}
           alt="event_picture"

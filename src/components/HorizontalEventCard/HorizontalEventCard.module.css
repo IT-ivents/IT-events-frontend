@@ -5,7 +5,7 @@
   display: flex; */
   gap: 24px;
   display: grid;
-  grid-template-columns: 296px auto;
+  grid-template-columns: 296px 600px;
 }
 
 .imageContainer {
@@ -17,7 +17,7 @@
 }
 
 .image {
-  /* border-radius: 8px; */
+  border-radius: 8px;
   width: 296px;
   height: 180px;
   object-fit: cover;
@@ -123,6 +123,7 @@
   /* gap: 24px; */
   gap: 16px;
   flex-grow: 1;
+  /* white-space: nowrap; */
 }
 
 .eventFigure {
