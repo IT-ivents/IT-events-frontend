@@ -1,14 +1,10 @@
 import styles from './HorizontalEventCard.module.css';
-import { useNavigate } from 'react-router-dom';
 import { parseEventDate, formatPrice } from '../../utils/helperFunctions';
 import playIcon from '../../images/Actions/PlayCircle.svg';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
-  const navigate = useNavigate();
-
   const handleCardClick = () => {
     onCardClick(event);
-    navigate('/event');
   };
 
   const handleLikeClick = () => {

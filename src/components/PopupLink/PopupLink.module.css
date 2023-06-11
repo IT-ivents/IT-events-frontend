@@ -1,0 +1,27 @@
+.linkPopup {
+  position: absolute;
+  z-index: 10;
+  right: -92px;
+  top: 30px;
+  background-color: #674eae;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.linkPopup::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #674eae;
+}

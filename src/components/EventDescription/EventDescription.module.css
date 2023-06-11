@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  position: relative;
 }
 
 .eventName {
@@ -35,6 +36,7 @@
 
 .eventDates {
   display: flex;
+  max-width: 600px;
   gap: 25px;
   padding: 0;
   color: #797979;
@@ -42,6 +44,9 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .eventDate:first-child {
