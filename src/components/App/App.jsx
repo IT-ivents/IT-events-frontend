@@ -25,7 +25,6 @@ function App() {
   const [interestingEvents, setInterestingEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
-
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -37,40 +36,40 @@ function App() {
     tags: [],
   });
   const [findValues, setFindValues] = useState(null);
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDataAndSaveToLocalStorage = async () => {
-      try {
-        const response = await axios.get('http://80.87.107.15/api/v1/events/');
-        const data = response.data.results;
-        console.log(data);
-        setEventsFromApi(data);
-        localStorage.setItem('eventsData', JSON.stringify(data));
-        // Разложить события по разным массивам
-        if (data) {
-          const mostAnticipated = data.slice(0, 6);
-          const popular = data.slice(7, 19);
-          const interesting = data.slice(19, 31);
-          const soon = data.slice(32, 37);
+  const fetchDataAndSaveToLocalStorage = async () => {
+    try {
+      const response = await axios.get('http://80.87.107.15/api/v1/events/');
+      const data = response.data.results;
+      console.log(data);
+      setEventsFromApi(data);
+      localStorage.setItem('eventsData', JSON.stringify(data));
+      // Разложить события по разным массивам
+      if (data) {
+        const mostAnticipated = data.slice(0, 6);
+        const popular = data.slice(7, 19);
+        const interesting = data.slice(19, 31);
+        const soon = data.slice(32, 37);
 
-          setMostAnticipatedEvents(mostAnticipated);
-          setPopularEvents(popular);
-          setInterestingEvents(interesting);
-          setSoonEvents(soon);
+        setMostAnticipatedEvents(mostAnticipated);
+        setPopularEvents(popular);
+        setInterestingEvents(interesting);
+        setSoonEvents(soon);
 
-          // Поиск событий по значению из поискового фильтра
-          const filteredEvents = searchEvents(findValues);
-          setSearchResult(filteredEvents);
-        } else {
-          throw new Error('Неверный формат данных eventsData:');
-        }
-      } catch (error) {
-        console.error('Ошибка при выполнении запроса:', error);
+        // Поиск событий по значению из поискового фильтра
+        const filteredEvents = searchEvents(findValues);
+        setSearchResult(filteredEvents);
+      } else {
+        throw new Error('Неверный формат данных eventsData:');
       }
-    };
-    // Если есть в сторадж, достаем оттуда
+    } catch (error) {
+      console.error('Ошибка при выполнении запроса:', error);
+    }
+  };
+
+  // Если Events есть в сторадж, достаем оттуда
+  useEffect(() => {
     const storagedEventsData = localStorage.getItem('eventsData');
     if (!storagedEventsData) {
       fetchDataAndSaveToLocalStorage();
@@ -117,34 +116,35 @@ function App() {
     );
     if (savedSelectedEvent) {
       setSelectedEvent(savedSelectedEvent);
-    } else {
-      setSelectedEvent(null);
     }
   }, []);
 
+  // Cохранение текущего события в локальное хранилище чтобы не терять контекст.
   useEffect(() => {
     localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
+    navigate('/event');
   };
 
   // Функция обновления массива избранных событий
   const updateFavorites = (event) => {
-    const isEventInFavorites = favorites.some((item) => item.id === event.id);
-    if (!isEventInFavorites) {
-      const updatedFavorites = [...favorites, { ...event, isLiked: true }];
-      setFavorites(updatedFavorites);
-    } else {
-      const updatedFavorites = favorites.filter((item) => item.id !== event.id);
-      setFavorites(updatedFavorites);
-    }
+    setFavorites((prevFavorites) => {
+      const isEventInFavorites = prevFavorites.some(
+        (item) => item.id === event.id
+      );
+      if (!isEventInFavorites) {
+        return [...prevFavorites, { ...event, isLiked: true }];
+      } else {
+        return prevFavorites.filter((item) => item.id !== event.id);
+      }
+    });
   };
 
   const toggleFavorite = (event) => {
     updateFavorites(event);
-
     // Обновление isLiked у selectedEvent
     const updatedSelectedEvent = { ...selectedEvent };
     if (selectedEvent && selectedEvent.id === event.id) {
@@ -177,11 +177,15 @@ function App() {
         return { ...event, isLiked };
       })
       .filter((event) => {
-        const { title, description, price } = event;
+        const { title, description, price, topic } = event;
         return (
-          title?.toLowerCase().trim().includes(query.toLowerCase()) ||
-          description?.toLowerCase().trim().includes(query.toLowerCase()) ||
-          price?.toLowerCase().trim().includes(query.toLowerCase())
+          title?.toLowerCase().trim().includes(query.toLowerCase().trim()) ||
+          description
+            ?.toLowerCase()
+            .trim()
+            .includes(query.toLowerCase().trim()) ||
+          price?.toLowerCase().trim().includes(query.toLowerCase().trim()) ||
+          topic?.name?.toLowerCase().trim().includes(query.toLowerCase().trim())
         );
       });
 
