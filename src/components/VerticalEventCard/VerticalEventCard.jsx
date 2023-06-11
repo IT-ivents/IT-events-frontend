@@ -20,18 +20,21 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   };
 
   const handleCopyLink = () => {
-    const link = event.url;
-    navigator.clipboard
-      .writeText(link)
-      .then(() => {
-        setShowNotification(true);
-        setTimeout(() => {
-          setShowNotification(false);
-        }, 1500);
-      })
-      .catch((error) => {
-        console.error('Failed to copy link:', error);
-      });
+    const link = event?.url;
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          setShowNotification(true);
+          setTimeout(() => {
+            setShowNotification(false);
+          }, 1500);
+        })
+
+        .catch((error) => {
+          console.error('Failed to copy link:', error);
+        });
+    }
   };
 
   return (
