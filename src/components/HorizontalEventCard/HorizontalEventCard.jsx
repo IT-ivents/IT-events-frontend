@@ -41,7 +41,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
             <p>{event.city?.name}</p>
           </li>
           <li className={styles.rowItem}>
-            <p>{event?.address}</p>
+            <p>{event?.address || 'Нет данных'}</p>
           </li>
         </ul>
         <figure className={styles.eventFigure}>

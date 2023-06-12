@@ -1,14 +1,70 @@
-// import { useState } from 'react';
 import debounce from '../debounce';
 
 const testData = {
-  city: ['москва', 'можайск', 'питер', 'петрозаводск'],
-  findTags: ['html', 'css', 'react', 'redux'],
+  city: [
+    'владивосток',
+    'смоленск',
+    'москва',
+    'екатеринбург',
+    'санкт-Петербург',
+    'дулепово',
+    'сочи',
+    'бердск',
+  ],
+  findTags: [
+    'Architecture and patterns',
+    'C++',
+    'AI',
+    'HR',
+    'UX/UI',
+    'Docker',
+    'Kubernetes',
+    'Python',
+    'React',
+    'Redis',
+    'Cybersecurity',
+    'Data Management',
+    'Data Processing',
+    'DataOps',
+    'Product',
+    'architecture of IT solutions',
+    'Fintech',
+    'Project Management',
+    'C#',
+    'Interface design',
+    'Java',
+    'JavaScript',
+    'Rust',
+    'Go',
+    'Linux',
+    'MeeGo',
+    'MySQL',
+    'NGINX',
+    'PHP',
+    'PostgreSQL',
+    'SQL',
+    'game-industry',
+    '1C',
+    'EDO',
+    'XML',
+    'VPN',
+    'GPT',
+    'ML',
+    'b2c',
+    'b2b',
+    'ит в транспорте',
+    'FrontOps',
+    'FastAPI',
+    'спутниковая связь',
+    'animation',
+    'game-design',
+    'game-mechanics',
+  ],
 };
 
 export function useFilter({ values, setValues, setFindValues }) {
   const handleFilter = ({ name, value }) => {
-    const searchList = testData[name];
+    const searchList = testData[name]?.map((item) => item?.toLowerCase());
     const debouncedSetFindValues = debounce((data) => setFindValues(data), 500);
 
     if (searchList && value !== '') {

@@ -20,6 +20,12 @@
   line-height: 48px;
 }
 
+.listContainer {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+}
+
 .list {
   display: flex;
   flex-direction: column;

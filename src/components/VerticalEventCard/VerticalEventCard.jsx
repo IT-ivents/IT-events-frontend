@@ -30,10 +30,26 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
             setShowNotification(false);
           }, 1500);
         })
-
         .catch((error) => {
-          console.error('Failed to copy link:', error);
+          console.error('Не удалось скопировать ссылку:', error);
         });
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = link;
+      document.body.appendChild(textArea);
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 1500);
+      } catch (error) {
+        console.error('Не удалось скопировать ссылку:', error);
+      }
+
+      document.body.removeChild(textArea);
     }
   };
 
