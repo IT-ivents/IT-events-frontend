@@ -23,8 +23,10 @@ const navLinks = [
 ];
 
 const smallForm = {
-  width: '460px', // '449px'
+  width: '449px',
   height: '44px',
+  marginLeft: '100px',
+  marginRight: '275px', // ?
   border: '1px solid #C9CCD8',
 };
 

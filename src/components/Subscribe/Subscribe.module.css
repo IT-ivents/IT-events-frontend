@@ -1,5 +1,6 @@
 .subscribeSection {
-  padding: 24px 69px 30px;
+  width: 725px;
+  padding: 40px 0 133px 69px;
   cursor: default;
 }
 
@@ -21,13 +22,14 @@
 
 .subscibeForm {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   padding-top: 16px;
   padding-bottom: 20px;
 }
 
 .subscribeInput {
   width: 354px;
+  height: 51px;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #9e9e9e;

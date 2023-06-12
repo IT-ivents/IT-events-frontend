@@ -1,14 +1,17 @@
 .card {
   border-radius: 20px;
-  width: 100%;
+  /* width: 100%;
   height: fit-content;
-  display: flex;
+  display: flex; */
   gap: 24px;
+  display: grid;
+  grid-template-columns: 296px 600px;
 }
 
 .imageContainer {
   position: relative;
-  width: 296px;
+  border-radius: 8px;
+  /* width: 296px; */
   height: 180px;
   cursor: pointer;
 }
@@ -89,6 +92,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 25px;
+  margin-top: 8px;
   color: #674eae;
   width: fit-content;
   border-radius: 8px;
@@ -118,9 +122,10 @@
 .descriptionContainer {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  /* gap: 24px; */
+  gap: 16px;
   flex-grow: 1;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .eventFigure {
@@ -130,7 +135,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  margin-top: -8px;
+  /* margin-top: -8px; */
   color: #797979;
   cursor: pointer;
 }
