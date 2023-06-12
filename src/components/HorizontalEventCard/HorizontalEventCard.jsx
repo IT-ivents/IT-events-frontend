@@ -64,6 +64,7 @@
 import styles from './HorizontalEventCard.module.css';
 import { parseEventDate, formatPrice } from '../../utils/helperFunctions';
 import playIcon from '../../images/Actions/PlayCircle.svg';
+import defaultImage from '../../images/default-image.png';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const handleCardClick = () => {
@@ -74,6 +75,10 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
     onLikeClick(event);
   };
 
+  const handleImageError = (e) => {
+    e.target.src = defaultImage;
+  };
+
   return (
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
@@ -82,6 +87,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
           alt="event_picture"
           className={styles.image}
           onClick={handleCardClick}
+          onError={handleImageError}
         />
         <button
           className={`${
