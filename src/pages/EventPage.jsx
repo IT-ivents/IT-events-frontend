@@ -5,14 +5,14 @@ const EventPage = ({
   selectedEvent,
   onCardClick,
   onLikeClick,
-  interestingEvents,
+  recommendedEvents,
 }) => {
   return (
     <Event
       selectedEvent={selectedEvent}
       onCardClick={onCardClick}
       onLikeClick={onLikeClick}
-      interestingEvents={interestingEvents.slice(1, 5)}
+      recommendedEvents={recommendedEvents}
     />
   );
 };

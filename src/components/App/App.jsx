@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ import {
   PreferencesPage,
 } from '../../pages';
 import { useFilterdList } from '../../utils/hooks/useFilteredList';
+import { getRandomEvents } from '../../utils/helperFunctions';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -26,6 +27,7 @@ function App() {
   const [interestingEvents, setInterestingEvents] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [recommendedEvents, setRecommendedEvents] = useState([]);
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -42,6 +44,30 @@ function App() {
   console.log(values);
 
   const navigate = useNavigate();
+
+  const recommendedList = useMemo(() => {
+    if (!selectedEvent || !selectedEvent.tags) {
+      return [];
+    }
+    const recommended = eventsFromApi.filter((event) => {
+      return (
+        // Исключаем попадание выбранной карточки в список рекомендаций
+        event.id !== selectedEvent.id &&
+        event.tags.some((tag) => {
+          const tagName = tag.name.toLowerCase().trim();
+          return selectedEvent.tags.some(
+            (selectedTag) => selectedTag.name.toLowerCase().trim() === tagName
+          );
+        })
+      );
+    });
+    if (recommended.length === 0) {
+      const randomEvents = getRandomEvents(eventsFromApi, 4);
+      setRecommendedEvents(randomEvents);
+    } else {
+      setRecommendedEvents(recommended.slice(0, 4));
+    }
+  }, [selectedEvent, eventsFromApi]);
 
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
@@ -157,6 +183,7 @@ function App() {
     setSoonEvents((prevEvents) => updateEvents(prevEvents));
     setInterestingEvents((prevEvents) => updateEvents(prevEvents));
     setSearchResult((prevEvents) => updateEvents(prevEvents));
+    setRecommendedEvents((prevEvents) => updateEvents(prevEvents));
   }, [favorites]);
 
   // Функция обновления массивов событий
@@ -220,7 +247,7 @@ function App() {
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                   mostAnticipatedEvents={mostAnticipatedEvents}
-                  popularEvents={popularEvents}
+                  popularEvents={eventsFromApi}
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
                 />
@@ -230,7 +257,7 @@ function App() {
               path="event"
               element={
                 <EventPage
-                  interestingEvents={interestingEvents}
+                  recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}

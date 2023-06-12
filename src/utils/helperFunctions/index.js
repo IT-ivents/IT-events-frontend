@@ -74,3 +74,9 @@ export const formatDate = (dateString) => {
     .replace(formattedDay, capitalizedDay);
   return formattedDate;
 };
+
+// Функция для получения случайных элементов из массива
+export const getRandomEvents = (array, count) => {
+  const shuffled = array.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};

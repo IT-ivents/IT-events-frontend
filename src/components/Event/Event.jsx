@@ -6,7 +6,7 @@ const Event = ({
   selectedEvent,
   onCardClick,
   onLikeClick,
-  interestingEvents,
+  recommendedEvents,
 }) => {
   // Здесь нужен будет Loader потому что Event монтируется раньше того как приходит selectedEvent
   // и приложение крашится
@@ -29,7 +29,7 @@ const Event = ({
       </aside>
       <HorizontalEventsList
         title="Смотрите также"
-        list={interestingEvents}
+        list={recommendedEvents}
         onCardClick={onCardClick}
         onLikeClick={onLikeClick}
       />
