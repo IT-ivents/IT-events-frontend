@@ -20,18 +20,37 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   };
 
   const handleCopyLink = () => {
-    const link = event.url;
-    navigator.clipboard
-      .writeText(link)
-      .then(() => {
+    const link = event?.url;
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          setShowNotification(true);
+          setTimeout(() => {
+            setShowNotification(false);
+          }, 1500);
+        })
+        .catch((error) => {
+          console.error('Не удалось скопировать ссылку:', error);
+        });
+    } else {
+      const textArea = document.createElement('textarea');
+      textArea.value = link;
+      document.body.appendChild(textArea);
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
         setShowNotification(true);
         setTimeout(() => {
           setShowNotification(false);
         }, 1500);
-      })
-      .catch((error) => {
-        console.error('Failed to copy link:', error);
-      });
+      } catch (error) {
+        console.error('Не удалось скопировать ссылку:', error);
+      }
+
+      document.body.removeChild(textArea);
+    }
   };
 
   return (

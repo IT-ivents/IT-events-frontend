@@ -14,8 +14,7 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
-
-import { apiEvents } from '../../utils/api';
+import { useFilterdList } from '../../utils/hooks/useFilteredList';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -38,13 +37,17 @@ function App() {
     tags: [],
   });
   const [findValues, setFindValues] = useState(null);
+
+  const { status, city, date, price, tags } = values;
+  console.log(values);
+
   const navigate = useNavigate();
 
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
       const response = await axios.get('http://80.87.107.15/api/v1/events/');
       const data = response.data.results;
-      console.log(data);
+      //console.log(data);
       setEventsFromApi(data);
       localStorage.setItem('eventsData', JSON.stringify(data));
       // Разложить события по разным массивам
@@ -58,10 +61,6 @@ function App() {
         setPopularEvents(popular);
         setInterestingEvents(interesting);
         setSoonEvents(soon);
-
-        // Поиск событий по значению из поискового фильтра
-        const filteredEvents = searchEvents(findValues);
-        setSearchResult(filteredEvents);
       } else {
         throw new Error('Неверный формат данных eventsData:');
       }
@@ -89,12 +88,8 @@ function App() {
         setPopularEvents(popular);
         setInterestingEvents(interesting);
         setSoonEvents(soon);
-
-        // Поиск событий по значению из поискового фильтра
-        const filteredEvents = searchEvents(findValues);
-        setSearchResult(filteredEvents);
       } catch (error) {
-        console.error('Invalid eventsData format:', error);
+        console.error('Неверный формат данных eventsData:', error);
       }
     }
   }, []);
@@ -179,15 +174,17 @@ function App() {
         return { ...event, isLiked };
       })
       .filter((event) => {
-        const { title, description, price, topic } = event;
+        const { title, description, city, price, topic, tags } = event;
+        const lowerCaseQuery = query.toLowerCase().trim();
         return (
-          title?.toLowerCase().trim().includes(query.toLowerCase().trim()) ||
-          description
-            ?.toLowerCase()
-            .trim()
-            .includes(query.toLowerCase().trim()) ||
-          price?.toLowerCase().trim().includes(query.toLowerCase().trim()) ||
-          topic?.name?.toLowerCase().trim().includes(query.toLowerCase().trim())
+          title?.toLowerCase().trim().includes(lowerCaseQuery) ||
+          description?.toLowerCase().trim().includes(lowerCaseQuery) ||
+          city?.name?.toLowerCase().trim().includes(lowerCaseQuery) ||
+          price?.toLowerCase().trim().includes(lowerCaseQuery) ||
+          topic?.name?.toLowerCase().trim().includes(lowerCaseQuery) ||
+          tags.some((tag) =>
+            tag.name.toLowerCase().trim().includes(lowerCaseQuery)
+          )
         );
       });
 
@@ -201,21 +198,7 @@ function App() {
     navigate('/results'); // Перенаправление на страницу /results
   };
 
-  const [eventList, setEventList] = useState([]);
-
-  useEffect(() => {
-    apiEvents
-      .getEvents()
-      .then(({ success, data }) => {
-        if (success) {
-          setEventList(data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  console.dir(eventList);
+  const { filteredList } = useFilterdList({ values, searchResult });
 
   return (
     <SearchFilterContext.Provider
@@ -264,7 +247,16 @@ function App() {
                 />
               }
             />
-            <Route path="notifications" element={<NotificationsPage />} />
+            <Route
+              path="notifications"
+              element={
+                <NotificationsPage
+                  favoriteEvents={favorites}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
+                />
+              }
+            />
             <Route
               path="results"
               element={
