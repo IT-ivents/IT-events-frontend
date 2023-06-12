@@ -3,6 +3,7 @@ import styles from './Pages.module.css';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
+import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 
 const MainPage = ({
   onCardClick,
@@ -47,18 +48,23 @@ const MainPage = ({
     <div className={styles.mainPageWrapper}>
       <LeftFilerBar />
       <div className={styles.mainPageListWrapper}>
-        {mainPageEvents.map((event) => (
-          <HorizontalEventList
-            key={event.id}
-            list={event.list}
-            title={event.title}
-            span={event.span}
-            onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
-            elseButton={event.else}
-          />
-        ))}
-        <Subscribe />
+        <div>
+          <div className={styles.topFilterContainer}>
+            <TopFilersBar></TopFilersBar>
+          </div>
+          {mainPageEvents.map((event) => (
+            <HorizontalEventList
+              key={event.id}
+              list={event.list}
+              title={event.title}
+              span={event.span}
+              onCardClick={onCardClick}
+              onLikeClick={onLikeClick}
+              elseButton={event.else}
+            />
+          ))}
+          <Subscribe />
+        </div>
       </div>
     </div>
   );
