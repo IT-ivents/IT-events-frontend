@@ -42,11 +42,27 @@
   line-height: 24px;
 }
 
+.checkboxContainer {
+  display: flex;
+  align-items: start;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18.2px;
+  max-width: 377px;
+  color: #797979;
+  padding-bottom: 20px;
+}
+
+.policyLink {
+  color: #797979;
+}
+
 .alreadyButton {
   color: #797979;
   background: none;
   border: none;
-  border-bottom: 1px solid #797979;
+  border-bottom: 2px solid #797979;
   font-weight: 400;
   font-size: 20px;
   line-height: 25px;

@@ -11,6 +11,7 @@ const CustomCheckbox = ({
   position,
   right,
   padding,
+  ref,
 }) => {
   return (
     <label htmlFor={label}>
@@ -22,6 +23,7 @@ const CustomCheckbox = ({
         type="checkbox"
         className={styles.checkboxButton}
         checked={checked}
+        ref={ref}
       />
       <span
         className={styles.checkboxLabel}

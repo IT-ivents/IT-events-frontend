@@ -11,6 +11,8 @@
 
 .activeTab {
   position: relative;
+  color: #674eae;
+  padding: 2px 2px;
 }
 
 .activeTab::after {
@@ -21,11 +23,12 @@
   transform: translateX(-50%);
   width: 102%;
   height: 3px;
-  background-color: #828080;
+  background-color: #674eae;
 }
 
 .tab {
   color: #828080;
+  padding: 2px 2px;
 }
 
 .tabContent {
