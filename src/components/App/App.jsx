@@ -184,6 +184,7 @@ function App() {
     setInterestingEvents((prevEvents) => updateEvents(prevEvents));
     setSearchResult((prevEvents) => updateEvents(prevEvents));
     setRecommendedEvents((prevEvents) => updateEvents(prevEvents));
+    setEventsFromApi((prevEvents) => updateEvents(prevEvents));
   }, [favorites]);
 
   // Функция обновления массивов событий

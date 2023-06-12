@@ -1,6 +1,7 @@
 import styles from './Event.module.css';
 import EventDescription from '../EventDescription/EventDescription';
 import HorizontalEventsList from '../HorizontalEventList/HorizontalEventList';
+import defaultImage from '../../images/default-image.png';
 
 const Event = ({
   selectedEvent,
@@ -14,6 +15,10 @@ const Event = ({
     return <div>Loading...</div>;
   }
 
+  const handleImageError = (e) => {
+    e.target.src = defaultImage;
+  };
+
   return (
     <div className={styles.eventContainer}>
       <EventDescription
@@ -25,6 +30,7 @@ const Event = ({
           className={styles.eventImage}
           src={selectedEvent.image}
           alt={selectedEvent.title}
+          onError={handleImageError}
         />
       </aside>
       <HorizontalEventsList
