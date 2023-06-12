@@ -73,7 +73,7 @@
 
 /* Страница: Уведомления */
 .notificationsPageWrapper {
-  max-width: 1232px;
+  padding: 0 104px;
   display: flex;
   flex-direction: column;
   align-self: start;
@@ -191,4 +191,53 @@
 
 .topFilterContainer {
   margin-bottom: 80px;
+}
+
+.filterField {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  padding: 61px 0 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.filterList {
+  list-style-type: none;
+  display: flex;
+  gap: 25px;
+}
+
+.filterItem {
+  padding: 8px 40px 8px 15px;
+  border: 1px solid #5b5b5b;
+  border-radius: 100px;
+  position: relative;
+  display: flex;
+  cursor: pointer;
+}
+
+.filterItem:hover {
+  color: #674eae;
+}
+
+.filterItem::before {
+  content: '';
+  position: absolute;
+  top: 43%;
+  right: 0;
+  transform: translate(-50%) rotate(180deg);
+  border-left: 7.5px solid transparent;
+  border-right: 7.5px solid transparent;
+  border-bottom: 7.5px solid #2a2630;
+}
+
+.filterSpan {
+  position: absolute;
+  left: 25px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 25px;
+  color: #797979;
 }

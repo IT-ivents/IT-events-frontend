@@ -1,6 +1,15 @@
 .container {
   display: flex;
 }
+
+.countContainer {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 125%;
+  align-self: center;
+  margin-right: 20px;
+}
+
 .button {
   display: flex;
   align-items: center;
@@ -20,4 +29,16 @@
 
 .text {
   margin-right: 23px;
+}
+
+.clearData {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 135%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #674eae;
+  margin-left: 36px;
+  cursor: pointer;
 }
