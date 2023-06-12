@@ -7,26 +7,18 @@ import LikeImage from '../../images/like-button.svg';
 import LikeImageActive from '../../images/like-button_active.svg';
 import ShareImage from '../../images/Actions/Share.svg';
 import PopupLink from '../PopupLink/PopupLink';
-import { formatDate, formatPrice } from '../../utils/helperFunctions';
+import {
+  formatDate,
+  formatPrice,
+  handleCopyLink,
+} from '../../utils/helperFunctions';
 
 const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
-  const handleCopyLink = () => {
+  const handleButtonClick = () => {
     const link = selectedEvent?.url;
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard
-        .writeText(link)
-        .then(() => {
-          setShowNotification(true);
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 1500);
-        })
-        .catch((error) => {
-          console.error('Failed to copy link:', error);
-        });
-    }
+    handleCopyLink(link, setShowNotification);
   };
 
   const handleLikeClick = () => {
@@ -45,7 +37,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
               onClick={handleLikeClick}
             />
           </figure>
-          <figure className={styles.eventFigure} onClick={handleCopyLink}>
+          <figure className={styles.eventFigure} onClick={handleButtonClick}>
             <img src={ShareImage} alt="Share" />
           </figure>
         </div>

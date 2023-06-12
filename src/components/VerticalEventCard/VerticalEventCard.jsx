@@ -1,6 +1,10 @@
 import styles from './VerticalEventCard.module.css';
 import { useState } from 'react';
-import { formatDate, formatPrice } from '../../utils/helperFunctions';
+import {
+  formatDate,
+  formatPrice,
+  handleCopyLink,
+} from '../../utils/helperFunctions';
 import PopupLink from '../PopupLink/PopupLink';
 import defaultImage from '../../images/default-image.png';
 
@@ -19,38 +23,9 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
     e.target.src = defaultImage;
   };
 
-  const handleCopyLink = () => {
+  const handleCopyButtonClick = () => {
     const link = event?.url;
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard
-        .writeText(link)
-        .then(() => {
-          setShowNotification(true);
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 1500);
-        })
-        .catch((error) => {
-          console.error('Не удалось скопировать ссылку:', error);
-        });
-    } else {
-      const textArea = document.createElement('textarea');
-      textArea.value = link;
-      document.body.appendChild(textArea);
-      textArea.select();
-
-      try {
-        document.execCommand('copy');
-        setShowNotification(true);
-        setTimeout(() => {
-          setShowNotification(false);
-        }, 1500);
-      } catch (error) {
-        console.error('Не удалось скопировать ссылку:', error);
-      }
-
-      document.body.removeChild(textArea);
-    }
+    handleCopyLink(link, setShowNotification);
   };
 
   return (
@@ -78,7 +53,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <button
           className={styles.linkButton}
           type="button"
-          onClick={handleCopyLink}
+          onClick={handleCopyButtonClick}
         ></button>
         {showNotification && <PopupLink />}
       </div>

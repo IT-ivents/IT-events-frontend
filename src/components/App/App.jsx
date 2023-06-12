@@ -13,6 +13,7 @@ import {
   NotFoundPage,
   SearchResultPage,
   PreferencesPage,
+  PrivacyPolicyPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
 
@@ -77,7 +78,7 @@ function App() {
         const mostAnticipated = data.slice(0, 6);
         const popular = data.slice(7, 19);
         const interesting = data.slice(19, 31);
-        const soon = data.slice(32, 37);
+        const soon = data.slice(32, data.length - 1);
 
         setMostAnticipatedEvents(mostAnticipated);
         setPopularEvents(popular);
@@ -104,8 +105,7 @@ function App() {
         const mostAnticipated = parsedData.slice(0, 6);
         const popular = parsedData.slice(7, 19);
         const interesting = parsedData.slice(19, 31);
-        const soon = parsedData.slice(32, 37);
-
+        const soon = parsedData.slice(32, parsedData.length - 1);
         setMostAnticipatedEvents(mostAnticipated);
         setPopularEvents(popular);
         setInterestingEvents(interesting);
@@ -299,6 +299,7 @@ function App() {
               }
             />
             <Route path="preferences" element={<PreferencesPage />} />
+            <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />

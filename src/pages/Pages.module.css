@@ -29,7 +29,15 @@
   gap: 124px;
 }
 
-/* Страница: Событие */
+/* Страница: Политика */
+
+.policyPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  flex-grow: 1;
+  padding: 64px 104px 0;
+}
 
 /* Страница: Избранное */
 .favoritesPageWrapper {
