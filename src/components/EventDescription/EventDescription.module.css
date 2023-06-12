@@ -1,5 +1,6 @@
 .eventDescription {
   width: 600px;
+  margin-bottom: 217px;
   cursor: default;
 }
 
@@ -11,10 +12,11 @@
 }
 
 .eventName {
+  width: 504px;
+  margin-top: 0;
   font-weight: 700;
   line-height: 38.4px;
-  font-size: 24px;
-  width: 504px;
+  font-size: 32px;
 }
 
 .eventFigures {
@@ -40,7 +42,7 @@
   gap: 25px;
   padding: 0;
   color: #797979;
-  padding-bottom: 18px;
+  padding: 2px 0 18px;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -58,5 +60,5 @@
   font-weight: 500;
   line-height: 25px;
   font-size: 20px;
-  padding: 18px 0 40px;
+  padding: 19px 0 40px;
 }

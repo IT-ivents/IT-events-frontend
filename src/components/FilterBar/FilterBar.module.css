@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   gap: 73px;
   list-style-type: none;
-  padding: 69px 0 32px;
+  padding: 69px 0 32px 10px;
 }
 
 .filterButton {
