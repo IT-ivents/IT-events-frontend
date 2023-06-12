@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import styles from './Pages.module.css';
 import LeftFilterBar from './../components/LeftFilterBar/LeftFilterBar';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
 import PageTitle from '../components/PageTitle/PageTitle';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
+import { useFilterdList } from '../utils/hooks/useFilteredList';
+import SearchFilterContext from '../utils/context/SearchFilterContext';
 
 const SearchResultPage = ({
   searchResult,
@@ -10,7 +13,10 @@ const SearchResultPage = ({
   onCardClick,
   onLikeClick,
 }) => {
-  const isNothingFind = !searchResult || searchResult.length === 0;
+  const { values } = useContext(SearchFilterContext);
+  const { filteredList } = useFilterdList({ values, searchResult });
+  const isNothingFind = !filteredList || filteredList.length === 0;
+  console.log('filtered', filteredList);
 
   return (
     <section className={styles.searchResultPageWrapper}>
@@ -38,7 +44,7 @@ const SearchResultPage = ({
           </div>
           <div className={styles.searchResultListContainer}>
             <VerticalEventList
-              events={searchResult}
+              events={filteredList}
               onCardClick={onCardClick}
               onLikeClick={onLikeClick}
             />

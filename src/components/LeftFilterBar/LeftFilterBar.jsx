@@ -4,10 +4,13 @@ import TagsSection from './../TagsSection/TagsSection';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import { useFilter } from '../../utils/hooks/useFilter';
 import TagButton from '../TagButton/TagButton';
+import { useLocation } from 'react-router-dom';
 
-const LeftFilerBar = () => {
+const LeftFilerBar = ({ handleSearch }) => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
+  const location = useLocation();
+  console.log(location);
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
 
@@ -17,8 +20,6 @@ const LeftFilerBar = () => {
     findValues,
     setFindValues,
   });
-
-  //console.log(values);
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
@@ -231,6 +232,15 @@ const LeftFilerBar = () => {
         </li>
       </ul>
       <TagsSection handleChange={handleButtonChange} />
+      {location.pathname === '/' && (
+        <button
+          onClick={handleSearch}
+          className={styles.buttonSearch}
+          type="button"
+        >
+          Поиск
+        </button>
+      )}
     </section>
   );
 };
