@@ -37,7 +37,7 @@
   flex-direction: column;
   align-self: start;
   flex-grow: 1;
-  padding: 0 104px;
+  padding: 64px 104px 0;
 }
 
 .favoritesPageListContainer {
@@ -55,6 +55,7 @@
   line-height: 28.8px;
   padding-bottom: 20px;
 }
+
 .noFavoritesDesc {
   max-width: 721px;
   color: #797979;
@@ -78,6 +79,7 @@
   flex-direction: column;
   align-self: start;
   flex-grow: 1;
+  margin: 63px 0 0 104px;
 }
 
 /* Страница: Личный кабинет (стартовая) */
@@ -164,20 +166,22 @@
 
 .asideBlock {
   width: 502px;
-  background: #fefefe;
+  margin: 32px 0 0 104px;
 }
 
 .asideTitle {
   width: 320px;
-  margin: 64px auto 0;
   font-size: 48px;
+  line-height: 52.8px;
   color: #181818;
 }
 
 .asideText {
   width: 320px;
-  margin: 64.5px auto 0;
+  margin: 64.5px 0 0;
   font-size: 16px;
+  font-weight: 700;
+  line-height: 21.6px;
   color: #39364f;
 }
 
@@ -190,7 +194,7 @@
 }
 
 .topFilterContainer {
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 
 .filterField {

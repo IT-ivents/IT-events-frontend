@@ -17,7 +17,6 @@ export function useFilterdList({ values, searchResult }) {
     const filteredEvents = filterArray(searchResult, values);
     setFilteredList(filteredEvents);
   }, [searchResult, values]);
-  console.log('filtered', filteredList);
 
   function filterArray(array, filterParams) {
     let { status, city, date, specialities, price, tags } = filterParams;

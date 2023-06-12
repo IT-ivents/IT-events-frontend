@@ -9,12 +9,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
+  padding-bottom: 27px;
 }
 
 .title {
   font-weight: 700;
-  font-size: 40px;
+  /* font-size: 40px; */
+  font-size: 32px;
   line-height: 48px;
 }
 

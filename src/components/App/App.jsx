@@ -14,7 +14,6 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
-import { useFilterdList } from '../../utils/hooks/useFilteredList';
 import { getRandomEvents } from '../../utils/helperFunctions';
 
 function App() {
@@ -39,9 +38,6 @@ function App() {
     tags: [],
   });
   const [findValues, setFindValues] = useState(null);
-
-  const { status, city, date, price, tags } = values;
-  console.log(values);
 
   const navigate = useNavigate();
 
@@ -203,7 +199,9 @@ function App() {
       })
       .filter((event) => {
         const { title, description, city, price, topic, tags } = event;
-        const lowerCaseQuery = query.toLowerCase().trim();
+        const lowerCaseQuery = query && query.toLowerCase().trim();
+        console.log(lowerCaseQuery, 'lowerCaseQuery');
+        console.log(query, 'query');
         return (
           title?.toLowerCase().trim().includes(lowerCaseQuery) ||
           description?.toLowerCase().trim().includes(lowerCaseQuery) ||
@@ -226,7 +224,10 @@ function App() {
     navigate('/results'); // Перенаправление на страницу /results
   };
 
-  const { filteredList } = useFilterdList({ values, searchResult });
+  const handleFilterSearch = () => {
+    setSearchResult(eventsFromApi);
+    navigate('/results'); // Перенаправление на страницу /results
+  };
 
   return (
     <SearchFilterContext.Provider
@@ -251,6 +252,7 @@ function App() {
                   popularEvents={eventsFromApi}
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
+                  handleSearch={handleFilterSearch}
                 />
               }
             />

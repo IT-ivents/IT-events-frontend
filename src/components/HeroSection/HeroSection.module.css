@@ -1,11 +1,11 @@
 .section {
-  margin-top: -50px;
+  /* margin-top: -50px; */
   cursor: default;
 }
 
 .textContainer {
-  margin-top: 85px;
-  margin-bottom: 43px;
+  margin: 48px 0 40px;
+  margin-bottom: 40px;
 }
 
 .headText {
