@@ -13,13 +13,13 @@
 
 .footerList {
   display: flex;
-  gap: 33px;
-  margin-top: 10px;
+  gap: 30px;
+  /* margin-top: 10px; */
   /* padding: 24px 0; */
 }
 
 .footerItem {
-  padding-left: 15px;
+  padding-left: 10px;
   letter-spacing: -0.5px;
   color: #797979;
 }
@@ -34,6 +34,6 @@
 }
 
 .year {
-  margin-right: 324px;
+  margin-right: 337px;
   color: #f1f0eb;
 }

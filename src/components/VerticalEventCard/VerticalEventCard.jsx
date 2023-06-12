@@ -1,14 +1,14 @@
 import styles from './VerticalEventCard.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { formatDate, formatPrice } from '../../utils/helperFunctions';
+import PopupLink from '../PopupLink/PopupLink';
 import defaultImage from '../../images/default-image.png';
 
 const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
-  const navigate = useNavigate();
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleCardClick = () => {
     onCardClick(event);
-    navigate('/event');
   };
 
   const handleLikeClick = () => {
@@ -17,6 +17,21 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
 
   const handleImageError = (e) => {
     e.target.src = defaultImage;
+  };
+
+  const handleCopyLink = () => {
+    const link = event.url;
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        setShowNotification(true);
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 1500);
+      })
+      .catch((error) => {
+        console.error('Failed to copy link:', error);
+      });
   };
 
   return (
@@ -41,12 +56,17 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
 
       <div className={`${styles.descriptionContainer}`}>
         <h3 className={styles.title}>{event.title}</h3>
-        <button className={styles.linkButton} type="button"></button>
+        <button
+          className={styles.linkButton}
+          type="button"
+          onClick={handleCopyLink}
+        ></button>
+        {showNotification && <PopupLink />}
       </div>
       <div className={styles.rowContainer}>
         <time>{formatDate(event.date_start)}</time>
         <span>&bull;</span>
-        <p>{event.city?.name}</p>
+        <p>{event.city?.name || 'Нет данных'}</p>
       </div>
     </li>
   );
