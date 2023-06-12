@@ -1,6 +1,6 @@
 .eventTabs {
   width: fit-content;
-  margin: 60px 0 27px;
+  margin: 64px 0 52px;
   display: flex;
   gap: 30px;
   font-weight: 700;
@@ -30,5 +30,6 @@
 
 .tabContent {
   width: 560px;
+  font-size: 20px;
   color: #828080;
 }

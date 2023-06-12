@@ -157,7 +157,7 @@ const LeftFilerBar = ({ handleSearch }) => {
         </li>
         <li>
           <h3 className={styles.itemTitle}>Дата</h3>
-          <div>
+          <div className={styles.lessBlock}>
             {renderDateOptions()}
             <button onClick={toggleShowAllDates} className={styles.showMore}>
               {showAllDates ? 'Показать меньше' : 'Показать больше'}
@@ -166,7 +166,7 @@ const LeftFilerBar = ({ handleSearch }) => {
         </li>
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
-          <div>
+          <div className={styles.lessBlock}>
             {renderSpecialityOptions()}
             <button
               onClick={toggleShowAllSpecialities}
