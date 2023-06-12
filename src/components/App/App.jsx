@@ -14,6 +14,7 @@ import {
   SearchResultPage,
   PreferencesPage,
 } from '../../pages';
+import { useFilterdList } from '../../utils/hooks/useFilteredList';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -36,7 +37,7 @@ function App() {
     tags: [],
   });
   const [findValues, setFindValues] = useState(null);
-  const [filteredList, setFilteredList] = useState([]);
+
   const { status, city, date, price, tags } = values;
   console.log(values);
 
@@ -196,6 +197,8 @@ function App() {
     setSearchResult(filteredEvents);
     navigate('/results'); // Перенаправление на страницу /results
   };
+
+  const { filteredList } = useFilterdList({ values, searchResult });
 
   return (
     <SearchFilterContext.Provider
