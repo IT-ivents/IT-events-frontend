@@ -5,7 +5,7 @@ import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import { useFilter } from '../../utils/hooks/useFilter';
 import TagButton from '../TagButton/TagButton';
 
-const LeftFilerBar = () => {
+const LeftFilerBar = ({ handleSearch }) => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
   const { values, setValues, findValues, setFindValues } =
@@ -17,8 +17,6 @@ const LeftFilerBar = () => {
     findValues,
     setFindValues,
   });
-
-  //console.log(values);
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
@@ -231,6 +229,13 @@ const LeftFilerBar = () => {
         </li>
       </ul>
       <TagsSection handleChange={handleButtonChange} />
+      <button
+        onClick={handleSearch}
+        className={styles.buttonSearch}
+        type="button"
+      >
+        Поиск
+      </button>
     </section>
   );
 };

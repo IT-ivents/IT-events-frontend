@@ -12,6 +12,7 @@ const MainPage = ({
   interestingEvents,
   mostAnticipatedEvents,
   soonEvents,
+  handleSearch,
 }) => {
   const mainPageEvents = [
     {
@@ -46,7 +47,7 @@ const MainPage = ({
 
   return (
     <div className={styles.mainPageWrapper}>
-      <LeftFilerBar />
+      <LeftFilerBar handleSearch={handleSearch} />
       <div className={styles.mainPageListWrapper}>
         <div>
           <div className={styles.topFilterContainer}>

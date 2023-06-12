@@ -221,3 +221,56 @@
   margin: 10px;
   gap: 10px;
 }
+
+/* .buttonSearch {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 123px;
+  min-height: 44px;
+  border: 1px solid #9E9E9E;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #797979;
+  text-align: center;
+  cursor: pointer;
+}
+
+.buttonImageSearch {
+  margin-left: 11px;
+} */
+
+.buttonSearch {
+  background: url('../../images/Arrows/arrow-right_gray.svg') no-repeat;
+  background-position-x: 80px;
+  background-position-y: center;
+  background-color: transparent;
+  color: #797979;
+  border: 1px solid #797979;
+  border-radius: 8px;
+  width: 123px;
+  min-height: 44px;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 24px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.buttonSearch:hover {
+  background: url('../../images/Arrows/arrow-right_violet.svg') no-repeat;
+  background-position-x: 80px;
+  background-position-y: center;
+  border: 1px solid #674eae;
+  color: #674eae;
+}
+
+.buttonSearch:active {
+  background: url('../../images/Arrows/arrow-right_white.svg') no-repeat;
+  background-position-x: 80px;
+  background-position-y: center;
+  border: 1px solid #674eae;
+  background-color: #674eae;
+  color: white;
+}
