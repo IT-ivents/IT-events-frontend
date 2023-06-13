@@ -82,7 +82,6 @@
 
 /* Страница: Уведомления */
 .notificationsPageWrapper {
-  padding: 0 104px;
   display: flex;
   flex-direction: column;
   align-self: start;

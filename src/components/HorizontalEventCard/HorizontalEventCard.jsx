@@ -107,10 +107,12 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
             <time>{parseEventDate(event.date_start)}</time>
           </li>
           <li className={styles.rowItem}>
-            <p>{event.city?.name}</p>
+            <p>{event.city?.name || 'Нет данных о городе'}</p>
           </li>
           <li className={styles.rowItem}>
-            <p className={styles.address}>{event?.address || 'Нет данных'}</p>
+            <p className={styles.address}>
+              {event?.address || 'Нет данных об адресе'}
+            </p>
           </li>
         </ul>
         <figure className={styles.eventFigure}>

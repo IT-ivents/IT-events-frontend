@@ -39,7 +39,7 @@ const smallInput = {
   width: '397px', // '388px' + font-weight: 400 (::placeholder!)
 };
 
-const Header = ({ onSearch }) => {
+const Header = ({ onSearch, searchQuery }) => {
   const location = useLocation();
 
   return location.pathname === '/' ? (
@@ -72,6 +72,7 @@ const Header = ({ onSearch }) => {
           </Link>
           <SearchField
             onSearch={onSearch}
+            searchQuery={searchQuery}
             smallForm={smallForm}
             smallFieldset={smallFieldset}
             smallInput={smallInput}
