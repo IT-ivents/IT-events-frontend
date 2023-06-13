@@ -47,7 +47,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
           {formatDate(selectedEvent.date_start)}
         </li>
         <li className={styles.eventDate}>
-          {selectedEvent?.address || 'Нет данных'}
+          {selectedEvent?.address || 'Нет данных об адресе'}
         </li>
       </ul>
       <figure className={styles.eventFigure}>

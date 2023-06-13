@@ -13,8 +13,8 @@ const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
         </div>
       )}
       <ul className={`${styles.list}`}>
-        {events.map((event) => (
-          <div className={styles.listContainer}>
+        {events.map((event, index) => (
+          <div key={index} className={styles.listContainer}>
             {location.pathname === '/notifications' && (
               <CustomCheckbox position="none" />
             )}

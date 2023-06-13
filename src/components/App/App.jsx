@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 import axios from 'axios';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
@@ -19,6 +19,7 @@ import { getRandomEvents } from '../../utils/helperFunctions';
 
 function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [eventsFromApi, setEventsFromApi] = useState([]);
 
   const [mostAnticipatedEvents, setMostAnticipatedEvents] = useState([]);
@@ -28,6 +29,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -41,6 +43,19 @@ function App() {
   const [findValues, setFindValues] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const resetFilters = () => {
+    setValues({
+      status: [],
+      city: null,
+      date: null,
+      specialities: [],
+      price: null,
+      findTags: null,
+      tags: [],
+    });
+  };
 
   const recommendedList = useMemo(() => {
     if (!selectedEvent || !selectedEvent.tags) {
@@ -192,41 +207,65 @@ function App() {
   };
 
   const searchEvents = (query) => {
+    const words = query.toLowerCase().trim().split(' ');
+    // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
+    // хотя бы одного слова.
     const filteredEvents = [...eventsFromApi]
       .map((event) => {
         const isLiked = favorites.some((item) => item.id === event.id);
-        return { ...event, isLiked };
+        // Установим релевантность
+        return { ...event, isLiked, relevance: 0 };
       })
-      .filter((event) => {
-        const { title, description, city, price, topic, tags } = event;
-        const lowerCaseQuery = query && query.toLowerCase().trim();
-        console.log(lowerCaseQuery, 'lowerCaseQuery');
-        console.log(query, 'query');
-        return (
-          title?.toLowerCase().trim().includes(lowerCaseQuery) ||
-          description?.toLowerCase().trim().includes(lowerCaseQuery) ||
-          city?.name?.toLowerCase().trim().includes(lowerCaseQuery) ||
-          price?.toLowerCase().trim().includes(lowerCaseQuery) ||
-          topic?.name?.toLowerCase().trim().includes(lowerCaseQuery) ||
-          tags.some((tag) =>
-            tag.name.toLowerCase().trim().includes(lowerCaseQuery)
-          )
-        );
-      });
+      .map((event) => {
+        const { title, description, city, price, topic, tags, date_start } =
+          event;
 
-    console.log('Filtered events:', filteredEvents); // Debug output
+        words.forEach((word) => {
+          const lowerCaseWord = word.toLowerCase().trim();
+
+          if (
+            title?.toLowerCase().trim().includes(lowerCaseWord) ||
+            description?.toLowerCase().trim().includes(lowerCaseWord) ||
+            city?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
+            price?.toLowerCase().trim().includes(lowerCaseWord) ||
+            topic?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
+            tags.some((tag) =>
+              tag.name.toLowerCase().trim().includes(lowerCaseWord)
+            )
+          ) {
+            // При каждом совпадении увеличиваем релевантность конкретной карточки
+            // filtered в консоли показывает результат нашего поиска
+            event.relevance++;
+          }
+        });
+        const startDate = new Date(date_start).getTime();
+        event.startDate = startDate;
+
+        return event;
+      })
+      .filter((event) => event.relevance > 0)
+      // Сортируем по релевантности наши карточки и потом по дате от ближайшего
+      .sort((a, b) => {
+        if (a.relevance !== b.relevance) {
+          return b.relevance - a.relevance;
+        } else {
+          return a.startDate - b.startDate;
+        }
+      });
     return filteredEvents;
   };
 
   const handleSearch = (query) => {
     const filteredEvents = searchEvents(query);
+    setSearchQuery(query);
     setSearchResult(filteredEvents);
-    navigate('/results'); // Перенаправление на страницу /results
+    resetFilters(); // Сбросить фильтры
+    navigate('/results');
   };
 
   const handleFilterSearch = () => {
     setSearchResult(eventsFromApi);
-    navigate('/results'); // Перенаправление на страницу /results
+    navigate('/results');
   };
 
   return (
@@ -240,7 +279,7 @@ function App() {
     >
       <div className={styles.wrapper}>
         <div className={styles.page}>
-          <Header onSearch={handleSearch} />
+          <Header onSearch={handleSearch} searchQuery={searchQuery} />
           <Routes>
             <Route
               path="/"

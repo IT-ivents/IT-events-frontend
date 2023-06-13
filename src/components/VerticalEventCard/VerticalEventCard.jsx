@@ -60,7 +60,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
       <div className={styles.rowContainer}>
         <time>{formatDate(event.date_start)}</time>
         <span>&bull;</span>
-        <p>{event.city?.name || 'Нет данных'}</p>
+        <p>{event.city?.name || 'Город неизвестен'}</p>
       </div>
     </li>
   );
