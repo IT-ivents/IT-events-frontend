@@ -25,42 +25,46 @@ const TopFilersBar = () => {
     });
   };
 
-  const activeFilter = arr.filter((item) => item[1] && item[1].length !== 0);
-  const filterCount = activeFilter.length !== 0 ? activeFilter : null;
+  // Создание отдельного массива тегов
+  const tags = arr.reduce((acc, [name, value]) => {
+    if (name !== 'findTags' && value && value.length !== 0) {
+      const tagArr = Array.isArray(value) ? value : value.split(', ');
+      return acc.concat(tagArr);
+    }
+    return acc;
+  }, []);
+
+  const filterCount = tags.length !== 0 ? tags : null;
 
   return (
     <div className={styles.container}>
       {filterCount && (
         <div className={styles.countContainer}>
-          Фильры: {filterCount.length}
+          Фильтры: {filterCount.length}
         </div>
       )}
       {arr.map((item, index) => {
-        const text = () => {
-          const name = item[0];
-          const value = item[1];
+        const name = item[0];
+        const value = item[1];
 
-          if (name === 'findTags') {
-            return null;
-          } else if (value && value.length !== 0) {
-            if (typeof value === 'string') {
-              return value;
-            } else return value.join(', ');
-          }
-        };
-        return (
-          text() && (
+        if (name === 'findTags') {
+          return null;
+        } else if (value && value.length !== 0) {
+          const tags = Array.isArray(value) ? value : value.split(', ');
+
+          return tags.map((tag, tagIndex) => (
             <button
               onClick={() => deleteValue(item[0])}
               className={styles.button}
-              key={index}
+              key={tagIndex}
               type="button"
             >
-              <span className={styles.text}>{text()}</span>
+              <span className={styles.text}>{tag}</span>
               <img src={Cross} alt="Cross" />
             </button>
-          )
-        );
+          ));
+        }
+        return null;
       })}
       {filterCount && (
         <div onClick={handleClearFilter} className={styles.clearData}>

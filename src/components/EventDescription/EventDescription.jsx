@@ -10,6 +10,7 @@ import PopupLink from '../PopupLink/PopupLink';
 import {
   formatDate,
   formatPrice,
+  formatTimeRange,
   handleCopyLink,
 } from '../../utils/helperFunctions';
 
@@ -24,6 +25,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const handleLikeClick = () => {
     onLikeClick(selectedEvent);
   };
+
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
@@ -47,7 +49,12 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
           {formatDate(selectedEvent.date_start)}
         </li>
         <li className={styles.eventDate}>
-          {selectedEvent?.address || 'Нет данных об адресе'}
+          {formatTimeRange(selectedEvent.date_start, selectedEvent.date_end)}
+        </li>
+        <li className={styles.eventDate}>
+          {selectedEvent?.address?.split(' ').slice(0, 5).join(' ') ||
+            selectedEvent?.city?.name ||
+            'Нет данных'}
         </li>
       </ul>
       <figure className={styles.eventFigure}>
