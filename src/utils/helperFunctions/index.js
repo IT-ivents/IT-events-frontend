@@ -113,30 +113,15 @@ export const handleCopyLink = (link, setShowNotification) => {
   }
 };
 
-export const levenshteinDistance = (a, b) => {
-  const matrix = Array(a.length + 1)
-    .fill(null)
-    .map(() => Array(b.length + 1).fill(null));
+const formatTime = (dateString) => {
+  const date = new Date(dateString);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+};
 
-  for (let i = 0; i <= a.length; i++) {
-    matrix[i][0] = i;
-  }
-
-  for (let j = 0; j <= b.length; j++) {
-    matrix[0][j] = j;
-  }
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,
-        matrix[i][j - 1] + 1,
-        matrix[i - 1][j - 1] + cost
-      );
-    }
-  }
-
-  return matrix[a.length][b.length];
+export const formatTimeRange = (start, end) => {
+  const startTime = formatTime(start);
+  const endTime = formatTime(end);
+  return `${startTime} - ${endTime}`;
 };

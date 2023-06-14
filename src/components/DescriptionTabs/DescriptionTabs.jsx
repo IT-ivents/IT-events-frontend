@@ -16,7 +16,7 @@ const DescriptionTabs = ({ selectedEvent }) => {
       case 1:
         return selectedEvent?.program || 'Нет данных';
       case 2:
-        return selectedEvent?.organizers || 'Нет данных';
+        return selectedEvent?.organizer || 'Нет данных';
       case 3:
         return selectedEvent?.partners || 'Нет данных';
       default:

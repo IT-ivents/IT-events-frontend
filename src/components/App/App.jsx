@@ -57,6 +57,12 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    if (location.pathname === '/results') {
+      handleSearch('');
+    }
+  }, [location]);
+
   const recommendedList = useMemo(() => {
     if (!selectedEvent || !selectedEvent.tags) {
       return [];

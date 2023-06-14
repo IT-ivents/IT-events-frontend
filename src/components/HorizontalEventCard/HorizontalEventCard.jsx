@@ -62,7 +62,11 @@
 // export default HorizontalEventCard;
 
 import styles from './HorizontalEventCard.module.css';
-import { parseEventDate, formatPrice } from '../../utils/helperFunctions';
+import {
+  parseEventDate,
+  formatPrice,
+  formatTimeRange,
+} from '../../utils/helperFunctions';
 import playIcon from '../../images/Actions/PlayCircle.svg';
 import defaultImage from '../../images/default-image.png';
 
@@ -105,6 +109,9 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <ul className={styles.rowContainer}>
           <li className={styles.rowItem}>
             <time>{parseEventDate(event.date_start)}</time>
+          </li>
+          <li className={styles.rowItem}>
+            <time>{formatTimeRange(event.date_start, event.date_end)}</time>
           </li>
           <li className={styles.rowItem}>
             <p>{event.city?.name || 'Нет данных о городе'}</p>
