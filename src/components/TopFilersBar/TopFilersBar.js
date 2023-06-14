@@ -7,10 +7,14 @@ const TopFilersBar = () => {
   const { values, setValues } = useContext(SearchFilterContext);
   const arr = Object.entries(values);
 
-  const deleteValue = (item) => {
+  const deleteValue = (item, tag) => {
     if (item === 'status' || item === 'tags' || item === 'specialities') {
-      setValues({ ...values, [item]: [] });
-    } else setValues({ ...values, [item]: null });
+      const updatedValues = { ...values };
+      updatedValues[item] = values[item].filter((value) => value !== tag);
+      setValues(updatedValues);
+    } else {
+      setValues({ ...values, [item]: null });
+    }
   };
 
   const handleClearFilter = () => {
@@ -53,14 +57,13 @@ const TopFilersBar = () => {
           const tags = Array.isArray(value) ? value : value.split(', ');
 
           return tags.map((tag, tagIndex) => (
-            <button
-              onClick={() => deleteValue(item[0])}
-              className={styles.button}
-              key={tagIndex}
-              type="button"
-            >
+            <button className={styles.button} key={tagIndex} type="button">
               <span className={styles.text}>{tag}</span>
-              <img src={Cross} alt="Cross" />
+              <img
+                src={Cross}
+                alt="Cross"
+                onClick={() => deleteValue(item[0], tag)}
+              />
             </button>
           ));
         }

@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .countContainer {
@@ -24,7 +26,6 @@
   font-size: 12px;
   line-height: 135%;
   color: #797979;
-  margin-right: 8px;
 }
 
 .text {
