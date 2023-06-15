@@ -10,7 +10,6 @@ const LeftFilerBar = ({ handleSearch }) => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllSpecialities, setShowAllSpecialities] = useState(false);
   const location = useLocation();
-  console.log(location);
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
 

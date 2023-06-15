@@ -45,23 +45,26 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const resetFilters = () => {
-    setValues({
-      status: [],
-      city: null,
-      date: null,
-      specialities: [],
-      price: null,
-      findTags: null,
-      tags: [],
-    });
-  };
+  // const resetFilters = () => {
+  //   setValues({
+  //     status: [],
+  //     city: null,
+  //     date: null,
+  //     specialities: [],
+  //     price: null,
+  //     findTags: null,
+  //     tags: [],
+  //   });
+  // };
 
   useEffect(() => {
     if (location.pathname === '/results') {
-      handleSearch('');
+      if (searchQuery === '') {
+        // Добавленная проверка на пустой поисковый запрос
+        handleSearch('');
+      }
     }
-  }, [location]);
+  }, [location, searchQuery]);
 
   const recommendedList = useMemo(() => {
     if (!selectedEvent || !selectedEvent.tags) {
@@ -82,8 +85,10 @@ function App() {
     if (recommended.length === 0) {
       const randomEvents = getRandomEvents(eventsFromApi, 4);
       setRecommendedEvents(randomEvents);
+      return randomEvents; // Добавлен возврат значения
     } else {
       setRecommendedEvents(recommended.slice(0, 4));
+      return recommended.slice(0, 4); // Добавлен возврат значения
     }
   }, [selectedEvent, eventsFromApi]);
 
@@ -262,10 +267,9 @@ function App() {
   };
 
   const handleSearch = (query) => {
-    const filteredEvents = searchEvents(query);
+    //const filteredEvents = searchEvents(query);
     setSearchQuery(query);
-    setSearchResult(filteredEvents);
-    resetFilters(); // Сбросить фильтры
+    //setSearchResult(filteredEvents);
     navigate('/results');
   };
 
