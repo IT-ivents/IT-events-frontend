@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 export function useFilterdList({ values, searchResult }) {
   const [filteredList, setFilteredList] = useState([]);
 
+  useEffect(() => {
+    console.log('useFilterdList called'); // Отладочный вывод
+  }, [values, searchResult]);
+
   //список городов из листа событий
   const cityDB = searchResult.map((item) => item.city).filter((item) => item);
   const filteredCityList = [...new Set(cityDB.map((item) => item.name))];

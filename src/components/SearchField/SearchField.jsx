@@ -15,20 +15,20 @@ const SearchField = ({
   const location = useLocation();
   const isResultsPage = location.pathname === '/results';
   const placeholder =
-    isResultsPage && query.trim() === ''
+    isResultsPage && typeof query !== 'string'
       ? ''
       : 'Поиск по направлению, названию, теме или городу';
 
   const setPageQuery = () => {
-    if (isResultsPage) {
-      setQuery(searchQuery);
-    } else {
-      setQuery('');
-    }
+    setQuery(searchQuery);
   };
   // Чтобы чертова поисковая строка была заполнена результатом только на странице results
   useEffect(() => {
-    setPageQuery();
+    if (isResultsPage) {
+      setPageQuery(searchQuery);
+    } else {
+      setPageQuery('');
+    }
   }, [location]);
 
   const handleChange = (e) => {
@@ -48,7 +48,7 @@ const SearchField = ({
           className={styles.input}
           placeholder={placeholder}
           onChange={handleChange}
-          value={query}
+          value={query || ''}
           type="text"
           style={smallInput}
         />

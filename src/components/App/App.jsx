@@ -58,8 +58,9 @@ function App() {
   };
 
   useEffect(() => {
-    if (location.pathname === '/results') {
-      handleSearch('');
+    if (location.pathname === '/') {
+      resetFilters();
+      setSearchQuery('');
     }
   }, [location]);
 
@@ -82,8 +83,10 @@ function App() {
     if (recommended.length === 0) {
       const randomEvents = getRandomEvents(eventsFromApi, 4);
       setRecommendedEvents(randomEvents);
+      return randomEvents; // Добавлен возврат значения
     } else {
       setRecommendedEvents(recommended.slice(0, 4));
+      return recommended.slice(0, 4); // Добавлен возврат значения
     }
   }, [selectedEvent, eventsFromApi]);
 
@@ -213,6 +216,10 @@ function App() {
   };
 
   const searchEvents = (query) => {
+    console.log(query);
+    if (typeof query !== 'string') {
+      return eventsFromApi;
+    }
     const words = query.toLowerCase().trim().split(' ');
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
@@ -261,15 +268,17 @@ function App() {
     return filteredEvents;
   };
 
+  //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);
+
   const handleSearch = (query) => {
-    const filteredEvents = searchEvents(query);
     setSearchQuery(query);
-    setSearchResult(filteredEvents);
-    resetFilters(); // Сбросить фильтры
+    const filteredResult = searchEvents(query);
+    setSearchResult(filteredResult);
     navigate('/results');
   };
 
   const handleFilterSearch = () => {
+    //setSearchQuery(query)
     setSearchResult(eventsFromApi);
     navigate('/results');
   };
@@ -298,6 +307,7 @@ function App() {
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
                   handleSearch={handleFilterSearch}
+                  searchQuery={searchQuery}
                 />
               }
             />
@@ -337,6 +347,7 @@ function App() {
               element={
                 <SearchResultPage
                   searchResult={searchResult}
+                  searchQuery={searchQuery}
                   popularEvents={popularEvents}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
