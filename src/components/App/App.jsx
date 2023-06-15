@@ -45,26 +45,24 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const resetFilters = () => {
-  //   setValues({
-  //     status: [],
-  //     city: null,
-  //     date: null,
-  //     specialities: [],
-  //     price: null,
-  //     findTags: null,
-  //     tags: [],
-  //   });
-  // };
+  const resetFilters = () => {
+    setValues({
+      status: [],
+      city: null,
+      date: null,
+      specialities: [],
+      price: null,
+      findTags: null,
+      tags: [],
+    });
+  };
 
   useEffect(() => {
-    if (location.pathname === '/results') {
-      if (searchQuery === '') {
-        // Добавленная проверка на пустой поисковый запрос
-        handleSearch('');
-      }
+    if (location.pathname === '/') {
+      resetFilters();
+      setSearchQuery('');
     }
-  }, [location, searchQuery]);
+  }, [location]);
 
   const recommendedList = useMemo(() => {
     if (!selectedEvent || !selectedEvent.tags) {
@@ -218,6 +216,10 @@ function App() {
   };
 
   const searchEvents = (query) => {
+    console.log(query);
+    if (typeof query !== 'string') {
+      return eventsFromApi;
+    }
     const words = query.toLowerCase().trim().split(' ');
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
@@ -266,14 +268,17 @@ function App() {
     return filteredEvents;
   };
 
+  //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);
+
   const handleSearch = (query) => {
-    //const filteredEvents = searchEvents(query);
     setSearchQuery(query);
-    //setSearchResult(filteredEvents);
+    const filteredResult = searchEvents(query);
+    setSearchResult(filteredResult);
     navigate('/results');
   };
 
   const handleFilterSearch = () => {
+    //setSearchQuery(query)
     setSearchResult(eventsFromApi);
     navigate('/results');
   };
@@ -302,6 +307,7 @@ function App() {
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
                   handleSearch={handleFilterSearch}
+                  searchQuery={searchQuery}
                 />
               }
             />
@@ -341,6 +347,7 @@ function App() {
               element={
                 <SearchResultPage
                   searchResult={searchResult}
+                  searchQuery={searchQuery}
                   popularEvents={popularEvents}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}

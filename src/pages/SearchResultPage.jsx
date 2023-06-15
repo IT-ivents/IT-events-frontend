@@ -12,6 +12,7 @@ const SearchResultPage = ({
   popularEvents,
   onCardClick,
   onLikeClick,
+  searchQuery,
 }) => {
   const { values } = useContext(SearchFilterContext);
   const { filteredList } = useFilterdList({ values, searchResult });
@@ -20,7 +21,7 @@ const SearchResultPage = ({
 
   return (
     <section className={styles.searchResultPageWrapper}>
-      <LeftFilterBar />
+      <LeftFilterBar searchQuery={searchQuery} />
       {isNothingFind ? (
         <div>
           <TopFilersBar></TopFilersBar>
