@@ -56,6 +56,7 @@
 
 .policyLink {
   color: #797979;
+  text-underline-offset: 3px;
 }
 
 .alreadyButton {

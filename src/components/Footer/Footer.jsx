@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 const Footer = () => {
@@ -8,7 +9,9 @@ const Footer = () => {
       <span className={styles.year}>&copy; {date} IT-events</span>
       <ul className={styles.footerList}>
         <li className={styles.footerItem}>
-          <span>О нас</span>
+          <Link to="/about" className={styles.logoLink}>
+            <span>О нас</span>
+          </Link>
         </li>
         <li className={styles.footerItem}>
           <span>Политика конфиденциональности</span>

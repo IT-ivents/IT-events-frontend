@@ -6,6 +6,7 @@ import NotFoundPage from './NotFoundPage';
 import SearchResultPage from './SearchResultPage';
 import PreferencesPage from './PreferencesPage';
 import PrivacyPolicyPage from './PrivacyPolicyPage';
+import About from './About';
 
 export {
   MainPage,
@@ -16,4 +17,5 @@ export {
   SearchResultPage,
   PreferencesPage,
   PrivacyPolicyPage,
+  About,
 };
