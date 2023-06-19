@@ -14,6 +14,7 @@ import {
   SearchResultPage,
   PreferencesPage,
   PrivacyPolicyPage,
+  About,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
 
@@ -356,6 +357,7 @@ function App() {
             />
             <Route path="preferences" element={<PreferencesPage />} />
             <Route path="privacy" element={<PrivacyPolicyPage />} />
+            <Route path="about" element={<About />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />

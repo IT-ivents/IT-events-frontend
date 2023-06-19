@@ -56,8 +56,9 @@ const Subscribe = () => {
         <p className={styles.policyText}>
           Нажимая кнопку «Подписаться», вы соглашаетесь <br />c{' '}
           <Link to="/privacy" className={styles.policyLink}>
-            Политикой конфиденциальности.
+            Политикой конфиденциальности
           </Link>
+          .
         </p>
       </div>
       <button
