@@ -13,6 +13,7 @@
   font-size: 48px;
   margin: 0 0 34px;
   color: #2a2630;
+  cursor: default;
 }
 
 .title {
@@ -20,6 +21,7 @@
   font-weight: 600;
   margin: 0 0 16px;
   color: #2a2630;
+  cursor: default;
 }
 
 .text {
@@ -28,6 +30,7 @@
   line-height: 25px;
   margin: 0 0 34px;
   color: #5b5b5b;
+  cursor: default;
 }
 
 .text:last-of-type {
@@ -45,14 +48,14 @@
   width: 250px;
   height: 254px;
   border-radius: 40% 0 0;
-  margin: 103px 38px 0 0;
+  margin: 103px 38px 0 1px;
 }
 
 .imageTwo {
   width: 135px;
   height: 135px;
   border-radius: 18%;
-  margin: 181px 21px 0 0;
+  margin: 181px 20px 0 0;
 }
 
 .imageThree {
@@ -80,12 +83,14 @@
   font-weight: 700;
   color: #242424;
   margin: 125px 0 58px;
+  cursor: default;
 }
 
 .numbers {
   display: flex;
   justify-content: space-between;
   width: 1179px;
+  cursor: default;
 }
 
 .number {
@@ -111,6 +116,7 @@
   height: 532px;
   background: #f9f9f9;
   margin: 165px 0 195px;
+  cursor: default;
 }
 
 .imgBackground {
