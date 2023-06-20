@@ -28,13 +28,19 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 25px;
-  margin: 0 0 34px;
   color: #5b5b5b;
   cursor: default;
 }
 
-.text:last-of-type {
+.block:last-of-type {
   margin: 0 0 40px;
+}
+
+.blockList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .aside {
@@ -86,8 +92,10 @@
   cursor: default;
 }
 
-.numbers {
+.numbersList {
+  list-style-type: none;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 1179px;
   cursor: default;

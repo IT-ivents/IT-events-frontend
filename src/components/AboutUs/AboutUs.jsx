@@ -10,80 +10,63 @@ import Background from '../../images/Form-questions/img-background.svg';
 import Cat from '../../images/Form-questions/cat.svg';
 import Arrow from '../../images/Form-questions/cat-arrow.svg';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import { aboutText, spanBlock } from '../../utils/constants/aboutPageText';
+
+const images = [
+  { src: Image1, style: styles.imageOne },
+  { src: Image2, style: styles.imageTwo },
+  { src: Image3, style: styles.imageThree },
+  { src: Image4, style: styles.imageFour },
+  { src: Image5, style: styles.imageFive },
+];
 
 const AboutUs = () => {
   return (
     <section className={styles.about}>
       <div className={styles.description}>
         <h1 className={styles.mainTitle}>О нас</h1>
-        <h2 className={styles.title}>Мы помогаем людям находить ИТ-события.</h2>
-        <p className={styles.text}>
-          Connect-IT сайт-агрегатор. Мы — собираем вокруг себя целевую аудиторию
-          и являемся эффективной площадкой для поиска и продвижения мероприятий.
-        </p>
-        <h2 className={styles.title}>Наша цель</h2>
-        <p className={styles.text}>
-          Сделать процесс поиска и участия в мероприятиях в области
-          информационных технологий максимально простым и удобным для всех.
-        </p>
-        <h2 className={styles.title}>Технологии</h2>
-        <p className={styles.text}>
-          Connect-IT — это платформа, которая умеет самостоятельно находить
-          интересные события для людей ИТ-мира. Также наше решение позволяет
-          организаторам добавлять свои мероприятия, подгружать фото, вести
-          трансляции и продавать билеты.
-        </p>
-        <h2 className={styles.title}>Сотрудничество</h2>
-        <p className={styles.text}>
-          Мы помогаем организаторам создавать мероприятия, продвигать их и
-          продавать билеты, а участникам — находить интересные события в своем
-          городе.
-        </p>
+        {/* TEXT BLOCK */}
+        <ul className={styles.blockList}>
+          {aboutText.map((block) => (
+            <li key={block.id} className={styles.block}>
+              <h2 className={styles.title}>{block.title}</h2>
+              <p className={styles.text}>{block.text}</p>
+            </li>
+          ))}
+        </ul>
         <PrimaryButton title="Стать партнером" />
       </div>
-
+      {/* IMAGES BLOCK */}
       <aside className={styles.aside}>
-        <img src={Image1} alt="Image" className={styles.imageOne} />
-        <img src={Image2} alt="Image" className={styles.imageTwo} />
-        <img src={Image3} alt="Image" className={styles.imageThree} />
-        <img src={Image4} alt="Image" className={styles.imageFour} />
-        <img src={Image5} alt="Image" className={styles.imageFive} />
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image.src}
+            alt="Изображение конференции"
+            className={image.style}
+          />
+        ))}
       </aside>
 
       <div>
         <h3 className={styles.connectTitle}>Connect-IT — это:</h3>
-        <div className={styles.numbers}>
-          <figure>
-            <p className={styles.number}>
-              300<span>+</span>
-            </p>
-            <figcaption className={styles.figcaption}>It-событий</figcaption>
-          </figure>
-          <figure>
-            <p className={styles.number}>
-              100<span>+</span>
-            </p>
-            <figcaption className={styles.figcaption}>
-              счастливых клиентов
-            </figcaption>
-          </figure>
-          <figure>
-            <p className={styles.number}>
-              35<span>+</span>
-            </p>
-            <figcaption className={styles.figcaption}>
-              замечательных сотрудников
-            </figcaption>
-          </figure>
-          <figure>
-            <p className={styles.number}>
-              24<span>/</span>7
-            </p>
-            <figcaption className={styles.figcaption}>
-              наша поддержка
-            </figcaption>
-          </figure>
-        </div>
+        {/* SPAN BLOCK */}
+        <ul className={styles.numbersList}>
+          {spanBlock.map((block) => (
+            <li key={block.id}>
+              <figure>
+                <p className={styles.number}>
+                  {block.title}
+                  <span>{block.span}</span>
+                  {block.endTtitle}
+                </p>
+                <figcaption className={styles.figcaption}>
+                  {block.subtitle}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <form action="#" className={styles.form}>
