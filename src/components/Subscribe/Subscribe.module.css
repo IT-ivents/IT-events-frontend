@@ -1,7 +1,17 @@
 .subscribeSection {
-  width: 725px;
-  padding: 40px 0 133px 69px;
+  position: relative;
+  width: 1040px;
+  height: 420px;
+  margin: 122px 0 130px 193px;
+  background: #f9f9f9;
   cursor: default;
+}
+
+.formText {
+  position: absolute;
+  top: 57px;
+  left: 385px;
+  width: 578px;
 }
 
 .headText {
@@ -22,9 +32,34 @@
 
 .subscibeForm {
   display: flex;
+  position: absolute;
+  top: 230px;
+  left: 385px;
   gap: 12px;
-  padding-top: 16px;
-  padding-bottom: 20px;
+}
+
+.imgBackground {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.man {
+  position: absolute;
+  left: 7px;
+  bottom: 23px;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  left: 128px;
 }
 
 .subscribeInput {
@@ -44,8 +79,11 @@
 
 .checkboxContainer {
   display: flex;
+  position: absolute;
+  top: 298px;
+  left: 385px;
   align-items: start;
-  gap: 6px;
+  gap: 7px;
   font-weight: 500;
   font-size: 14px;
   line-height: 18.2px;
@@ -60,12 +98,16 @@
 }
 
 .alreadyButton {
+  position: absolute;
+  top: 354px;
+  left: 389px;
   color: #797979;
   background: none;
   border: none;
-  border-bottom: 2px solid #797979;
+  text-decoration: underline;
+  text-underline-offset: 3.5px;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 25px;
   cursor: pointer;
 }

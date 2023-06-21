@@ -3,6 +3,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import Background from '../../images/Forms/img-background-purple.svg';
+import Line from '../../images/Forms/line.svg';
+import Man from '../../images/Forms/man.svg';
+import Arrow from '../../images/Forms/man-arrow.svg';
 
 const Subscribe = () => {
   const [value, setValue] = useState('');
@@ -34,12 +38,16 @@ const Subscribe = () => {
     <section
       className={`${styles.subscribeSection} ${hidden ? styles.hidden : ''}`}
     >
-      <h3 className={styles.headText}>Не пропустите лучшие события недели!</h3>
-      <p className={styles.subtext}>
-        Один раз в неделю мы будем высылать вам на почту подборку самых
-        популярных статей за прошедшую неделю!{' '}
-      </p>
-      <p className={styles.subtext}>Максимум пользы, за минимум времени!</p>
+      <div className={styles.formText}>
+        <h3 className={styles.headText}>
+          Не пропустите лучшие события недели!
+        </h3>
+        <p className={styles.subtext}>
+          Один раз в неделю мы будем высылать вам на почту подборку самых
+          популярных статей за прошедшую неделю!{' '}
+        </p>
+        <p className={styles.subtext}>Максимум пользы, за минимум времени!</p>
+      </div>
       <form className={styles.subscibeForm}>
         <input
           className={styles.subscribeInput}
@@ -68,6 +76,10 @@ const Subscribe = () => {
       >
         Я уже подписался
       </button>
+      <img src={Background} alt="Фон" className={styles.imgBackground} />
+      <img src={Line} alt="Линия" className={styles.line} />
+      <img src={Man} alt="Котик и его человек" className={styles.man} />
+      <img src={Arrow} alt="Стрелка" className={styles.arrow} />
     </section>
   );
 };

@@ -41,6 +41,13 @@ const smallInput = {
 
 const Header = ({ onSearch, searchQuery }) => {
   const location = useLocation();
+  const isSearchFieldInvisible =
+    location.pathname !== '/event' &&
+    location.pathname !== '/favorites' &&
+    location.pathname !== '/notifications' &&
+    location.pathname !== '/results' &&
+    location.pathname !== '/preferences' &&
+    location.pathname !== '/privacy';
 
   return location.pathname === '/' ? (
     <header className={styles.header}>
@@ -70,13 +77,15 @@ const Header = ({ onSearch, searchQuery }) => {
           <Link to="/" className={styles.logoLink}>
             Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
           </Link>
-          <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
-            smallForm={smallForm}
-            smallFieldset={smallFieldset}
-            smallInput={smallInput}
-          />
+          {!isSearchFieldInvisible && (
+            <SearchField
+              onSearch={onSearch}
+              searchQuery={searchQuery}
+              smallForm={smallForm}
+              smallFieldset={smallFieldset}
+              smallInput={smallInput}
+            />
+          )}
           <nav className={styles.navigationBar}>
             {navLinks.map((link) => (
               <Link className={styles.navLink} key={link.id} to={link.path}>

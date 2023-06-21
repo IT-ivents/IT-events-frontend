@@ -5,8 +5,8 @@ import PrimaryButton from './../components/PrimaryButton/PrimaryButton';
 
 const NotFoundPage = () => {
   return (
-    <section className={styles.notSection}>
-      <div className={styles.notFound}>
+    <section className={styles.notFound}>
+      <div className={styles.notInfo}>
         <h1 className={styles.notTitle}>404. Такой страницы на сайте нет</h1>
         <div className={styles.notBlock}>
           <p className={styles.notText}>
@@ -15,9 +15,11 @@ const NotFoundPage = () => {
           <Link to="/" className={styles.notText}>
             <PrimaryButton title="На главную" />
           </Link>
-          <p>Расскажите нам о своих интересах и мы подберём лучшие события</p>
+          <p className={styles.notInterests}>
+            Расскажите нам о своих интересах и мы подберём лучшие события
+          </p>
           <Link to="/preferences" className={styles.notLink}>
-            Что вам интересно?
+            Настроить интересы
           </Link>
         </div>
       </div>
