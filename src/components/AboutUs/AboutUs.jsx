@@ -6,9 +6,9 @@ import Image2 from '../../images/AboutUs/2.jpg';
 import Image3 from '../../images/AboutUs/3.jpg';
 import Image4 from '../../images/AboutUs/4.jpg';
 import Image5 from '../../images/AboutUs/5.jpg';
-import Background from '../../images/Form-questions/img-background.svg';
-import Cat from '../../images/Form-questions/cat.svg';
-import Arrow from '../../images/Form-questions/cat-arrow.svg';
+import Background from '../../images/Forms/img-background.svg';
+import Cat from '../../images/Forms/cat.svg';
+import Arrow from '../../images/Forms/cat-arrow.svg';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { aboutText, spanBlock } from '../../utils/constants/aboutPageText';
 

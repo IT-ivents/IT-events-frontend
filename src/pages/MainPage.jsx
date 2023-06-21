@@ -51,9 +51,9 @@ const MainPage = ({
       <LeftFilerBar handleSearch={handleSearch} searchQuery />
       <div className={styles.mainPageListWrapper}>
         <div>
-          <div className={styles.topFilterContainer}>
-            <TopFilersBar></TopFilersBar>
-          </div>
+          {/* <div className={styles.topFilterContainer}> */}
+          <TopFilersBar />
+          {/* </div> */}
           {mainPageEvents.map((event) => (
             <HorizontalEventList
               key={event.id}
@@ -65,9 +65,9 @@ const MainPage = ({
               elseButton={event.else}
             />
           ))}
-          <Subscribe />
         </div>
       </div>
+      <Subscribe />
     </div>
   );
 };
