@@ -1,5 +1,6 @@
 import styles from './Header.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../Logo/Logo';
 import SearchField from '../SearchField/SearchField';
 import HeroSection from '../HeroSection/HeroSection';
 import notificationIcon from '../../images/notifications-icon.svg';
@@ -39,7 +40,7 @@ const smallInput = {
   width: '397px', // '388px' + font-weight: 400 (::placeholder!)
 };
 
-const Header = ({ onSearch, searchQuery }) => {
+const Header = ({ onSearch, searchQuery, onEnter }) => {
   const location = useLocation();
   const isSearchFieldInvisible =
     location.pathname !== '/event' &&
@@ -53,10 +54,7 @@ const Header = ({ onSearch, searchQuery }) => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.linksContainer}>
-          <Link to="/" className={styles.logoLink}>
-            Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
-          </Link>
-
+          <Logo />
           <nav className={styles.navigationBar}>
             {navLinks.map((link) => (
               <Link className={styles.navLink} key={link.id} to={link.path}>
@@ -64,6 +62,9 @@ const Header = ({ onSearch, searchQuery }) => {
                 <p>{link.name}</p>
               </Link>
             ))}
+            <button type="button" onClick={onEnter}>
+              войти
+            </button>
           </nav>
         </div>
         <HeroSection />
@@ -74,9 +75,7 @@ const Header = ({ onSearch, searchQuery }) => {
     <header className={styles.header} style={{ height: 'fit-content' }}>
       <div className={styles.borderContainer}>
         <div className={styles.linksContainer}>
-          <Link to="/" className={styles.logoLink}>
-            Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
-          </Link>
+          <Logo />
           {!isSearchFieldInvisible && (
             <SearchField
               onSearch={onSearch}
@@ -88,11 +87,16 @@ const Header = ({ onSearch, searchQuery }) => {
           )}
           <nav className={styles.navigationBar}>
             {navLinks.map((link) => (
-              <Link className={styles.navLink} key={link.id} to={link.path}>
-                <img src={link.src} alt={link.alt} />
-                <p>{link.name}</p>
-              </Link>
+              <>
+                <Link className={styles.navLink} key={link.id} to={link.path}>
+                  <img src={link.src} alt={link.alt} />
+                  <p>{link.name}</p>
+                </Link>
+              </>
             ))}
+            <button type="button" onClick={onEnter}>
+              войти
+            </button>
           </nav>
         </div>
       </div>

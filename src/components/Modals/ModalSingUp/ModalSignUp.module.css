@@ -1,0 +1,192 @@
+.modalContainer {
+  width: 484px;
+  padding: 60px 60px 52px;
+}
+
+.formTitle {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28.8px;
+  cursor: default;
+}
+
+.titleContainer {
+  padding-top: 48px;
+  padding-bottom: 8px;
+  gap: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.formDescription {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.4);
+  padding-bottom: 24px;
+  cursor: default;
+}
+
+.formSubtext {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.fieldsetContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 14px;
+}
+
+.fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16.2px;
+  color: rgba(0, 0, 0, 0.6);
+  padding-bottom: 4px;
+}
+
+.inputContainer {
+  width: 100%;
+  position: relative;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  width: 100%;
+}
+
+.input:hover {
+  box-shadow: 0 1px 4px 0 rgba(36, 63, 97, 0.1);
+}
+
+.input:focus {
+  background-color: #fefefe;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.inputError {
+  border: 1px solid #e62214;
+}
+
+.inputFigure {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  background: url(../../../images/hidden_password.svg) no-repeat center;
+}
+
+.visible {
+  background: url(../../../images/visible_password.svg) no-repeat center;
+}
+
+.span {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 8px 0;
+  color: white;
+  background-color: #674eae;
+  border-radius: 8px;
+  border: none;
+}
+
+.submitBtn:hover {
+  background-color: #443375;
+}
+
+.submitBtn:active {
+  background-color: #291b51;
+}
+
+.submitBtn:disabled {
+  color: #c9ccd8;
+  background-color: white;
+  border: 1px solid #c9ccd8;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.checkboxText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18.2px;
+  color: #797979;
+}
+
+.linkPolicy {
+  color: #797979;
+}
+
+.figure {
+  background: url(../../../images/shape.svg) no-repeat center;
+  width: 16px;
+  height: 20px;
+}
+
+.errorContainer {
+  padding-bottom: 24px;
+  display: flex;
+  align-items: start;
+  gap: 11px;
+}
+
+.serverErrorFigure {
+  background: url(../../../images/error.svg) no-repeat center;
+  width: 30px;
+  height: 20px;
+}
+
+.serverError {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #e62214;
+}
+
+.paddingNoError {
+  padding-bottom: 40px;
+}
+
+.paddingError {
+  padding-bottom: 20px;
+}
