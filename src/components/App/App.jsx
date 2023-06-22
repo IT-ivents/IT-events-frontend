@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
+import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
@@ -19,6 +21,9 @@ import {
 import { getRandomEvents } from '../../utils/helperFunctions';
 
 function App() {
+  const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
+  const [isModalSignUpOpen, setIsModalSignUpOpen] = useState(false);
+
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [eventsFromApi, setEventsFromApi] = useState([]);
@@ -284,6 +289,19 @@ function App() {
     navigate('/results');
   };
 
+  const toggleModalSignIn = () => {
+    setIsModalSignInOpen(!isModalSignInOpen);
+  };
+
+  const toggleModalSignUp = () => {
+    setIsModalSignInOpen(false);
+    setIsModalSignUpOpen(!isModalSignUpOpen);
+  };
+
+  function handleSignIn() {}
+
+  function handleSignUp() {}
+
   return (
     <SearchFilterContext.Provider
       value={{
@@ -295,7 +313,27 @@ function App() {
     >
       <div className={styles.wrapper}>
         <div className={styles.page}>
-          <Header onSearch={handleSearch} searchQuery={searchQuery} />
+          <Header
+            onSearch={handleSearch}
+            searchQuery={searchQuery}
+            onEnter={toggleModalSignIn}
+          />
+          {isModalSignInOpen && (
+            <ModalSignIn
+              isOpen={toggleModalSignIn}
+              handleClose={toggleModalSignIn}
+              isRegister={toggleModalSignUp}
+              onSignIn={handleSignIn}
+            />
+          )}
+          {isModalSignUpOpen && (
+            <ModalSignUp
+              isOpen={toggleModalSignUp}
+              handleClose={toggleModalSignUp}
+              onSignUp={handleSignUp}
+            />
+          )}
+
           <Routes>
             <Route
               path="/"
@@ -358,6 +396,7 @@ function App() {
             <Route path="preferences" element={<PreferencesPage />} />
             <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="about" element={<About />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />

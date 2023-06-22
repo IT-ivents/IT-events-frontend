@@ -30,18 +30,6 @@
   height: 113px;
 }
 
-.logoLink {
-  min-width: 188px;
-  font-weight: 700;
-  font-size: 32px;
-  text-decoration: none;
-  color: #000000;
-}
-
-.logoSpan {
-  color: #674eae;
-}
-
 .navigationBar {
   display: flex;
   align-items: center;

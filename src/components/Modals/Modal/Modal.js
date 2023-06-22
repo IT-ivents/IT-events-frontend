@@ -1,8 +1,7 @@
+import styles from './Modal.module.css';
 import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-
-import styles from './Modal.module.css';
 
 const Modal = ({ children, isOpen, handleClose }) => {
   const modalRef = useRef(null);
@@ -17,9 +16,7 @@ const Modal = ({ children, isOpen, handleClose }) => {
           className={styles.closeButton}
           onClick={handleClose}
           type="button"
-        >
-          close
-        </button>
+        />
         {children}
       </div>
     </section>,
