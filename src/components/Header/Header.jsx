@@ -42,6 +42,13 @@ const smallInput = {
 
 const Header = ({ onSearch, searchQuery, onEnter }) => {
   const location = useLocation();
+  const isSearchFieldInvisible =
+    location.pathname !== '/event' &&
+    location.pathname !== '/favorites' &&
+    location.pathname !== '/notifications' &&
+    location.pathname !== '/results' &&
+    location.pathname !== '/preferences' &&
+    location.pathname !== '/privacy';
 
   return location.pathname === '/' ? (
     <header className={styles.header}>
@@ -68,7 +75,9 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     <header className={styles.header} style={{ height: 'fit-content' }}>
       <div className={styles.borderContainer}>
         <div className={styles.linksContainer}>
-          <Logo />
+          <Link to="/" className={styles.logoLink}>
+            Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
+          </Link>
           <SearchField
             onSearch={onSearch}
             searchQuery={searchQuery}

@@ -11,7 +11,7 @@
 
 .mainTitle {
   font-size: 48px;
-  margin: 0 0 34px;
+  margin: 30px 0 34px;
   color: #2a2630;
   cursor: default;
 }
@@ -19,7 +19,7 @@
 .title {
   font-size: 20px;
   font-weight: 600;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   color: #2a2630;
   cursor: default;
 }
@@ -33,14 +33,14 @@
 }
 
 .block:last-of-type {
-  margin: 0 0 40px;
+  margin: 0 0 44px;
 }
 
 .blockList {
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 47px;
 }
 
 .aside {
@@ -51,37 +51,42 @@
 }
 
 .imageOne {
-  width: 250px;
-  height: 254px;
-  border-radius: 40% 0 0;
-  margin: 103px 38px 0 1px;
+  width: 251px;
+  height: 253px;
+  border-radius: 39% 0 0;
+  margin: 103px 38px 0 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imageTwo {
-  width: 135px;
+  width: 134px;
   height: 135px;
   border-radius: 18%;
-  margin: 181px 20px 0 0;
+  margin: 181px 22px 0 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imageThree {
-  width: 161px;
+  width: 160px;
   height: 151px;
   border-radius: 0 31% 0 0;
   margin-top: 131px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imageFour {
   width: 213px;
   height: 213px;
-  border-radius: 0 0 0 30%;
-  margin: 43px 29px 0 9px;
+  border-radius: 0 0 0 29%;
+  margin: 44px 29px 0 9px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .imageFive {
   width: 339px;
   height: 329px;
   border-radius: 0 43% 0 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .connectTitle {
@@ -123,7 +128,7 @@
   width: 1045px;
   height: 532px;
   background: #f9f9f9;
-  margin: 165px 0 195px;
+  margin: 165px 0 139px;
   cursor: default;
 }
 
