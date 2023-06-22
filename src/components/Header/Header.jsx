@@ -75,16 +75,16 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     <header className={styles.header} style={{ height: 'fit-content' }}>
       <div className={styles.borderContainer}>
         <div className={styles.linksContainer}>
-          <Link to="/" className={styles.logoLink}>
-            Connect<span className={styles.logoSpan}> &#123;IT&#125;</span>
-          </Link>
-          <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
-            smallForm={smallForm}
-            smallFieldset={smallFieldset}
-            smallInput={smallInput}
-          />
+          <Logo />
+          {!isSearchFieldInvisible && (
+            <SearchField
+              onSearch={onSearch}
+              searchQuery={searchQuery}
+              smallForm={smallForm}
+              smallFieldset={smallFieldset}
+              smallInput={smallInput}
+            />
+          )}
           <nav className={styles.navigationBar}>
             {navLinks.map((link) => (
               <>
