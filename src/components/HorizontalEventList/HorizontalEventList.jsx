@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
-import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
+// import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
 
@@ -79,7 +79,7 @@ const HorizontalEventList = ({
           {events.length < list.length && (
             // Если были показаны все события, то отображать пагинацию не нужно.
             <>
-              <ShowMoreButton handleShowMore={handleShowMore} />
+              {/* <ShowMoreButton handleShowMore={handleShowMore} /> */}
               <Pagination page={page} totalPages={totalPages} />
             </>
           )}

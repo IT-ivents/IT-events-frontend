@@ -3,6 +3,7 @@ import styles from './Pages.module.css';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
+import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 
 const MainPage = ({
@@ -51,9 +52,10 @@ const MainPage = ({
       <LeftFilerBar handleSearch={handleSearch} searchQuery />
       <div className={styles.mainPageListWrapper}>
         <div>
-          {/* <div className={styles.topFilterContainer}> */}
-          <TopFilersBar />
-          {/* </div> */}
+          <div className={styles.topFilterContainer}>
+            <SearchField />
+            <TopFilersBar />
+          </div>
           {mainPageEvents.map((event) => (
             <HorizontalEventList
               key={event.id}
