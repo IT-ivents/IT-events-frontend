@@ -1,7 +1,7 @@
 import styles from './SearchField.module.css';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import searchIcon from '../../images/search-icon.svg';
+import searchIcon from '../../images/Actions/loupe-purple.svg';
 
 const SearchField = ({
   onSearch,

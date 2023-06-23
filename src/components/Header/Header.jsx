@@ -27,8 +27,9 @@ const smallForm = {
   width: '449px',
   height: '44px',
   marginLeft: '100px',
-  marginRight: '275px', // ?
+  marginRight: '275px',
   border: '1px solid #C9CCD8',
+  borderRadius: '20px',
 };
 
 const smallFieldset = {
@@ -51,56 +52,56 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     location.pathname !== '/privacy';
 
   return location.pathname === '/' ? (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.linksContainer}>
-          <Logo />
-          <nav className={styles.navigationBar}>
-            {navLinks.map((link) => (
+    // <header className={styles.header}>
+    <header className={styles.container}>
+      <div className={styles.linksContainer}>
+        <Logo />
+        <nav className={styles.navigationBar}>
+          {navLinks.map((link) => (
+            <Link className={styles.navLink} key={link.id} to={link.path}>
+              <img src={link.src} alt={link.alt} />
+              <p>{link.name}</p>
+            </Link>
+          ))}
+          <button type="button" onClick={onEnter}>
+            войти
+          </button>
+        </nav>
+      </div>
+      <HeroSection />
+      {/* <SearchField onSearch={onSearch} /> */}
+    </header>
+  ) : (
+    // </header>
+    // <header className={styles.header} style={{ height: 'fit-content' }}>
+    <header className={styles.borderContainer}>
+      <div className={styles.linksContainer}>
+        <Logo />
+        {!isSearchFieldInvisible && (
+          <SearchField
+            onSearch={onSearch}
+            searchQuery={searchQuery}
+            smallForm={smallForm}
+            smallFieldset={smallFieldset}
+            smallInput={smallInput}
+          />
+        )}
+        <nav className={styles.navigationBar}>
+          {navLinks.map((link) => (
+            <>
               <Link className={styles.navLink} key={link.id} to={link.path}>
                 <img src={link.src} alt={link.alt} />
                 <p>{link.name}</p>
               </Link>
-            ))}
-            <button type="button" onClick={onEnter}>
-              войти
-            </button>
-          </nav>
-        </div>
-        <HeroSection />
-        <SearchField onSearch={onSearch} />
+            </>
+          ))}
+          <button type="button" onClick={onEnter}>
+            войти
+          </button>
+        </nav>
       </div>
     </header>
-  ) : (
-    <header className={styles.header} style={{ height: 'fit-content' }}>
-      <div className={styles.borderContainer}>
-        <div className={styles.linksContainer}>
-          <Logo />
-          {!isSearchFieldInvisible && (
-            <SearchField
-              onSearch={onSearch}
-              searchQuery={searchQuery}
-              smallForm={smallForm}
-              smallFieldset={smallFieldset}
-              smallInput={smallInput}
-            />
-          )}
-          <nav className={styles.navigationBar}>
-            {navLinks.map((link) => (
-              <>
-                <Link className={styles.navLink} key={link.id} to={link.path}>
-                  <img src={link.src} alt={link.alt} />
-                  <p>{link.name}</p>
-                </Link>
-              </>
-            ))}
-            <button type="button" onClick={onEnter}>
-              войти
-            </button>
-          </nav>
-        </div>
-      </div>
-    </header>
+    // </header>
   );
 };
 

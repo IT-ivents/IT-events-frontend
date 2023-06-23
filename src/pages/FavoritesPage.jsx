@@ -31,7 +31,11 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
       case 'price':
         sortedList.sort((a, b) => {
           const sortOrder = sortByPrice ? 1 : -1;
-          if (a.price === 'Бесплатно' || b.price === 'Бесплатно') {
+          if (a.price === b.price) {
+            const dateA = new Date(a.date_start).getTime();
+            const dateB = new Date(b.date_start).getTime();
+            return (dateA - dateB) * sortOrder;
+          } else if (a.price === 'Бесплатно' || b.price === 'Бесплатно') {
             return a.price === 'Бесплатно' ? -1 * sortOrder : 1 * sortOrder;
           } else {
             const priceA = parsePrice(a.price);
