@@ -18,12 +18,18 @@ const HorizontalEventList = ({
   const [previousEvents, setPreviousEvents] = useState([]);
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
-  const eventOnPage = 12;
+  const eventOnPage = 6;
   const totalPages = Math.ceil(list.length / eventOnPage);
 
   const handleShowMore = () => {
     if (page < totalPages) {
       setPage((prev) => prev + 1);
+    }
+  };
+
+  const handleShowLess = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
     }
   };
 
@@ -76,11 +82,16 @@ const HorizontalEventList = ({
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>
-          {events.length < list.length && (
+          {events.length <= list.length && events.length !== list.length && (
             // Если были показаны все события, то отображать пагинацию не нужно.
             <>
               {/* <ShowMoreButton handleShowMore={handleShowMore} /> */}
-              <Pagination page={page} totalPages={totalPages} />
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                handleShowMore={handleShowMore}
+                handleShowLess={handleShowLess}
+              />
             </>
           )}
         </div>

@@ -106,7 +106,8 @@
 
 .showMore {
   font-size: 12px;
-  font-weight: 700;
+  /* font-weight: 700; */
+  font-weight: 500;
   color: #674eae;
   border: none;
   background-color: transparent;
