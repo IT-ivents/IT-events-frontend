@@ -1,6 +1,5 @@
 import styles from './ModalSignUp.module.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
@@ -61,7 +60,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </span>
           </div>
         )}
-        <form className={styles.modalForm} noValidate>
+        <form className={styles.modalForm} noValidate onSubmit={handleSignUp}>
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>

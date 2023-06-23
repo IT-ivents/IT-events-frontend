@@ -2,6 +2,7 @@
   max-width: 484px;
   width: 100%;
   padding: 60px 0 90px 70px;
+  cursor: default;
 }
 
 .formTitle {
@@ -37,7 +38,7 @@
   padding-right: 70px;
 }
 
-.linksContainer {
+.buttonsContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,7 +64,7 @@
   cursor: pointer;
 }
 
-.linkNoAccount {
+.noAccount {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 400;

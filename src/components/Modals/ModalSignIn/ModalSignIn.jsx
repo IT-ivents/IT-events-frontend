@@ -63,10 +63,8 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
           </div>
         )}
         <form className={styles.modalForm} onSubmit={handleSignIn} noValidate>
-          <div className={styles.linksContainer}>
-            <Link to="#" className={styles.linkNoAccount}>
-              Нет аккаунта?
-            </Link>
+          <div className={styles.buttonsContainer}>
+            <span className={styles.noAccount}>Нет аккаунта?</span>
             <button
               type="button"
               onClick={isRegister}
@@ -87,7 +85,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
                 id="email"
                 name="email"
                 type="email"
-                pattern="[^\s]+@[^\s]+"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
                 placeholder="Email"
                 required
                 minLength={6}

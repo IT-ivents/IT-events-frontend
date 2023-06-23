@@ -1,6 +1,7 @@
 .modalContainer {
   width: 484px;
   padding: 60px 60px 52px;
+  cursor: default;
 }
 
 .formTitle {
