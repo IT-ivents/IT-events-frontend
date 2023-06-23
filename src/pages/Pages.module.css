@@ -30,8 +30,20 @@
   gap: 124px;
 }
 
-/* Страница: Политика */
+.onTop.visible {
+  position: fixed;
+  background: url('../images/on-top-button.svg') no-repeat;
+  width: 100px;
+  height: 100px;
+  border: 0;
+  border-radius: 50%;
+  right: 40px;
+  bottom: 40px;
+  cursor: pointer;
+  z-index: 1;
+}
 
+/* Страница: Политика */
 .policyPageWrapper {
   display: flex;
   flex-direction: column;
@@ -111,8 +123,6 @@
   text-decoration: none;
   color: #000000;
 }
-
-/* Страница: Личный кабинет (меню) */
 
 /* Страница: 404 */
 .notFound {

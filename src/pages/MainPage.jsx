@@ -1,10 +1,10 @@
-import React from 'react';
 import styles from './Pages.module.css';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
 import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
+import useScrollToTop from '../utils/hooks/useScrollToTop';
 
 const MainPage = ({
   onCardClick,
@@ -47,6 +47,8 @@ const MainPage = ({
     },
   ];
 
+  const { isOnTopVisible, scrollToTop } = useScrollToTop();
+
   return (
     <div className={styles.mainPageWrapper}>
       <LeftFilerBar handleSearch={handleSearch} searchQuery />
@@ -70,6 +72,11 @@ const MainPage = ({
         </div>
       </div>
       <Subscribe />
+      <button
+        type="button"
+        className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
+        onClick={scrollToTop}
+      ></button>
     </div>
   );
 };

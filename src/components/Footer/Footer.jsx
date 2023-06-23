@@ -4,6 +4,7 @@ import Logo from '../Logo/Logo';
 import GitHubLogo from '../../images/SocialNetworks/GitHub.svg';
 import MessengerLogo from '../../images/SocialNetworks/Messenger.svg';
 import VkLogo from '../../images/SocialNetworks/VK.svg';
+import useScrollToTop from '../../utils/hooks/useScrollToTop';
 
 const logoSize = {
   fontSize: '20px',
@@ -13,34 +14,38 @@ const logoSize = {
 const Footer = () => {
   const date = new Date().getFullYear();
 
+  const { scrollToTop } = useScrollToTop();
+
+  const renderFooterItems = () => {
+    const footerItems = [
+      { to: '/about', text: 'О нас' },
+      { text: 'События' },
+      { text: 'Cookies' },
+      { text: 'Мы в СМИ!' },
+      { text: 'Войти в ЛК' },
+      { text: 'Политика конфиденциональности' },
+    ];
+
+    return footerItems.map((item, index) => (
+      <li className={styles.footerItem} key={index}>
+        {item.to ? (
+          <Link to={item.to} className={styles.logoLink}>
+            <span>{item.text}</span>
+          </Link>
+        ) : (
+          <span>{item.text}</span>
+        )}
+      </li>
+    ));
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={styles.logos}>
-        <Logo logoSize={logoSize} />
-        <span className={styles.year}>&copy; {date} IT-events</span>
+        <Logo logoSize={logoSize} onClick={scrollToTop} />
+        <span className={styles.year}>© {date} IT-events</span>
       </div>
-      <ul className={styles.footerList}>
-        <li className={styles.footerItem}>
-          <Link to="/about" className={styles.logoLink}>
-            <span>О нас</span>
-          </Link>
-        </li>
-        <li className={styles.footerItem}>
-          <span>События</span>
-        </li>
-        <li className={styles.footerItem}>
-          <span>Cookies</span>
-        </li>
-        <li className={styles.footerItem}>
-          <span>Мы в СМИ!</span>
-        </li>
-        <li className={styles.footerItem}>
-          <span>Войти в ЛК</span>
-        </li>
-        <li className={styles.footerItem}>
-          <span>Политика конфиденциональности</span>
-        </li>
-      </ul>
+      <ul className={styles.footerList}>{renderFooterItems()}</ul>
       <div className={styles.contacts}>
         <p className={styles.email}>It@connectit.ru</p>
         <div className={styles.images}>
