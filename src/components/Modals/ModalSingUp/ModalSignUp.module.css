@@ -116,29 +116,6 @@
   padding-top: 4px;
 }
 
-.submitBtn {
-  width: 100%;
-  padding: 8px 0;
-  color: white;
-  background-color: #674eae;
-  border-radius: 8px;
-  border: none;
-}
-
-.submitBtn:hover {
-  background-color: #443375;
-}
-
-.submitBtn:active {
-  background-color: #291b51;
-}
-
-.submitBtn:disabled {
-  color: #c9ccd8;
-  background-color: white;
-  border: 1px solid #c9ccd8;
-}
-
 .checkboxContainer {
   display: flex;
   align-items: center;
@@ -149,12 +126,20 @@
 .checkboxText {
   font-weight: 400;
   font-size: 14px;
-  line-height: 18.2px;
   color: #797979;
 }
 
-.linkPolicy {
+.policyBtn {
   color: #797979;
+  border: none;
+  border-bottom: 1px solid #797979;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.policyBtn:hover {
+  color: #674eae;
 }
 
 .figure {

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
@@ -78,7 +79,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                 minLength={6}
                 maxLength={254}
                 value={values.email || ''}
-                pattern="[^\s]+@[^\s]+"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
@@ -106,7 +107,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                   type={isPasswordVisible ? 'text' : 'password'}
                   placeholder="Введите пароль"
                   required
-                  value={values.password}
+                  value={values.password || ''}
                   minLength={6}
                   maxLength={25}
                   onChange={handleChange}
@@ -164,20 +165,13 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
               <CustomCheckbox />
               <span className={styles.checkboxText}>
                 Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
-                <Link to="#" className={styles.linkPolicy}>
+                <button className={styles.policyBtn}>
                   Политикой конфиденциальности.
-                </Link>
+                </button>
               </span>
             </div>
           </div>
-          <button
-            className={styles.submitBtn}
-            type="submit"
-            onSubmit={handleSignUp}
-            disabled={disabledButton}
-          >
-            Регистрация
-          </button>
+          <SubmitButton title="Регистрация" disabled={disabledButton} />
           <p className={styles.formSubtext}></p>
         </form>
       </div>

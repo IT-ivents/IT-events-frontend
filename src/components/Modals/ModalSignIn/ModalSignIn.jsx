@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
@@ -81,7 +82,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
               </label>
               <input
                 className={`${styles.input} ${
-                  errors.email ? styles.inputError : ''
+                  errors.email && values.email ? styles.inputError : ''
                 }`}
                 id="email"
                 name="email"
@@ -150,13 +151,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
               <span className={styles.checkboxText}>Запомнить</span>
             </div>
           </div>
-          <button
-            className={styles.submitBtn}
-            type="submit"
-            disabled={disabledButton}
-          >
-            Войти
-          </button>
+          <SubmitButton title="Войти" disabled={disabledButton} />
         </form>
       </div>
     </Modal>
