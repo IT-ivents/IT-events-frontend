@@ -1,11 +1,31 @@
 import React from 'react';
 import styles from './Pagination.module.css';
 
-const Pagination = ({ page, totalPages }) => {
+const Pagination = ({ page, totalPages, handleShowMore, handleShowLess }) => {
+  const isFirstPage = page === 1;
+  const isLastPage = page === totalPages;
+
   return (
     <div className={styles.container}>
-      <p>Страница</p>
+      <button
+        type="button"
+        onClick={handleShowLess}
+        className={`${styles.currentPage} ${
+          isFirstPage ? styles.disabled : ''
+        }`}
+        disabled={isFirstPage}
+      >
+        {'<'}
+      </button>
       <p className={styles.currentPage}>{page}</p>
+      <button
+        type="button"
+        onClick={handleShowMore}
+        className={`${styles.currentPage} ${isLastPage ? styles.disabled : ''}`}
+        disabled={isLastPage}
+      >
+        {'>'}
+      </button>
       <p>из {totalPages}</p>
     </div>
   );
