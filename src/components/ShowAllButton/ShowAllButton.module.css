@@ -1,11 +1,12 @@
 .showAllButton {
   position: absolute;
-  top: -48px;
+  top: -40px;
   right: 0;
   border: none;
   background: transparent;
   font-weight: 500;
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 16px;
   line-height: 28.8px;
   color: #797979;
   cursor: pointer;

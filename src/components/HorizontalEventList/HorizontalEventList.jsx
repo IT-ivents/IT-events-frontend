@@ -27,6 +27,12 @@ const HorizontalEventList = ({
     }
   };
 
+  const handleShowLess = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
+
   const handleShowAll = () => {
     if (isAllShown) {
       setEvents(previousEvents); // Возвращаем предыдущие события
@@ -76,11 +82,16 @@ const HorizontalEventList = ({
       </ul>
       {elseButton && (
         <div className={styles.navigationContainer}>
-          {events.length < list.length && (
+          {events.length <= list.length && events.length !== list.length && (
             // Если были показаны все события, то отображать пагинацию не нужно.
             <>
               {/* <ShowMoreButton handleShowMore={handleShowMore} /> */}
-              <Pagination page={page} totalPages={totalPages} />
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                handleShowMore={handleShowMore}
+                handleShowLess={handleShowLess}
+              />
             </>
           )}
         </div>

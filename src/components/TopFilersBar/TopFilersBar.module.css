@@ -2,7 +2,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 39px;
+  margin: 39px 0 75px;
 }
 
 .countContainer {
@@ -10,7 +10,9 @@
   font-size: 20px;
   line-height: 125%;
   align-self: center;
+  margin-left: 10px;
   margin-right: 20px;
+  color: #39364f;
 }
 
 .button {
@@ -34,7 +36,8 @@
 }
 
 .clearData {
-  font-weight: 700;
+  /* font-weight: 700; */
+  font-weight: 500;
   font-size: 12px;
   line-height: 135%;
   display: flex;

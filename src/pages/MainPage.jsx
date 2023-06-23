@@ -52,8 +52,8 @@ const MainPage = ({
       <LeftFilerBar handleSearch={handleSearch} searchQuery />
       <div className={styles.mainPageListWrapper}>
         <div>
+          <SearchField />
           <div className={styles.topFilterContainer}>
-            <SearchField />
             <TopFilersBar />
           </div>
           {mainPageEvents.map((event) => (
