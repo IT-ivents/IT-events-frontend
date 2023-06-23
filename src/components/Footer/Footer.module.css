@@ -1,40 +1,69 @@
 .footer {
+  position: relative;
   width: 100%;
-  height: 64px;
+  height: 152px;
   font-weight: 700;
   font-size: 12px;
   padding: 0 104px;
   display: flex;
-  align-items: center;
+  padding-top: 41px;
   background: #2a2630;
-  cursor: default;
 }
 
-.footerList {
+.logos {
   display: flex;
-  gap: 30px;
-}
-
-.footerItem {
-  padding-left: 10px;
-  letter-spacing: -0.5px;
-  color: #797979;
-}
-
-.footerItem:first-child {
-  list-style-type: none;
-}
-
-.footerItem span {
-  color: #f1f0eb;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 66px;
+  width: 118px;
+  margin-right: 80px;
 }
 
 .year {
   margin-right: 337px;
   color: #f1f0eb;
+  text-wrap: nowrap;
+  cursor: default;
+}
+
+.footerList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 11px 64px;
+  width: 553px;
+  height: 60px;
+  list-style-type: none;
+}
+
+.footerItem span {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-wrap: nowrap;
+  padding-left: 10px;
+  color: #c9ccd8;
+  cursor: pointer;
 }
 
 .logoLink {
+  padding-bottom: 3px;
   text-decoration: none;
+}
+
+.contacts {
+  position: absolute;
+  right: 115px;
+}
+
+.email {
+  font-size: 20px;
+  font-weight: 700;
+  color: #c9ccd8;
+  background: url(../../images/email.svg) no-repeat;
+  margin-bottom: 17px;
+  padding-left: 33px;
+}
+
+.images {
+  display: flex;
+  gap: 28px;
 }

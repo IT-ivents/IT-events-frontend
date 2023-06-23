@@ -3,11 +3,11 @@
   cursor: default;
 }
 
-.filterTitle {
+/* .filterTitle {
   margin: 0 0 53px;
   font-size: 32px;
   color: #242424;
-}
+} */
 
 .filterList {
   display: flex;

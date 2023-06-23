@@ -108,7 +108,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
 
   return (
     <section className={styles.filterForm}>
-      <h2 className={styles.filterTitle}>Фильтры</h2>
+      {/* <h2 className={styles.filterTitle}>Фильтры</h2> */}
       <ul className={styles.filterList}>
         <li>
           <h3 className={styles.itemTitle}>Формат</h3>

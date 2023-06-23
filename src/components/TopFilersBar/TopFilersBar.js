@@ -40,13 +40,15 @@ const TopFilersBar = () => {
 
   const filterCount = tags.length !== 0 ? tags : null;
 
+  if (!filterCount) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
-      {filterCount && (
-        <div className={styles.countContainer}>
-          Фильтры: {filterCount.length}
-        </div>
-      )}
+      {/* {filterCount && ( */}
+      <div className={styles.countContainer}>Фильтры: {filterCount.length}</div>
+      {/* )} */}
       {arr.map((item, index) => {
         const name = item[0];
         const value = item[1];
