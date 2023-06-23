@@ -49,6 +49,7 @@
   flex-direction: column;
   padding: 0;
   margin: 0;
+  position: relative;
 }
 
 .label {
@@ -115,6 +116,16 @@
   font-size: 12px;
   line-height: 16px;
   padding-top: 4px;
+}
+
+.spanConfirm {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+  position: absolute;
+  bottom: -17px;
 }
 
 .checkboxContainer {

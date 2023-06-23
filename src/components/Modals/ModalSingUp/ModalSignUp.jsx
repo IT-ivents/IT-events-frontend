@@ -32,6 +32,8 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
     }
   };
 
+  const handleDownloadPolicy = () => {};
+
   const handleSignUp = (e) => {
     e.preventDefault();
     onSignUp();
@@ -133,15 +135,14 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
               <div className={styles.inputContainer}>
                 <input
                   className={`${styles.input} ${
-                    errors.password ? styles.inputError : ''
+                    errors.confirmPassword ? styles.inputError : ''
                   }`}
-                  id="passwordRepeat"
-                  name="passwordRepeat"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   type={isPasswordVisible ? 'text' : 'password'}
                   placeholder="Введите пароль"
                   required
-                  value={values.passwordRepeat || ''}
-                  minLength={6}
+                  value={values.confirmPassword || ''}
                   maxLength={25}
                   pattern="[^\s]+"
                   onChange={handleChange}
@@ -156,19 +157,25 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                   onClick={togglePasswordVisible}
                 />
               </div>
-              <span className={styles.span}></span>
+              {errors.confirmPassword && (
+                <span className={styles.spanConfirm}>
+                  {errors.confirmPassword}
+                </span>
+              )}
             </fieldset>
           </div>
-          <div className={styles.linksContainer}>
-            <div className={styles.checkboxContainer}>
-              <CustomCheckbox />
-              <span className={styles.checkboxText}>
-                Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
-                <button className={styles.policyBtn}>
-                  Политикой конфиденциальности.
-                </button>
-              </span>
-            </div>
+          <div className={styles.checkboxContainer}>
+            <CustomCheckbox />
+            <span className={styles.checkboxText}>
+              Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
+              <button
+                className={styles.policyBtn}
+                type="button"
+                onClick={handleDownloadPolicy}
+              >
+                Политикой конфиденциальности.
+              </button>
+            </span>
           </div>
           <SubmitButton title="Регистрация" disabled={disabledButton} />
           <p className={styles.formSubtext}></p>

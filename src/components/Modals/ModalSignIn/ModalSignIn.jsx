@@ -1,6 +1,5 @@
 import styles from './ModalSignIn.module.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
@@ -141,9 +140,9 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
             </fieldset>
           </div>
           <div className={styles.linksContainerBottom}>
-            <Link to="#" className={styles.linkForgot}>
+            <button type="button" className={styles.btnForgot}>
               Забыли пароль?
-            </Link>
+            </button>
             <div className={styles.checkboxContainer}>
               <CustomCheckbox />
               <span className={styles.checkboxText}>Запомнить</span>

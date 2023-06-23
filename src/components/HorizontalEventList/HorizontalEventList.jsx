@@ -18,7 +18,7 @@ const HorizontalEventList = ({
   const [previousEvents, setPreviousEvents] = useState([]);
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
-  const eventOnPage = 12;
+  const eventOnPage = 6;
   const totalPages = Math.ceil(list.length / eventOnPage);
 
   const handleShowMore = () => {

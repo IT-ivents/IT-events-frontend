@@ -72,8 +72,11 @@
   line-height: 24px;
 }
 
-.linkForgot {
+.btnForgot {
   text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
   font-weight: 500;
   font-size: 12px;
   line-height: 16.2px;

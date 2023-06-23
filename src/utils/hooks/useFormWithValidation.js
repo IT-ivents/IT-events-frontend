@@ -21,7 +21,8 @@ export function useFormWithValidation() {
     setDisabledButton(
       !isValid ||
         (Object.keys(errors).some((key) => errors[key]) &&
-          Object.values(values).every((value) => value === ''))
+          Object.values(values).every((value) => value === '')) ||
+        errors.confirmPassword !== ''
     );
   }, [errors, values]);
 
@@ -47,7 +48,7 @@ export function useFormWithValidation() {
 
   useEffect(() => {
     validatePasswordMatch();
-  }, [values.password, values.confirmPassword, validatePasswordMatch]);
+  }, [values.confirmPassword]);
 
   const resetForm = useCallback(() => {
     setValues({});
