@@ -1,8 +1,8 @@
 import styles from './PopupLink.module.css';
 
-const PopupLink = ({ top, left }) => {
+const PopupLink = ({ top, right }) => {
   return (
-    <div className={styles.linkPopup} style={{ top: top, left: left }}>
+    <div className={styles.linkPopup} style={{ top: top, right: right }}>
       Ссылка скопирована
     </div>
   );

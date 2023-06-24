@@ -1,4 +1,5 @@
 .eventDescription {
+  position: relative;
   width: 600px;
   margin-bottom: 217px;
   cursor: default;
@@ -17,44 +18,41 @@
   font-weight: 700;
   line-height: 38.4px;
   font-size: 32px;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .eventFigures {
+  position: absolute;
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 11px;
+  top: 8px;
+  right: -4px;
 }
 
 .eventFigure {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  gap: 10px;
-  color: #797979;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
 }
 
 .eventDates {
   display: flex;
+  flex-direction: column;
   max-width: 600px;
-  gap: 25px;
+  gap: 12px;
   padding: 0;
-  color: #797979;
-  padding: 2px 0 18px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 2px 0 78px;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   white-space: nowrap;
-}
-
-.eventDate:first-of-type {
   list-style-type: none;
 }
 
-.eventDate:last-of-type {
-  text-overflow: ellipsis;
+.eventDate {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .eventPrice {
@@ -62,5 +60,4 @@
   font-weight: 500;
   line-height: 25px;
   font-size: 20px;
-  padding: 19px 0 40px;
 }

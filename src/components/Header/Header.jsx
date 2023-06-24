@@ -28,7 +28,7 @@ const smallInput = {
 const Header = ({ onSearch, searchQuery, onEnter }) => {
   const location = useLocation();
   const isSearchFieldInvisible =
-    location.pathname !== '/event' &&
+    // location.pathname !== '/event' &&
     location.pathname !== '/favorites' &&
     location.pathname !== '/notifications' &&
     location.pathname !== '/results' &&
