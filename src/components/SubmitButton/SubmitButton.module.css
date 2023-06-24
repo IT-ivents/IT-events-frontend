@@ -1,0 +1,24 @@
+.submitBtn {
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+  background-color: #674eae;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submitBtn:hover {
+  background-color: #443375;
+}
+
+.submitBtn:active {
+  background-color: #291b51;
+}
+
+.submitBtn:disabled {
+  color: #c9ccd8;
+  background-color: white;
+  border: 1px solid #c9ccd8;
+}

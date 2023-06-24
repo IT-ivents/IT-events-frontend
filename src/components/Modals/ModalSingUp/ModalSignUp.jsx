@@ -1,9 +1,9 @@
 import styles from './ModalSignUp.module.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
@@ -31,6 +31,8 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
       e.preventDefault();
     }
   };
+
+  const handleDownloadPolicy = () => {};
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -60,7 +62,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </span>
           </div>
         )}
-        <form className={styles.modalForm} noValidate>
+        <form className={styles.modalForm} noValidate onSubmit={handleSignUp}>
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>
@@ -78,7 +80,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                 minLength={6}
                 maxLength={254}
                 value={values.email || ''}
-                pattern="[^\s]+@[^\s]+"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
@@ -106,7 +108,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                   type={isPasswordVisible ? 'text' : 'password'}
                   placeholder="Введите пароль"
                   required
-                  value={values.password}
+                  value={values.password || ''}
                   minLength={6}
                   maxLength={25}
                   onChange={handleChange}
@@ -133,15 +135,14 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
               <div className={styles.inputContainer}>
                 <input
                   className={`${styles.input} ${
-                    errors.password ? styles.inputError : ''
+                    errors.confirmPassword ? styles.inputError : ''
                   }`}
-                  id="passwordRepeat"
-                  name="passwordRepeat"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   type={isPasswordVisible ? 'text' : 'password'}
                   placeholder="Введите пароль"
                   required
-                  value={values.passwordRepeat || ''}
-                  minLength={6}
+                  value={values.confirmPassword || ''}
                   maxLength={25}
                   pattern="[^\s]+"
                   onChange={handleChange}
@@ -156,28 +157,27 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                   onClick={togglePasswordVisible}
                 />
               </div>
-              <span className={styles.span}></span>
+              {errors.confirmPassword && (
+                <span className={styles.spanConfirm}>
+                  {errors.confirmPassword}
+                </span>
+              )}
             </fieldset>
           </div>
-          <div className={styles.linksContainer}>
-            <div className={styles.checkboxContainer}>
-              <CustomCheckbox />
-              <span className={styles.checkboxText}>
-                Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
-                <Link to="#" className={styles.linkPolicy}>
-                  Политикой конфиденциальности.
-                </Link>
-              </span>
-            </div>
+          <div className={styles.checkboxContainer}>
+            <CustomCheckbox />
+            <span className={styles.checkboxText}>
+              Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
+              <button
+                className={styles.policyBtn}
+                type="button"
+                onClick={handleDownloadPolicy}
+              >
+                Политикой конфиденциальности.
+              </button>
+            </span>
           </div>
-          <button
-            className={styles.submitBtn}
-            type="submit"
-            onSubmit={handleSignUp}
-            disabled={disabledButton}
-          >
-            Регистрация
-          </button>
+          <SubmitButton title="Регистрация" disabled={disabledButton} />
           <p className={styles.formSubtext}></p>
         </form>
       </div>

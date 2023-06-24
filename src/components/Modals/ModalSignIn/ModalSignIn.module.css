@@ -2,6 +2,7 @@
   max-width: 484px;
   width: 100%;
   padding: 60px 0 90px 70px;
+  cursor: default;
 }
 
 .formTitle {
@@ -37,7 +38,7 @@
   padding-right: 70px;
 }
 
-.linksContainer {
+.buttonsContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,7 +64,7 @@
   cursor: pointer;
 }
 
-.linkNoAccount {
+.noAccount {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 400;
@@ -71,8 +72,11 @@
   line-height: 24px;
 }
 
-.linkForgot {
+.btnForgot {
   text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
   font-weight: 500;
   font-size: 12px;
   line-height: 16.2px;
@@ -157,30 +161,6 @@
   font-size: 12px;
   line-height: 16px;
   padding-top: 4px;
-}
-
-.submitBtn {
-  width: 100%;
-  padding: 10px 0;
-  color: white;
-  background-color: #674eae;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.submitBtn:hover {
-  background-color: #443375;
-}
-
-.submitBtn:active {
-  background-color: #291b51;
-}
-
-.submitBtn:disabled {
-  color: #c9ccd8;
-  background-color: white;
-  border: 1px solid #c9ccd8;
 }
 
 .checkboxContainer {

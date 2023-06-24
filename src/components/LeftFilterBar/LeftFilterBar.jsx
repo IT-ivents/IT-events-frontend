@@ -69,6 +69,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             className={styles.pickdate}
             name="date"
             type="date"
+            min={new Date()}
           ></input>
         )}
       </label>

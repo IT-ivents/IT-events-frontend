@@ -4,24 +4,8 @@ import Logo from '../Logo/Logo';
 import SearchField from '../SearchField/SearchField';
 import HeroSection from '../HeroSection/HeroSection';
 import notificationIcon from '../../images/notifications-icon.svg';
+import enterIcon from '../../images/enter_acc.svg';
 import favoritesIcon from '../../images/favorites-header-icon.svg';
-
-const navLinks = [
-  {
-    id: 1,
-    name: 'Уведомления',
-    path: '/notifications',
-    src: notificationIcon,
-    alt: 'Иконка, Колокольчик',
-  },
-  {
-    id: 2,
-    name: 'Избранное',
-    path: '/favorites',
-    src: favoritesIcon,
-    alt: 'Иконка, Избранное',
-  },
-];
 
 const smallForm = {
   width: '449px',
@@ -51,6 +35,29 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     location.pathname !== '/preferences' &&
     location.pathname !== '/privacy';
 
+  const navLinks = [
+    {
+      id: 1,
+      name: 'Уведомления',
+      path: '/notifications',
+      src: notificationIcon,
+      alt: 'Иконка, Колокольчик',
+    },
+    {
+      id: 2,
+      name: 'Избранное',
+      path: '/favorites',
+      src: favoritesIcon,
+      alt: 'Иконка, Избранное',
+    },
+    {
+      id: 3,
+      name: 'Войти',
+      src: enterIcon,
+      alt: 'Иконка, Войти в кабинет',
+    },
+  ];
+
   return location.pathname === '/' ? (
     // <header className={styles.header}>
     <header className={styles.container}>
@@ -58,14 +65,16 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
         <Logo />
         <nav className={styles.navigationBar}>
           {navLinks.map((link) => (
-            <Link className={styles.navLink} key={link.id} to={link.path}>
+            <Link
+              className={styles.navLink}
+              key={link.id}
+              to={link.path}
+              onClick={link.id === 3 ? onEnter : null}
+            >
               <img src={link.src} alt={link.alt} />
               <p>{link.name}</p>
             </Link>
           ))}
-          <button type="button" onClick={onEnter}>
-            войти
-          </button>
         </nav>
       </div>
       <HeroSection />
@@ -89,15 +98,17 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
         <nav className={styles.navigationBar}>
           {navLinks.map((link) => (
             <>
-              <Link className={styles.navLink} key={link.id} to={link.path}>
+              <Link
+                className={styles.navLink}
+                key={link.id}
+                to={link.path}
+                onClick={link.id === 3 ? onEnter : null}
+              >
                 <img src={link.src} alt={link.alt} />
                 <p>{link.name}</p>
               </Link>
             </>
           ))}
-          <button type="button" onClick={onEnter}>
-            войти
-          </button>
         </nav>
       </div>
     </header>

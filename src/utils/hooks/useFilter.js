@@ -100,6 +100,11 @@ export function useFilter({ values, setValues, setFindValues }) {
     }
   };
 
+  const handleDateChange = (date) => {
+    setValues({ ...values, date: date });
+    // Обработка фильтрации по дате (добавьте свою логику)
+  };
+
   const handleButtonChange = (data) => {
     const includes = values.tags.includes(data.tags);
 
@@ -129,5 +134,6 @@ export function useFilter({ values, setValues, setFindValues }) {
     handleButtonChange,
     setItemOnClick,
     deleteValue,
+    handleDateChange,
   };
 }

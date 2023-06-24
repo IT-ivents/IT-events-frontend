@@ -1,9 +1,9 @@
 import styles from './ModalSignIn.module.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
+import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
@@ -62,10 +62,8 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
           </div>
         )}
         <form className={styles.modalForm} onSubmit={handleSignIn} noValidate>
-          <div className={styles.linksContainer}>
-            <Link to="#" className={styles.linkNoAccount}>
-              Нет аккаунта?
-            </Link>
+          <div className={styles.buttonsContainer}>
+            <span className={styles.noAccount}>Нет аккаунта?</span>
             <button
               type="button"
               onClick={isRegister}
@@ -81,12 +79,12 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
               </label>
               <input
                 className={`${styles.input} ${
-                  errors.email ? styles.inputError : ''
+                  errors.email && values.email ? styles.inputError : ''
                 }`}
                 id="email"
                 name="email"
                 type="email"
-                pattern="[^\s]+@[^\s]+"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
                 placeholder="Email"
                 required
                 minLength={6}
@@ -142,21 +140,15 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
             </fieldset>
           </div>
           <div className={styles.linksContainerBottom}>
-            <Link to="#" className={styles.linkForgot}>
+            <button type="button" className={styles.btnForgot}>
               Забыли пароль?
-            </Link>
+            </button>
             <div className={styles.checkboxContainer}>
               <CustomCheckbox />
               <span className={styles.checkboxText}>Запомнить</span>
             </div>
           </div>
-          <button
-            className={styles.submitBtn}
-            type="submit"
-            disabled={disabledButton}
-          >
-            Войти
-          </button>
+          <SubmitButton title="Войти" disabled={disabledButton} />
         </form>
       </div>
     </Modal>
