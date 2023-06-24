@@ -47,7 +47,7 @@ const MainPage = ({
     },
   ];
 
-  const { isOnTopVisible, scrollToTop } = useScrollToTop();
+  const { isOnTopVisible, scrollToTop } = useScrollToTop(740);
 
   return (
     <div className={styles.mainPageWrapper}>
