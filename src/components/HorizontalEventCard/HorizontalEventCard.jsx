@@ -67,8 +67,10 @@ import {
   formatPrice,
   formatTimeRange,
 } from '../../utils/helperFunctions';
-import playIcon from '../../images/Actions/PlayCircle.svg';
 import defaultImage from '../../images/default-image.png';
+import PlaceImage from '../../images/EventInfo/place.svg';
+import CalendarImage from '../../images/EventInfo/calendar.svg';
+import TimeImage from '../../images/EventInfo/time.svg';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const handleCardClick = () => {
@@ -108,25 +110,21 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
         </div>
         <ul className={styles.rowContainer}>
           <li className={styles.rowItem}>
+            <img src={CalendarImage} alt="Календарь" />
             <time>{parseEventDate(event.date_start)}</time>
           </li>
           <li className={styles.rowItem}>
+            <img src={TimeImage} alt="Время" />
             <time>{formatTimeRange(event.date_start, event.date_end)}</time>
           </li>
           <li className={styles.rowItem}>
-            <p>{event.city?.name || 'Нет данных о городе'}</p>
+            <img src={PlaceImage} alt="Место проведения" />
+            <p>{event.city?.name || 'Нет данных об адресе'}</p>
           </li>
           <li className={styles.rowItem}>
-            <p className={styles.address}>
-              {event?.address || 'Нет данных об адресе'}
-            </p>
+            <span className={styles.price}>{formatPrice(event.price)}</span>
           </li>
         </ul>
-        <figure className={styles.eventFigure}>
-          <img src={playIcon} alt="play-icon" />
-          <figcaption>Online-трансляция</figcaption>
-        </figure>
-        <span className={styles.price}>{formatPrice(event.price)}</span>
       </div>
     </li>
   );

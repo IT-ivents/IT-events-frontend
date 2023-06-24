@@ -129,11 +129,34 @@ export function useFilter({ values, setValues, setFindValues }) {
     } else setValues({ ...values, [item]: null });
   };
 
+  const handleDateBlur = () => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    const selectedDate = values.date;
+
+    // Проверяем, выбрана ли дата до конца
+    if (selectedDate === '') {
+      // Дата не выбрана
+      // Устанавливаем open в true, чтобы календарь не закрывался
+      setValues({ ...values, date: '', open: true });
+    } else if (selectedDate > currentDate) {
+      // Выбранная дата позже текущей даты
+      // Выполняем соответствующие действия
+      console.log('Выбранная дата позже текущей даты:', selectedDate);
+      setValues({ ...values, open: false });
+    } else {
+      // Выбранная дата до или равна текущей дате
+      // Выполняем соответствующие действия
+      console.log('Выбранная дата до или равна текущей дате:', selectedDate);
+      setValues({ ...values, open: false });
+    }
+  };
+
   return {
     handleInputChange,
     handleButtonChange,
     setItemOnClick,
     deleteValue,
     handleDateChange,
+    handleDateBlur,
   };
 }

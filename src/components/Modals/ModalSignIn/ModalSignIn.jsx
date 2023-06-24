@@ -7,7 +7,7 @@ import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
-  const isServerError = false;
+  const isServerError = true;
   const {
     values,
     handleChange,
@@ -56,8 +56,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
           <div className={styles.errorContainer}>
             <figure className={styles.serverErrorFigure} />
             <span className={styles.serverError}>
-              Логин или пароль не совпадают. Проверьте правильность введённых
-              данных.
+              Логин или пароль не совпадают. Проверьте введённые данные.
             </span>
           </div>
         )}

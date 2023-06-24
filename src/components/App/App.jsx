@@ -347,6 +347,7 @@ function App() {
                   interestingEvents={interestingEvents}
                   handleSearch={handleFilterSearch}
                   searchQuery={searchQuery}
+                  onSearch={handleSearch}
                 />
               }
             />

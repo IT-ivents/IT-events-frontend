@@ -13,7 +13,12 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
 
-  const { handleInputChange, handleButtonChange, setItemOnClick } = useFilter({
+  const {
+    handleInputChange,
+    handleDateBlur,
+    handleButtonChange,
+    setItemOnClick,
+  } = useFilter({
     values,
     setValues,
     findValues,
@@ -69,6 +74,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             className={styles.pickdate}
             name="date"
             type="date"
+            onBlur={handleDateBlur}
             min={new Date()}
           ></input>
         )}
