@@ -33,12 +33,14 @@ const Event = ({
           onError={handleImageError}
         />
       </aside>
-      <HorizontalEventsList
-        title="Смотрите также"
-        list={recommendedEvents}
-        onCardClick={onCardClick}
-        onLikeClick={onLikeClick}
-      />
+      <div className={styles.horizontalList}>
+        <HorizontalEventsList
+          title="Смотрите также"
+          list={recommendedEvents}
+          onCardClick={onCardClick}
+          onLikeClick={onLikeClick}
+        />
+      </div>
     </div>
   );
 };

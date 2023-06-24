@@ -2,7 +2,9 @@ import styles from './EventDescription.module.css';
 import { useState } from 'react';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-import playIcon from '../../images/Actions/PlayCircle.svg';
+import CalendarImage from '../../images/EventInfo/calendar.svg';
+import TimeImage from '../../images/EventInfo/time.svg';
+import PlaceImage from '../../images/EventInfo/place.svg';
 import LikeImage from '../../images/like-button.svg';
 import LikeImageActive from '../../images/like-button_active.svg';
 import ShareImage from '../../images/Actions/Share.svg';
@@ -29,7 +31,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
-        {showNotification && <PopupLink top="55px" />}
+        {showNotification && <PopupLink top="55px" right="-100px" />}
         <h1 className={styles.eventName}>{selectedEvent.title}</h1>
         <div className={styles.eventFigures}>
           <figure className={styles.eventFigure}>
@@ -46,22 +48,23 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
       </header>
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>
+          <img src={CalendarImage} alt="Календарь" />
           {formatDate(selectedEvent.date_start)}
         </li>
         <li className={styles.eventDate}>
+          <img src={TimeImage} alt="Время" />
           {formatTimeRange(selectedEvent.date_start, selectedEvent.date_end)}
         </li>
         <li className={styles.eventDate}>
+          <img src={PlaceImage} alt="Место проведения" />
           {selectedEvent?.address?.split(' ').slice(0, 5).join(' ') ||
             selectedEvent?.city?.name ||
             'Нет данных'}
         </li>
+        <li className={styles.eventPrice}>
+          {formatPrice(selectedEvent.price)}
+        </li>
       </ul>
-      <figure className={styles.eventFigure}>
-        <img src={playIcon} alt="Play" />
-        <figcaption>Online-трансляция</figcaption>
-      </figure>
-      <p className={styles.eventPrice}>{formatPrice(selectedEvent.price)}</p>
       <PrimaryButton
         title="Перейти на сайт организатора"
         to={selectedEvent?.url}

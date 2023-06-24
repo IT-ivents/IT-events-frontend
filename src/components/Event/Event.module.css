@@ -11,3 +11,9 @@
   object-fit: cover;
   border-radius: 11px;
 }
+
+.horizontalList {
+  width: 100%;
+  min-width: 900px;
+  margin-bottom: 67px;
+}
