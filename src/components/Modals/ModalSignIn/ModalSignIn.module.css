@@ -26,8 +26,9 @@
 
 .figure {
   background: url(../../../images/enter_acc.svg) no-repeat center;
-  width: 16px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
 }
 
 .formSubtext {
@@ -177,7 +178,7 @@
 }
 
 .errorContainer {
-  padding-bottom: 32px;
+  padding: 0 70px 32px 0;
   display: flex;
   align-items: start;
   gap: 11px;

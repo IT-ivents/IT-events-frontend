@@ -6,6 +6,7 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import { useFilterdList } from '../utils/hooks/useFilteredList';
 import SearchFilterContext from '../utils/context/SearchFilterContext';
+import SearchField from '../components/SearchField/SearchField';
 
 const SearchResultPage = ({
   searchResult,

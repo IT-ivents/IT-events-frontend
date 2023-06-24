@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const useScrollToTop = () => {
+const useScrollToTop = (scrollThreshold) => {
   const [isOnTopVisible, setIsOnTopVisible] = useState(false);
 
   const handleScroll = () => {
-    if (window.pageYOffset > 0) {
+    // const scrollY = window.pageYOffset
+    // console.log('Scroll position:', scrollY);
+    if (window.pageYOffset > scrollThreshold) {
       setIsOnTopVisible(true);
     } else {
       setIsOnTopVisible(false);
