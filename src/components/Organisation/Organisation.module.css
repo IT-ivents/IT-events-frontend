@@ -1,3 +1,75 @@
 .natasha {
-  height: calc(100vh - 113px - 64px);
+  height: 100%;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.2px;
+  color: rgba(0, 0, 0, 0.8);
+  padding-bottom: 4px;
+  align-self: start;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  outline: none;
+  width: 100%;
+}
+
+.input:focus {
+  background-color: #fefefe;
+  border: 2px solid #674eae;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.textArea {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  width: 100%;
+}
+
+.textArea:focus {
+  background-color: #fefefe;
+  border: 2px solid #674eae;
+}
+
+.textArea::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
