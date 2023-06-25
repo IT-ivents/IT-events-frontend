@@ -47,7 +47,7 @@ const MainPage = ({
     },
   ];
 
-  const { isOnTopVisible, scrollToTop } = useScrollToTop(740);
+  const { isOnTopVisible, scrollToTop, footerHeight } = useScrollToTop(740);
 
   return (
     <div className={styles.mainPageWrapper}>
@@ -72,11 +72,14 @@ const MainPage = ({
         </div>
       </div>
       <Subscribe />
+
+      {/* {ScrollToTopButton} */}
       <div className={styles.scrollContainer}>
         <button
           type="button"
           className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
           onClick={scrollToTop}
+          style={{ bottom: `${footerHeight + 40}px` }}
         ></button>
       </div>
     </div>
