@@ -8,31 +8,35 @@ import enterIcon from '../../images/enter_acc.svg';
 import favoritesIcon from '../../images/favorites-header-icon.svg';
 
 const smallForm = {
-  width: '449px',
+  width: '450px',
   height: '44px',
-  marginLeft: '100px',
-  marginRight: '275px',
+  marginLeft: '-53px',
   border: '1px solid #C9CCD8',
   borderRadius: '20px',
 };
 
 const smallFieldset = {
-  gap: '9px',
-  marginLeft: '16px',
+  gap: '6px',
+  marginLeft: '13px',
 };
 
 const smallInput = {
-  width: '397px', // '388px' + font-weight: 400 (::placeholder!)
+  width: '397px',
 };
 
 const Header = ({ onSearch, searchQuery, onEnter }) => {
   const location = useLocation();
-  const isSearchFieldInvisible =
-    location.pathname !== '/favorites' &&
-    location.pathname !== '/notifications' &&
-    location.pathname !== '/results' &&
-    location.pathname !== '/preferences' &&
-    location.pathname !== '/privacy';
+  // const isSearchFieldInvisible =
+  //   location.pathname !== '/favorites' &&
+  //   location.pathname !== '/notifications' &&
+  //   location.pathname !== '/results' &&
+  //   location.pathname !== '/preferences' &&
+  //   location.pathname !== '/privacy';
+
+  const isSearchFieldOnTop =
+    location.pathname === '/event' ||
+    location.pathname === '/favorites' ||
+    location.pathname === '/notifications';
 
   const navLinks = [
     {
@@ -71,6 +75,15 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     >
       <div className={styles.linksContainer}>
         <Logo />
+        {isSearchFieldOnTop && (
+          <SearchField
+            onSearch={onSearch}
+            searchQuery={searchQuery}
+            smallForm={smallForm}
+            smallFieldset={smallFieldset}
+            smallInput={smallInput}
+          />
+        )}
         <nav className={styles.navigationBar}>
           {navLinks.map((link) => (
             <Link
