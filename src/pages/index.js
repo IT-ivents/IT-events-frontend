@@ -7,6 +7,7 @@ import SearchResultPage from './SearchResultPage';
 import PreferencesPage from './PreferencesPage';
 import PrivacyPolicyPage from './PrivacyPolicyPage';
 import About from './About';
+import Organisation from './OrganisationPage';
 
 export {
   MainPage,
@@ -18,4 +19,5 @@ export {
   PreferencesPage,
   PrivacyPolicyPage,
   About,
+  Organisation,
 };
