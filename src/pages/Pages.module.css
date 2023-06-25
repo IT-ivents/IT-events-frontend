@@ -33,7 +33,6 @@
 
 .scrollContainer {
   position: sticky;
-  display: hidden;
   bottom: 0;
   display: flex;
   justify-content: flex-end;
@@ -46,8 +45,6 @@
   width: 100px;
   height: 100px;
   border: none;
-  display: flex;
-  justify-content: flex-end;
   bottom: 40px;
   right: -64px;
   border-radius: 50%;
