@@ -32,18 +32,25 @@
 }
 
 .scrollContainer {
-  position: fixed;
+  position: sticky;
+  display: hidden;
   bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .onTop.visible {
-  position: fixed;
+  position: absolute;
   background: url('../images/on-top-button.svg') no-repeat;
   width: 100px;
   height: 100px;
-  border: 0;
+  border: none;
+  display: flex;
+  justify-content: flex-end;
+  bottom: 40px;
+  right: -50px;
   border-radius: 50%;
-  right: calc((100vw - 1360px) / 2);
   cursor: pointer;
   z-index: 1;
 }
