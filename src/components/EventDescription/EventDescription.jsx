@@ -28,6 +28,13 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
     onLikeClick(selectedEvent);
   };
 
+  const eventStartDate = formatDate(selectedEvent.date_start);
+  const eventEndDate = formatDate(selectedEvent.date_end);
+  const eventDate =
+    eventStartDate === eventEndDate
+      ? eventStartDate
+      : `${eventStartDate} - ${eventEndDate}`;
+
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
@@ -49,7 +56,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>
           <img src={CalendarImage} alt="Календарь" />
-          {formatDate(selectedEvent.date_start)}
+          {eventDate}
         </li>
         <li className={styles.eventDate}>
           <img src={TimeImage} alt="Время" />

@@ -5,7 +5,6 @@ import GitHubLogo from '../../images/SocialNetworks/GitHub.svg';
 import MessengerLogo from '../../images/SocialNetworks/Messenger.svg';
 import VkLogo from '../../images/SocialNetworks/VK.svg';
 import useScrollToTop from '../../utils/hooks/useScrollToTop';
-import axios from 'axios';
 
 const logoSize = {
   fontSize: '20px',
