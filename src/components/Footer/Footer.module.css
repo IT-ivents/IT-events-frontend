@@ -40,8 +40,17 @@
   line-height: 24px;
   white-space: nowrap;
   padding-left: 10px;
-  color: #c9ccd8;
+  color: #f1f0eb;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.footerItem:hover span {
+  color: #674eae;
+}
+
+.footerItem:active span {
+  color: #56525c;
 }
 
 .logoLink {

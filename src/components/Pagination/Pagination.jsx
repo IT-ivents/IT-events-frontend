@@ -12,20 +12,18 @@ const Pagination = ({ page, totalPages, handleShowMore, handleShowLess }) => {
         onClick={handleShowLess}
         className={`${styles.currentPage} ${
           isFirstPage ? styles.disabled : ''
-        }`}
+        } ${styles.toLeft}`}
         disabled={isFirstPage}
-      >
-        {'<'}
-      </button>
+      />
       <p className={styles.currentPage}>{page}</p>
       <button
         type="button"
         onClick={handleShowMore}
-        className={`${styles.currentPage} ${isLastPage ? styles.disabled : ''}`}
+        className={`${styles.currentPage} ${
+          isLastPage ? styles.disabled : ''
+        } ${styles.toRight}`}
         disabled={isLastPage}
-      >
-        {'>'}
-      </button>
+      />
       <p>из {totalPages}</p>
     </div>
   );

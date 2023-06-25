@@ -12,6 +12,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   const location = useLocation();
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
+  const resultLocation = location.pathname === '/results';
 
   const {
     handleInputChange,
@@ -115,7 +116,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
 
   return (
     <section className={styles.filterForm}>
-      {/* <h2 className={styles.filterTitle}>Фильтры</h2> */}
+      {resultLocation && <h2 className={styles.filterTitle}>Фильтры</h2>}
       <ul className={styles.filterList}>
         <li>
           <h3 className={styles.itemTitle}>Формат</h3>

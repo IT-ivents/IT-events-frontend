@@ -31,6 +31,11 @@
   gap: 124px;
 }
 
+.scrollContainer {
+  position: fixed;
+  bottom: 0;
+}
+
 .onTop.visible {
   position: fixed;
   background: url('../images/on-top-button.svg') no-repeat;
@@ -39,14 +44,13 @@
   border: 0;
   border-radius: 50%;
   right: calc((100vw - 1360px) / 2);
-  bottom: 40px;
   cursor: pointer;
   z-index: 1;
 }
 
-.scrollContainer {
-  position: sticky;
-  bottom: 40px;
+.onTop.visible:hover {
+  background-color: rgba(103, 78, 174, 0.4);
+  transition: all 0.5s ease;
 }
 
 /* Страница: Политика */
