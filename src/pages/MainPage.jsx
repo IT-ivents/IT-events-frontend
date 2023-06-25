@@ -13,7 +13,7 @@ const MainPage = ({
   interestingEvents,
   mostAnticipatedEvents,
   soonEvents,
-  handleSearch,
+  onSearch,
   searchQuery,
 }) => {
   const mainPageEvents = [
@@ -47,14 +47,17 @@ const MainPage = ({
     },
   ];
 
-  const { isOnTopVisible, scrollToTop } = useScrollToTop(740);
+  // const { isOnTopVisible, scrollToTop } = useScrollToTop(740);
+  const { isOnTopVisible, scrollToTop } = useScrollToTop(
+    window.innerHeight - 40
+  );
 
   return (
     <div className={styles.mainPageWrapper}>
-      <LeftFilerBar handleSearch={handleSearch} searchQuery />
+      <LeftFilerBar handleSearch={onSearch} />
       <div className={styles.mainPageListWrapper}>
         <div>
-          <SearchField />
+          <SearchField onSearch={onSearch} searchQuery={searchQuery} />
           <div className={styles.topFilterContainer}>
             <TopFilersBar />
           </div>
@@ -72,11 +75,13 @@ const MainPage = ({
         </div>
       </div>
       <Subscribe />
-      <button
-        type="button"
-        className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
-        onClick={scrollToTop}
-      ></button>
+      <div className={styles.scrollContainer}>
+        <button
+          type="button"
+          className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
+          onClick={scrollToTop}
+        ></button>
+      </div>
     </div>
   );
 };

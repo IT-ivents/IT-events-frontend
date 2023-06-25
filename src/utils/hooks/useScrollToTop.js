@@ -4,6 +4,8 @@ const useScrollToTop = (scrollThreshold) => {
   const [isOnTopVisible, setIsOnTopVisible] = useState(false);
 
   const handleScroll = () => {
+    // const scrollY = window.pageYOffset
+    // console.log('Scroll position:', scrollY);
     if (window.pageYOffset > scrollThreshold) {
       setIsOnTopVisible(true);
     } else {
