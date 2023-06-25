@@ -79,7 +79,6 @@ const MainPage = ({
           type="button"
           className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
           onClick={scrollToTop}
-          style={{ bottom: `${footerHeight + 40}px` }}
         ></button>
       </div>
     </div>
