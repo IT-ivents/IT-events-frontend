@@ -3,11 +3,13 @@
   cursor: default;
 }
 
-/* .filterTitle {
-  margin: 0 0 53px;
+.filterTitle {
+  padding-bottom: 48px;
   font-size: 32px;
-  color: #242424;
-} */
+  font-weight: 700px;
+  line-height: 120%;
+  color: #1e0a3c;
+}
 
 .filterList {
   display: flex;

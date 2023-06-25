@@ -41,7 +41,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} id="footer">
       <div className={styles.logos}>
         <Logo logoSize={logoSize} onClick={scrollToTop} />
         <span className={styles.year}>© {date} IT-events</span>

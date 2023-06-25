@@ -22,8 +22,42 @@
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 4px;
   background: transparent;
+  transition: all 0.3s;
 }
 
 .currentPage.disabled {
   border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.toRight {
+  background: url(../../images/Pagination/arrow-right_default.svg) no-repeat
+    center;
+}
+
+.toRight:hover {
+  background: url(../../images/Pagination/arrow-right_hover.svg) no-repeat
+    center;
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.toRight:disabled {
+  background: url(../../images/Pagination/arrow-right_disabled.svg) no-repeat
+    center;
+}
+
+.toLeft {
+  background: url(../../images/Pagination/arrow-left_default.svg) no-repeat
+    center;
+}
+
+.toLeft:hover {
+  background: url(../../images/Pagination/arrow-left_hover.svg) no-repeat center;
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.toLeft:disabled {
+  background: url(../../images/Pagination/arrow-left_disabled.svg) no-repeat
+    center;
 }
