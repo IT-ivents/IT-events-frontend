@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import styles from './Organisation.module.css';
 import PageTitle from '../PageTitle/PageTitle';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
+import { apiEvents } from '../../utils/api';
 
 const Organisation = () => {
   const {
@@ -12,6 +14,21 @@ const Organisation = () => {
     disabledButton,
     resetForm,
   } = useFormWithValidation();
+
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await apiEvents.getTags();
+        setTags(response.data);
+      } catch (error) {
+        console.log('Error fetching tags:', error);
+      }
+    };
+
+    fetchTags();
+  }, []);
 
   return (
     <form className={styles.natasha}>
@@ -74,10 +91,11 @@ const Organisation = () => {
             <option value="hidden" hidden>
               Выберите направление
             </option>
-            <option value="north">Север</option>
-            <option value="west">Запад</option>
-            <option value="south">Юг</option>
-            <option value="east">Восток</option>
+            {tags.map((tag) => (
+              <option key={tag.id} value={tag.id}>
+                {tag.name}
+              </option>
+            ))}
           </select>
         </fieldset>
 
