@@ -4,7 +4,7 @@ import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
 import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
-import useScrollToTop from '../utils/hooks/useScrollToTop';
+import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
 
 const MainPage = ({
   onCardClick,
@@ -47,8 +47,6 @@ const MainPage = ({
     },
   ];
 
-  const { isOnTopVisible, scrollToTop, footerHeight } = useScrollToTop(740);
-
   return (
     <div className={styles.mainPageWrapper}>
       <LeftFilerBar handleSearch={onSearch} />
@@ -72,15 +70,7 @@ const MainPage = ({
         </div>
       </div>
       <Subscribe />
-
-      {/* {ScrollToTopButton} */}
-      <div className={styles.scrollContainer}>
-        <button
-          type="button"
-          className={`${styles.onTop} ${isOnTopVisible ? styles.visible : ''}`}
-          onClick={scrollToTop}
-        ></button>
-      </div>
+      <ScrollToTopButton />
     </div>
   );
 };
