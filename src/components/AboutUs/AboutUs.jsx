@@ -11,6 +11,8 @@ import Cat from '../../images/Forms/cat.svg';
 import Arrow from '../../images/Forms/cat-arrow.svg';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { aboutText, spanBlock } from '../../utils/constants/aboutPageText';
+import BannerImage from '../../images/team-banner.jpg';
+import { team, prevTeam } from '../../utils/constants/team';
 
 const images = [
   { src: Image1, style: styles.imageOne },
@@ -23,31 +25,32 @@ const images = [
 const AboutUs = () => {
   return (
     <section className={styles.about}>
-      <div className={styles.description}>
-        <h1 className={styles.mainTitle}>О нас</h1>
-        {/* TEXT BLOCK */}
-        <ul className={styles.blockList}>
-          {aboutText.map((block) => (
-            <li key={block.id} className={styles.block}>
-              <h2 className={styles.title}>{block.title}</h2>
-              <p className={styles.text}>{block.text}</p>
-            </li>
+      <div className={styles.background}>
+        <div className={styles.description}>
+          <h1 className={styles.mainTitle}>О нас</h1>
+          {/* TEXT BLOCK */}
+          <ul className={styles.blockList}>
+            {aboutText.map((block) => (
+              <li key={block.id} className={styles.block}>
+                <h2 className={styles.title}>{block.title}</h2>
+                <p className={styles.text}>{block.text}</p>
+              </li>
+            ))}
+          </ul>
+          <PrimaryButton title="Стать партнером" />
+        </div>
+        {/* IMAGES BLOCK */}
+        <aside className={styles.aside}>
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image.src}
+              alt="Изображение конференции"
+              className={image.style}
+            />
           ))}
-        </ul>
-        <PrimaryButton title="Стать партнером" />
+        </aside>
       </div>
-      {/* IMAGES BLOCK */}
-      <aside className={styles.aside}>
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image.src}
-            alt="Изображение конференции"
-            className={image.style}
-          />
-        ))}
-      </aside>
-
       <div>
         <h3 className={styles.connectTitle}>Connect-IT — это:</h3>
         {/* SPAN BLOCK */}
@@ -69,12 +72,53 @@ const AboutUs = () => {
         </ul>
       </div>
 
+      {/* BANNER */}
+      <img src={BannerImage} alt="Команда" className={styles.banner} />
+
+      {/* TEAM */}
+      <div className={styles.team}>
+        <h4 className={styles.teamTitle}>Команда проекта</h4>
+        <span>Действующие участники</span>
+        <div className={styles.members}>
+          {team.map((member) => {
+            return (
+              <div className={styles.member}>
+                <img
+                  src={member.photo}
+                  alt="Участник"
+                  className={styles.avatar}
+                />
+                <p className={styles.memberName}>{member.name}</p>
+                <span>{member.role}</span>
+              </div>
+            );
+          })}
+        </div>
+
+        <span>Внесли свой вклад в проект</span>
+        <div className={styles.members}>
+          {prevTeam.map((member) => {
+            return (
+              <div className={styles.member}>
+                <img
+                  src={member.photo}
+                  alt="Участник"
+                  className={styles.avatar}
+                />
+                <p className={styles.memberName}>{member.name}</p>
+                <span>{member.role}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       <form action="#" className={styles.form}>
         <img src={Background} alt="Фон" className={styles.imgBackground} />
         <img src={Cat} alt="Котик" className={styles.cat} />
         <img src={Arrow} alt="Стрелка" className={styles.arrow} />
         <div className={styles.formData}>
-          <h4 className={styles.formTitle}>Планируете ИТ-проект?</h4>
+          <h5 className={styles.formTitle}>Планируете ИТ-проект?</h5>
           <span className={styles.info}>
             Сотрудники Connect-IT ответят на любые интересующие вас вопросы.
           </span>
