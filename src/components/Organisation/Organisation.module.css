@@ -1,10 +1,11 @@
 .natasha {
   height: 100%;
-  max-width: 900px;
+  width: 100%;
+  max-width: 1232px;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  gap: 20px;
+  gap: 10px;
   -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
@@ -21,6 +22,8 @@
   padding: 0;
   border: none;
   width: 100%;
+  min-height: 90px;
+  position: relative;
 }
 
 .label {
@@ -53,12 +56,16 @@
   color: rgba(0, 0, 0, 0.6);
 }
 
+.input:disabled::placeholder {
+  color: rgba(0, 0, 0, 0.2);
+}
+
 .inputError {
   border: 2px solid #e62214;
 }
 
 .inputSuccess {
-  border: 2px solid green;
+  background-color: #c8f9c2;
 }
 
 .textArea {
@@ -82,10 +89,23 @@
   color: rgba(0, 0, 0, 0.6);
 }
 
+.textAreaError {
+  border: 2px solid #e62214;
+}
+
+.textAreaSuccess {
+  background-color: #c8f9c2;
+}
 .rowContainer {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+}
+
+.columnContainer {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -100,7 +120,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  padding-top: 4px;
+  /* padding-top: 4px; */
 }
 .message {
   color: #443375;
