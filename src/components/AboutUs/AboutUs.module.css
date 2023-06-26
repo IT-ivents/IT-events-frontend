@@ -1,12 +1,20 @@
 .about {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  padding: 23px 104px 0;
+}
+
+.background {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100vw;
+  background: #f1f1f1;
+  padding: 24px 0 85px;
 }
 
 .description {
   max-width: 521px;
-  margin-right: 102px;
 }
 
 .mainTitle {
@@ -19,7 +27,7 @@
 .title {
   font-size: 20px;
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 17px;
   color: #2a2630;
   cursor: default;
 }
@@ -47,7 +55,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 605px;
-  height: 582px;
+  height: fit-content;
 }
 
 .imageOne {
@@ -90,10 +98,11 @@
 }
 
 .connectTitle {
+  width: 1232px;
   font-size: 48px;
   font-weight: 700;
   color: #242424;
-  margin: 125px 0 58px;
+  margin: 64px 0 29px;
   cursor: default;
 }
 
@@ -102,12 +111,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1179px;
+  width: 1073px;
   cursor: default;
 }
 
 .number {
-  font-size: 100px;
+  font-size: 84px;
   font-weight: 700;
   color: #674eae;
   margin-bottom: 10px;
@@ -125,10 +134,10 @@
 
 .form {
   position: relative;
-  width: 1045px;
+  width: 1055px;
   height: 532px;
   background: #f9f9f9;
-  margin: 165px 0 139px;
+  margin: 132px 0 120px;
   cursor: default;
 }
 
@@ -154,7 +163,7 @@
   flex-direction: column;
   width: 403px;
   top: 60px;
-  right: 257px;
+  right: 267px;
 }
 
 .formTitle {
@@ -201,4 +210,56 @@
 .policyLink {
   text-underline-offset: 3px;
   color: #797979;
+}
+
+.banner {
+  max-width: 1232px;
+  margin: 57px 0 61px;
+}
+
+.teamTitle {
+  font-size: 48px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 30px;
+}
+
+.team span {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 140px;
+  max-width: 1232px;
+  margin: 60px 0 117px;
+}
+
+.avatar {
+  width: 169px;
+  height: 169px;
+  border-radius: 50%;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 11px;
+  width: 172px;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.memberName {
+  height: 46px;
+}
+
+.member span {
+  font-size: 16px;
+  color: #674eae;
 }
