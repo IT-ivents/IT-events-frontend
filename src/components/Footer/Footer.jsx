@@ -20,10 +20,10 @@ const Footer = () => {
     const footerItems = [
       { to: '/about', text: 'О нас' },
       { text: 'События' },
-      { text: 'Cookies' },
+      { to: '/cookie', text: 'Cookies' },
       { text: 'Мы в СМИ!' },
       { text: 'Войти в ЛК' },
-      { text: 'Политика конфиденциональности' },
+      { to: '/privacy', text: 'Политика конфиденциональности' },
     ];
 
     return footerItems.map((item, index) => (
