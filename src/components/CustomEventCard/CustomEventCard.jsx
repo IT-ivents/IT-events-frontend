@@ -20,10 +20,12 @@ const CustomEventCard = ({ event }) => {
                 />
                 <time>{formatDate(event.date_start)}</time>
               </li>
-              <li className={styles.rowItem}>
-                <img src={PlaceImage} alt="локация" />
-                <p>{event.city?.name || 'Город неизвестен'}</p>
-              </li>
+              {event.city?.name && (
+                <li className={styles.rowItem}>
+                  <img src={PlaceImage} alt="локация" />
+                  <p>{event.city?.name || 'Город неизвестен'}</p>
+                </li>
+              )}
               {event.format
                 .filter((item) => item.name === 'Online')
                 .map((item) => (
