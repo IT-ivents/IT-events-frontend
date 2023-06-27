@@ -82,7 +82,7 @@ const AboutUs = () => {
         <div className={styles.members}>
           {team.map((member) => {
             return (
-              <div className={styles.member}>
+              <div key={member.id} className={styles.member}>
                 <img
                   src={member.photo}
                   alt="Участник"
@@ -99,7 +99,7 @@ const AboutUs = () => {
         <div className={styles.members}>
           {prevTeam.map((member) => {
             return (
-              <div className={styles.member}>
+              <div key={member.id} className={styles.member}>
                 <img
                   src={member.photo}
                   alt="Участник"
