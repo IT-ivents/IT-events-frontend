@@ -16,7 +16,7 @@ import {
   SearchResultPage,
   PreferencesPage,
   About,
-  Organisation,
+  Organization,
   PrivacyPolicyPage,
   CookiePage,
 } from '../../pages';
@@ -400,7 +400,7 @@ function App() {
             <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="cookie" element={<CookiePage />} />
             <Route path="about" element={<About />} />
-            <Route path="organisation" element={<Organisation />} />
+            <Route path="organization" element={<Organization />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
