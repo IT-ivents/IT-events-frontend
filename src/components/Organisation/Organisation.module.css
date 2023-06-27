@@ -104,9 +104,10 @@
 .textAreaSuccess {
   background-color: #c8f9c2;
 }
+
 .rowContainer {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 10px;
   width: 100%;
 }
@@ -130,6 +131,7 @@
   line-height: 16px;
   /* padding-top: 4px; */
 }
+
 .message {
   color: #443375;
   font-weight: 500;
