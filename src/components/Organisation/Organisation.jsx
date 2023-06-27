@@ -17,14 +17,14 @@ const Organisation = () => {
     disabledButton,
     resetForm,
   } = useFormWithValidation();
-  console.log(values);
 
   const [tags, setTags] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedTagsCount, setSelectedTagsCount] = useState(0);
   const [selectedFormat, setSelectedFormat] = useState([]);
-  const [smallImage, setSmallImage] = useState('');
+  const [imageErrorMessage, setImageErrorMessage] = useState('');
+
   const [isFocused, setIsFocused] = useState({
     tags: false,
     topic: false,
@@ -39,24 +39,35 @@ const Organisation = () => {
   const correctDateStartFormat = dateStart + 'T' + timeStart + ':00Z';
   const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
 
-  const dataForServer = {
-    title: values.title,
-    description: values.description,
-    program: values.program,
-    partners: values.partners,
-    price: values.price,
-    city: values.city,
-    address: values.address,
-    date_start: correctDateStartFormat,
-    date_end: correctDateEndFormat,
-    url: values.url || '',
-  };
-  console.log(dataForServer);
+  const [newCardData, setNewCardData] = useState({});
+  console.log(newCardData);
+
+  useEffect(() => {
+    const selectedTagsSlugs = selectedTags.map((tag) => tag.slug);
+    const selectedTopcsSlugs = selectedTopics.map((topic) => topic.value);
+    const selectedFormatSlugs = selectedFormat.map((format) => format.value);
+    setNewCardData((prevData) => ({
+      ...prevData,
+      tags: selectedTagsSlugs,
+      topic: selectedTopcsSlugs,
+      format: selectedFormatSlugs,
+      title: values.title,
+      description: values.description,
+      program: values.program,
+      partners: values.partners,
+      price: values.price,
+      city: values.city,
+      address: values.address,
+      date_start: correctDateStartFormat,
+      date_end: correctDateEndFormat,
+      url: values.url || '',
+    }));
+  }, [selectedTags, selectedTopics, selectedFormat]);
 
   // Для предпросмотра
   const eventDetails = {
     title: values.title,
-    city: { name: values.city },
+    city: { name: values.city || 'Invalid city' },
     image: values.preview,
     price: values.price || 0,
     date_start: values.date_start,
@@ -64,8 +75,20 @@ const Organisation = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setSmallImage(file);
-    //console.log(file);
+
+    if (file.size > 1048576) {
+      setImageErrorMessage('Файл больше допустимого размера');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      setNewCardData((prevData) => ({
+        ...prevData,
+        image: base64data,
+      }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleTopicChange = (selectedOptions) => {
@@ -83,22 +106,10 @@ const Organisation = () => {
     setSelectedFormat(selectedOptions);
   };
 
-  // const handleTopicChange = (event) => {
-  //   const selectedOptions = Array.from(
-  //     event.target.selectedOptions,
-  //     (option) => option.value
-  //   );
-  //   console.log(selectedOptions);
-  //   setSelectedTopics((prevSelectedTopics) => [
-  //     ...prevSelectedTopics,
-  //     ...selectedOptions,
-  //   ]);
-  // };
-  // console.log(selectedTopics);
-
   const tagOptions = tags.map((tag) => ({
     value: tag.id,
     label: tag.name,
+    slug: tag.slug,
   }));
 
   const formatOptions = [
@@ -143,19 +154,21 @@ const Organisation = () => {
     control: (provided, state) => ({
       ...provided,
       borderRadius: '8px',
-      border: `2px solid ${state.isFocused ? '#674eae' : 'rgba(0, 0, 0, 0.4)'}`,
+      border: `2px solid ${state.isFocused ? '#674EAE' : 'rgba(0, 0, 0, 0.2)'}`,
       boxShadow: 'none',
       borderColor: 'transparent',
       padding: '3.5px 0 3.5px 6px',
-      backgroundColor: `${state.isFocused ? '#fefefe' : 'rgba(0, 0, 0, 0.03)'}`,
+      backgroundColor: `${
+        state.isFocused ? '#fefefe' : 'rgba(255, 255, 255, 1);'
+      }`,
       width: '100%',
       '&:hover': {
-        borderColor: state.isFocused ? '#674eae' : 'rgba(0, 0, 0, 0.4)',
+        borderColor: state.isFocused ? '#674EAE' : '',
       },
       ...((selectedTags.length > 0 ||
         selectedTopics.length > 0 ||
         selectedFormat.length > 0) && {
-        border: '2px solid #789674',
+        border: '2px solid #27ae60',
       }),
     }),
   };
@@ -167,132 +180,117 @@ const Organisation = () => {
       <form className={styles.form}>
         <PageTitle title="Добавить событие" />
         <div className={styles.rowContainer}>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="title" className={styles.label}>
-              Название мероприятия<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>
-                Максимум 50 символов
-              </span>
-            </label>
-            <input
-              className={`${styles.input} ${
-                errors.title
-                  ? styles.inputError
-                  : values.title
-                  ? styles.inputSuccess
-                  : ''
-              }`}
-              type="text"
-              id="title"
-              name="title"
-              value={values.title || ''}
-              onChange={handleChange}
-              placeholder="Ваше название"
-              required
-              minLength={2}
-              maxLength={50}
-            />
-            <span className={styles.spanError}>{errors.title}</span>
-          </fieldset>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="price" className={styles.label}>
-              Ссылка на сайт
-            </label>
-            <input
-              className={`${styles.input} ${
-                errors.url
-                  ? styles.inputError
-                  : values.url
-                  ? styles.inputSuccess
-                  : ''
-              }`}
-              type="url"
-              id="url"
-              name="url"
-              value={values.url || ''}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Ваша ссылка"
-              minLength={4}
-              maxLength={250}
-              autoComplete="off"
-            />
-            <span className={styles.spanError}>{errors.url}</span>
-          </fieldset>
+          <div className={styles.columnContainer}>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
+              <label htmlFor="title" className={styles.label}>
+                Название мероприятия<span className={styles.spanError}>*</span>{' '}
+                <span className={styles.recommendation}>
+                  Максимум 50 символов
+                </span>
+              </label>
+              <input
+                className={`${styles.input} ${
+                  errors.title
+                    ? styles.inputError
+                    : values.title
+                    ? styles.inputSuccess
+                    : ''
+                }`}
+                type="text"
+                id="title"
+                name="title"
+                value={values.title || ''}
+                onChange={handleChange}
+                placeholder="Ваше название"
+                required
+                minLength={2}
+                maxLength={50}
+              />
+              <span className={styles.spanError}>{errors.title}</span>
+            </fieldset>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
+              <label htmlFor="price" className={styles.label}>
+                Ссылка на сайт
+                <span className={styles.recommendation}>
+                  {' '}
+                  Максимум 200 символов
+                </span>
+              </label>
+              <input
+                className={`${styles.input} ${
+                  errors.url
+                    ? styles.inputError
+                    : values.url
+                    ? styles.inputSuccess
+                    : ''
+                }`}
+                type="url"
+                id="url"
+                name="url"
+                value={values.url || ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Ваша ссылка"
+                minLength={4}
+                maxLength={250}
+                autoComplete="off"
+              />
+              <span className={styles.spanError}>{errors.url}</span>
+            </fieldset>
+
+            <fieldset className={styles.fieldset}>
+              <label htmlFor="preview" className={styles.label}>
+                Ссылка на изображение для предпросмотра
+              </label>
+              <input
+                className={styles.input}
+                type="url"
+                id="url"
+                name="preview"
+                value={values.preview || ''}
+                onChange={handleChange}
+                placeholder="Ваша ссылка"
+                maxLength={200}
+                autoComplete="off"
+              />
+            </fieldset>
+
+            <fieldset className={styles.fieldset}>
+              <label htmlFor="description" className={styles.label}>
+                Описание<span className={styles.spanError}>*</span>{' '}
+                <span className={styles.recommendation}>
+                  Максимум 1000 символов
+                </span>
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={values.description || ''}
+                onChange={handleChange}
+                rows="6"
+                required
+                minLength={10}
+                maxLength={1000}
+                placeholder="Расскажите о событии подробнее"
+                className={`${styles.textArea} ${
+                  errors.description
+                    ? styles.textAreaError
+                    : values.description
+                    ? styles.textAreaSuccess
+                    : ''
+                }`}
+              />
+              <span className={styles.spanError}>{errors.description}</span>
+            </fieldset>
+          </div>
+
+          <div className={styles.columnContainer}>
+            <div className={styles.previewContainer}>
+              <VerticalEventCard event={eventDetails} />
+            </div>
+          </div>
         </div>
-
-        <fieldset className={styles.fieldset}>
-          <label htmlFor="description" className={styles.label}>
-            Описание<span className={styles.spanError}>*</span>{' '}
-            <span className={styles.recommendation}>
-              Максимум 1000 символов
-            </span>
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={values.description || ''}
-            onChange={handleChange}
-            rows="6"
-            required
-            minLength={10}
-            maxLength={1000}
-            placeholder="Расскажите о событии подробнее"
-            className={`${styles.textArea} ${
-              errors.description
-                ? styles.textAreaError
-                : values.description
-                ? styles.textAreaSuccess
-                : ''
-            }`}
-          />
-          <span className={styles.spanError}>{errors.description}</span>
-        </fieldset>
-
-        <fieldset className={styles.fieldset}>
-          <label htmlFor="program" className={styles.label}>
-            Программа<span className={styles.spanError}>*</span>{' '}
-            <span className={styles.recommendation}>
-              Максимум 3000 символов
-            </span>
-          </label>
-          <textarea
-            id="program"
-            name="program"
-            value={values.program || ''}
-            onChange={handleChange}
-            rows="4"
-            placeholder="Что будет в вашей программе?"
-            className={`${styles.textArea} ${
-              errors.program
-                ? styles.textAreaError
-                : values.program
-                ? styles.textAreaSuccess
-                : ''
-            }`}
-          ></textarea>
-        </fieldset>
-
         <div className={styles.rowContainer}>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="tags" className={styles.label}>
-              Направление<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>Максимум 25 тегов</span>
-            </label>
-            <Select
-              isMulti
-              name="tags"
-              options={tagOptions}
-              onChange={handleTagChange}
-              components={animatedComponents}
-              value={selectedTags}
-              styles={customSelectStyles}
-              onFocus={() => handleSelectFocus('tags')}
-              onBlur={() => handleSelectBlur('tags')}
-              placeholder="Выберите направление"
-            />
-          </fieldset>
-
           <fieldset className={styles.fieldset}>
             <label htmlFor="topic" className={styles.label}>
               Тема<span className={styles.spanError}>*</span>
@@ -328,7 +326,53 @@ const Organisation = () => {
               placeholder="Выберите формат"
             />
           </fieldset>
+
+          <fieldset className={styles.fieldset}>
+            <label htmlFor="tags" className={styles.label}>
+              Теги<span className={styles.spanError}>*</span>{' '}
+              <span className={styles.recommendation}>Максимум 25 тегов</span>
+            </label>
+            <Select
+              isMulti
+              name="tags"
+              options={tagOptions}
+              onChange={handleTagChange}
+              components={animatedComponents}
+              value={selectedTags}
+              styles={customSelectStyles}
+              onFocus={() => handleSelectFocus('tags')}
+              onBlur={() => handleSelectBlur('tags')}
+              placeholder="Выберите теги"
+            />
+          </fieldset>
         </div>
+        <fieldset className={styles.fieldset}>
+          <label htmlFor="program" className={styles.label}>
+            Программа<span className={styles.spanError}>*</span>{' '}
+            <span className={styles.recommendation}>
+              Максимум 3000 символов
+            </span>
+          </label>
+          <textarea
+            id="program"
+            name="program"
+            value={values.program || ''}
+            required
+            minLength={10}
+            maxLength={3000}
+            onChange={handleChange}
+            rows="4"
+            placeholder="Что будет в вашей программе?"
+            className={`${styles.textArea} ${
+              errors.program
+                ? styles.textAreaError
+                : values.program
+                ? styles.textAreaSuccess
+                : ''
+            }`}
+          ></textarea>
+          <span className={styles.spanError}>{errors.program}</span>
+        </fieldset>
 
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
@@ -341,7 +385,7 @@ const Organisation = () => {
                 id="date_start"
                 name="date_start"
                 required
-                value={values.date_start}
+                value={values.date_start || ''}
                 onChange={handleChange}
                 className={`${styles.input} ${
                   errors.date_start
@@ -359,7 +403,7 @@ const Organisation = () => {
                 id="time_start"
                 name="time_start"
                 required
-                value={values.time_start}
+                value={values.time_start || ''}
                 onChange={handleChange}
                 className={`${styles.input} ${
                   errors.time_start
@@ -383,7 +427,7 @@ const Organisation = () => {
                 id="date_end"
                 name="date_end"
                 required
-                value={values.date_end}
+                value={values.date_end || ''}
                 onChange={handleChange}
                 className={`${styles.input} ${
                   errors.date_end
@@ -401,7 +445,7 @@ const Organisation = () => {
                 id="time_end"
                 name="time_end"
                 required
-                value={values.time_end}
+                value={values.time_end || ''}
                 onChange={handleChange}
                 className={`${styles.input} ${
                   errors.time_end
@@ -416,7 +460,7 @@ const Organisation = () => {
           </div>
         </div>
         <div className={styles.rowContainer}>
-          <fieldset className={styles.fieldset}>
+          <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="city" className={styles.label}>
               Город<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
@@ -444,11 +488,11 @@ const Organisation = () => {
             <span className={styles.spanError}>{errors.city}</span>
           </fieldset>
 
-          <fieldset className={styles.fieldset}>
+          <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="address" className={styles.label}>
               Адрес<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
-                Максимум 70 символов
+                Максимум 130 символов
               </span>
             </label>
             <input
@@ -466,18 +510,19 @@ const Organisation = () => {
               }`}
               placeholder="Укажите адрес"
               required
-              maxLength={200}
+              minLength={2}
+              maxLength={130}
             />
             <span className={styles.spanError}>{errors.address}</span>
           </fieldset>
         </div>
 
         <div className={styles.rowContainer}>
-          <fieldset className={styles.fieldset}>
+          <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="partners" className={styles.label}>
               Партнеры{' '}
               <span className={styles.recommendation}>
-                Максимум 200 символов
+                Максимум 1000 символов
               </span>
             </label>
             <input
@@ -494,15 +539,14 @@ const Organisation = () => {
               value={values.partners || ''}
               onChange={handleChange}
               placeholder="Есть партнеры?"
-              required
-              maxLength={200}
+              minLength={2}
+              maxLength={1000}
             />
             <span className={styles.spanError}>{errors.partners}</span>
           </fieldset>
-          <fieldset className={styles.fieldset}>
+          <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="price" className={styles.label}>
               Цена<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>Максимум 7 символов</span>
             </label>
             <input
               className={`${styles.input} ${
@@ -519,7 +563,7 @@ const Organisation = () => {
               onChange={handleChange}
               required
               minLength={1}
-              maxLength={7}
+              maxLength={8}
               placeholder="Укажите цену"
             />
             <span className={styles.spanError}>{errors.price}</span>
@@ -539,10 +583,12 @@ const Organisation = () => {
               type="file"
               id="image_large"
               name="image_large"
-              className={styles.input}
+              className={`${styles.input} ${
+                imageErrorMessage ? styles.inputError : ''
+              }`}
               onChange={handleFileChange}
-              value={values.image_large}
             />
+            <span className={styles.spanError}>{imageErrorMessage}</span>
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="image" className={styles.label}>
@@ -554,12 +600,14 @@ const Organisation = () => {
             </label>
             <input
               type="file"
-              id="src"
-              name="src"
-              value={values.src}
-              onChange={handleChange}
-              className={styles.input}
+              id="image_small"
+              name="image_small"
+              onChange={handleFileChange}
+              className={`${styles.input} ${
+                imageErrorMessage ? styles.inputError : ''
+              }`}
             />
+            <span className={styles.spanError}>{imageErrorMessage}</span>
           </fieldset>
         </div>
 
@@ -570,28 +618,6 @@ const Organisation = () => {
         </p>
         <SubmitButton title="Отправить" />
       </form>
-      <div className={styles.previewContainer}>
-        <PageTitle title="Предпросмотр" />
-
-        <fieldset className={styles.fieldset}>
-          <label htmlFor="price" className={styles.label}>
-            Ссылка на изображение для демонстрации
-          </label>
-          <input
-            className={styles.input}
-            type="url"
-            id="url"
-            name="preview"
-            value={values.preview || ''}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Ваша ссылка"
-            maxLength={200}
-            autoComplete="off"
-          />
-        </fieldset>
-        <VerticalEventCard event={eventDetails} />
-      </div>
     </div>
   );
 };

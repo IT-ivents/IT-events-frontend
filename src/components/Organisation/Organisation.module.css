@@ -3,13 +3,13 @@
   width: 100%;
   gap: 50px;
   display: flex;
-  align-items: start;
+  justify-content: center;
   margin-bottom: 40px;
 }
 
 .form {
   height: 100%;
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,19 +19,28 @@
   box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
   padding: 30px 50px;
   border-radius: 15px;
-  background-color: #fefefe;
+  background: linear-gradient(rgba(255, 255, 255, 1), rgba(103, 78, 174, 0.1));
 }
 
 .fieldset {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
   gap: 5px;
   margin: 0;
   padding: 0;
   border: none;
   width: 100%;
-  min-height: 100px;
   position: relative;
+}
+
+.regularHight {
+  min-height: 90px;
+}
+
+.smallHight {
+  min-height: 50px;
 }
 
 .label {
@@ -39,15 +48,15 @@
   font-size: 14px;
   line-height: 16.2px;
   color: #443375;
-  padding-bottom: 4px;
+
   align-self: start;
 }
 
 .input {
-  padding: 10px 14px;
+  padding: 12.5px 14px;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 2px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(0, 0, 0, 0.2);
   outline: none;
   width: 100%;
 }
@@ -73,14 +82,14 @@
 }
 
 .inputSuccess {
-  background-color: #c8f9c2;
+  border: 2px solid #27ae60;
 }
 
 .textArea {
   padding: 10px 14px;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.03);
-  border: 2px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(0, 0, 0, 0.2);
   outline: none;
   width: 100%;
 }
@@ -102,7 +111,7 @@
 }
 
 .textAreaSuccess {
-  background-color: #c8f9c2;
+  border: 2px solid #27ae60;
 }
 
 .rowContainer {
@@ -115,6 +124,7 @@
 .columnContainer {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 
@@ -157,7 +167,18 @@
   border-radius: 10px;
 }
 
-.reviewContainer {
+.previewContainer {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: end;
+  align-self: end;
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px 20px;
+  width: fit-content;
+  background-color: white;
 }
