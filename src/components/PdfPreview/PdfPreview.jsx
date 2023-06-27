@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useLocation } from 'react-router-dom';
-
 import styles from './PdfPreview.module.css';
 import PolicyFile from '../../pdf/Policy.pdf';
 import CookieFile from '../../pdf/Cookie.pdf';
@@ -27,12 +26,12 @@ const PrivacyPolicyPreview = () => {
       case '/privacy':
         return {
           file: PolicyFile,
-          downloadText: 'Скачать политику конфиденциальности',
+          downloadText: 'Скачать в формате PDF',
         };
       case '/cookie':
         return {
           file: CookieFile,
-          downloadText: 'Скачать cookie',
+          downloadText: 'Скачать в формате PDF',
         };
       default:
         return null;
@@ -62,9 +61,9 @@ const PrivacyPolicyPreview = () => {
               onClick={() => setPageNumber(pageNumber - 2)}
               disabled={pageNumber <= 1}
             >
-              {'<'} Предыдущая страница
+              Предыдущая страница
             </button>
-            <p>
+            <p className={styles.pages}>
               Страница {pageNumber + 1} из {numPages}
             </p>
             <button
@@ -72,7 +71,7 @@ const PrivacyPolicyPreview = () => {
               onClick={() => setPageNumber(pageNumber + 2)}
               disabled={pageNumber >= numPages - 1}
             >
-              Следующая страница {'>'}
+              Следующая страница
             </button>
           </div>
           <a href={currentPDF.file} download className={styles.download}>
