@@ -7,7 +7,7 @@ import SearchResultPage from './SearchResultPage';
 import PreferencesPage from './PreferencesPage';
 import PrivacyPolicyPage from './PolicyPage';
 import About from './About';
-import Organisation from './OrganisationPage';
+import Organization from './OrganizationPage';
 import CookiePage from './CookiePage';
 
 export {
@@ -20,6 +20,6 @@ export {
   PreferencesPage,
   PrivacyPolicyPage,
   About,
-  Organisation,
+  Organization,
   CookiePage,
 };

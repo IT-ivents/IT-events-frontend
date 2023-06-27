@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './Organisation.module.css';
+import styles from './Organization.module.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import PageTitle from '../PageTitle/PageTitle';
@@ -8,7 +8,7 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 
-const Organisation = () => {
+const Organization = () => {
   const {
     values,
     handleChange,
@@ -154,7 +154,15 @@ const Organisation = () => {
     control: (provided, state) => ({
       ...provided,
       borderRadius: '20px',
-      border: `2px solid ${state.isFocused ? '#674EAE' : 'rgba(0, 0, 0, 0.1)'}`,
+      border: `2px solid ${
+        (selectedTags.length > 0 && state.selectProps.name === 'tags') ||
+        (selectedTopics.length > 0 && state.selectProps.name === 'topic') ||
+        (selectedFormat.length > 0 && state.selectProps.name === 'format')
+          ? '#27ae60'
+          : state.isFocused
+          ? '#674EAE'
+          : 'rgba(0, 0, 0, 0.1)'
+      }`,
       boxShadow: 'none',
       borderColor: 'transparent',
       padding: '3.5px 0 3.5px 6px',
@@ -165,11 +173,6 @@ const Organisation = () => {
       '&:hover': {
         borderColor: state.isFocused ? '#674EAE' : '',
       },
-      ...((selectedTags.length > 0 ||
-        selectedTopics.length > 0 ||
-        selectedFormat.length > 0) && {
-        border: '2px solid #27ae60',
-      }),
     }),
   };
 
@@ -622,4 +625,4 @@ const Organisation = () => {
   );
 };
 
-export default Organisation;
+export default Organization;

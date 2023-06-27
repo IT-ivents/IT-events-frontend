@@ -62,7 +62,7 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
     {
       id: 4,
       name: 'form',
-      path: '/organisation',
+      path: '/organization',
     },
   ];
 
