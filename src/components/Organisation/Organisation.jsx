@@ -12,6 +12,7 @@ const Organisation = () => {
   const {
     values,
     handleChange,
+    inputTypeNumberValidation,
     handleBlur,
     errors,
     disabledButton,
@@ -179,6 +180,7 @@ const Organisation = () => {
     <div className={styles.formContainer}>
       <form className={styles.form}>
         <PageTitle title="Добавить событие" />
+
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
@@ -561,8 +563,10 @@ const Organisation = () => {
               name="price"
               value={values.price || ''}
               onChange={handleChange}
+              onInput={inputTypeNumberValidation}
               required
-              minLength={1}
+              pattern="\d+"
+              minLength={2}
               maxLength={8}
               placeholder="Укажите цену"
             />
