@@ -153,8 +153,8 @@ const Organisation = () => {
   const customSelectStyles = {
     control: (provided, state) => ({
       ...provided,
-      borderRadius: '8px',
-      border: `2px solid ${state.isFocused ? '#674EAE' : 'rgba(0, 0, 0, 0.2)'}`,
+      borderRadius: '20px',
+      border: `2px solid ${state.isFocused ? '#674EAE' : 'rgba(0, 0, 0, 0.1)'}`,
       boxShadow: 'none',
       borderColor: 'transparent',
       padding: '3.5px 0 3.5px 6px',
