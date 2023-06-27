@@ -20,26 +20,50 @@ const Organisation = () => {
 
   const [tags, setTags] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
-  const [smallImage, setSmallImage] = useState('');
+  const [smallImage, setSmallImage] = useState(null);
+  const [imageError, setImageError] = useState(null);
 
+  const dateStart = values.date_start;
+  const timeStart = values.time_start;
+  const dateEnd = values.date_end;
+  const timeEnd = values.time_end;
+  // Конвертация дат мероприятия в нужный формат
+  const correctDateStartFormat = dateStart + 'T' + timeStart + ':00Z';
+  const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
+
+  const dataForServer = {
+    title: values.title,
+    description: values.description,
+    program: values.program,
+    partners: values.partners,
+    price: values.price,
+    city: values.city,
+    address: values.address,
+    date_start: correctDateStartFormat,
+    date_end: correctDateEndFormat,
+    url: values.url || '',
+  };
+  console.log(dataForServer);
+
+  // Для предпросмотра
   const eventDetails = {
     title: values.title,
     city: { name: values.city },
-    image: values.url,
-    price: values.price,
+    image: values.preview,
+    price: values.price || 0,
     date_start: values.date_start,
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSmallImage(file);
-    console.log(file);
+    //console.log(file);
   };
 
   const handleTopicChange = (event) => {
     const selectedOptions = Array.from(
       event.target.selectedOptions,
-      (option) => option.value
+      (option) => option.id
     );
     console.log(selectedOptions);
     setSelectedTopics((prevSelectedTopics) => [
@@ -89,7 +113,7 @@ const Organisation = () => {
               onChange={handleChange}
               placeholder="Ваше название"
               required
-              minLength={6}
+              minLength={2}
               maxLength={50}
             />
             <span className={styles.spanError}>{errors.title}</span>
@@ -113,7 +137,8 @@ const Organisation = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Ваша ссылка"
-              maxLength={200}
+              minLength={4}
+              maxLength={250}
               autoComplete="off"
             />
             <span className={styles.spanError}>{errors.url}</span>
@@ -213,8 +238,12 @@ const Organisation = () => {
               <option value="hidden" hidden>
                 Выберите тему
               </option>
-              <option value="frontend">Frontend</option>
-              <option value="backend">Backend</option>
+              <option value="frontend" name="Frontend" id="Frontend">
+                Frontend
+              </option>
+              <option value="backend" id="Frontend">
+                Backend
+              </option>
               <option value="ux/ui">UX/UI</option>
               <option value="big-data-and-analytics">Data analytics</option>
               <option value="hr">HR</option>
@@ -225,7 +254,7 @@ const Organisation = () => {
               </option>
               <option value="information_security">Кибербезопасность</option>
             </select>
-            {/* <ul className={styles.selectList}>
+            {/* <ul className={styles.selectList}>Выбрано:
           {selectedTopics.map((item, index) => (
             <li key={index} className={styles.selectItem}>{item}</li>
           ))}
@@ -322,6 +351,9 @@ const Organisation = () => {
           <fieldset className={styles.fieldset}>
             <label htmlFor="city" className={styles.label}>
               Город<span className={styles.spanError}>*</span>{' '}
+              <span className={styles.recommendation}>
+                Максимум 25 символов
+              </span>
             </label>
             <input
               type="text"
@@ -339,6 +371,7 @@ const Organisation = () => {
               placeholder="Укажите город проведения"
               required
               minLength={2}
+              maxLength={25}
             />
             <span className={styles.spanError}>{errors.city}</span>
           </fieldset>
@@ -347,7 +380,7 @@ const Organisation = () => {
             <label htmlFor="address" className={styles.label}>
               Адрес<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
-                Максимум 200 символов
+                Максимум 70 символов
               </span>
             </label>
             <input
@@ -374,7 +407,7 @@ const Organisation = () => {
         <div className={styles.rowContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="partners" className={styles.label}>
-              Партнеры<span className={styles.spanError}>*</span>{' '}
+              Партнеры{' '}
               <span className={styles.recommendation}>
                 Максимум 200 символов
               </span>
@@ -401,6 +434,7 @@ const Organisation = () => {
           <fieldset className={styles.fieldset}>
             <label htmlFor="price" className={styles.label}>
               Цена<span className={styles.spanError}>*</span>{' '}
+              <span className={styles.recommendation}>Максимум 7 символов</span>
             </label>
             <input
               className={`${styles.input} ${
@@ -429,7 +463,8 @@ const Organisation = () => {
             <label htmlFor="image" className={styles.label}>
               Добавьте баннер<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
-                Рекомендуемый размер: 608х380
+                Рекомендуемый размер: 608х380, допустимые форматы .png, .jpeg,
+                .bmp, до 1 МБ включительно
               </span>
             </label>
             <input
@@ -445,7 +480,8 @@ const Organisation = () => {
             <label htmlFor="image" className={styles.label}>
               Добавьте баннер<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
-                Рекомендуемый размер: 296x240
+                Рекомендуемый размер: 296x240, допустимые форматы .png, .jpeg,
+                .bmp, до 1 МБ включительно
               </span>
             </label>
             <input
@@ -468,6 +504,24 @@ const Organisation = () => {
       </form>
       <div className={styles.previewContainer}>
         <PageTitle title="Предпросмотр" />
+
+        <fieldset className={styles.fieldset}>
+          <label htmlFor="price" className={styles.label}>
+            Ссылка на изображение для демонстрации
+          </label>
+          <input
+            className={styles.input}
+            type="url"
+            id="url"
+            name="preview"
+            value={values.preview || ''}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Ваша ссылка"
+            maxLength={200}
+            autoComplete="off"
+          />
+        </fieldset>
         <VerticalEventCard event={eventDetails} />
       </div>
     </div>
