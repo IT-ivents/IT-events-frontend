@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import styles from './Organisation.module.css';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import PageTitle from '../PageTitle/PageTitle';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
-import HorizontalEventCard from '../HorizontalEventCard/HorizontalEventCard';
 
 const Organisation = () => {
   const {
@@ -20,7 +21,15 @@ const Organisation = () => {
 
   const [tags, setTags] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTagsCount, setSelectedTagsCount] = useState(0);
+  const [selectedFormat, setSelectedFormat] = useState([]);
   const [smallImage, setSmallImage] = useState('');
+  const [isFocused, setIsFocused] = useState({
+    tags: false,
+    topic: false,
+    format: false,
+  });
 
   const eventDetails = {
     title: values.title,
@@ -36,18 +45,55 @@ const Organisation = () => {
     console.log(file);
   };
 
-  const handleTopicChange = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
-    console.log(selectedOptions);
-    setSelectedTopics((prevSelectedTopics) => [
-      ...prevSelectedTopics,
-      ...selectedOptions,
-    ]);
+  const handleTopicChange = (selectedOptions) => {
+    setSelectedTopics(selectedOptions);
   };
-  console.log(selectedTopics);
+
+  const handleTagChange = (selectedOptions) => {
+    if (selectedOptions.length <= 25) {
+      setSelectedTags(selectedOptions);
+      setSelectedTagsCount(selectedOptions.length);
+    }
+  };
+
+  const handleFormatChange = (selectedOptions) => {
+    setSelectedFormat(selectedOptions);
+  };
+
+  // const handleTopicChange = (event) => {
+  //   const selectedOptions = Array.from(
+  //     event.target.selectedOptions,
+  //     (option) => option.value
+  //   );
+  //   console.log(selectedOptions);
+  //   setSelectedTopics((prevSelectedTopics) => [
+  //     ...prevSelectedTopics,
+  //     ...selectedOptions,
+  //   ]);
+  // };
+  // console.log(selectedTopics);
+
+  const tagOptions = tags.map((tag) => ({
+    value: tag.id,
+    label: tag.name,
+  }));
+
+  const formatOptions = [
+    { value: 'online', label: 'Online' },
+    { value: 'offline', label: 'Offline' },
+  ];
+
+  const topicOptions = [
+    { value: 'frontend', label: 'Frontend' },
+    { value: 'backend', label: 'Backend' },
+    { value: 'ux/ui', label: 'UX/UI' },
+    { value: 'big-data-and-analytics', label: 'Data analytics' },
+    { value: 'hr', label: 'HR' },
+    { value: 'management', label: 'Management' },
+    { value: 'devops', label: 'Devops' },
+    { value: 'artificial-intelligence-and-machine-learning', label: 'AI & ML' },
+    { value: 'information_security', label: 'Кибербезопасность' },
+  ];
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -61,6 +107,37 @@ const Organisation = () => {
 
     fetchTags();
   }, []);
+
+  const handleSelectFocus = (section) => {
+    setIsFocused((prevState) => ({ ...prevState, [section]: true }));
+  };
+
+  const handleSelectBlur = (section) => {
+    setIsFocused((prevState) => ({ ...prevState, [section]: false }));
+  };
+
+  const customSelectStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      borderRadius: '8px',
+      border: `2px solid ${state.isFocused ? '#674eae' : 'rgba(0, 0, 0, 0.4)'}`,
+      boxShadow: 'none',
+      borderColor: 'transparent',
+      padding: '3.5px 0 3.5px 6px',
+      backgroundColor: `${state.isFocused ? '#fefefe' : 'rgba(0, 0, 0, 0.03)'}`,
+      width: '100%',
+      '&:hover': {
+        borderColor: state.isFocused ? '#674eae' : 'rgba(0, 0, 0, 0.4)',
+      },
+      ...((selectedTags.length > 0 ||
+        selectedTopics.length > 0 ||
+        selectedFormat.length > 0) && {
+        border: '2px solid #789674',
+      }),
+    }),
+  };
+
+  const animatedComponents = makeAnimated();
 
   return (
     <div className={styles.formContainer}>
@@ -175,61 +252,57 @@ const Organisation = () => {
         <div className={styles.rowContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="tags" className={styles.label}>
-              Направление
+              Направление<span className={styles.spanError}>*</span>{' '}
+              <span className={styles.recommendation}>Максимум 25 тегов</span>
             </label>
-            <select name="tags" className={styles.input}>
-              <option value="hidden" hidden>
-                Выберите направление
-              </option>
-              {tags.map((tag) => (
-                <option key={tag.id} value={tag.id}>
-                  {tag.name}
-                </option>
-              ))}
-            </select>
+            <Select
+              isMulti
+              name="tags"
+              options={tagOptions}
+              onChange={handleTagChange}
+              components={animatedComponents}
+              value={selectedTags}
+              styles={customSelectStyles}
+              onFocus={() => handleSelectFocus('tags')}
+              onBlur={() => handleSelectBlur('tags')}
+              placeholder="Выберите направление"
+            />
+          </fieldset>
+
+          <fieldset className={styles.fieldset}>
+            <label htmlFor="topic" className={styles.label}>
+              Тема<span className={styles.spanError}>*</span>
+            </label>
+            <Select
+              isMulti
+              name="topic"
+              options={topicOptions}
+              onChange={handleTopicChange}
+              components={animatedComponents}
+              value={selectedTopics}
+              styles={customSelectStyles}
+              onFocus={() => handleSelectFocus('topic')}
+              onBlur={() => handleSelectBlur('topic')}
+              placeholder="Выберите тему"
+            />
           </fieldset>
 
           <fieldset className={styles.fieldset}>
             <label htmlFor="format" className={styles.label}>
-              Формат проведения
+              Формат<span className={styles.spanError}>*</span>
             </label>
-            <select name="format" className={styles.input}>
-              <option value="hidden" hidden>
-                Выберите формат
-              </option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
-            </select>
-          </fieldset>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="topic" className={styles.label}>
-              Тема
-            </label>
-            <select
-              name="topic"
-              className={styles.input}
-              onChange={handleTopicChange}
-            >
-              <option value="hidden" hidden>
-                Выберите тему
-              </option>
-              <option value="frontend">Frontend</option>
-              <option value="backend">Backend</option>
-              <option value="ux/ui">UX/UI</option>
-              <option value="big-data-and-analytics">Data analytics</option>
-              <option value="hr">HR</option>
-              <option value="management">Management</option>
-              <option value="devops">Devops</option>
-              <option value="artificial-intelligence-and-machine-learning">
-                AI & ML
-              </option>
-              <option value="information_security">Кибербезопасность</option>
-            </select>
-            {/* <ul className={styles.selectList}>
-          {selectedTopics.map((item, index) => (
-            <li key={index} className={styles.selectItem}>{item}</li>
-          ))}
-           </ul> */}
+            <Select
+              isMulti
+              name="format"
+              options={formatOptions}
+              onChange={handleFormatChange}
+              components={animatedComponents}
+              value={selectedFormat}
+              styles={customSelectStyles}
+              onFocus={() => handleSelectFocus('format')}
+              onBlur={() => handleSelectBlur('format')}
+              placeholder="Выберите формат"
+            />
           </fieldset>
         </div>
 
