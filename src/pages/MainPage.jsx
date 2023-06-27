@@ -5,6 +5,7 @@ import Subscribe from '../components/Subscribe/Subscribe';
 import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
+import EventCarousel from '../components/EventCarousel/EventCarousel';
 
 const MainPage = ({
   onCardClick,
@@ -17,13 +18,13 @@ const MainPage = ({
   searchQuery,
 }) => {
   const mainPageEvents = [
-    {
-      id: 1,
-      title: 'Самые ожидаемые события года',
-      list: mostAnticipatedEvents,
-      else: false,
-      span: false,
-    },
+    // {
+    //   id: 1,
+    //   title: 'Самые ожидаемые события года',
+    //   list: mostAnticipatedEvents,
+    //   else: false,
+    //   span: false,
+    // },
     {
       id: 2,
       title: 'Популярное',
@@ -56,17 +57,20 @@ const MainPage = ({
           <div className={styles.topFilterContainer}>
             <TopFilersBar />
           </div>
-          {mainPageEvents.map((event) => (
-            <HorizontalEventList
-              key={event.id}
-              list={event.list}
-              title={event.title}
-              span={event.span}
-              onCardClick={onCardClick}
-              onLikeClick={onLikeClick}
-              elseButton={event.else}
-            />
-          ))}
+          <div>
+            <EventCarousel mostAnticipatedEvents={mostAnticipatedEvents} />
+            {mainPageEvents.map((event) => (
+              <HorizontalEventList
+                key={event.id}
+                list={event.list}
+                title={event.title}
+                span={event.span}
+                onCardClick={onCardClick}
+                onLikeClick={onLikeClick}
+                elseButton={event.else}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <Subscribe />
