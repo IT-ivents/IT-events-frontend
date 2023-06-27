@@ -35,9 +35,15 @@
 .policyPageWrapper {
   display: flex;
   flex-direction: column;
-  align-self: start;
+  align-self: center;
   flex-grow: 1;
-  padding: 64px 104px 0;
+}
+
+.cookiesPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  flex-grow: 1;
 }
 
 /* Страница: Избранное */

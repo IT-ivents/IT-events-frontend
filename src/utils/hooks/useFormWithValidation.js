@@ -6,6 +6,11 @@ export function useFormWithValidation() {
   const [isValid, setIsValid] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
 
+  const inputTypeNumberValidation = (e) => {
+    return (e.target.value =
+      Math.max(0, parseInt(e.target.value.trim().slice(0, 8))) || '');
+  };
+
   const handleChange = (event) => {
     const target = event.target;
     const { name, value } = target;
@@ -65,5 +70,6 @@ export function useFormWithValidation() {
     isValid,
     resetForm,
     disabledButton,
+    inputTypeNumberValidation,
   };
 }
