@@ -58,7 +58,10 @@ const MainPage = ({
             <TopFilersBar />
           </div>
           <div>
-            <EventCarousel mostAnticipatedEvents={mostAnticipatedEvents} />
+            <EventCarousel
+              mostAnticipatedEvents={mostAnticipatedEvents}
+              onCardClick={onCardClick}
+            />
             {mainPageEvents.map((event) => (
               <HorizontalEventList
                 key={event.id}
