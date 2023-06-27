@@ -1,0 +1,190 @@
+.card {
+  width: 350px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.imageOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.imageOverlay:hover {
+  opacity: 0;
+}
+
+.image {
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  opacity: 1;
+  z-index: -1;
+}
+
+.image:hover {
+  /* -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.6); */
+  cursor: pointer;
+}
+
+.likeButton {
+  background: url(../../images/like-button.svg) no-repeat center;
+  width: 21.4px;
+  height: 20.6px;
+  top: 18px;
+  right: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.likeButtonActive {
+  background: url(../../images/like-button_active.svg) no-repeat center;
+  background-size: contain;
+  width: 21.4px;
+  height: 20.6px;
+  top: 19px;
+  right: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.linkButton {
+  background: url(../../images/Actions/Share.svg) no-repeat center;
+  width: 19.5px;
+  height: 19px;
+  margin: 7px 7px 0 0;
+  border: none;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 20px;
+  line-height: 125%;
+  width: 90%;
+  z-index: 1;
+}
+
+.location {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #878787;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #f1f0eb;
+  color: white;
+  background-color: rgba(103, 78, 174, 0.8);
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 15px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  cursor: default;
+}
+
+.rowContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  list-style-type: none;
+}
+
+.rowItem {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.format {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(103, 78, 174, 0.8);
+  padding: 4px;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding-top: 4px;
+  list-style-type: none;
+}
+
+.span {
+  color: white;
+}
+
+.tag {
+  background-color: rgba(103, 78, 174, 0.8);
+  padding: 2px 10px;
+  border-radius: 15px;
+}
+
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 8px;
+  gap: 5px;
+  position: relative;
+}
+
+.eventFigure {
+  display: flex;
+  align-items: center;
+  gap: 10.5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding-bottom: 24px;
+  color: #797979;
+  cursor: pointer;
+}
