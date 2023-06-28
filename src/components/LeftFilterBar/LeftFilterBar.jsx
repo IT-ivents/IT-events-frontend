@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { motion as m } from 'framer-motion';
 import styles from './LeftFilterBar.module.css';
 import TagsSection from './../TagsSection/TagsSection';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
@@ -115,7 +116,12 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   };
 
   return (
-    <section className={styles.filterForm}>
+    <m.section
+      initial={{ x: -100, opacity: 0 }} // начальное состояние - смещение влево на 100 пикселей
+      animate={{ x: 0, opacity: 1 }} // конечное состояние - без смещения
+      transition={{ duration: 0.7 }} // длительность анимации
+      className={styles.filterForm}
+    >
       {resultLocation && <h2 className={styles.filterTitle}>Фильтры</h2>}
       <ul className={styles.filterList}>
         <li>
@@ -254,7 +260,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
           Поиск
         </button>
       )}
-    </section>
+    </m.section>
   );
 };
 
