@@ -9,12 +9,20 @@ const CustomEventCard = ({ event, onCardClick }) => {
   };
 
   return (
-    <li key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
+    <div key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
+        {event.format
+          .filter((item) => item.name === 'Online')
+          .map((item, index) => (
+            <li key={index} className={styles.rowItem}>
+              <p className={styles.format}>{item.name}</p>
+            </li>
+          ))}
         <div className={styles.imageOverlay}>
           <div className={`${styles.descriptionContainer}`}>
             <h3 className={styles.title}>{event.title}</h3>
             <ul className={styles.rowContainer}>
+              <span className={styles.price}>{formatPrice(event.price)}</span>
               <li className={styles.rowItem}>
                 <img
                   src={CalendarImage}
@@ -29,15 +37,8 @@ const CustomEventCard = ({ event, onCardClick }) => {
                   <p>{event.city?.name || 'Город неизвестен'}</p>
                 </li>
               )}
-              {event.format
-                .filter((item) => item.name === 'Online')
-                .map((item, index) => (
-                  <li key={index} className={styles.rowItem}>
-                    <p className={styles.format}>{item.name}</p>
-                  </li>
-                ))}
-              <span className={styles.price}>{formatPrice(event.price)}</span>
             </ul>
+
             {/* <ul className={styles.tagsList}>
               {event.tags.slice(0, 3).map((tag) => (
                 <li key={tag.slug} className={styles.tag}>
@@ -54,7 +55,7 @@ const CustomEventCard = ({ event, onCardClick }) => {
           className={styles.image}
         />
       </div>
-    </li>
+    </div>
   );
 };
 

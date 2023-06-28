@@ -29,7 +29,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   };
 
   return (
-    <li key={event.id} className={`${styles.card}`}>
+    <div key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
         <img
@@ -62,7 +62,7 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <span>&bull;</span>
         <p>{event.city?.name || 'Город неизвестен'}</p>
       </div>
-    </li>
+    </div>
   );
 };
 

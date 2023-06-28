@@ -321,7 +321,11 @@ const Organization = () => {
 
           <div className={styles.columnContainer}>
             <div className={styles.previewContainer}>
-              <VerticalEventCard event={eventDetails} />
+              <VerticalEventCard
+                event={eventDetails}
+                onLikeClick={() => {}}
+                onCardClick={() => {}}
+              />
             </div>
           </div>
         </div>
@@ -517,6 +521,7 @@ const Organization = () => {
               }`}
               placeholder="Укажите город проведения"
               required
+              autoComplete="off"
               minLength={2}
               maxLength={25}
             />
@@ -545,6 +550,7 @@ const Organization = () => {
               }`}
               placeholder="Укажите адрес"
               required
+              autoComplete="off"
               minLength={2}
               maxLength={130}
             />
@@ -574,6 +580,7 @@ const Organization = () => {
               value={values.partners || ''}
               onChange={handleChange}
               placeholder="Есть партнеры?"
+              autoComplete="off"
               minLength={2}
               maxLength={1000}
             />
@@ -599,6 +606,7 @@ const Organization = () => {
               onInput={inputTypeNumberValidation}
               required
               pattern="\d+"
+              autoComplete="off"
               minLength={2}
               maxLength={8}
               placeholder="Укажите цену"
@@ -616,6 +624,7 @@ const Organization = () => {
                 .bmp, до 1 МБ включительно
               </span>
             </label>
+
             <input
               type="file"
               id="image_large"
@@ -625,6 +634,7 @@ const Organization = () => {
               }`}
               onChange={handleFileChange}
             />
+
             <span className={styles.spanError}>{imageErrorMessage}</span>
           </fieldset>
           <fieldset className={styles.fieldset}>
