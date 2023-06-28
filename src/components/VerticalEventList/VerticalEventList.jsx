@@ -2,6 +2,7 @@ import styles from './VerticalEventList.module.css';
 import HorizontalEventCard from '../HorizontalEventCard/HorizontalEventCard';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { useLocation } from 'react-router-dom';
+import { motion as m } from 'framer-motion';
 
 const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
   const location = useLocation();

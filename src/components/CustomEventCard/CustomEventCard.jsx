@@ -9,13 +9,20 @@ const CustomEventCard = ({ event, onCardClick }) => {
   };
 
   return (
-    <li key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
+    <div key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
-        <span className={styles.price}>{formatPrice(event.price)}</span>
+        {event.format
+          .filter((item) => item.name === 'Online')
+          .map((item, index) => (
+            <li key={index} className={styles.rowItem}>
+              <p className={styles.format}>{item.name}</p>
+            </li>
+          ))}
         <div className={styles.imageOverlay}>
           <div className={`${styles.descriptionContainer}`}>
             <h3 className={styles.title}>{event.title}</h3>
             <ul className={styles.rowContainer}>
+              <span className={styles.price}>{formatPrice(event.price)}</span>
               <li className={styles.rowItem}>
                 <img
                   src={CalendarImage}
@@ -24,24 +31,14 @@ const CustomEventCard = ({ event, onCardClick }) => {
                 />
                 <time>{formatDate(event.date_start)}</time>
               </li>
-              {/* <li className={styles.rowItem}>
-                <img src={PlaceImage} alt="локация" />
-                <p>{event.city?.name || 'Город неизвестен'}</p>
-              </li> */}
               {event.city?.name && (
                 <li className={styles.rowItem}>
                   <img src={PlaceImage} alt="локация" />
                   <p>{event.city?.name || 'Город неизвестен'}</p>
                 </li>
               )}
-              {event.format
-                .filter((item) => item.name === 'Online')
-                .map((item, index) => (
-                  <li key={index} className={styles.rowItem}>
-                    <p className={styles.format}>{item.name}</p>
-                  </li>
-                ))}
             </ul>
+
             {/* <ul className={styles.tagsList}>
               {event.tags.slice(0, 3).map((tag) => (
                 <li key={tag.slug} className={styles.tag}>
@@ -57,14 +54,8 @@ const CustomEventCard = ({ event, onCardClick }) => {
           alt="event_picture"
           className={styles.image}
         />
-        <button
-          className={`${
-            event.isLiked ? styles.likeButtonActive : styles.likeButton
-          }`}
-          type="button"
-        ></button>
       </div>
-    </li>
+    </div>
   );
 };
 

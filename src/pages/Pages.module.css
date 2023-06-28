@@ -31,6 +31,12 @@
   gap: 124px;
 }
 
+.navigationContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 120px;
+}
+
 /* Страница: Политика */
 .policyPageWrapper {
   display: flex;
