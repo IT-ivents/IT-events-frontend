@@ -25,6 +25,7 @@ const Organization = () => {
   const [selectedTagsCount, setSelectedTagsCount] = useState(0);
   const [selectedFormat, setSelectedFormat] = useState([]);
   const [imageErrorMessage, setImageErrorMessage] = useState('');
+  const [imageSmall, setImageSmall] = useState('');
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -69,11 +70,29 @@ const Organization = () => {
   const eventDetails = {
     title: values.title,
     city: { name: values.city || 'Invalid city' },
-    image: values.preview,
+    image: imageSmall,
     price: values.price || 0,
     date_start: values.date_start,
   };
 
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file.size > 1048576) {
+  //     setImageErrorMessage('Файл больше допустимого размера');
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     const base64data = reader.result;
+  //     setNewCardData((prevData) => ({
+  //       ...prevData,
+  //       image_small: base64data,
+  //     }));
+  //     setImageSmall(base64data);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
@@ -81,14 +100,25 @@ const Organization = () => {
       setImageErrorMessage('Файл больше допустимого размера');
       return;
     }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64data = reader.result;
-      setNewCardData((prevData) => ({
-        ...prevData,
-        image: base64data,
-      }));
+
+      if (event.target.name === 'image_large') {
+        setNewCardData((prevData) => ({
+          ...prevData,
+          image: base64data,
+        }));
+      } else if (event.target.name === 'image_small') {
+        setNewCardData((prevData) => ({
+          ...prevData,
+          image_small: base64data,
+        }));
+        setImageSmall(base64data);
+      }
     };
+
     reader.readAsDataURL(file);
   };
 
@@ -243,7 +273,7 @@ const Organization = () => {
               <span className={styles.spanError}>{errors.url}</span>
             </fieldset>
 
-            <fieldset className={styles.fieldset}>
+            {/* <fieldset className={styles.fieldset}>
               <label htmlFor="preview" className={styles.label}>
                 Ссылка на изображение для предпросмотра
               </label>
@@ -258,7 +288,7 @@ const Organization = () => {
                 maxLength={200}
                 autoComplete="off"
               />
-            </fieldset>
+            </fieldset> */}
 
             <fieldset className={styles.fieldset}>
               <label htmlFor="description" className={styles.label}>
