@@ -20,7 +20,7 @@
   left: 0;
   width: 100%;
   height: 60%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 2;
   transition: opacity 0.3s ease;
   cursor: pointer;
@@ -109,17 +109,18 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #f1f0eb;
   color: white;
   background-color: rgba(103, 78, 174, 0.8);
   width: fit-content;
   padding: 6px 10px;
   border-radius: 8px;
   position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
+  top: 0px;
+  left: 0;
+  z-index: 5;
   cursor: default;
+  /* transform: rotate(-45deg);
+    transform-origin: top left; */
 }
 
 .rowContainer {
