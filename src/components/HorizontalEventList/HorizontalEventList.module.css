@@ -46,6 +46,12 @@
   margin-bottom: 0;
 }
 
+.listItem {
+  display: grid;
+  grid-column: span 1;
+  grid-row: auto;
+}
+
 .navigationContainer {
   display: flex;
   justify-content: flex-end;

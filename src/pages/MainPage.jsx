@@ -30,14 +30,14 @@ const MainPage = ({
       title: 'Популярное',
       list: popularEvents,
       else: true,
-      span: false,
+      eventOnPage: 6,
     },
     {
       id: 3,
       title: 'Ближайшие события',
       list: soonEvents,
       else: true,
-      span: false,
+      eventOnPage: 6,
     },
     {
       id: 4,
@@ -45,6 +45,7 @@ const MainPage = ({
       list: interestingEvents,
       else: true,
       span: true,
+      eventOnPage: 9,
     },
   ];
 
@@ -71,6 +72,7 @@ const MainPage = ({
                 onCardClick={onCardClick}
                 onLikeClick={onLikeClick}
                 elseButton={event.else}
+                eventOnPage={event.eventOnPage}
               />
             ))}
           </div>
