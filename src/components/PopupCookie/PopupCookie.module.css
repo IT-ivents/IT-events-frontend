@@ -1,6 +1,6 @@
 .linkPopup {
   display: flex;
-  position: fixed;
+  position: absolute;
   /* position: absolute; */
   align-items: center;
   justify-content: space-between;
