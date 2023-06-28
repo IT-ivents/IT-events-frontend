@@ -620,7 +620,7 @@ const Organization = () => {
             <label htmlFor="image" className={styles.label}>
               Добавьте баннер<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
-                Рекомендуемый размер: 608х380, допустимые форматы .png, .jpeg,
+                Рекомендуемый размер: 608х390, допустимые форматы .png, .jpeg,
                 .bmp, до 1 МБ включительно
               </span>
             </label>

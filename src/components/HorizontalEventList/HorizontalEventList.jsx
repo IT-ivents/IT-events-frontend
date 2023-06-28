@@ -6,6 +6,7 @@ import ShowAllButton from '../ShowAllButton/ShowAllButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const HorizontalEventList = ({
   list,
@@ -20,6 +21,7 @@ const HorizontalEventList = ({
   const [previousEvents, setPreviousEvents] = useState([]);
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
+  const location = useLocation();
 
   const totalPages = Math.ceil(list.length / eventOnPage);
 
@@ -46,10 +48,13 @@ const HorizontalEventList = ({
       setIsAllShown(true);
     }
   };
+  const getPageItems = () => {
+    const startIndex = (page - 1) * eventOnPage;
+    const endIndex = startIndex + eventOnPage;
+    return list.slice(startIndex, endIndex);
+  };
 
-  useEffect(() => {
-    setEvents(list.slice((page - 1) * eventOnPage, page * eventOnPage));
-  }, [list, page]);
+  const displayedList = location.pathname === '/event' ? list : getPageItems();
 
   return (
     <section className={styles.section}>
@@ -59,7 +64,7 @@ const HorizontalEventList = ({
         </div>
       )}
       <ul className={styles.list}>
-        {events.map((event, index) => (
+        {displayedList.map((event, index) => (
           <motion.li
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,7 +90,7 @@ const HorizontalEventList = ({
 
         {totalPages > 1 && <ShowAllButton handleShowAll={handleShowAll} />}
       </ul>
-      {elseButton && (
+      {totalPages > 1 && (
         <div className={styles.navigationContainer}>
           {events.length <= list.length && events.length !== list.length && (
             // Если были показаны все события, то отображать пагинацию не нужно.
