@@ -72,10 +72,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
           {formatPrice(selectedEvent.price)}
         </li>
       </ul>
-      <PrimaryButton
-        title="Перейти на сайт организатора"
-        to={selectedEvent?.url}
-      />
+      <PrimaryButton title="Сайт мероприятия" to={selectedEvent?.url} />
       <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );
