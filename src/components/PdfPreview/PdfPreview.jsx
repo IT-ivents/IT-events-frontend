@@ -28,7 +28,7 @@ const PrivacyPolicyPreview = () => {
           file: PolicyFile,
           downloadText: 'Скачать в формате PDF',
         };
-      case '/cookie':
+      case '/cookies':
         return {
           file: CookieFile,
           downloadText: 'Скачать в формате PDF',

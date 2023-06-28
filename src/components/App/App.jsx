@@ -398,7 +398,7 @@ function App() {
             />
             <Route path="preferences" element={<PreferencesPage />} />
             <Route path="privacy" element={<PrivacyPolicyPage />} />
-            <Route path="cookie" element={<CookiePage />} />
+            <Route path="cookies" element={<CookiePage />} />
             <Route path="about" element={<About />} />
             <Route path="organization" element={<Organization />} />
 
