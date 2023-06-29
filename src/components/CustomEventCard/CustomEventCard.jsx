@@ -12,7 +12,7 @@ const CustomEventCard = ({ event, onCardClick }) => {
     <div key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
         {event.format
-          .filter((item) => item.name === 'Online')
+          ?.filter((item) => item.name === 'Online')
           .map((item, index) => (
             <li key={index} className={styles.rowItem}>
               <p className={styles.format}>{item.name}</p>

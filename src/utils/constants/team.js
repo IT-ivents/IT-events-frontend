@@ -35,7 +35,7 @@ export const team = [
     id: 6,
     photo: member.Fedorov,
     name: 'Роман Федоров',
-    role: 'Frontend',
+    role: 'Frontend Developer',
   },
   {
     id: 7,
@@ -59,7 +59,7 @@ export const team = [
     id: 10,
     photo: member.Shchepochkina,
     name: 'Полина Щепочкина',
-    role: 'Frontend',
+    role: 'Frontend Developer',
   },
   {
     id: 11,
