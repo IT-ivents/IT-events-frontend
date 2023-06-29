@@ -1,7 +1,9 @@
 export const apiConfig = {
   baseUrl: `http://80.87.107.15/api/v1`,
   events: `/events`,
+  topics: `/topics/`,
   tags: `/tags/`,
+  sities: `/sities/`,
   // defaultHeaders: {
   //   'Content-Type': 'application/json'
   // }
@@ -11,12 +13,16 @@ class Api {
   constructor({
     baseUrl,
     events,
+    topics,
     tags,
+    sities,
     // , defaultHeaders
   }) {
     this._baseUrl = baseUrl;
     this._eventsEndpoint = events;
+    this._topicsEndpoint = topics;
     this._tagsEndpoint = tags;
+    this._sitiesEndpoint = sities;
     // this._defaultHeaders = defaultHeaders;
   }
 
@@ -47,11 +53,29 @@ class Api {
     );
   }
 
+  getTopics() {
+    const options = {
+      method: 'GET',
+    };
+    return fetch(this._makeUrl(this._topicsEndpoint), options).then(
+      this._handleResponse
+    );
+  }
+
   getTags() {
     const options = {
       method: 'GET',
     };
     return fetch(this._makeUrl(this._tagsEndpoint), options).then(
+      this._handleResponse
+    );
+  }
+
+  getSities() {
+    const options = {
+      method: 'GET',
+    };
+    return fetch(this._makeUrl(this._sitiesEndpoint), options).then(
       this._handleResponse
     );
   }
