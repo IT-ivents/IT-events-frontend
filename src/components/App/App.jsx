@@ -134,8 +134,9 @@ function App() {
       fetchDataAndSaveToLocalStorage();
     } else {
       try {
-        const parsedData = JSON.parse(storagedEventsData);
-        const resultData = parsedData.data.results;
+        const resultData = JSON.parse(storagedEventsData);
+        //const resultData = parsedData.data.results;
+        //const resultData = events;
         console.log('results', resultData);
         setEventsFromApi(resultData);
         // Разложить события по разным массивам
