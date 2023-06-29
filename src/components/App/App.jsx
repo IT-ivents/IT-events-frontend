@@ -102,18 +102,18 @@ function App() {
 
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
-      const data = await apiEvents.getEvents();
-      const resultData = events;
+      //const data = await apiEvents.getEvents();
+      const data = events;
 
       //const resultData = data.data.results
-      setEventsFromApi(resultData);
+      setEventsFromApi(data);
       localStorage.setItem('eventsData', JSON.stringify(data));
       // Разложить события по разным массивам
-      if (resultData) {
-        const mostAnticipated = resultData.slice(0, 6);
-        const popular = resultData.slice(7, 19);
-        const interesting = resultData.slice(19, 31);
-        const soon = resultData.slice(32, resultData.length - 1);
+      if (data) {
+        const mostAnticipated = data.slice(0, 6);
+        const popular = data.slice(7, 19);
+        const interesting = data.slice(19, 31);
+        const soon = data.slice(32, data.length - 1);
 
         setMostAnticipatedEvents(mostAnticipated);
         setPopularEvents(popular);
