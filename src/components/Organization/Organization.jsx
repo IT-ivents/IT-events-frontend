@@ -562,7 +562,6 @@ const Organization = () => {
               onChange={handleChange}
               placeholder="Есть партнеры?"
               autoComplete="off"
-              minLength={2}
               maxLength={1000}
             />
             <span className={styles.spanError}>{errors.partners}</span>
@@ -641,12 +640,18 @@ const Organization = () => {
           </fieldset>
         </div>
 
-        <p className={styles.message}>
-          <span className={styles.span}>Внимание!</span> Проверьте корректность
-          заполненных данных. Карточка с Вашим мероприятием появится на сайте
-          после проверки модератором.{' '}
-        </p>
-        <SubmitButton title="Отправить" />
+        <div className={styles.bottomContainer}>
+          <p className={styles.message}>
+            <span className={styles.span}>Внимание!</span> Проверьте
+            корректность заполненных данных. Карточка с Вашим мероприятием
+            появится на сайте после проверки модератором.{' '}
+          </p>
+          <SubmitButton
+            title="Отправить"
+            disabled={disabledButton}
+            width={'40%'}
+          />
+        </div>
       </form>
     </div>
   );

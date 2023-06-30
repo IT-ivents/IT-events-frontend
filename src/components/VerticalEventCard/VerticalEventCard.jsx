@@ -8,7 +8,12 @@ import {
 import PopupLink from '../PopupLink/PopupLink';
 import defaultImage from '../../images/default-image.png';
 
-const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
+const VerticalEventCard = ({
+  event,
+  onCardClick,
+  onLikeClick,
+  setSelectedEvent,
+}) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleCardClick = () => {
@@ -24,7 +29,8 @@ const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   };
 
   const handleCopyButtonClick = () => {
-    const link = event?.url;
+    const link = `${window.location.origin}/#/event/${event.id}`;
+    setSelectedEvent(event);
     handleCopyLink(link, setShowNotification);
   };
 

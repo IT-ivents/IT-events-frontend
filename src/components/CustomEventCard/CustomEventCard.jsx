@@ -14,15 +14,19 @@ const CustomEventCard = ({ event, onCardClick }) => {
         {event.format
           ?.filter((item) => item.name === 'Online')
           .map((item, index) => (
-            <li key={index} className={styles.rowItem}>
-              <p className={styles.format}>{item.name}</p>
-            </li>
+            <p key={index} className={styles.format}>
+              <span className={styles.formatSpan}>
+                {item.name.substring(0, 2)}
+              </span>
+              {item.name.substring(2)}
+            </p>
           ))}
+
         <div className={styles.imageOverlay}>
           <div className={`${styles.descriptionContainer}`}>
+            <span className={styles.price}>{formatPrice(event.price)}</span>
             <h3 className={styles.title}>{event.title}</h3>
-            <ul className={styles.rowContainer}>
-              <span className={styles.price}>{formatPrice(event.price)}</span>
+            <ul className={styles.columnContainer}>
               <li className={styles.rowItem}>
                 <img
                   src={CalendarImage}

@@ -366,6 +366,7 @@ function App() {
                   handleSearch={handleFilterSearch}
                   searchQuery={searchQuery}
                   onSearch={handleSearch}
+                  setSelectedEvent={setSelectedEvent}
                 />
               }
             />
@@ -375,6 +376,7 @@ function App() {
                 <EventPage
                   recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
+                  setSelectedEvent={setSelectedEvent}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                 />

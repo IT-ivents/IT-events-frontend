@@ -16,6 +16,7 @@ const MainPage = ({
   soonEvents,
   onSearch,
   searchQuery,
+  setSelectedEvent,
 }) => {
   const mainPageEvents = [
     // {
@@ -73,6 +74,7 @@ const MainPage = ({
                 onLikeClick={onLikeClick}
                 elseButton={event.else}
                 eventOnPage={event.eventOnPage}
+                setSelectedEvent={setSelectedEvent}
               />
             ))}
           </div>

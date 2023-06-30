@@ -116,7 +116,7 @@
 
 .rowContainer {
   display: flex;
-  /* align-items: center; */
+  align-items: start;
   gap: 10px;
   width: 100%;
 }
@@ -180,4 +180,8 @@
   padding: 15px 20px;
   width: fit-content;
   background-color: white;
+}
+
+.bottomContainer {
+  display: flex;
 }

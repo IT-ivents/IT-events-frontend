@@ -9,10 +9,10 @@ export default function EventCarousel({ mostAnticipatedEvents, onCardClick }) {
   var settings = {
     dots: true,
     infinite: true,
-    speed: 5000,
+    speed: 1500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 1500,
     cssEase: 'linear',
   };

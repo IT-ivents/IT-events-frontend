@@ -7,6 +7,7 @@ const EventPage = ({
   onLikeClick,
   recommendedEvents,
   selectedEvent,
+  setSelectedEvent,
 }) => {
   const params = useParams();
   const { id } = params;
@@ -15,6 +16,7 @@ const EventPage = ({
   return (
     <Event
       selectedEvent={selectedEvent}
+      setSelectedEvent={setSelectedEvent}
       onCardClick={onCardClick}
       onLikeClick={onLikeClick}
       recommendedEvents={recommendedEvents}
