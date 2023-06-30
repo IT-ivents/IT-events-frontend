@@ -9,6 +9,7 @@ import PrivacyPolicyPage from './PolicyPage';
 import About from './About';
 import Organization from './OrganizationPage';
 import CookiePage from './CookiePage';
+import AccountPage from './AccountPage';
 
 export {
   MainPage,
@@ -22,4 +23,5 @@ export {
   About,
   Organization,
   CookiePage,
+  AccountPage,
 };
