@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styles from './AccountMenu.module.css';
 import { Link } from 'react-router-dom';
-import Person from './../../images/person.png';
+import Person from './../../images/person.svg';
 import Lock from './../../images/lock.png';
-import List from './../../images/list.png';
-import Logout from './../../images/logout.png';
+import List from './../../images/list.svg';
+import Logout from './../../images/logout.svg';
 
 const AccountMenu = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -17,7 +17,7 @@ const AccountMenu = () => {
     {
       image: Person,
       title: 'Персональная информация',
-      link: 'details',
+      link: '/account/details',
     },
     {
       image: List,
@@ -27,7 +27,7 @@ const AccountMenu = () => {
     {
       image: Lock,
       title: 'Мои события',
-      link: '/',
+      link: '/account/events',
     },
     {
       image: Logout,

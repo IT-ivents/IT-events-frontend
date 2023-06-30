@@ -59,11 +59,11 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
       src: enterIcon,
       alt: 'Иконка, Войти в кабинет',
     },
-    {
-      id: 4,
-      name: 'form',
-      path: '/organization',
-    },
+    // {
+    //   id: 4,
+    //   name: 'form',
+    //   path: '/organization',
+    // },
     {
       id: 5,
       name: 'account',
