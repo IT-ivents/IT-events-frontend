@@ -1,10 +1,11 @@
 import React from 'react';
-import AccountMenu from '../components/AccountMenu/AccountMenu';
+// import AccountMenu from '../AccountMenu/AccountMenu';
 
 const UserEvents = () => {
   return (
     <section style={{ display: 'flex', width: '100%', gap: '100px' }}>
-      <AccountMenu />
+      <h1>Добрейший вечерок, начальник</h1>
+      {/* <AccountMenu /> */}
     </section>
   );
 };

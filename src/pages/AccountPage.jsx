@@ -2,8 +2,6 @@ import styles from './Pages.module.css';
 import AccountBlock from '../components/AccountBlock/AccountBlock';
 import PageTitle from '../components/PageTitle/PageTitle';
 import Person from './../images/person.svg';
-import Notification from './../images/notification.png';
-import Lock from './../images/lock.png';
 import Edit from './../images/edit.svg';
 import List from './../images/list.svg';
 import Logout from './../images/logout.svg';
@@ -23,20 +21,6 @@ const AccountPage = () => {
             details="Редактирование личных данных"
           />
         </Link>
-        {/* <Link to="/notifications" className={styles.blockLink}>
-          <AccountBlock
-            accoutBlockIcon={Notification}
-            title="Уведомления"
-            details="Расскажите, какие уведомления вы хотите получать"
-          />
-        </Link> */}
-        {/* <Link to="security" className={styles.blockLink}>
-          <AccountBlock
-            accoutBlockIcon={Lock}
-            title="Безопасность"
-            details="Обновите пароль"
-          />
-        </Link> */}
         <Link to="events" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Edit}
@@ -60,13 +44,3 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
-
-// import AccountMenu from '../components/AccountMenu/AccountMenu';
-
-// const AccountPage = () => {
-//   return (
-//     <AccountMenu />
-//   );
-// };
-
-// export default AccountPage;

@@ -22,6 +22,7 @@ import {
   PrivacyPolicyPage,
   CookiePage,
   AccountPage,
+  AccountDetailsPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
 
@@ -421,6 +422,8 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="organization" element={<Organization />} />
             <Route path="account" element={<AccountPage />} />
+            <Route path="/account/details" element={<AccountDetailsPage />} />
+            <Route path="/account/events" element={<AccountDetailsPage />} />
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

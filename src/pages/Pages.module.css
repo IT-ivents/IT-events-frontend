@@ -139,6 +139,14 @@
   color: #000000;
 }
 
+/* Страница: Личный кабинет (Персональная информация) */
+.userInfo {
+  display: flex;
+  justify-content: flex-start;
+  width: 1232px;
+  gap: 100px;
+}
+
 /* Страница: 404 */
 .notFound {
   position: relative;
