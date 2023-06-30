@@ -10,6 +10,7 @@ import About from './About';
 import Organization from './OrganizationPage';
 import CookiePage from './CookiePage';
 import AccountPage from './AccountPage';
+import AccountDetailsPage from './AccountDetailsPage';
 
 export {
   MainPage,
@@ -24,4 +25,5 @@ export {
   Organization,
   CookiePage,
   AccountPage,
+  AccountDetailsPage,
 };
