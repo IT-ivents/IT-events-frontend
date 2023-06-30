@@ -23,18 +23,21 @@ export function useFormWithValidation() {
   };
 
   useEffect(() => {
+    const hasErrors = Object.keys(errors).some((key) => errors[key]);
+    const hasOptionalFields = !!values.partners || !!values.url;
     setDisabledButton(
       !isValid ||
-        (Object.keys(errors).some((key) => errors[key]) &&
-          Object.values(values).every((value) => value === '')) ||
-        errors.confirmPassword !== ''
+        (hasErrors && !hasOptionalFields) ||
+        (values.confirmPassword ? errors.confirmPassword !== '' : false)
     );
-  }, [errors, values]);
+  }, [isValid, errors, values]);
 
   const handleBlur = (event) => {
     const target = event.target;
     const { name } = target;
-    setErrors({ ...errors, [name]: target.validationMessage });
+    if (name === 'partners' || name === 'url') {
+      setErrors({ ...errors, [name]: target.validationMessage });
+    }
   };
 
   const validatePasswordMatch = useCallback(() => {
