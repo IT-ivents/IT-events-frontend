@@ -32,6 +32,8 @@ export function useFormWithValidation() {
     );
   }, [isValid, errors, values]);
 
+  //&& values.partners !== '' && values.url !== ''
+
   const handleBlur = (event) => {
     const target = event.target;
     const { name } = target;
