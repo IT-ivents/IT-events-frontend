@@ -1,4 +1,4 @@
-/* .accountMenu {
+.accountMenu {
   display: flex;
   margin-top: 63px;
   gap: 84px;
@@ -36,6 +36,4 @@
 
 .accountTabContent {
   width: 823px;
-} */
-
-/* КОД ПОКА НЕ ИСПОЛЬЗУЕТСЯ, Т.К. НЕТ ЛК */
+}

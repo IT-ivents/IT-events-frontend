@@ -6,6 +6,8 @@ import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
 import EventCarousel from '../components/EventCarousel/EventCarousel';
+import { Circles } from 'react-loader-spinner';
+import { useEffect, useState } from 'react';
 
 const MainPage = ({
   onCardClick,
@@ -17,6 +19,8 @@ const MainPage = ({
   onSearch,
   searchQuery,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const mainPageEvents = [
     // {
     //   id: 1,
@@ -49,6 +53,12 @@ const MainPage = ({
     },
   ];
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <div className={styles.mainPageWrapper}>
       <LeftFilerBar handleSearch={onSearch} />
@@ -58,24 +68,36 @@ const MainPage = ({
           <div className={styles.topFilterContainer}>
             <TopFilersBar />
           </div>
-          <div>
-            <EventCarousel
-              mostAnticipatedEvents={mostAnticipatedEvents}
-              onCardClick={onCardClick}
-            />
-            {mainPageEvents.map((event) => (
-              <HorizontalEventList
-                key={event.id}
-                list={event.list}
-                title={event.title}
-                span={event.span}
-                onCardClick={onCardClick}
-                onLikeClick={onLikeClick}
-                elseButton={event.else}
-                eventOnPage={event.eventOnPage}
+          {isLoading ? (
+            <div className={styles.loaderContainer}>
+              <Circles
+                height="80"
+                width="80"
+                color="#674EAE"
+                ariaLabel="circles-loading"
+                visible={true}
               />
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div>
+              <EventCarousel
+                mostAnticipatedEvents={mostAnticipatedEvents}
+                onCardClick={onCardClick}
+              />
+              {mainPageEvents.map((event) => (
+                <HorizontalEventList
+                  key={event.id}
+                  list={event.list}
+                  title={event.title}
+                  span={event.span}
+                  onCardClick={onCardClick}
+                  onLikeClick={onLikeClick}
+                  elseButton={event.else}
+                  eventOnPage={event.eventOnPage}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <Subscribe />

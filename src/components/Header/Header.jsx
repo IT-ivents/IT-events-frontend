@@ -64,6 +64,11 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
       name: 'form',
       path: '/organization',
     },
+    {
+      id: 5,
+      name: 'account',
+      path: '/account',
+    },
   ];
 
   return (
