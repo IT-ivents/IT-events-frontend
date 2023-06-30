@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import styles from './AccountMenu.module.css';
 import { Link } from 'react-router-dom';
-import Person from './../../images/person.png';
+import Person from './../../images/person.svg';
 import Notification from './../../images/notification.png';
 import Lock from './../../images/lock.png';
-import List from './../../images/list.png';
+import List from './../../images/list.svg';
 import Marker from './../../images/marker.svg';
-import Logout from './../../images/logout.png';
+import Logout from './../../images/logout.svg';
 
 const AccountMenu = () => {
   const [activeTab, setActiveTab] = useState(0);

@@ -1,17 +1,20 @@
 import styles from './Pages.module.css';
 import AccountBlock from '../components/AccountBlock/AccountBlock';
-import Person from './../images/person.png';
+import PageTitle from '../components/PageTitle/PageTitle';
+import Person from './../images/person.svg';
 import Notification from './../images/notification.png';
 import Lock from './../images/lock.png';
-import List from './../images/list.png';
-import Logout from './../images/logout.png';
+import Edit from './../images/edit.svg';
+import List from './../images/list.svg';
+import Logout from './../images/logout.svg';
 import { Link } from 'react-router-dom';
 
 const AccountPage = () => {
   return (
-    <section>
-      <h1 className={styles.accountTitle}>Аккаунт</h1>
-      <p className={styles.accountGreeting}>С возвращением, Organizator777</p>
+    <section className={styles.accountPageWrapper}>
+      <PageTitle title="Аккаунт" subtitle="С возвращением, Organizator777" />
+      {/* <h1 className={styles.accountTitle}>Аккаунт</h1>
+      <p className={styles.accountGreeting}>С возвращением, Organizator777</p> */}
       <div className={styles.accountBlocks}>
         <Link to="details" className={styles.blockLink}>
           <AccountBlock
@@ -20,25 +23,32 @@ const AccountPage = () => {
             details="Редактирование личных данных"
           />
         </Link>
-        <Link to="/notifications" className={styles.blockLink}>
+        {/* <Link to="/notifications" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Notification}
             title="Уведомления"
             details="Расскажите, какие уведомления вы хотите получать"
           />
-        </Link>
-        <Link to="security" className={styles.blockLink}>
+        </Link> */}
+        {/* <Link to="security" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={Lock}
             title="Безопасность"
             details="Обновите пароль"
           />
+        </Link> */}
+        <Link to="events" className={styles.blockLink}>
+          <AccountBlock
+            accoutBlockIcon={Edit}
+            title="Мои события"
+            details="Редактировать"
+          />
         </Link>
-        <Link to="preferences" className={styles.blockLink}>
+        <Link to="/organization" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={List}
-            title="Предпочтения"
-            details="Укажите свои интересы"
+            title="Добавить событие"
+            details="Станьте организатором"
           />
         </Link>
         <Link to="/" className={styles.blockLink}>
