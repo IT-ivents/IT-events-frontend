@@ -2,10 +2,8 @@ import { useState } from 'react';
 import styles from './AccountMenu.module.css';
 import { Link } from 'react-router-dom';
 import Person from './../../images/person.png';
-import Notification from './../../images/notification.png';
 import Lock from './../../images/lock.png';
 import List from './../../images/list.png';
-import Marker from './../../images/marker.svg';
 import Logout from './../../images/logout.png';
 
 const AccountMenu = () => {
@@ -19,7 +17,7 @@ const AccountMenu = () => {
     {
       image: Person,
       title: 'Персональная информация',
-      link: 'userinfo',
+      link: 'details',
     },
     {
       image: List,
@@ -27,28 +25,14 @@ const AccountMenu = () => {
       link: '/organization',
     },
     {
-      image: Marker,
+      image: Lock,
       title: 'Мои события',
-      link: 'userinfo',
+      link: '/',
     },
-    // {
-    //   image: Notification,
-    //   title: 'Уведомления',
-    //   link: '/account/notifications',
-    // },
-    // {
-    //   image: Lock,
-    //   title: 'Безопасность',
-    //   link: '/account/security',
-    // },
-    // {
-    //   image: List,
-    //   title: 'Предпочтения',
-    //   link: 'preferences',
-    // },
     {
       image: Logout,
       title: 'Выход из аккаунта',
+      link: '/',
     },
   ];
 

@@ -1,19 +1,18 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+// import { Outlet, Route, Routes } from 'react-router-dom';
+import styles from './Pages.module.css';
 import AccountMenu from '../components/AccountMenu/AccountMenu';
-import Security from '../components/Security/Security';
-import Notifications from '../components/Notifications/Notifications';
+import UserInfo from '../components/UserInfo/UserInfo';
 
 const AccountDetailsPage = () => {
   return (
-    <>
+    <section className={styles.userInfo}>
       <AccountMenu />
-      <Routes>
+      <UserInfo />
+      {/* <Routes>
         <Route path="/" element={<Outlet />} />
-        <Route path="security" element={<Security />} />
-        <Route path="notifications" element={<Notifications />} />
-        {/* <Route path="personal-info" element={<PersonalInfoTab />} /> */}
-      </Routes>
-    </>
+        <Route path='/details' element={<UserInfo />} />
+      </Routes> */}
+    </section>
   );
 };
 
