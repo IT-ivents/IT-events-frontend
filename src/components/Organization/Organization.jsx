@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styles from './Organization.module.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -56,7 +56,7 @@ const Organization = () => {
       title: values.title,
       description: values.description,
       program: values.program,
-      partners: values.partners,
+      partners: values.partners || '',
       price: values.price,
       city: values.city,
       address: values.address,
@@ -65,6 +65,21 @@ const Organization = () => {
       url: values.url || '',
     }));
   }, [selectedTags, selectedTopics, selectedFormat]);
+
+  const handleTopicChange = (selectedOptions) => {
+    setSelectedTopics(selectedOptions);
+  };
+
+  const handleTagChange = (selectedOptions) => {
+    if (selectedOptions.length <= 25) {
+      setSelectedTags(selectedOptions);
+      setSelectedTagsCount(selectedOptions.length);
+    }
+  };
+
+  const handleFormatChange = (selectedOptions) => {
+    setSelectedFormat(selectedOptions);
+  };
 
   // Для предпросмотра
   const eventDetails = {
@@ -75,24 +90,6 @@ const Organization = () => {
     date_start: values.date_start,
   };
 
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-
-  //   if (file.size > 1048576) {
-  //     setImageErrorMessage('Файл больше допустимого размера');
-  //     return;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     const base64data = reader.result;
-  //     setNewCardData((prevData) => ({
-  //       ...prevData,
-  //       image_small: base64data,
-  //     }));
-  //     setImageSmall(base64data);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
@@ -120,21 +117,6 @@ const Organization = () => {
     };
 
     reader.readAsDataURL(file);
-  };
-
-  const handleTopicChange = (selectedOptions) => {
-    setSelectedTopics(selectedOptions);
-  };
-
-  const handleTagChange = (selectedOptions) => {
-    if (selectedOptions.length <= 25) {
-      setSelectedTags(selectedOptions);
-      setSelectedTagsCount(selectedOptions.length);
-    }
-  };
-
-  const handleFormatChange = (selectedOptions) => {
-    setSelectedFormat(selectedOptions);
   };
 
   const tagOptions = tags.map((tag) => ({
@@ -169,7 +151,6 @@ const Organization = () => {
         console.log('Error fetching tags:', error);
       }
     };
-
     fetchTags();
   }, []);
 
@@ -581,7 +562,6 @@ const Organization = () => {
               onChange={handleChange}
               placeholder="Есть партнеры?"
               autoComplete="off"
-              minLength={2}
               maxLength={1000}
             />
             <span className={styles.spanError}>{errors.partners}</span>
@@ -629,6 +609,7 @@ const Organization = () => {
               type="file"
               id="image_large"
               name="image_large"
+              required
               className={`${styles.input} ${
                 imageErrorMessage ? styles.inputError : ''
               }`}
@@ -649,6 +630,7 @@ const Organization = () => {
               type="file"
               id="image_small"
               name="image_small"
+              required
               onChange={handleFileChange}
               className={`${styles.input} ${
                 imageErrorMessage ? styles.inputError : ''
@@ -658,12 +640,18 @@ const Organization = () => {
           </fieldset>
         </div>
 
-        <p className={styles.message}>
-          <span className={styles.span}>Внимание!</span> Проверьте корректность
-          заполненных данных. Карточка с Вашим мероприятием появится на сайте
-          после проверки модератором.{' '}
-        </p>
-        <SubmitButton title="Отправить" />
+        <div className={styles.bottomContainer}>
+          <p className={styles.message}>
+            <span className={styles.span}>Внимание!</span> Проверьте
+            корректность заполненных данных. Карточка с Вашим мероприятием
+            появится на сайте после проверки модератором.{' '}
+          </p>
+          <SubmitButton
+            title="Отправить"
+            disabled={disabledButton}
+            width={'40%'}
+          />
+        </div>
       </form>
     </div>
   );

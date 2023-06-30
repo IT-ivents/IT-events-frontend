@@ -18,6 +18,7 @@ const MainPage = ({
   soonEvents,
   onSearch,
   searchQuery,
+  setSelectedEvent,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 

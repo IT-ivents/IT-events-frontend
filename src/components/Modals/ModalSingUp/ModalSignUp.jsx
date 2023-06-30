@@ -1,5 +1,6 @@
 import styles from './ModalSignUp.module.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
@@ -8,7 +9,9 @@ import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidatio
 
 const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const isServerError = false;
+  const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+  const [isServerError, setIsServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     values,
     handleChange,
@@ -22,6 +25,10 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const togglePrivacyChecked = () => {
+    setIsPrivacyChecked(!isPrivacyChecked);
+  };
+
   useEffect(() => {
     resetForm();
   }, []);
@@ -32,12 +39,19 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
     }
   };
 
-  const handleDownloadPolicy = () => {};
-
   const handleSignUp = (e) => {
     e.preventDefault();
     onSignUp();
   };
+
+  const postData = {
+    name: values.name,
+    password: values.password,
+    email: values.email,
+    organization: values.organization,
+  };
+
+  console.log(postData);
 
   return (
     <Modal isOpen={isOpen} handleClose={handleClose}>
@@ -65,8 +79,59 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
         <form className={styles.modalForm} noValidate onSubmit={handleSignUp}>
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
+              <label htmlFor="name" className={styles.label}>
+                Имя<span className={styles.spanError}>*</span>
+              </label>
+              <input
+                className={`${styles.input} ${
+                  errors.name ? styles.inputError : ''
+                }`}
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Ваше имя"
+                required
+                minLength={2}
+                maxLength={25}
+                value={values.name || ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                autoComplete="off"
+              />
+              {errors.name && (
+                <span className={styles.span}>{errors.name}</span>
+              )}
+            </fieldset>
+            <fieldset className={styles.fieldset}>
+              <label htmlFor="organization" className={styles.label}>
+                Организация<span className={styles.spanError}>*</span>{' '}
+                <span className={styles.recommendation}>
+                  Эти данные Вы изменить не сможете
+                </span>
+              </label>
+              <input
+                className={`${styles.input} ${
+                  errors.organization ? styles.inputError : ''
+                }`}
+                id="organization"
+                name="organization"
+                type="text"
+                placeholder="Ваша организация"
+                required
+                minLength={2}
+                maxLength={254}
+                value={values.organization || ''}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                autoComplete="off"
+              />
+              {errors.organization && (
+                <span className={styles.span}>{errors.organization}</span>
+              )}
+            </fieldset>
+            <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>
-                Почта
+                Почта<span className={styles.spanError}>*</span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -96,7 +161,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                 type="password"
                 className={styles.label}
               >
-                Пароль
+                Пароль<span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input
@@ -130,7 +195,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
               <label htmlFor="password_repeat" className={styles.label}>
-                Повторите пароль
+                Повторите пароль<span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input
@@ -165,19 +230,26 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </fieldset>
           </div>
           <div className={styles.checkboxContainer}>
-            <CustomCheckbox />
+            <CustomCheckbox
+              checked={isPrivacyChecked}
+              handleChange={togglePrivacyChecked}
+            />
             <span className={styles.checkboxText}>
               Нажимая кнопку «Регистрация», вы соглашаетесь с{' '}
-              <button
+              <Link
                 className={styles.policyBtn}
                 type="button"
-                onClick={handleDownloadPolicy}
+                target="_blank"
+                to="/privacy"
               >
                 Политикой конфиденциальности.
-              </button>
+              </Link>
             </span>
           </div>
-          <SubmitButton title="Регистрация" disabled={disabledButton} />
+          <SubmitButton
+            title="Регистрация"
+            disabled={disabledButton || !isPrivacyChecked}
+          />
           <p className={styles.formSubtext}></p>
         </form>
       </div>

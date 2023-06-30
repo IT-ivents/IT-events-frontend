@@ -6,11 +6,15 @@ const PopupCookie = ({ setShowPopup }) => {
     setShowPopup(false);
   };
 
+  const handleLinkClick = () => {
+    setShowPopup(false);
+  };
+
   return (
     <div className={styles.linkPopup}>
       <span>
         Продолжая использовать наш сайт, вы даете согласие на{' '}
-        <Link to="/cookies" className={styles.link}>
+        <Link to="/cookies" className={styles.link} onClick={handleLinkClick}>
           обработку файлов cookie
           <span onClick={(e) => e.stopPropagation()}></span>
         </Link>
