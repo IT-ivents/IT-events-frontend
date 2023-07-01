@@ -17,7 +17,7 @@ const AccountMenu = () => {
     {
       image: Person,
       title: 'Персональная информация',
-      link: '/account/details',
+      link: 'details',
     },
     {
       image: List,
@@ -27,7 +27,7 @@ const AccountMenu = () => {
     {
       image: Lock,
       title: 'Мои события',
-      link: '/account/events',
+      link: 'events',
     },
     {
       image: Logout,

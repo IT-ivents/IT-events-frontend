@@ -9,8 +9,8 @@ const AccountDetailsPage = () => {
     <section className={styles.userInfo}>
       <AccountMenu />
       <Routes>
-        <Route path="/account/details" element={<UserInfo />} />
-        <Route path="/account/events" element={<UserEvents />} />
+        <Route path="details" element={<UserInfo />} />
+        <Route path="events" element={<UserEvents />} />
       </Routes>
     </section>
   );
