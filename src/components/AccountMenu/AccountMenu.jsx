@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styles from './AccountMenu.module.css';
-import { Link } from 'react-router-dom';
 import Person from './../../images/person.svg';
-import Lock from './../../images/lock.png';
+import Edit from './../../images/edit.svg';
 import List from './../../images/list.svg';
 import Logout from './../../images/logout.svg';
+import AccountButton from '../AccountButton/AccountButton';
+import PageTitle from '../PageTitle/PageTitle';
 
 const AccountMenu = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -15,18 +16,24 @@ const AccountMenu = () => {
 
   const tabs = [
     {
+      headText: 'Organizator777',
+      subtext: 'subzero2000@yandex.ru',
       image: Person,
       title: 'Персональная информация',
       link: 'details',
     },
     {
+      headText: 'Organizator777',
+      subtext: 'subzero2000@yandex.ru',
       image: List,
       title: 'Добавить событие',
-      link: '/organization',
+      link: 'organization',
     },
     {
-      image: Lock,
-      title: 'Мои события',
+      headText: 'Ваши события',
+      subtext: 'Настройки отображения',
+      image: Edit,
+      title: 'Ваши события',
       link: 'events',
     },
     {
@@ -36,27 +43,22 @@ const AccountMenu = () => {
     },
   ];
 
+  const currentTab = tabs[activeTab];
+
   return (
     <section>
       <div className={styles.accountMenu}>
+        <PageTitle title={currentTab.headText} subtitle={currentTab.subtext} />
         <nav className={styles.accountTabs}>
-          <h1 className={styles.headerName}>Organizator777</h1>
-          <p className={styles.headerEmail}>subzero2000@yandex.ru</p>
           {tabs.map((tab, index) => (
-            <Link to={tab.link}>
-              <div
-                key={index}
-                className={
-                  index === activeTab
-                    ? `${styles.activeAccountTab}`
-                    : `${styles.accountTab}`
-                }
-                onClick={() => handleTabClick(index)}
-              >
-                {tab.image && <img src={tab.image} alt={tab.title} />}
-                {tab.title}
-              </div>
-            </Link>
+            <AccountButton
+              key={index}
+              to={tab.link}
+              title={tab.title}
+              imageSrc={tab.image}
+              isActive={index === activeTab}
+              onClick={() => handleTabClick(index)}
+            />
           ))}
         </nav>
       </div>
