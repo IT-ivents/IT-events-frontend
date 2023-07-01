@@ -143,8 +143,10 @@
 .userInfo {
   display: flex;
   justify-content: flex-start;
+  flex-grow: 1;
   width: 1232px;
-  gap: 100px;
+  gap: 50px;
+  padding-top: 32px;
 }
 
 /* Страница: 404 */

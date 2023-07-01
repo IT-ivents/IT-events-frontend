@@ -1,11 +1,11 @@
 import React from 'react';
-// import AccountMenu from '../AccountMenu/AccountMenu';
+import styles from './UserEvents.module.css';
+import VerticalEventList from '../VerticalEventList/VerticalEventList';
 
-const UserEvents = () => {
+const UserEvents = ({ mostAnticipatedEvents }) => {
   return (
-    <section style={{ display: 'flex', width: '100%', gap: '100px' }}>
-      <h1>Добрейший вечерок, начальник</h1>
-      {/* <AccountMenu /> */}
+    <section className={styles.section}>
+      <VerticalEventList events={mostAnticipatedEvents} />
     </section>
   );
 };

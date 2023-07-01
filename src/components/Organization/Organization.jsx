@@ -245,10 +245,10 @@ const Organization = () => {
                 name="url"
                 value={values.url || ''}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="Ваша ссылка"
                 minLength={4}
                 maxLength={250}
+                onBlur={handleBlur}
                 autoComplete="off"
               />
               <span className={styles.spanError}>{errors.url}</span>
@@ -562,6 +562,7 @@ const Organization = () => {
               onChange={handleChange}
               placeholder="Есть партнеры?"
               autoComplete="off"
+              onBlur={handleBlur}
               maxLength={1000}
             />
             <span className={styles.spanError}>{errors.partners}</span>
