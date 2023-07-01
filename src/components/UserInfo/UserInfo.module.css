@@ -1,7 +1,25 @@
 .userInfo {
   display: flex;
   flex-direction: column;
-  height: 900px;
+  margin-bottom: 80px;
+}
+
+.title {
+  font-size: 38px;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 20px 0 10px;
+}
+
+.edit {
+  display: flex;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.subtitle {
+  margin-top: 40px;
+  font-size: 26px;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .avatar {
@@ -14,52 +32,21 @@
 .userLogo {
   display: flex;
   align-items: center;
+  gap: 15px;
+  margin: 15px 0;
 }
 
-/* ////////// */
-.modalContainer {
-  width: 484px;
-  padding: 60px 60px 52px;
-  cursor: default;
-}
-
-.formTitle {
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 500;
+.userLogo span {
   font-size: 24px;
-  line-height: 28.8px;
-  cursor: default;
-}
-
-.titleContainer {
-  padding-top: 48px;
-  padding-bottom: 8px;
-  gap: 12px;
-  display: flex;
-  align-items: center;
-}
-
-.formDescription {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.4);
-  padding-bottom: 24px;
-  cursor: default;
-}
-
-.formSubtext {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .fieldsetContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 11px;
   padding-bottom: 14px;
+  width: 518px;
 }
 
 .fieldset {
@@ -74,14 +61,13 @@
 
 .label {
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 16.2px;
   color: rgba(0, 0, 0, 0.6);
-  padding-bottom: 4px;
+  padding-bottom: 5px;
 }
 
 .inputContainer {
-  width: 100%;
   position: relative;
 }
 
@@ -143,7 +129,6 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  /* padding-top: 4px; */
 }
 
 .spanConfirm {
@@ -156,68 +141,7 @@
   bottom: -17px;
 }
 
-.recommendation {
-  color: rgba(0, 0, 0, 0.6);
-  text-decoration-line: underline;
-}
-
-.checkboxContainer {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding-bottom: 48px;
-}
-
-.checkboxText {
-  font-weight: 400;
-  font-size: 14px;
-  color: #797979;
-}
-
-.policyBtn {
-  color: #797979;
-  border: none;
-  text-decoration: none;
-  border-bottom: 1px solid #797979;
-  background: none;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.policyBtn:hover {
-  color: #674eae;
-}
-
-.figure {
-  background: url(../../images/shape.svg) no-repeat center;
-  width: 16px;
-  height: 20px;
-}
-
-.errorContainer {
-  padding-bottom: 24px;
-  display: flex;
-  align-items: start;
-  gap: 11px;
-}
-
-.serverErrorFigure {
-  background: url(../../images/error.svg) no-repeat center;
-  width: 30px;
-  height: 20px;
-}
-
-.serverError {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #e62214;
-}
-
-.paddingNoError {
-  padding-bottom: 40px;
-}
-
-.paddingError {
-  padding-bottom: 20px;
+.button {
+  width: 230px;
+  margin-left: auto;
 }

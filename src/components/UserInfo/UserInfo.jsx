@@ -25,9 +25,9 @@ const UserInfo = () => {
 
   return (
     <div className={styles.userInfo}>
-      <h1>Персональная информация</h1>
-      <span>Профиль</span>
-      <h2>Редактирование личных данных</h2>
+      <h1 className={styles.title}>Персональная информация</h1>
+      <span className={styles.edit}>Редактирование личных данных</span>
+      <h2 className={styles.subtitle}>Профиль</h2>
       <div className={styles.userLogo}>
         <img src="" alt="Аватар" className={styles.avatar} />
         <span>Организация</span>
@@ -46,7 +46,7 @@ const UserInfo = () => {
               name="name"
               type="text"
               placeholder="Ваше имя"
-              required
+              // required
               minLength={2}
               maxLength={25}
               value={values.name || ''}
@@ -68,7 +68,7 @@ const UserInfo = () => {
               name="email"
               type="email"
               placeholder="Email"
-              required
+              // required
               minLength={6}
               maxLength={254}
               value={values.email || ''}
@@ -82,11 +82,13 @@ const UserInfo = () => {
               <span className={styles.span}>{errors.email}</span>
             )}
           </fieldset>
-          <SubmitButton
-            title="Сохранить изменения"
-            disabled={disabledButton || !isPrivacyChecked}
-          />
-          <h2>Обновление пароля</h2>
+          <div className={styles.button}>
+            <SubmitButton
+              title="Сохранить изменения"
+              disabled={disabledButton || !isPrivacyChecked}
+            />
+          </div>
+          <h2 className={styles.subtitle}>Обновление пароля</h2>
           <fieldset className={styles.fieldset}>
             <label htmlFor="password" type="password" className={styles.label}>
               Старый пароль
@@ -100,7 +102,7 @@ const UserInfo = () => {
                 name="password"
                 type={isPasswordVisible ? 'text' : 'password'}
                 placeholder="Введите пароль"
-                required
+                // required
                 value={values.password || ''}
                 minLength={6}
                 maxLength={25}
@@ -134,7 +136,7 @@ const UserInfo = () => {
                 name="password"
                 type={isPasswordVisible ? 'text' : 'password'}
                 placeholder="Введите пароль"
-                required
+                // required
                 value={values.password || ''}
                 minLength={6}
                 maxLength={25}
@@ -168,7 +170,7 @@ const UserInfo = () => {
                 name="confirmPassword"
                 type={isPasswordVisible ? 'text' : 'password'}
                 placeholder="Введите пароль"
-                required
+                // required
                 value={values.confirmPassword || ''}
                 maxLength={25}
                 pattern="[^\s]+"
@@ -191,10 +193,12 @@ const UserInfo = () => {
             )}
           </fieldset>
         </div>
-        <SubmitButton
-          title="Обновить"
-          disabled={disabledButton || !isPrivacyChecked}
-        />
+        <div className={styles.button}>
+          <SubmitButton
+            title="Обновить"
+            disabled={disabledButton || !isPrivacyChecked}
+          />
+        </div>
       </form>
     </div>
   );
