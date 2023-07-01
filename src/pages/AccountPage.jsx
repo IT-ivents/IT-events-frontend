@@ -28,7 +28,7 @@ const AccountPage = () => {
             details="Редактировать"
           />
         </Link>
-        <Link to="/organization" className={styles.blockLink}>
+        <Link to="organization" className={styles.blockLink}>
           <AccountBlock
             accoutBlockIcon={List}
             title="Добавить событие"
