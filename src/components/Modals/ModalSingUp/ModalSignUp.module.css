@@ -1,5 +1,5 @@
 .modalContainer {
-  width: 484px;
+  max-width: 484px;
   padding: 60px 60px 52px;
   cursor: default;
 }
@@ -39,7 +39,6 @@
 .fieldsetContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   padding-bottom: 14px;
 }
 
@@ -50,7 +49,7 @@
   padding: 0;
   margin: 0;
   position: relative;
-  height: 75px;
+  height: 100px;
 }
 
 .label {
@@ -67,12 +66,13 @@
 }
 
 .input {
-  padding: 10px 14px;
+  padding: 10px 12px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  outline: none;
+  border: none;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
+  line-height: 24px;
 }
 
 .input:hover {
@@ -91,7 +91,7 @@
 }
 
 .inputError {
-  border: 1px solid #e62214;
+  outline: 1px solid #e62214;
 }
 
 .inputFigure {

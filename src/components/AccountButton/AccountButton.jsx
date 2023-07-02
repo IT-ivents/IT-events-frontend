@@ -8,10 +8,13 @@ const AccountButton = ({
   onClick,
   isActive,
   imageSrc,
+  name,
 }) => {
   return (
     <Link
-      className={`${styles.accountButton} ${isActive ? styles.active : ''}`}
+      className={`${styles.accountButton} ${isActive ? styles.active : ''} ${
+        name === 'exit' ? styles.exitButton : ''
+      }`}
       to={to}
       disabled={disabled}
       onClick={onClick}

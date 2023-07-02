@@ -47,13 +47,15 @@ const Footer = () => {
         <Logo logoSize={logoSize} onClick={scrollToTop} />
         <span className={styles.year}>© {date} IT-events</span>
       </div>
-      <ul className={styles.footerList}>{renderFooterItems()}</ul>
-      <div className={styles.contacts}>
-        <p className={styles.email}>It@connectit.ru</p>
-        <div className={styles.images}>
-          <img src={GitHubLogo} alt="GitHub" />
-          <img src={MessengerLogo} alt="Messenger" />
-          <img src={VkLogo} alt="Vk" />
+      <div className={styles.infoContainer}>
+        <ul className={styles.footerList}>{renderFooterItems()}</ul>
+        <div className={styles.contacts}>
+          <p className={styles.email}>it-connect-event@yandex.ru</p>
+          <div className={styles.images}>
+            <img src={GitHubLogo} alt="GitHub" />
+            <img src={MessengerLogo} alt="Messenger" />
+            <img src={VkLogo} alt="Vk" />
+          </div>
         </div>
       </div>
       {showPopup && <PopupCookie setShowPopup={setShowPopup} />}

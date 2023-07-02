@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import styles from './AccountMenu.module.css';
 import Person from './../../images/person.svg';
-import Edit from './../../images/edit.svg';
-import List from './../../images/list.svg';
+import PersonActive from '../../images/person_active.svg';
+import Calendar from '../../images/calendar.svg';
+import CalendarActive from '../../images/calendar_active.svg';
+import Exit from './../../images/exit.svg';
 import Logout from './../../images/logout.svg';
 import AccountButton from '../AccountButton/AccountButton';
 import PageTitle from '../PageTitle/PageTitle';
@@ -18,27 +20,23 @@ const AccountMenu = () => {
     {
       headText: 'Organizator777',
       subtext: 'subzero2000@yandex.ru',
-      image: Person,
-      title: 'Персональная информация',
-      link: 'details',
+      imageDefault: Person,
+      imageActive: PersonActive,
+      title: 'Мой аккаунт',
+      link: '/account',
     },
     {
-      headText: 'Organizator777',
-      subtext: 'subzero2000@yandex.ru',
-      image: List,
-      title: 'Добавить событие',
-      link: 'organization',
-    },
-    {
-      headText: 'Ваши события',
-      subtext: 'Настройки отображения',
-      image: Edit,
-      title: 'Ваши события',
+      headText: 'Мои события',
+      subtext: 'Здесь Вы можете управлять своими событиями',
+      imageDefault: Calendar,
+      imageActive: CalendarActive,
+      title: 'Мои события',
       link: 'events',
     },
     {
-      image: Logout,
-      title: 'Выход из аккаунта',
+      name: 'exit',
+      imageDefault: Exit,
+      title: 'Выход',
       link: '/',
     },
   ];
@@ -54,8 +52,11 @@ const AccountMenu = () => {
             <AccountButton
               key={index}
               to={tab.link}
+              name={tab.name}
               title={tab.title}
-              imageSrc={tab.image}
+              imageSrc={
+                index === activeTab ? tab.imageActive : tab.imageDefault
+              }
               isActive={index === activeTab}
               onClick={() => handleTabClick(index)}
             />
