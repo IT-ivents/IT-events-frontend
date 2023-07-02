@@ -75,7 +75,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>
-                Почта<span className={styles.spanError}>*</span>
+                Почта <span className={styles.spanError}>*</span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -106,7 +106,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
                 type="password"
                 className={styles.label}
               >
-                Пароль<span className={styles.spanError}>*</span>
+                Пароль <span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input

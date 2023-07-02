@@ -1,9 +1,8 @@
 .accountMenu {
   display: flex;
   flex-direction: column;
-  gap: 84px;
+  gap: 80px;
   width: fit-content;
-  width: 325px;
 }
 
 .headerName {
@@ -17,11 +16,16 @@
 }
 
 .accountTabs {
+  width: 295px;
+  height: 328px;
   font-size: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 28px;
   align-items: start;
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 40px 100px 40px 32px;
+  position: relative;
 }
 
 .activeAccountTab {

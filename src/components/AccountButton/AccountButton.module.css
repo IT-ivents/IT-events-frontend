@@ -1,32 +1,33 @@
 .accountButton {
   display: flex;
   align-items: center;
-  gap: 11px;
-  background-color: white;
-  color: rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  gap: 16px;
   width: 100%;
-  max-width: 240px;
-  padding: 12px 18px;
-  font-size: 16px;
+  font-size: 20px;
+  line-height: 125%;
   cursor: pointer;
   text-decoration: none;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .accountButton:hover {
-  background-color: rgba(103, 78, 174, 0.8);
-  color: white;
   transition: 0.3s ease-in-out;
 }
 
 .accountButton:active {
-  background-color: #291b51;
+  color: rgba(68, 51, 117, 1);
 }
 
 .active {
-  background-color: rgba(103, 78, 174, 0.8);
-  color: white;
+  color: rgba(103, 78, 174, 1);
+  text-decoration: underline;
+}
+
+.exitButton {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 125%;
+  position: absolute;
+  bottom: 40px;
 }

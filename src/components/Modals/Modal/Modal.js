@@ -12,11 +12,9 @@ const Modal = ({ children, isOpen, handleClose }) => {
     <section className={styles.container}>
       <ModalOverlay handleClose={handleClose} />
       <div className={styles.modal} ref={modalRef}>
-        <button
-          className={styles.closeButton}
-          onClick={handleClose}
-          type="button"
-        />
+        <div className={styles.closeButtonContainer} onClick={handleClose}>
+          <button className={styles.closeButton} type="button" />
+        </div>
         {children}
       </div>
     </section>,

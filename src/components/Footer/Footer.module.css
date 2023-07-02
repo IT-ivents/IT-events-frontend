@@ -52,9 +52,18 @@
   text-decoration: none;
 }
 
+.infoContainer {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .contacts {
-  position: absolute;
-  right: 115px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+  align-items: flex-start;
 }
 
 .email {
@@ -62,7 +71,6 @@
   font-weight: 700;
   color: #c9ccd8;
   background: url(../../images/email.svg) no-repeat;
-  margin-bottom: 17px;
   padding-left: 33px;
 }
 

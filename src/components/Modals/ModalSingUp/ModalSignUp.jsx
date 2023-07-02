@@ -7,15 +7,22 @@ import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
-const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
+const ModalSignUp = ({
+  isOpen,
+  handleClose,
+  onSignUp,
+  isLoading,
+  serverError,
+  setServerError,
+}) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
   const {
     values,
     handleChange,
     handleBlur,
+    isValid,
     errors,
     disabledButton,
     resetForm,
@@ -31,6 +38,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
 
   useEffect(() => {
     resetForm();
+    setServerError('');
   }, []);
 
   const handleKeyPress = (e) => {
@@ -41,16 +49,22 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    onSignUp();
+    if (isValid) {
+      onSignUp({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        organization_name: values.organization_name,
+      });
+    }
   };
 
   const postData = {
-    name: values.name,
+    name: values.username,
     password: values.password,
     email: values.email,
-    organization: values.organization,
+    organization_name: values.organization_name,
   };
-
   console.log(postData);
 
   return (
@@ -63,37 +77,35 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
         </div>
         <p
           className={`${styles.formSubtext} ${
-            isServerError ? styles.paddingError : styles.paddingNoError
+            serverError ? styles.paddingError : styles.paddingNoError
           }`}
         >
           Для организаторов
         </p>
-        {isServerError && (
+        {serverError && (
           <div className={styles.errorContainer}>
             <figure className={styles.serverErrorFigure} />
-            <span className={styles.serverError}>
-              Пользователь с такой почтой уже зарегистрирован.
-            </span>
+            <span className={styles.serverError}>{serverError}</span>
           </div>
         )}
         <form className={styles.modalForm} noValidate onSubmit={handleSignUp}>
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
               <label htmlFor="name" className={styles.label}>
-                Имя<span className={styles.spanError}>*</span>
+                Имя <span className={styles.spanError}>*</span>
               </label>
               <input
                 className={`${styles.input} ${
                   errors.name ? styles.inputError : ''
                 }`}
-                id="name"
-                name="name"
+                id="username"
+                name="username"
                 type="text"
                 placeholder="Ваше имя"
                 required
                 minLength={2}
                 maxLength={25}
-                value={values.name || ''}
+                value={values.username || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
@@ -104,7 +116,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
               <label htmlFor="organization" className={styles.label}>
-                Организация<span className={styles.spanError}>*</span>{' '}
+                Организация <span className={styles.spanError}>*</span>{' '}
                 <span className={styles.recommendation}>
                   Эти данные Вы изменить не сможете
                 </span>
@@ -113,14 +125,14 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                 className={`${styles.input} ${
                   errors.organization ? styles.inputError : ''
                 }`}
-                id="organization"
-                name="organization"
+                id="organization_name"
+                name="organization_name"
                 type="text"
                 placeholder="Ваша организация"
                 required
                 minLength={2}
                 maxLength={254}
-                value={values.organization || ''}
+                value={values.organization_name || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
@@ -131,7 +143,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>
-                Почта<span className={styles.spanError}>*</span>
+                Почта <span className={styles.spanError}>*</span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -161,7 +173,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
                 type="password"
                 className={styles.label}
               >
-                Пароль<span className={styles.spanError}>*</span>
+                Пароль <span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input
@@ -195,7 +207,7 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </fieldset>
             <fieldset className={styles.fieldset}>
               <label htmlFor="password_repeat" className={styles.label}>
-                Повторите пароль<span className={styles.spanError}>*</span>
+                Повторите пароль <span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input
@@ -247,8 +259,9 @@ const ModalSignUp = ({ isOpen, handleClose, onSignUp }) => {
             </span>
           </div>
           <SubmitButton
-            title="Регистрация"
+            title={isLoading ? 'Подождите...' : 'Регистрация'}
             disabled={disabledButton || !isPrivacyChecked}
+            onClick={handleSignUp}
           />
           <p className={styles.formSubtext}></p>
         </form>

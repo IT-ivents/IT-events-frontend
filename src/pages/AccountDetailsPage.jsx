@@ -10,7 +10,7 @@ const AccountDetailsPage = ({ mostAnticipatedEvents }) => {
     <section className={styles.userInfo}>
       <AccountMenu />
       <Routes>
-        <Route path="details" element={<UserInfo />} />
+        <Route path="/" element={<UserInfo />} />
         <Route
           path="events"
           element={<UserEvents mostAnticipatedEvents={mostAnticipatedEvents} />}

@@ -6,7 +6,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
-import { apiEvents } from '../../utils/api.js';
+import * as auth from '../../utils/auth';
 import { events } from '../../utils/events';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
@@ -41,6 +41,9 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+
+  const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
@@ -318,9 +321,35 @@ function App() {
     setIsModalSignUpOpen(!isModalSignUpOpen);
   };
 
-  function handleSignIn() {}
+  function handleLogin() {}
 
-  function handleSignUp() {}
+  function handleRegister({ username, email, password, organization_name }) {
+    setIsLoading(true);
+    let message = '';
+    auth
+      .registration({ username, email, password, organization_name })
+      .then((res) => {
+        console.log('Registration OK', res);
+      })
+      .catch((error) => {
+        switch (error) {
+          case 400:
+            message = 'Некорректное значение одного или нескольких полей';
+            break;
+          case 409:
+            message = 'Пользователь с такой почтой уже зарегистрирован.';
+            break;
+          default:
+            message = 'Что-то пошло не так, пожалуйста попробуйте еще раз.';
+        }
+        console.error('Registration error:', error);
+      })
+      .finally(() => {
+        setServerError(message);
+        setTimeout(() => setIsLoading(false), 500);
+        //toggleModalSignUp()
+      });
+  }
 
   return (
     <SearchFilterContext.Provider
@@ -343,14 +372,17 @@ function App() {
               isOpen={toggleModalSignIn}
               handleClose={toggleModalSignIn}
               isRegister={toggleModalSignUp}
-              onSignIn={handleSignIn}
+              onSignIn={handleLogin}
             />
           )}
           {isModalSignUpOpen && (
             <ModalSignUp
               isOpen={toggleModalSignUp}
               handleClose={toggleModalSignUp}
-              onSignUp={handleSignUp}
+              onSignUp={handleRegister}
+              isLoading={isLoading}
+              setServerError={setServerError}
+              serverError={serverError}
             />
           )}
 
@@ -421,15 +453,22 @@ function App() {
             <Route path="cookies" element={<CookiePage />} />
             <Route path="about" element={<About />} />
             <Route path="organization" element={<Organization />} />
-            <Route path="account" element={<AccountPage />} />
             <Route
-              path="/account/*"
+              path="account/*"
               element={
                 <AccountDetailsPage
                   mostAnticipatedEvents={mostAnticipatedEvents}
                 />
               }
             />
+            {/* <Route
+              path="/account/*"
+              element={
+                <AccountDetailsPage
+                  mostAnticipatedEvents={mostAnticipatedEvents}
+                />
+              }
+            /> */}
             {/* <Route path="account/events" element={<AccountDetailsPage />} /> */}
 
             <Route path="*" element={<NotFoundPage />} />
