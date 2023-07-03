@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './UserInfo.module.css';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import Avatar from '../Avatar/Avatar';
 
 const UserInfo = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -23,14 +24,15 @@ const UserInfo = () => {
     }
   };
 
+  const userName = 'Организация';
+
   return (
     <div className={styles.userInfo}>
       <h1 className={styles.title}>Персональная информация</h1>
       <span className={styles.edit}>Редактирование личных данных</span>
       <h2 className={styles.subtitle}>Профиль</h2>
       <div className={styles.userLogo}>
-        <img src="" alt="Аватар" className={styles.avatar} />
-        <span>Организация</span>
+        <Avatar name={userName} />
       </div>
       <form>
         <div className={styles.fieldsetContainer}>
