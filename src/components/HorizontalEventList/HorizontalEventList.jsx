@@ -15,7 +15,6 @@ const HorizontalEventList = ({
   onCardClick,
   onLikeClick,
   eventOnPage,
-  setSelectedEvent,
 }) => {
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
@@ -85,7 +84,6 @@ const HorizontalEventList = ({
                   event={event}
                   onCardClick={onCardClick}
                   onLikeClick={handleLikeClick}
-                  setSelectedEvent={setSelectedEvent}
                 />
               </React.Fragment>
             )}
