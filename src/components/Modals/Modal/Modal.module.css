@@ -24,11 +24,17 @@
   border-radius: 8px;
 }
 
-.closeButton {
-  background: url(../../../images/popup_close.svg) no-repeat center;
+.closeButtonContainer {
   position: absolute;
-  top: 22px;
+  top: 20px;
   right: 20px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.closeButton {
+  background: url(../../../images/close_icon.svg) no-repeat center;
+  display: flex;
   width: 24px;
   height: 24px;
   background-color: transparent;
@@ -37,12 +43,16 @@
 }
 
 @media screen and (max-width: 500px) {
+  .container {
+    padding: 0 15px;
+  }
+
   .closeButton {
     right: 0;
   }
 }
 
 .closeButton:hover {
-  opacity: 0.8;
-  transition: all 0.2s ease-in;
+  opacity: 0.7;
+  transition: all 0.3s ease-in;
 }

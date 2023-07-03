@@ -1,74 +1,70 @@
-// import { useState } from 'react';
-// import styles from './AccountMenu.module.css';
-// import { Link } from 'react-router-dom';
-// import Person from './../../images/person.png';
-// import Notification from './../../images/notification.png';
-// import Lock from './../../images/lock.png';
-// import List from './../../images/list.png';
-// import Logout from './../../images/logout.png';
+import { useState } from 'react';
+import styles from './AccountMenu.module.css';
+import Person from './../../images/person.svg';
+import PersonActive from '../../images/person_active.svg';
+import Calendar from '../../images/calendar.svg';
+import CalendarActive from '../../images/calendar_active.svg';
+import Exit from './../../images/exit.svg';
+import Logout from './../../images/logout.svg';
+import AccountButton from '../AccountButton/AccountButton';
+import PageTitle from '../PageTitle/PageTitle';
 
-// const AccountMenu = () => {
-//   const [activeTab, setActiveTab] = useState(0);
+const AccountMenu = () => {
+  const [activeTab, setActiveTab] = useState(0);
 
-//   const handleTabClick = (index) => {
-//     setActiveTab(index);
-//   };
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
 
-//   const tabs = [
-//     {
-//       image: Person,
-//       title: 'Персональная информация',
-//       link: 'userinfo',
-//     },
-//     {
-//       image: Notification,
-//       title: 'Уведомления',
-//       link: '/account/notifications',
-//     },
-//     {
-//       image: Lock,
-//       title: 'Безопасность',
-//       link: '/account/security',
-//     },
-//     {
-//       image: List,
-//       title: 'Предпочтения',
-//       link: 'preferences',
-//     },
-//     {
-//       image: Logout,
-//       title: 'Выход из аккаунта',
-//     },
-//   ];
+  const tabs = [
+    {
+      headText: 'Organizator777',
+      subtext: 'subzero2000@yandex.ru',
+      imageDefault: Person,
+      imageActive: PersonActive,
+      title: 'Мой аккаунт',
+      link: '/account',
+    },
+    {
+      headText: 'Мои события',
+      subtext: 'Здесь Вы можете управлять своими событиями',
+      imageDefault: Calendar,
+      imageActive: CalendarActive,
+      title: 'Мои события',
+      link: 'events',
+    },
+    {
+      name: 'exit',
+      imageDefault: Exit,
+      title: 'Выход',
+      link: '/',
+    },
+  ];
 
-//   return (
-//     <section>
-//       <div className={styles.accountMenu}>
-//         <nav className={styles.accountTabs}>
-//           <h1 className={styles.headerName}>Маша Мамедова</h1>
-//           <p className={styles.headerEmail}>mamedova@marusya-white.ru</p>
-//           {tabs.map((tab, index) => (
-//             <Link to={tab.link}>
-//               <div
-//                 key={index}
-//                 className={
-//                   index === activeTab
-//                     ? `${styles.activeAccountTab}`
-//                     : `${styles.accountTab}`
-//                 }
-//                 onClick={() => handleTabClick(index)}
-//               >
-//                 {tab.image && <img src={tab.image} alt={tab.title} />}
-//                 {tab.title}
-//               </div>
-//             </Link>
-//           ))}
-//         </nav>
-//       </div>
-//     </section>
-//   );
-// };
+  const currentTab = tabs[activeTab];
 
-// export default AccountMenu;
+  return (
+    <section>
+      <div className={styles.accountMenu}>
+        <PageTitle title={currentTab.headText} subtitle={currentTab.subtext} />
+        <nav className={styles.accountTabs}>
+          {tabs.map((tab, index) => (
+            <AccountButton
+              key={index}
+              to={tab.link}
+              name={tab.name}
+              title={tab.title}
+              imageSrc={
+                index === activeTab ? tab.imageActive : tab.imageDefault
+              }
+              isActive={index === activeTab}
+              onClick={() => handleTabClick(index)}
+            />
+          ))}
+        </nav>
+      </div>
+    </section>
+  );
+};
 
-// КОД ПОКА НЕ ИСПОЛЬЗУЕТСЯ, Т.К. НЕТ ЛК
+export default AccountMenu;

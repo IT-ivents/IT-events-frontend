@@ -16,11 +16,12 @@ import {
   handleCopyLink,
 } from '../../utils/helperFunctions';
 
-const EventDescription = ({ selectedEvent, onLikeClick }) => {
+const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
-    const link = selectedEvent?.url;
+    const link = `${window.location.origin}/#/event/${selectedEvent.id}`;
+    setSelectedEvent(selectedEvent);
     handleCopyLink(link, setShowNotification);
   };
 
@@ -72,10 +73,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
           {formatPrice(selectedEvent.price)}
         </li>
       </ul>
-      <PrimaryButton
-        title="Перейти на сайт организатора"
-        to={selectedEvent?.url}
-      />
+      <PrimaryButton title="Сайт мероприятия" to={selectedEvent?.url} />
       <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );

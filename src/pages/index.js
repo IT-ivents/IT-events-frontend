@@ -5,9 +5,12 @@ import NotificationsPage from './NotificationsPage';
 import NotFoundPage from './NotFoundPage';
 import SearchResultPage from './SearchResultPage';
 import PreferencesPage from './PreferencesPage';
-import PrivacyPolicyPage from './PrivacyPolicyPage';
+import PrivacyPolicyPage from './PolicyPage';
 import About from './About';
-import Organisation from './OrganisationPage';
+import Organization from './OrganizationPage';
+import CookiePage from './CookiePage';
+import AccountPage from './AccountPage';
+import AccountDetailsPage from './AccountDetailsPage';
 
 export {
   MainPage,
@@ -19,5 +22,8 @@ export {
   PreferencesPage,
   PrivacyPolicyPage,
   About,
-  Organisation,
+  Organization,
+  CookiePage,
+  AccountPage,
+  AccountDetailsPage,
 };

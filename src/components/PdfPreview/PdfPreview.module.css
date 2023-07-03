@@ -1,0 +1,71 @@
+.policy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.pdf {
+  display: flex;
+  justify-content: center;
+  width: 1232px;
+  height: 757px;
+  overflow: hidden;
+}
+
+.pages {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 90px;
+  font-size: 19px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.button {
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+  background-color: #674eae;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  background-color: #443375;
+}
+
+.button:active {
+  background-color: #291b51;
+}
+
+.button:disabled {
+  color: #c9ccd8;
+  background-color: white;
+  border: 1px solid #c9ccd8;
+}
+
+.download {
+  margin-bottom: 90px;
+  width: fit-content;
+  padding: 12px 20px;
+  color: white;
+  background-color: #674eae;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.download:hover {
+  background-color: #443375;
+}

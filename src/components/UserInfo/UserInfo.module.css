@@ -1,0 +1,147 @@
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 80px;
+}
+
+.title {
+  font-size: 38px;
+  color: rgba(0, 0, 0, 0.8);
+  margin: 20px 0 10px;
+}
+
+.edit {
+  display: flex;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.subtitle {
+  margin-top: 40px;
+  font-size: 26px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  background: #f5f5f4;
+  border-radius: 50%;
+}
+
+.userLogo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.userLogo span {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.fieldsetContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding-bottom: 14px;
+  width: 518px;
+}
+
+.fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 75px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16.2px;
+  color: rgba(0, 0, 0, 0.6);
+  padding-bottom: 5px;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  width: 100%;
+}
+
+.input:hover {
+  box-shadow: 0 1px 4px 0 rgba(36, 63, 97, 0.1);
+}
+
+.input:focus {
+  background-color: #fefefe;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.inputError {
+  border: 1px solid #e62214;
+}
+
+.inputFigure {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  background: url(../../images/hidden_password.svg) no-repeat center;
+}
+
+.visible {
+  background: url(../../images/visible_password.svg) no-repeat center;
+}
+
+.span {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+}
+
+.spanError {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.spanConfirm {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+  position: absolute;
+  bottom: -17px;
+}
+
+.button {
+  width: 230px;
+  margin-left: auto;
+}

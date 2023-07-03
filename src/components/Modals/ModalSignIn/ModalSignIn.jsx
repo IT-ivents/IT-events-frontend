@@ -7,7 +7,8 @@ import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
-  const isServerError = true;
+  const [isServerError, setIsServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     values,
     handleChange,
@@ -74,7 +75,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
           <div className={styles.fieldsetContainer}>
             <fieldset className={styles.fieldset}>
               <label htmlFor="email" className={styles.label}>
-                Почта
+                Почта <span className={styles.spanError}>*</span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -105,7 +106,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
                 type="password"
                 className={styles.label}
               >
-                Пароль
+                Пароль <span className={styles.spanError}>*</span>
               </label>
               <div className={styles.inputContainer}>
                 <input

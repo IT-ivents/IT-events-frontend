@@ -1,19 +1,23 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import styles from './Pages.module.css';
 import AccountMenu from '../components/AccountMenu/AccountMenu';
-import Security from '../components/Security/Security';
-import Notifications from '../components/Notifications/Notifications';
+import UserInfo from '../components/UserInfo/UserInfo';
+import UserEvents from '../components/UserEvents/UserEvents';
+import Organization from '../components/Organization/Organization';
 
-const AccountDetailsPage = () => {
+const AccountDetailsPage = ({ mostAnticipatedEvents }) => {
   return (
-    <>
+    <section className={styles.userInfo}>
       <AccountMenu />
       <Routes>
-        <Route path="/" element={<Outlet />} />
-        <Route path="security" element={<Security />} />
-        <Route path="notifications" element={<Notifications />} />
-        {/* <Route path="personal-info" element={<PersonalInfoTab />} /> */}
+        <Route path="/" element={<UserInfo />} />
+        <Route
+          path="events"
+          element={<UserEvents mostAnticipatedEvents={mostAnticipatedEvents} />}
+        />
+        <Route path="organization" element={<Organization />} />
       </Routes>
-    </>
+    </section>
   );
 };
 

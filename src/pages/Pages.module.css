@@ -31,13 +31,32 @@
   gap: 124px;
 }
 
+.navigationContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 120px;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  width: 920px;
+  margin: 150px 0 0;
+}
+
 /* Страница: Политика */
 .policyPageWrapper {
   display: flex;
   flex-direction: column;
-  align-self: start;
+  align-self: center;
   flex-grow: 1;
-  padding: 64px 104px 0;
+}
+
+.cookiesPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  flex-grow: 1;
 }
 
 /* Страница: Избранное */
@@ -47,10 +66,17 @@
   align-self: start;
   flex-grow: 1;
   padding: 64px 104px 0;
+  width: 100%;
 }
 
 .favoritesPageListContainer {
   padding-top: 56px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .noFavoritesContainer {
@@ -95,12 +121,20 @@
   margin: 63px 0 13px;
 }
 
+.accountPageWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-top: 64px;
+}
+
 .accountBlocks {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   max-width: 1232px;
   margin-top: 60px;
+  margin-bottom: 150px;
 }
 
 .accountGreeting {
@@ -110,6 +144,16 @@
 .blockLink {
   text-decoration: none;
   color: #000000;
+}
+
+/* Страница: Личный кабинет (Персональная информация) */
+.userInfo {
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+  width: 1232px;
+  gap: 50px;
+  padding-top: 32px;
 }
 
 /* Страница: 404 */
@@ -205,9 +249,9 @@
   margin: 64px 0 80px;
 }
 
-.topFilterContainer {
+/* .topFilterContainer {
   margin-bottom: 39px;
-}
+} */
 
 .filterField {
   display: flex;

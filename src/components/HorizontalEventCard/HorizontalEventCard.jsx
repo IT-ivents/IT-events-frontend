@@ -85,6 +85,13 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
     e.target.src = defaultImage;
   };
 
+  const eventStartDate = parseEventDate(event.date_start);
+  const eventEndDate = parseEventDate(event.date_end);
+  const eventDate =
+    eventStartDate === eventEndDate
+      ? eventStartDate
+      : `${eventStartDate} - ${eventEndDate}`;
+
   return (
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
@@ -111,7 +118,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
         <ul className={styles.rowContainer}>
           <li className={styles.rowItem}>
             <img src={CalendarImage} alt="Календарь" />
-            <time>{parseEventDate(event.date_start)}</time>
+            <time>{eventDate}</time>
           </li>
           <li className={styles.rowItem}>
             <img src={TimeImage} alt="Время" />

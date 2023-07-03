@@ -65,6 +65,7 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
     <section className={styles.favoritesPageWrapper}>
       <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
       <FilterBar onFilter={handleFilter} />
+      <div className={styles.divider} />
       {noEvents && (
         <div className={styles.noFavoritesContainer}>
           <h3 className={styles.noFavoritesText}>Список пуст</h3>

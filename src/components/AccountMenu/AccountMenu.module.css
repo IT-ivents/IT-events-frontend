@@ -1,7 +1,8 @@
-/* .accountMenu {
+.accountMenu {
   display: flex;
-  margin-top: 63px;
-  gap: 84px;
+  flex-direction: column;
+  gap: 80px;
+  width: fit-content;
 }
 
 .headerName {
@@ -15,8 +16,16 @@
 }
 
 .accountTabs {
-  width: 325px;
+  width: 295px;
+  height: 328px;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: start;
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 40px 100px 40px 32px;
+  position: relative;
 }
 
 .activeAccountTab {
@@ -32,10 +41,9 @@
   align-items: center;
   gap: 22px;
   padding-bottom: 24px;
+  text-decoration: none;
 }
 
 .accountTabContent {
   width: 823px;
-} */
-
-/* КОД ПОКА НЕ ИСПОЛЬЗУЕТСЯ, Т.К. НЕТ ЛК */
+}

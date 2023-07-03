@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
-import axios from 'axios';
+
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
+import * as auth from '../../utils/auth';
+import { events } from '../../utils/events';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
@@ -15,9 +17,12 @@ import {
   NotFoundPage,
   SearchResultPage,
   PreferencesPage,
-  PrivacyPolicyPage,
   About,
-  Organisation,
+  Organization,
+  PrivacyPolicyPage,
+  CookiePage,
+  AccountPage,
+  AccountDetailsPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
 
@@ -36,6 +41,9 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+
+  const [serverError, setServerError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
@@ -99,9 +107,10 @@ function App() {
 
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
-      const response = await axios.get('http://80.87.107.15/api/v1/events/');
-      const data = response.data.results;
-      //console.log(data);
+      //const data = await apiEvents.getEvents();
+      const data = events;
+
+      //const resultData = data.data.results
       setEventsFromApi(data);
       localStorage.setItem('eventsData', JSON.stringify(data));
       // Разложить события по разным массивам
@@ -130,13 +139,16 @@ function App() {
       fetchDataAndSaveToLocalStorage();
     } else {
       try {
-        const parsedData = JSON.parse(storagedEventsData);
-        setEventsFromApi(parsedData);
+        const resultData = JSON.parse(storagedEventsData);
+        //const resultData = parsedData.data.results;
+        //const resultData = events;
+        console.log('results', resultData);
+        setEventsFromApi(resultData);
         // Разложить события по разным массивам
-        const mostAnticipated = parsedData.slice(0, 6);
-        const popular = parsedData.slice(7, 19);
-        const interesting = parsedData.slice(19, 31);
-        const soon = parsedData.slice(32, parsedData.length - 1);
+        const mostAnticipated = resultData.slice(0, 6);
+        const popular = resultData.slice(7, 19);
+        const interesting = resultData.slice(19, 31);
+        const soon = resultData.slice(32, resultData.length - 1);
         setMostAnticipatedEvents(mostAnticipated);
         setPopularEvents(popular);
         setInterestingEvents(interesting);
@@ -145,6 +157,16 @@ function App() {
         console.error('Неверный формат данных eventsData:', error);
       }
     }
+    // Обновление данных с сервера и сохранение в локальном хранилище
+    fetchDataAndSaveToLocalStorage();
+    // Устанавливаем интервал для периодического обновления данных
+    const interval = setInterval(() => {
+      fetchDataAndSaveToLocalStorage();
+    }, 5 * 60 * 1000); // 5 минут в миллисекундах
+    // Очищаем интервал при размонтировании компонента
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   // Загрузка избранных событий из локального хранилища
@@ -176,7 +198,7 @@ function App() {
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
-    navigate('/event');
+    navigate(`event/${event.id}`);
   };
 
   // Функция обновления массива избранных событий
@@ -299,9 +321,35 @@ function App() {
     setIsModalSignUpOpen(!isModalSignUpOpen);
   };
 
-  function handleSignIn() {}
+  function handleLogin() {}
 
-  function handleSignUp() {}
+  function handleRegister({ username, email, password, organization_name }) {
+    setIsLoading(true);
+    let message = '';
+    auth
+      .registration({ username, email, password, organization_name })
+      .then((res) => {
+        console.log('Registration OK', res);
+      })
+      .catch((error) => {
+        switch (error) {
+          case 400:
+            message = 'Некорректное значение одного или нескольких полей';
+            break;
+          case 409:
+            message = 'Пользователь с такой почтой уже зарегистрирован.';
+            break;
+          default:
+            message = 'Что-то пошло не так, пожалуйста попробуйте еще раз.';
+        }
+        console.error('Registration error:', error);
+      })
+      .finally(() => {
+        setServerError(message);
+        setTimeout(() => setIsLoading(false), 500);
+        //toggleModalSignUp()
+      });
+  }
 
   return (
     <SearchFilterContext.Provider
@@ -324,14 +372,17 @@ function App() {
               isOpen={toggleModalSignIn}
               handleClose={toggleModalSignIn}
               isRegister={toggleModalSignUp}
-              onSignIn={handleSignIn}
+              onSignIn={handleLogin}
             />
           )}
           {isModalSignUpOpen && (
             <ModalSignUp
               isOpen={toggleModalSignUp}
               handleClose={toggleModalSignUp}
-              onSignUp={handleSignUp}
+              onSignUp={handleRegister}
+              isLoading={isLoading}
+              setServerError={setServerError}
+              serverError={serverError}
             />
           )}
 
@@ -349,15 +400,17 @@ function App() {
                   handleSearch={handleFilterSearch}
                   searchQuery={searchQuery}
                   onSearch={handleSearch}
+                  setSelectedEvent={setSelectedEvent}
                 />
               }
             />
             <Route
-              path="event"
+              path="event/:id"
               element={
                 <EventPage
                   recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
+                  setSelectedEvent={setSelectedEvent}
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                 />
@@ -397,8 +450,26 @@ function App() {
             />
             <Route path="preferences" element={<PreferencesPage />} />
             <Route path="privacy" element={<PrivacyPolicyPage />} />
+            <Route path="cookies" element={<CookiePage />} />
             <Route path="about" element={<About />} />
-            <Route path="organisation" element={<Organisation />} />
+            <Route path="organization" element={<Organization />} />
+            <Route
+              path="account/*"
+              element={
+                <AccountDetailsPage
+                  mostAnticipatedEvents={mostAnticipatedEvents}
+                />
+              }
+            />
+            {/* <Route
+              path="/account/*"
+              element={
+                <AccountDetailsPage
+                  mostAnticipatedEvents={mostAnticipatedEvents}
+                />
+              }
+            /> */}
+            {/* <Route path="account/events" element={<AccountDetailsPage />} /> */}
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

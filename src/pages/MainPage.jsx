@@ -5,6 +5,9 @@ import Subscribe from '../components/Subscribe/Subscribe';
 import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
+import EventCarousel from '../components/EventCarousel/EventCarousel';
+import { Circles } from 'react-loader-spinner';
+import { useEffect, useState } from 'react';
 
 const MainPage = ({
   onCardClick,
@@ -15,28 +18,31 @@ const MainPage = ({
   soonEvents,
   onSearch,
   searchQuery,
+  setSelectedEvent,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const mainPageEvents = [
-    {
-      id: 1,
-      title: 'Самые ожидаемые события года',
-      list: mostAnticipatedEvents,
-      else: false,
-      span: false,
-    },
+    // {
+    //   id: 1,
+    //   title: 'Самые ожидаемые события года',
+    //   list: mostAnticipatedEvents,
+    //   else: false,
+    //   span: false,
+    // },
     {
       id: 2,
       title: 'Популярное',
       list: popularEvents,
       else: true,
-      span: false,
+      eventOnPage: 6,
     },
     {
       id: 3,
       title: 'Ближайшие события',
       list: soonEvents,
       else: true,
-      span: false,
+      eventOnPage: 6,
     },
     {
       id: 4,
@@ -44,8 +50,15 @@ const MainPage = ({
       list: interestingEvents,
       else: true,
       span: true,
+      eventOnPage: 9,
     },
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   return (
     <div className={styles.mainPageWrapper}>
@@ -56,17 +69,36 @@ const MainPage = ({
           <div className={styles.topFilterContainer}>
             <TopFilersBar />
           </div>
-          {mainPageEvents.map((event) => (
-            <HorizontalEventList
-              key={event.id}
-              list={event.list}
-              title={event.title}
-              span={event.span}
-              onCardClick={onCardClick}
-              onLikeClick={onLikeClick}
-              elseButton={event.else}
-            />
-          ))}
+          {isLoading ? (
+            <div className={styles.loaderContainer}>
+              <Circles
+                height="80"
+                width="80"
+                color="#674EAE"
+                ariaLabel="circles-loading"
+                visible={true}
+              />
+            </div>
+          ) : (
+            <div>
+              <EventCarousel
+                mostAnticipatedEvents={mostAnticipatedEvents}
+                onCardClick={onCardClick}
+              />
+              {mainPageEvents.map((event) => (
+                <HorizontalEventList
+                  key={event.id}
+                  list={event.list}
+                  title={event.title}
+                  span={event.span}
+                  onCardClick={onCardClick}
+                  onLikeClick={onLikeClick}
+                  elseButton={event.else}
+                  eventOnPage={event.eventOnPage}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <Subscribe />

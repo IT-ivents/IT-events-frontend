@@ -1,10 +1,25 @@
-/* .blockBorder {
+.blockBorder {
   width: 400px;
   height: 194px;
-  border: 1px solid #d6d6d6;
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   padding: 26px;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+  transition: background-color 0.3s ease;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(103, 78, 174, 0.8)
+  );
+  background-size: 100% 200%;
+  background-position: top;
+}
+
+.blockBorder:hover {
+  background-position: bottom;
 }
 
 .blockTitle {
@@ -16,7 +31,4 @@
 .blockDetails {
   font-size: 16px;
   font-weight: 400;
-  color: #767575;
-} */
-
-/* КОД ПОКА НЕ ИСПОЛЬЗУЕТСЯ, Т.К. НЕТ ЛК */
+}

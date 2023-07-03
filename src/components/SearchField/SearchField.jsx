@@ -28,6 +28,7 @@ const SearchField = ({
       setPageQuery(searchQuery);
     } else {
       setPageQuery('');
+      setQuery('');
     }
   }, [location]);
 

@@ -1,0 +1,49 @@
+.linkPopup {
+  display: flex;
+  position: absolute;
+  /* position: absolute; */
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  width: 832px;
+  height: 114px;
+  left: 40px;
+  bottom: 192px;
+  /* bottom: 40px; */
+  background-color: white;
+  border: 1px solid #243f6129;
+  padding: 0 27px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 4px 0 #243f611a;
+}
+
+.link {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background-color: #674eae;
+  color: #f1f0eb;
+  border: 0;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 12px 35px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #443375;
+  transition: 0.3s ease-in-out;
+}
+
+.button:active {
+  background-color: #291b51;
+}

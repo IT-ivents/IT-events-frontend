@@ -1,0 +1,9 @@
+.carousel {
+  width: 920px;
+  margin: 45px 0 100px;
+}
+
+.title {
+  margin-bottom: 40px;
+  color: rgba(0, 0, 0, 0.8);
+}

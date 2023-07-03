@@ -6,6 +6,11 @@ export function useFormWithValidation() {
   const [isValid, setIsValid] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
 
+  const inputTypeNumberValidation = (e) => {
+    return (e.target.value =
+      Math.max(0, parseInt(e.target.value.trim().slice(0, 8))) || '');
+  };
+
   const handleChange = (event) => {
     const target = event.target;
     const { name, value } = target;
@@ -18,18 +23,23 @@ export function useFormWithValidation() {
   };
 
   useEffect(() => {
+    const hasErrors = Object.keys(errors).some((key) => errors[key]);
+    const hasOptionalFields = !!values.partners || !!values.url;
     setDisabledButton(
       !isValid ||
-        (Object.keys(errors).some((key) => errors[key]) &&
-          Object.values(values).every((value) => value === '')) ||
-        errors.confirmPassword !== ''
+        (hasErrors && !hasOptionalFields) ||
+        (values.confirmPassword ? errors.confirmPassword !== '' : false)
     );
-  }, [errors, values]);
+  }, [isValid, errors, values]);
+
+  //&& values.partners !== '' && values.url !== ''
 
   const handleBlur = (event) => {
     const target = event.target;
     const { name } = target;
-    setErrors({ ...errors, [name]: target.validationMessage });
+    if (name === 'partners' || name === 'url') {
+      setErrors({ ...errors, [name]: target.validationMessage });
+    }
   };
 
   const validatePasswordMatch = useCallback(() => {
@@ -65,5 +75,6 @@ export function useFormWithValidation() {
     isValid,
     resetForm,
     disabledButton,
+    inputTypeNumberValidation,
   };
 }
