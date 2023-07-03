@@ -5,7 +5,6 @@ import defaultImage from '../../images/default-image.png';
 
 const Event = ({
   selectedEvent,
-  setSelectedEvent,
   onCardClick,
   onLikeClick,
   recommendedEvents,
@@ -24,7 +23,6 @@ const Event = ({
     <div className={styles.eventContainer}>
       <EventDescription
         selectedEvent={selectedEvent}
-        setSelectedEvent={setSelectedEvent}
         onLikeClick={onLikeClick}
       />
       <aside>

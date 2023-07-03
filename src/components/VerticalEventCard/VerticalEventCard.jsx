@@ -8,12 +8,7 @@ import {
 import PopupLink from '../PopupLink/PopupLink';
 import defaultImage from '../../images/default-image.png';
 
-const VerticalEventCard = ({
-  event,
-  onCardClick,
-  onLikeClick,
-  setSelectedEvent,
-}) => {
+const VerticalEventCard = ({ event, onCardClick, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleCardClick = () => {
@@ -30,7 +25,7 @@ const VerticalEventCard = ({
 
   const handleCopyButtonClick = () => {
     const link = `${window.location.origin}/#/event/${event.id}`;
-    setSelectedEvent(event);
+    console.log('Ссылка скопирована в MainPage', link);
     handleCopyLink(link, setShowNotification);
   };
 
