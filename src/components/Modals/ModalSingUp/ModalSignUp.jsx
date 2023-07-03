@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
+import attention from '../../../images/tooltip_attention.svg';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
@@ -117,9 +118,11 @@ const ModalSignUp = ({
             <fieldset className={styles.fieldset}>
               <label htmlFor="organization" className={styles.label}>
                 Организация <span className={styles.spanError}>*</span>{' '}
-                <span className={styles.recommendation}>
-                  Эти данные Вы изменить не сможете
-                </span>
+                <img
+                  className={styles.recommendation}
+                  alt="attention"
+                  src={attention}
+                />
               </label>
               <input
                 className={`${styles.input} ${

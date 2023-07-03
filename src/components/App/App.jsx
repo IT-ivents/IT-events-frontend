@@ -8,6 +8,7 @@ import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
 import * as auth from '../../utils/auth';
 import { events } from '../../utils/events';
+import { apiEvents } from '../../utils/api';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
@@ -44,7 +45,8 @@ function App() {
 
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const [loggedIn, setIsLoggedIn] = useState(false); // AUTHORIZATION
+  console.log(loggedIn);
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -109,7 +111,7 @@ function App() {
     try {
       //const data = await apiEvents.getEvents();
       const data = events;
-
+      //console.log(data)
       //const resultData = data.data.results
       setEventsFromApi(data);
       localStorage.setItem('eventsData', JSON.stringify(data));
@@ -142,7 +144,7 @@ function App() {
         const resultData = JSON.parse(storagedEventsData);
         //const resultData = parsedData.data.results;
         //const resultData = events;
-        console.log('results', resultData);
+        //console.log('results', resultData);
         setEventsFromApi(resultData);
         // Разложить события по разным массивам
         const mostAnticipated = resultData.slice(0, 6);
@@ -321,15 +323,46 @@ function App() {
     setIsModalSignUpOpen(!isModalSignUpOpen);
   };
 
-  function handleLogin() {}
+  function handleLogin({ email, password }) {
+    setIsLoading(true);
+    let message = '';
+    auth
+      .authorization({ email, password })
+      .then((res) => {
+        console.log('TOKEN_OK');
+        if (res.auth_token) {
+          localStorage.setItem('jwt', res.auth_token);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        switch (error) {
+          case 400:
+            message = 'Некорректное значение одного или нескольких полей';
+            break;
+          case 401:
+            message = 'Неверно указаны e-mail или пароль';
+            break;
+          default:
+            message = 'Что-то пошло не так! Попробуйте ещё раз.';
+        }
+        localStorage.removeItem('jwt');
+        setIsLoggedIn(false);
+        console.error('Authorization error:', error);
+      })
+      .finally(() => {
+        setServerError(message);
+      });
+  }
 
   function handleRegister({ username, email, password, organization_name }) {
     setIsLoading(true);
     let message = '';
     auth
       .registration({ username, email, password, organization_name })
-      .then((res) => {
-        console.log('Registration OK', res);
+      .then(() => {
+        handleLogin({ email, password });
+        console.log('Успешная регистрация');
       })
       .catch((error) => {
         switch (error) {
@@ -350,6 +383,28 @@ function App() {
         //toggleModalSignUp()
       });
   }
+
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    console.log('Вышли из учетной записи');
+  }
+
+  // useEffect(() => {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (!jwt) handleLogout();
+  //   auth
+  //     .checkToken(jwt)
+  //     .then((res) => {
+  //       if (res) {
+  //         setIsLoggedIn(true);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log('TOKEN_ERROR',err);
+  //       handleLogout();
+  //     });
+  // }, []);
 
   return (
     <SearchFilterContext.Provider

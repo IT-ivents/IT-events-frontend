@@ -58,6 +58,8 @@
   line-height: 16.2px;
   color: rgba(0, 0, 0, 0.6);
   padding-bottom: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .inputContainer {
@@ -138,8 +140,10 @@
 }
 
 .recommendation {
-  color: rgba(0, 0, 0, 0.6);
-  text-decoration-line: underline;
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+  cursor: pointer;
 }
 
 .checkboxContainer {
