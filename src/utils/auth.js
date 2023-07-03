@@ -23,7 +23,7 @@ export const registration = (data) => {
 };
 
 export const authorization = (data) => {
-  return fetch(`${BASE_URL}/token/login`, {
+  return fetch(`${BASE_URL}/auth/token/login`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -34,13 +34,13 @@ export const authorization = (data) => {
   }).then((res) => handleResponse(res));
 };
 
-export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) => handleResponse(res));
-};
+// export const checkToken = (token) => {
+//   return fetch(`${BASE_URL}/auth/token/login`, {
+//     method: 'GET',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     },
+//   }).then((res) => handleResponse(res));
+// };
