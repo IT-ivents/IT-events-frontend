@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as auth from '../../utils/auth';
 
 function useAuth() {
   const [loggedIn, setIsLoggedIn] = useState(false); // AUTHORIZATION
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    const checkLoggedInStatus = () => {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    };
+    checkLoggedInStatus();
+    console.log('LoggedIn:', loggedIn);
+  }, [loggedIn]);
 
   function handleLogin({ email, password }) {
     setIsLoading(true);
@@ -43,8 +57,10 @@ function useAuth() {
     let message = '';
     auth
       .registration({ username, email, password, organization_name })
-      .then(() => {
+      .then((res) => {
         handleLogin({ email, password });
+        setCurrentUser(res); // Установить ответ от сервера в currentUser
+        localStorage.setItem('currentUser', JSON.stringify(res)); // Сохранить currentUser в локальное хранилище
         console.log('Успешная регистрация');
       })
       .catch((error) => {
@@ -68,9 +84,19 @@ function useAuth() {
   }
 
   function handleLogout() {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    console.log('Вышли из учетной записи');
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth
+        .logout(token)
+        .then(() => {
+          localStorage.removeItem('jwt');
+          setIsLoggedIn(false);
+          console.log('Вышли из учетной записи');
+        })
+        .catch((error) => {
+          console.error('Ошибка при выходе:', error);
+        });
+    }
   }
 
   return {
@@ -81,6 +107,7 @@ function useAuth() {
     isLoading,
     serverError,
     setServerError,
+    currentUser,
   };
 }
 

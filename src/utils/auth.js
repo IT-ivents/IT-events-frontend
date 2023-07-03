@@ -1,8 +1,16 @@
 export const BASE_URL = 'http://80.87.107.15/api/v1';
 
 export const handleResponse = (res) => {
-  if (res.ok) return res.json();
-  return Promise.reject(res.status);
+  if (res.ok) {
+    // Проверяем, есть ли тело ответа
+    if (res.status === 204) {
+      return null; // Возвращаем null, если тело ответа пустое
+    } else {
+      return res.json(); // Возвращаем JSON-тело ответа
+    }
+  } else {
+    return Promise.reject(res.status); // Отклоняем промис с кодом статуса
+  }
 };
 
 export const registration = (data) => {
@@ -34,13 +42,13 @@ export const authorization = (data) => {
   }).then((res) => handleResponse(res));
 };
 
-// export const checkToken = (token) => {
-//   return fetch(`${BASE_URL}/auth/token/login`, {
-//     method: 'GET',
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//   }).then((res) => handleResponse(res));
-// };
+export const logout = (token) => {
+  return fetch(`${BASE_URL}/auth/token/logout`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Token ${token}`,
+    },
+  }).then((res) => handleResponse(res));
+};
