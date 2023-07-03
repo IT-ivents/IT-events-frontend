@@ -51,8 +51,13 @@ export function useFilter({ values, setValues, setFindValues }) {
     const name = input.name;
     const value = input.value;
 
-    setDate(value);
-    setValues({ ...values, [name]: value });
+    if (value !== '') {
+      setDate(value);
+      setValues({ ...values, [name]: value });
+    } else {
+      setDate(null);
+      setValues({ ...values, [name]: null });
+    }
   };
 
   const handleButtonChange = (data) => {
