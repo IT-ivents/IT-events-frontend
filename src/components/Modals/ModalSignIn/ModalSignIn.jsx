@@ -29,7 +29,10 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    onSignIn();
+    onSignIn({
+      email: values.email,
+      password: values.password,
+    });
   };
 
   const handleKeyPress = (e) => {

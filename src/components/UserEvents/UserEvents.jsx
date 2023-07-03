@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './UserEvents.module.css';
 import FilterBar from '../FilterBar/FilterBar';
 import VerticalEventList from '../VerticalEventList/VerticalEventList';
+import AddImage from '../../images/Actions/Add.svg';
 
 const UserEvents = ({ mostAnticipatedEvents }) => {
   const pageRender = () => {
@@ -21,7 +22,16 @@ const UserEvents = ({ mostAnticipatedEvents }) => {
 
   return (
     <section className={styles.section}>
-      <FilterBar />
+      <div className={styles.filterBar}>
+        <FilterBar />
+        <div className={styles.buttons}>
+          <button type="button" className={styles.delete}></button>
+          <button title="Создать событие" className={styles.create}>
+            <img src={AddImage} alt="Создать событие" />
+            Создать событие
+          </button>
+        </div>
+      </div>
       {pageRender()}
     </section>
   );
