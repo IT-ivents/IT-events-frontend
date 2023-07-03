@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
-import * as auth from '../../utils/auth';
 import { events } from '../../utils/events';
 import { apiEvents } from '../../utils/api';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
@@ -26,6 +25,7 @@ import {
   AccountDetailsPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
+import useAuth from '../../utils/hooks/useAuth';
 
 function App() {
   const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
@@ -43,9 +43,16 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
 
-  const [serverError, setServerError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [loggedIn, setIsLoggedIn] = useState(false); // AUTHORIZATION
+  const {
+    handleLogin,
+    handleRegister,
+    handleLogout,
+    loggedIn,
+    isLoading,
+    serverError,
+    setServerError,
+  } = useAuth();
+
   console.log(loggedIn);
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
@@ -322,89 +329,6 @@ function App() {
     setIsModalSignInOpen(false);
     setIsModalSignUpOpen(!isModalSignUpOpen);
   };
-
-  function handleLogin({ email, password }) {
-    setIsLoading(true);
-    let message = '';
-    auth
-      .authorization({ email, password })
-      .then((res) => {
-        console.log('TOKEN_OK');
-        if (res.auth_token) {
-          localStorage.setItem('jwt', res.auth_token);
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((error) => {
-        switch (error) {
-          case 400:
-            message = 'Некорректное значение одного или нескольких полей';
-            break;
-          case 401:
-            message = 'Неверно указаны e-mail или пароль';
-            break;
-          default:
-            message = 'Что-то пошло не так! Попробуйте ещё раз.';
-        }
-        localStorage.removeItem('jwt');
-        setIsLoggedIn(false);
-        console.error('Authorization error:', error);
-      })
-      .finally(() => {
-        setServerError(message);
-      });
-  }
-
-  function handleRegister({ username, email, password, organization_name }) {
-    setIsLoading(true);
-    let message = '';
-    auth
-      .registration({ username, email, password, organization_name })
-      .then(() => {
-        handleLogin({ email, password });
-        console.log('Успешная регистрация');
-      })
-      .catch((error) => {
-        switch (error) {
-          case 400:
-            message = 'Некорректное значение одного или нескольких полей';
-            break;
-          case 409:
-            message = 'Пользователь с такой почтой уже зарегистрирован.';
-            break;
-          default:
-            message = 'Что-то пошло не так, пожалуйста попробуйте еще раз.';
-        }
-        console.error('Registration error:', error);
-      })
-      .finally(() => {
-        setServerError(message);
-        setTimeout(() => setIsLoading(false), 500);
-        //toggleModalSignUp()
-      });
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    console.log('Вышли из учетной записи');
-  }
-
-  // useEffect(() => {
-  //   const jwt = localStorage.getItem('jwt');
-  //   if (!jwt) handleLogout();
-  //   auth
-  //     .checkToken(jwt)
-  //     .then((res) => {
-  //       if (res) {
-  //         setIsLoggedIn(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log('TOKEN_ERROR',err);
-  //       handleLogout();
-  //     });
-  // }, []);
 
   return (
     <SearchFilterContext.Provider

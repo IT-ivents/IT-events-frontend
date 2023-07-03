@@ -3,20 +3,23 @@ import { motion as m } from 'framer-motion';
 import styles from './LeftFilterBar.module.css';
 import TagsSection from './../TagsSection/TagsSection';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
+import { useInitialFilter } from '../../utils/hooks/useInitialFilter';
 import { useFilter } from '../../utils/hooks/useFilter';
 import TagButton from '../TagButton/TagButton';
 import { useLocation } from 'react-router-dom';
 
 const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   const [showAllDates, setShowAllDates] = useState(false);
-  const [showAllSpecialities, setShowAllSpecialities] = useState(false);
+  const [showTopic, setShowTopic] = useState(false);
+  const { dataLists } = useInitialFilter();
   const location = useLocation();
+  const resultLocation = location.pathname === '/results';
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
-  const resultLocation = location.pathname === '/results';
 
   const {
     handleInputChange,
+    handleDateChange,
     handleDateBlur,
     handleButtonChange,
     setItemOnClick,
@@ -27,7 +30,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
     setFindValues,
   });
 
-  //console.log(values)
+  // console.log(dataLists)
 
   const handleSearchClick = () => {
     handleSearch();
@@ -35,10 +38,6 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
-  };
-
-  const toggleShowAllSpecialities = () => {
-    setShowAllSpecialities(!showAllSpecialities);
   };
 
   const renderDateOptions = () => {
@@ -65,14 +64,13 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
           type="radio"
           value={option.label}
           name="date"
-          checked={values.date === option.label}
         />
         <span className={`${option.id === 'pickdate' && styles.radioText}`}>
           {option.label}
         </span>
         {option.id === 'pickdate' && (
           <input
-            onChange={handleInputChange}
+            onChange={handleDateChange}
             className={styles.pickdate}
             name="date"
             type="date"
@@ -85,32 +83,18 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   };
 
   const renderSpecialityOptions = () => {
-    const specialityOptions = [
-      { id: 'backend', label: 'Backend' },
-      { id: 'frontend', label: 'Frontend' },
-      { id: 'qa', label: 'QA' },
-      { id: 'uxui', label: 'UX/UI дизайн' },
-    ];
-
-    if (showAllSpecialities) {
-      specialityOptions.push(
-        { id: 'web', label: 'Web-разработка' },
-        { id: 'datascience', label: 'Data Science' }
-      );
-    }
-
-    return specialityOptions.map((option) => (
-      <label htmlFor={option.id} key={option.id}>
+    return dataLists.topics.map((item, index) => (
+      <label htmlFor={item.id} key={index}>
         <input
           onChange={handleInputChange}
-          id={option.id}
+          id={item}
           type="checkbox"
-          value={option.label}
+          value={item}
           name="specialities"
-          checked={values.specialities.includes(option.label)}
-          className={styles.checkboxButton}
+          checked={values.specialities.includes(item)}
+          className={styles.checkboxListButton}
         />
-        <span className={styles.checkboxLabel}>{option.label}</span>
+        <span className={styles.checkboxListLabel}>{item}</span>
       </label>
     ));
   };
@@ -188,15 +172,15 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
         </li>
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
-          <div className={styles.lessBlock}>
-            {renderSpecialityOptions()}
-            <button
-              onClick={toggleShowAllSpecialities}
-              className={styles.showMore}
-            >
-              {showAllSpecialities ? 'Показать меньше' : 'Показать больше'}
-            </button>
-          </div>
+          <button
+            onClick={() => setShowTopic(!showTopic)}
+            className={styles.topicButton}
+          >
+            Направление
+          </button>
+          {showTopic && (
+            <div className={styles.topicsList}>{renderSpecialityOptions()}</div>
+          )}
         </li>
         <li>
           <h3 className={styles.itemTitle}>Цена</h3>
