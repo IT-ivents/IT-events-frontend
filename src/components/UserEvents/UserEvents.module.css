@@ -19,3 +19,48 @@
   line-height: 24px;
   color: rgba(0, 0, 0, 0.6);
 }
+
+.filterBar {
+  display: flex;
+  width: 771px;
+  margin: 0 0 13px 9px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.delete {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  margin-top: 77px;
+  background: url(../../images/delete.svg) no-repeat center;
+}
+
+.create {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 48px;
+  gap: 9px;
+  background-color: #674eae;
+  color: #f1f0eb;
+  border: 0;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 0 26px 0 16px;
+  margin: 65px 0 25px 145px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.create:hover {
+  background-color: #443375;
+  transition: 0.3s ease-in-out;
+}
+
+.create:active {
+  background-color: #291b51;
+}
