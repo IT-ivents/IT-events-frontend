@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
-// import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
 import { motion } from 'framer-motion';
@@ -21,11 +20,12 @@ const HorizontalEventList = ({
   const [isAllShown, setIsAllShown] = useState(false);
   const location = useLocation();
   const totalPages = Math.ceil(list.length / eventOnPage) || 0;
-  const eventPage = location.pathname === '/event';
+  const eventPage = location.pathname.includes('/event');
   const handleLikeClick = useCallback(
     (eventId) => {
       onLikeClick(eventId);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [] // Пустой массив зависимостей, чтобы сохранить этот экземпляр обратного вызова неизменным
   );
 

@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
-import { events } from '../../utils/events';
-import { apiEvents } from '../../utils/api';
-import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
   MainPage,
   EventPage,
@@ -21,32 +18,60 @@ import {
   Organization,
   PrivacyPolicyPage,
   CookiePage,
-  AccountPage,
+  // AccountPage,
   AccountDetailsPage,
 } from '../../pages';
-import { getRandomEvents } from '../../utils/helperFunctions';
+import SearchFilterContext from '../../utils/context/SearchFilterContext';
+import useFilterContext from '../../utils/hooks/useFilterContext';
 import useAuth from '../../utils/hooks/useAuth';
+import useEventsList from '../../utils/hooks/useEventsList';
+import useSearchEvents from '../../utils/hooks/useSearchEvents';
+import useFavorites from '../../utils/hooks/useFavorites';
 
 function App() {
+  const location = useLocation();
   const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
   const [isModalSignUpOpen, setIsModalSignUpOpen] = useState(false);
 
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [eventsFromApi, setEventsFromApi] = useState([]);
+  const {
+    eventsFromApi,
+    soonEvents,
+    popularEvents,
+    interestingEvents,
+    mostAnticipatedEvents,
+    setMostAnticipatedEvents,
+    setPopularEvents,
+    setSoonEvents,
+    setInterestingEvents,
+    setEventsFromApi,
+  } = useEventsList();
 
-  const [mostAnticipatedEvents, setMostAnticipatedEvents] = useState([]);
-  const [popularEvents, setPopularEvents] = useState([]);
-  const [soonEvents, setSoonEvents] = useState([]);
-  const [interestingEvents, setInterestingEvents] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
-  const [recommendedEvents, setRecommendedEvents] = useState([]);
+  const {
+    favorites,
+    setRecommendedEvents,
+    handleCardClick,
+    toggleFavorite,
+    setSelectedEvent,
+    recommendedEvents,
+    selectedEvent,
+  } = useFavorites();
+
+  const {
+    searchResult,
+    setSearchResult,
+    searchQuery,
+    setSearchQuery,
+    handleSearch,
+    handleFilterSearch,
+  } = useSearchEvents();
+
+  const { findValues, setFindValues, values, setValues, resetFilters } =
+    useFilterContext();
 
   const {
     handleLogin,
     handleRegister,
-    handleLogout,
+    // handleLogout,
     loggedIn,
     isLoading,
     serverError,
@@ -54,187 +79,16 @@ function App() {
   } = useAuth();
 
   console.log(loggedIn);
-  // стейты для поисковго фильтра
-  const [values, setValues] = useState({
-    status: [],
-    city: null,
-    date: null,
-    specialities: [],
-    price: null,
-    findTags: null,
-    tags: [],
-  });
-  const [findValues, setFindValues] = useState(null);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const resetFilters = () => {
-    setValues({
-      status: [],
-      city: null,
-      date: null,
-      specialities: [],
-      price: null,
-      findTags: null,
-      tags: [],
-    });
-  };
 
   useEffect(() => {
     if (location.pathname === '/') {
       resetFilters();
       setSearchQuery('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  const recommendedList = useMemo(() => {
-    if (!selectedEvent || !selectedEvent.tags) {
-      return [];
-    }
-    const recommended = eventsFromApi.filter((event) => {
-      return (
-        // Исключаем попадание выбранной карточки в список рекомендаций
-        event.id !== selectedEvent.id &&
-        event.tags.some((tag) => {
-          const tagName = tag.name.toLowerCase().trim();
-          return selectedEvent.tags.some(
-            (selectedTag) => selectedTag.name.toLowerCase().trim() === tagName
-          );
-        })
-      );
-    });
-    if (recommended.length === 0) {
-      const randomEvents = getRandomEvents(eventsFromApi, 4);
-      setRecommendedEvents(randomEvents);
-      return randomEvents; // Добавлен возврат значения
-    } else {
-      setRecommendedEvents(recommended.slice(0, 4));
-      return recommended.slice(0, 4); // Добавлен возврат значения
-    }
-  }, [selectedEvent, eventsFromApi]);
-
-  const fetchDataAndSaveToLocalStorage = async () => {
-    try {
-      //const data = await apiEvents.getEvents();
-      const data = events;
-      //console.log(data)
-      //const resultData = data.data.results
-      setEventsFromApi(data);
-      localStorage.setItem('eventsData', JSON.stringify(data));
-      // Разложить события по разным массивам
-      if (data) {
-        const mostAnticipated = data.slice(0, 6);
-        const popular = data.slice(7, 19);
-        const interesting = data.slice(19, 31);
-        const soon = data.slice(32, data.length - 1);
-
-        setMostAnticipatedEvents(mostAnticipated);
-        setPopularEvents(popular);
-        setInterestingEvents(interesting);
-        setSoonEvents(soon);
-      } else {
-        throw new Error('Неверный формат данных eventsData:');
-      }
-    } catch (error) {
-      console.error('Ошибка при выполнении запроса:', error);
-    }
-  };
-
-  // Если Events есть в сторадж, достаем оттуда
-  useEffect(() => {
-    const storagedEventsData = localStorage.getItem('eventsData');
-    if (!storagedEventsData) {
-      fetchDataAndSaveToLocalStorage();
-    } else {
-      try {
-        const resultData = JSON.parse(storagedEventsData);
-        //const resultData = parsedData.data.results;
-        //const resultData = events;
-        //console.log('results', resultData);
-        setEventsFromApi(resultData);
-        // Разложить события по разным массивам
-        const mostAnticipated = resultData.slice(0, 6);
-        const popular = resultData.slice(7, 19);
-        const interesting = resultData.slice(19, 31);
-        const soon = resultData.slice(32, resultData.length - 1);
-        setMostAnticipatedEvents(mostAnticipated);
-        setPopularEvents(popular);
-        setInterestingEvents(interesting);
-        setSoonEvents(soon);
-      } catch (error) {
-        console.error('Неверный формат данных eventsData:', error);
-      }
-    }
-    // Обновление данных с сервера и сохранение в локальном хранилище
-    fetchDataAndSaveToLocalStorage();
-    // Устанавливаем интервал для периодического обновления данных
-    const interval = setInterval(() => {
-      fetchDataAndSaveToLocalStorage();
-    }, 5 * 60 * 1000); // 5 минут в миллисекундах
-    // Очищаем интервал при размонтировании компонента
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  // Загрузка избранных событий из локального хранилища
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
-    if (savedFavorites) {
-      setFavorites(savedFavorites);
-    }
-  }, []);
-
-  // Сохранение избранных событий в локальное хранилище
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  useEffect(() => {
-    const savedSelectedEvent = JSON.parse(
-      localStorage.getItem('selectedEvent')
-    );
-    if (savedSelectedEvent) {
-      setSelectedEvent(savedSelectedEvent);
-    }
-  }, []);
-
-  // Cохранение текущего события в локальное хранилище чтобы не терять контекст.
-  useEffect(() => {
-    localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
-  }, [selectedEvent]);
-
-  const handleCardClick = (event) => {
-    setSelectedEvent(event);
-    navigate(`event/${event.id}`);
-  };
-
-  // Функция обновления массива избранных событий
-  const updateFavorites = (event) => {
-    setFavorites((prevFavorites) => {
-      const isEventInFavorites = prevFavorites.some(
-        (item) => item.id === event.id
-      );
-      if (!isEventInFavorites) {
-        return [...prevFavorites, { ...event, isLiked: true }];
-      } else {
-        return prevFavorites.filter((item) => item.id !== event.id);
-      }
-    });
-  };
-
-  const toggleFavorite = (event) => {
-    updateFavorites(event);
-    // Обновление isLiked у selectedEvent
-    const updatedSelectedEvent = { ...selectedEvent };
-    if (selectedEvent && selectedEvent.id === event.id) {
-      updatedSelectedEvent.isLiked = !updatedSelectedEvent.isLiked;
-    }
-    setSelectedEvent(updatedSelectedEvent);
-  };
-
-  // Функция обновления массивов событий при изменении избранных
+  //Функция обновления массивов событий при изменении избранных
   useEffect(() => {
     setMostAnticipatedEvents((prevEvents) => updateEvents(prevEvents));
     setPopularEvents((prevEvents) => updateEvents(prevEvents));
@@ -243,6 +97,7 @@ function App() {
     setSearchResult((prevEvents) => updateEvents(prevEvents));
     setRecommendedEvents((prevEvents) => updateEvents(prevEvents));
     setEventsFromApi((prevEvents) => updateEvents(prevEvents));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
 
   // Функция обновления массивов событий
@@ -251,74 +106,6 @@ function App() {
       const isLiked = favorites.some((item) => item.id === event.id);
       return { ...event, isLiked };
     });
-  };
-
-  const searchEvents = (query) => {
-    console.log(query);
-    if (typeof query !== 'string') {
-      return eventsFromApi;
-    }
-    const words = query.toLowerCase().trim().split(' ');
-    // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
-    // хотя бы одного слова.
-    const filteredEvents = [...eventsFromApi]
-      .map((event) => {
-        const isLiked = favorites.some((item) => item.id === event.id);
-        // Установим релевантность
-        return { ...event, isLiked, relevance: 0 };
-      })
-      .map((event) => {
-        const { title, description, city, price, topic, tags, date_start } =
-          event;
-
-        words.forEach((word) => {
-          const lowerCaseWord = word.toLowerCase().trim();
-
-          if (
-            title?.toLowerCase().trim().includes(lowerCaseWord) ||
-            description?.toLowerCase().trim().includes(lowerCaseWord) ||
-            city?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
-            price?.toLowerCase().trim().includes(lowerCaseWord) ||
-            topic?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
-            tags.some((tag) =>
-              tag.name.toLowerCase().trim().includes(lowerCaseWord)
-            )
-          ) {
-            // При каждом совпадении увеличиваем релевантность конкретной карточки
-            // filtered в консоли показывает результат нашего поиска
-            event.relevance++;
-          }
-        });
-        const startDate = new Date(date_start).getTime();
-        event.startDate = startDate;
-
-        return event;
-      })
-      .filter((event) => event.relevance > 0)
-      // Сортируем по релевантности наши карточки и потом по дате от ближайшего
-      .sort((a, b) => {
-        if (a.relevance !== b.relevance) {
-          return b.relevance - a.relevance;
-        } else {
-          return a.startDate - b.startDate;
-        }
-      });
-    return filteredEvents;
-  };
-
-  //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);
-
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    const filteredResult = searchEvents(query);
-    setSearchResult(filteredResult);
-    navigate('/results');
-  };
-
-  const handleFilterSearch = () => {
-    //setSearchQuery(query)
-    setSearchResult(eventsFromApi);
-    navigate('/results');
   };
 
   const toggleModalSignIn = () => {
