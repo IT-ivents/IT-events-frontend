@@ -1,0 +1,31 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 28.5%;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 10px;
+  border-color: rgba(103, 78, 174, 1) transparent transparent transparent;
+}
+
+.tooltipContent {
+  position: absolute;
+  width: 206px;
+  height: 81px;
+  bottom: 10px;
+  left: 28.5%;
+  transform: translateX(-50%);
+  padding: 12px 16px;
+  background-color: rgba(103, 78, 174, 1);
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 125%;
+  cursor: pointer;
+}
