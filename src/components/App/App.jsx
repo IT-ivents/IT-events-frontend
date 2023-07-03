@@ -53,7 +53,6 @@ function App() {
     setServerError,
   } = useAuth();
 
-  console.log(loggedIn);
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -261,6 +260,12 @@ function App() {
     const words = query.toLowerCase().trim().split(' ');
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
+    const currentEvents = eventsFromApi.filter((event) => {
+      const startDate = new Date(event.date_start).getTime();
+      const isPastEvent = startDate < Date.now();
+      return !isPastEvent;
+    });
+
     const filteredEvents = [...eventsFromApi]
       .map((event) => {
         const isLiked = favorites.some((item) => item.id === event.id);

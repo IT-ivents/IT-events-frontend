@@ -33,6 +33,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
       email: values.email,
       password: values.password,
     });
+    handleClose();
   };
 
   const handleKeyPress = (e) => {
@@ -151,7 +152,11 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
               <span className={styles.checkboxText}>Запомнить</span>
             </div>
           </div>
-          <SubmitButton title="Войти" disabled={disabledButton} />
+          <SubmitButton
+            title="Войти"
+            disabled={disabledButton}
+            onClick={handleSignIn}
+          />
         </form>
       </div>
     </Modal>

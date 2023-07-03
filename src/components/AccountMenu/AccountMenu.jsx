@@ -8,9 +8,20 @@ import Exit from './../../images/exit.svg';
 import Logout from './../../images/logout.svg';
 import AccountButton from '../AccountButton/AccountButton';
 import PageTitle from '../PageTitle/PageTitle';
+import useAuth from '../../utils/hooks/useAuth';
 
 const AccountMenu = () => {
+  const { handleLogout } = useAuth();
   const [activeTab, setActiveTab] = useState(0);
+
+  const handleLogoutClick = async () => {
+    try {
+      await handleLogout();
+      handleTabClick(activeTab);
+    } catch (error) {
+      console.error('Ошибка выхода:', error);
+    }
+  };
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -58,7 +69,11 @@ const AccountMenu = () => {
                 index === activeTab ? tab.imageActive : tab.imageDefault
               }
               isActive={index === activeTab}
-              onClick={() => handleTabClick(index)}
+              onClick={
+                tab.name === 'exit'
+                  ? handleLogoutClick
+                  : () => handleTabClick(index)
+              }
             />
           ))}
         </nav>

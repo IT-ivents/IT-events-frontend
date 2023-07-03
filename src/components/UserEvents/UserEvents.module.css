@@ -64,3 +64,7 @@
 .create:active {
   background-color: #291b51;
 }
+
+.link {
+  text-decoration: none;
+}

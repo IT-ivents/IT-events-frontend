@@ -7,6 +7,7 @@ import attention from '../../../images/tooltip_attention.svg';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
+import Tooltip from '../../Tooltip/Tooltip';
 
 const ModalSignUp = ({
   isOpen,
@@ -18,6 +19,7 @@ const ModalSignUp = ({
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const {
     values,
@@ -28,6 +30,10 @@ const ModalSignUp = ({
     disabledButton,
     resetForm,
   } = useFormWithValidation();
+
+  const toggleTooltip = () => {
+    setIsTooltipVisible(!isTooltipVisible);
+  };
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -58,6 +64,7 @@ const ModalSignUp = ({
         organization_name: values.organization_name,
       });
     }
+    handleClose();
   };
 
   const postData = {
@@ -116,12 +123,14 @@ const ModalSignUp = ({
               )}
             </fieldset>
             <fieldset className={styles.fieldset}>
+              {isTooltipVisible && <Tooltip onClick={toggleTooltip} />}
               <label htmlFor="organization" className={styles.label}>
                 Организация <span className={styles.spanError}>*</span>{' '}
                 <img
                   className={styles.recommendation}
                   alt="attention"
                   src={attention}
+                  onClick={toggleTooltip}
                 />
               </label>
               <input
