@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './UserInfo.module.css';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 
 const UserInfo = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
-  const { values, handleChange, handleBlur, errors, disabledButton } =
-    useFormWithValidation();
+  const { currentUser } = useAuth();
+  const {
+    values,
+    setValues,
+    handleChange,
+    handleBlur,
+    errors,
+    disabledButton,
+  } = useFormWithValidation();
+
+  useEffect(() => {
+    if (currentUser) {
+      setValues({
+        name: currentUser.username,
+        email: currentUser.email,
+      });
+    }
+  }, [currentUser, setValues]);
+
+  console.log(currentUser);
+  console.log(values);
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -51,7 +71,7 @@ const UserInfo = () => {
               // required
               minLength={2}
               maxLength={25}
-              value={values.name || ''}
+              value={values?.name ?? currentUser?.username}
               onChange={handleChange}
               onBlur={handleBlur}
               autoComplete="off"
@@ -73,7 +93,7 @@ const UserInfo = () => {
               // required
               minLength={6}
               maxLength={254}
-              value={values.email || ''}
+              value={values?.email || currentUser?.email}
               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -87,7 +107,7 @@ const UserInfo = () => {
           <div className={styles.button}>
             <SubmitButton
               title="Сохранить изменения"
-              disabled={disabledButton || !isPrivacyChecked}
+              disabled={disabledButton}
             />
           </div>
           <h2 className={styles.subtitle}>Обновление пароля</h2>

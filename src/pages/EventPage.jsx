@@ -11,7 +11,6 @@ const EventPage = ({
 }) => {
   const params = useParams();
   const { id } = params;
-  console.log(id);
 
   return (
     <Event

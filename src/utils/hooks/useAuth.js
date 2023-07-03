@@ -10,10 +10,15 @@ function useAuth() {
   useEffect(() => {
     const checkLoggedInStatus = () => {
       const token = localStorage.getItem('jwt');
+      const user = localStorage.getItem('currentUser');
       if (token) {
         setIsLoggedIn(true);
+        setTimeout(() => {
+          setCurrentUser(JSON.parse(user)); // Чтобы юзер успел дойти из localStorage
+        }, 0);
       } else {
         setIsLoggedIn(false);
+        setCurrentUser(null);
       }
     };
     checkLoggedInStatus();
