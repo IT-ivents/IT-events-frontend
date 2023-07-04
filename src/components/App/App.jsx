@@ -415,6 +415,7 @@ function App() {
             onSearch={handleSearch}
             searchQuery={searchQuery}
             onEnter={toggleModalSignIn}
+            loggedIn={loggedIn}
           />
           {isModalSignInOpen && (
             <ModalSignIn

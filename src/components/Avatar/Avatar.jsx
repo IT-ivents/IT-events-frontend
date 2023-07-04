@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-const Avatar = ({ name }) => {
+const Avatar = ({ name, style }) => {
   const firstLetter = useMemo(() => name.charAt(0).toUpperCase(), [name]);
 
   const generateAvatar = useMemo(() => {
@@ -31,10 +31,12 @@ const Avatar = ({ name }) => {
       color: '#fff',
       fontSize: '32px',
       fontWeight: '700',
+      cursor: 'default',
+      ...style,
     };
 
     return <div style={avatarStyle}>{firstLetter}</div>;
-  }, [firstLetter]);
+  }, [firstLetter, style]);
 
   return <div>{generateAvatar}</div>;
 };
