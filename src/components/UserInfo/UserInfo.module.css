@@ -4,6 +4,12 @@
   margin-bottom: 80px;
 }
 
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 816px;
+}
+
 .title {
   font-size: 32px;
   color: rgba(0, 0, 0, 0.8);
@@ -156,4 +162,35 @@
 .button {
   width: 214px;
   margin: 9px 0 0;
+}
+
+.create {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 48px;
+  gap: 9px;
+  background-color: #674eae;
+  color: #f1f0eb;
+  border: 0;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 0 26px 0 16px;
+  margin: 24px 0 0 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.create:hover {
+  background-color: #443375;
+  transition: 0.3s ease-in-out;
+}
+
+.create:active {
+  background-color: #291b51;
+}
+
+.link {
+  text-decoration: none;
 }

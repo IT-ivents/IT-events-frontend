@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import styles from './UserInfo.module.css';
+import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import useAuth from '../../utils/hooks/useAuth';
 import attention from '../../images/tooltip_attention.svg';
+import AddImage from '../../images/Actions/Add.svg';
 
 const height = {
   height: '44px',
 };
 
-const UserInfo = () => {
+const UserInfo = ({ onNewEventClick }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   const { currentUser } = useAuth();
@@ -52,10 +54,24 @@ const UserInfo = () => {
 
   return (
     <div className={styles.userInfo}>
-      <h1 className={styles.title}>Персональная информация</h1>
-      <span className={styles.edit}>
-        Здесь Вы можете поменять свои данные указанные при регистарции.
-      </span>
+      <div className={styles.userHeader}>
+        <div>
+          <h1 className={styles.title}>Персональная информация</h1>
+          <span className={styles.edit}>
+            Здесь Вы можете поменять свои данные указанные при регистарции.
+          </span>
+        </div>
+        <Link
+          to="/organization"
+          className={styles.link}
+          onClick={onNewEventClick}
+        >
+          <button title="Создать событие" className={styles.create}>
+            <img src={AddImage} alt="Создать событие" />
+            Создать событие
+          </button>
+        </Link>
+      </div>
       <form>
         <h2 className={styles.subtitle}>Мой профиль</h2>
         <div className={styles.fieldsetContainer}>

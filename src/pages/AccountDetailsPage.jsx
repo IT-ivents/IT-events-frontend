@@ -15,7 +15,10 @@ const AccountDetailsPage = ({
     <section className={styles.userInfo}>
       <AccountMenu />
       <Routes>
-        <Route path="/" element={<UserInfo />} />
+        <Route
+          path="/"
+          element={<UserInfo onNewEventClick={onNewEventClick} />}
+        />
         <Route
           path="events"
           element={
