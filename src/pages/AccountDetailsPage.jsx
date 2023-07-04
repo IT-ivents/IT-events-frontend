@@ -5,7 +5,12 @@ import UserInfo from '../components/UserInfo/UserInfo';
 import UserEvents from '../components/UserEvents/UserEvents';
 import Organization from '../components/Organization/Organization';
 
-const AccountDetailsPage = ({ mostAnticipatedEvents }) => {
+const AccountDetailsPage = ({
+  mostAnticipatedEvents,
+  selectedEvent,
+  onCardClick,
+  onNewEventClick,
+}) => {
   return (
     <section className={styles.userInfo}>
       <AccountMenu />
@@ -13,7 +18,14 @@ const AccountDetailsPage = ({ mostAnticipatedEvents }) => {
         <Route path="/" element={<UserInfo />} />
         <Route
           path="events"
-          element={<UserEvents mostAnticipatedEvents={mostAnticipatedEvents} />}
+          element={
+            <UserEvents
+              mostAnticipatedEvents={mostAnticipatedEvents}
+              selectedEvent={selectedEvent}
+              onCardClick={onCardClick}
+              onNewEventClick={onNewEventClick}
+            />
+          }
         />
         <Route path="organization" element={<Organization />} />
       </Routes>

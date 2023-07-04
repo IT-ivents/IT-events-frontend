@@ -1,10 +1,10 @@
 import styles from './SubmitButton.module.css';
 
-const SubmitButton = ({ title, disabled, style, onClick }) => {
+const SubmitButton = ({ title, type, disabled, style, onClick }) => {
   return (
     <button
       className={styles.submitBtn}
-      type="button"
+      type={type || 'button'}
       onClick={onClick}
       disabled={disabled}
       style={style}
