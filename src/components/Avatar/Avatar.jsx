@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
+import useAuth from '../../utils/hooks/useAuth';
 
 const Avatar = ({ name }) => {
-  const firstLetter = useMemo(() => name.charAt(0).toUpperCase(), [name]);
+  const firstLetter = useMemo(() => name?.charAt(0).toUpperCase(), [name]);
 
   const generateAvatar = useMemo(() => {
     const backgroundColors = [
