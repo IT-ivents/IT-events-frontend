@@ -25,11 +25,11 @@ const Avatar = ({ name }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      width: '80px',
-      height: '80px',
+      width: '88px',
+      height: '88px',
       borderRadius: '50%',
       color: '#fff',
-      fontSize: '38px',
+      fontSize: '32px',
       fontWeight: '700',
     };
 

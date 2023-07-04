@@ -44,6 +44,10 @@ const Organization = ({ selectedEvent }) => {
 
   const [newCardData, setNewCardData] = useState({});
 
+  const width = {
+    width: '40%',
+  };
+
   useEffect(() => {
     if (selectedEvent) {
       const currentTags = selectedEvent.tags?.map((tag) => ({
@@ -704,7 +708,7 @@ const Organization = ({ selectedEvent }) => {
             title="Отправить"
             type="submit"
             disabled={disabledButton}
-            width={'40%'}
+            style={width}
             onClick={handlePostNewEvent}
           />
         </div>

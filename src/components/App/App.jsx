@@ -113,6 +113,69 @@ function App() {
     }
   }, [selectedEvent, eventsFromApi]);
 
+  // const fetchDataAndSaveToLocalStorage = async () => {
+  //   try {
+  //     //const data = await apiEvents.getEvents();
+  //     const data = events;
+  //     //console.log(data)
+  //     //const resultData = data.data.results
+  //     setEventsFromApi(data);
+  //     localStorage.setItem('eventsData', JSON.stringify(data));
+  //     // Разложить события по разным массивам
+  //     if (data) {
+  //       const mostAnticipated = data.slice(0, 6);
+  //       const popular = data.slice(7, 19);
+  //       const interesting = data.slice(19, 31);
+  //       const soon = data.slice(32, data.length - 1);
+
+  //       setMostAnticipatedEvents(mostAnticipated);
+  //       setPopularEvents(popular);
+  //       setInterestingEvents(interesting);
+  //       setSoonEvents(soon);
+  //     } else {
+  //       throw new Error('Неверный формат данных eventsData:');
+  //     }
+  //   } catch (error) {
+  //     console.error('Ошибка при выполнении запроса:', error);
+  //   }
+  // };
+
+  // // Если Events есть в сторадж, достаем оттуда
+  // useEffect(() => {
+  //   const storagedEventsData = localStorage.getItem('eventsData');
+  //   if (!storagedEventsData) {
+  //     fetchDataAndSaveToLocalStorage();
+  //   } else {
+  //     try {
+  //       const resultData = JSON.parse(storagedEventsData);
+  //       //const resultData = parsedData.data.results;
+  //       //const resultData = events;
+  //       //console.log('results', resultData);
+  //       setEventsFromApi(resultData);
+  //       // Разложить события по разным массивам
+  //       const mostAnticipated = resultData.slice(0, 6);
+  //       const popular = resultData.slice(7, 19);
+  //       const interesting = resultData.slice(19, 31);
+  //       const soon = resultData.slice(32, resultData.length - 1);
+  //       setMostAnticipatedEvents(mostAnticipated);
+  //       setPopularEvents(popular);
+  //       setInterestingEvents(interesting);
+  //       setSoonEvents(soon);
+  //     } catch (error) {
+  //       console.error('Неверный формат данных eventsData:', error);
+  //     }
+  //   }
+  //   // Обновление данных с сервера и сохранение в локальном хранилище
+  //   fetchDataAndSaveToLocalStorage();
+  //   // Устанавливаем интервал для периодического обновления данных
+  //   const interval = setInterval(() => {
+  //     fetchDataAndSaveToLocalStorage();
+  //   }, 5 * 60 * 1000); // 5 минут в миллисекундах
+  //   // Очищаем интервал при размонтировании компонента
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, []);
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
       const data = await apiEvents.getEvents();

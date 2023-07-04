@@ -7,8 +7,8 @@ import CalendarActive from '../../images/calendar_active.svg';
 import Exit from './../../images/exit.svg';
 import Logout from './../../images/logout.svg';
 import AccountButton from '../AccountButton/AccountButton';
-import PageTitle from '../PageTitle/PageTitle';
 import useAuth from '../../utils/hooks/useAuth';
+import Avatar from '../Avatar/Avatar';
 
 const AccountMenu = () => {
   const { handleLogout } = useAuth();
@@ -47,17 +47,25 @@ const AccountMenu = () => {
     {
       name: 'exit',
       imageDefault: Exit,
-      title: 'Выход',
+      title: 'Выйти',
       link: '/',
     },
   ];
 
   const currentTab = tabs[activeTab];
 
+  const userName = 'Организация';
+
   return (
     <section>
       <div className={styles.accountMenu}>
-        <PageTitle title={currentTab.headText} subtitle={currentTab.subtext} />
+        <div className={styles.userLogo}>
+          <Avatar name={userName} />
+          <div>
+            <h1 className={styles.headerName}>Organizator777</h1>
+            <p className={styles.headerEmail}>subzero2000@yandex.ru</p>
+          </div>
+        </div>
         <nav className={styles.accountTabs}>
           {tabs.map((tab, index) => (
             <AccountButton
