@@ -6,7 +6,11 @@ import VerticalEventList from '../VerticalEventList/VerticalEventList';
 import AddImage from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
 
-const UserEvents = ({ mostAnticipatedEvents }) => {
+const UserEvents = ({
+  mostAnticipatedEvents,
+  onCardClick,
+  onNewEventClick,
+}) => {
   const [createdEvents, setCreatedEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
@@ -72,7 +76,9 @@ const UserEvents = ({ mostAnticipatedEvents }) => {
         </>
       );
     } else {
-      return <VerticalEventList events={createdEvents} />;
+      return (
+        <VerticalEventList events={createdEvents} onCardClick={onCardClick} />
+      );
     }
   };
 
@@ -82,7 +88,11 @@ const UserEvents = ({ mostAnticipatedEvents }) => {
         <FilterBar onFilter={handleFilter} />
         <div className={styles.buttons}>
           <button type="button" className={styles.delete}></button>
-          <Link to="/organization" className={styles.link}>
+          <Link
+            to="/organization"
+            className={styles.link}
+            onClick={onNewEventClick}
+          >
             <button title="Создать событие" className={styles.create}>
               <img src={AddImage} alt="Создать событие" />
               Создать событие

@@ -16,6 +16,7 @@ class Api {
     topics,
     tags,
     sities,
+    headers,
     // , defaultHeaders
   }) {
     this._baseUrl = baseUrl;
@@ -23,6 +24,7 @@ class Api {
     this._topicsEndpoint = topics;
     this._tagsEndpoint = tags;
     this._sitiesEndpoint = sities;
+    this._headers = headers;
     // this._defaultHeaders = defaultHeaders;
   }
 
@@ -47,6 +49,17 @@ class Api {
     const options = {
       method: 'GET',
       // headers: this._defaultHeaders
+    };
+    return fetch(this._makeUrl(this._eventsEndpoint), options).then(
+      this._handleResponse
+    );
+  }
+
+  postNewEvent(data) {
+    const options = {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
     };
     return fetch(this._makeUrl(this._eventsEndpoint), options).then(
       this._handleResponse
@@ -78,6 +91,14 @@ class Api {
     return fetch(this._makeUrl(this._sitiesEndpoint), options).then(
       this._handleResponse
     );
+  }
+
+  getHeaders() {
+    const token = localStorage.getItem('jwt');
+    return {
+      ...this._headers,
+      Authorization: `Token ${token}`,
+    };
   }
 }
 

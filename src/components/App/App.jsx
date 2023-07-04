@@ -115,18 +115,18 @@ function App() {
 
   const fetchDataAndSaveToLocalStorage = async () => {
     try {
-      //const data = await apiEvents.getEvents();
-      const data = events;
-      //console.log(data)
-      //const resultData = data.data.results
-      setEventsFromApi(data);
-      localStorage.setItem('eventsData', JSON.stringify(data));
+      const data = await apiEvents.getEvents();
+      //const data = events;
+      const newData = data.data;
+      console.log(newData);
+      setEventsFromApi(newData);
+      localStorage.setItem('eventsData', JSON.stringify(newData));
       // Разложить события по разным массивам
-      if (data) {
-        const mostAnticipated = data.slice(0, 6);
-        const popular = data.slice(7, 19);
-        const interesting = data.slice(19, 31);
-        const soon = data.slice(32, data.length - 1);
+      if (newData) {
+        const mostAnticipated = newData.slice(0, 6);
+        const popular = newData.slice(7, 19);
+        const interesting = newData.slice(19, 31);
+        const soon = newData.slice(32, newData.length - 1);
 
         setMostAnticipatedEvents(mostAnticipated);
         setPopularEvents(popular);
@@ -148,8 +148,6 @@ function App() {
     } else {
       try {
         const resultData = JSON.parse(storagedEventsData);
-        //const resultData = parsedData.data.results;
-        //const resultData = events;
         //console.log('results', resultData);
         setEventsFromApi(resultData);
         // Разложить события по разным массивам
@@ -170,7 +168,7 @@ function App() {
     // Устанавливаем интервал для периодического обновления данных
     const interval = setInterval(() => {
       fetchDataAndSaveToLocalStorage();
-    }, 5 * 60 * 1000); // 5 минут в миллисекундах
+    }, 10 * 60 * 1000); // 10 минут в миллисекундах
     // Очищаем интервал при размонтировании компонента
     return () => {
       clearInterval(interval);
@@ -206,7 +204,11 @@ function App() {
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
-    navigate(`event/${event.id}`);
+    if (location.pathname === '/account/events') {
+      navigate('/organization');
+    } else {
+      navigate(`event/${event.id}`);
+    }
   };
 
   // Функция обновления массива избранных событий
@@ -436,12 +438,18 @@ function App() {
             <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="cookies" element={<CookiePage />} />
             <Route path="about" element={<About />} />
-            <Route path="organization" element={<Organization />} />
+            <Route
+              path="organization"
+              element={<Organization selectedEvent={selectedEvent} />}
+            />
             <Route
               path="account/*"
               element={
                 <AccountDetailsPage
                   mostAnticipatedEvents={mostAnticipatedEvents}
+                  selectedEvent={selectedEvent}
+                  onCardClick={handleCardClick}
+                  onNewEventClick={() => setSelectedEvent(null)}
                 />
               }
             />
