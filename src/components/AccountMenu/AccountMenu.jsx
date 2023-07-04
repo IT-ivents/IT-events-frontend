@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './AccountMenu.module.css';
+import { useLocation } from 'react-router-dom';
 import Person from './../../images/person.svg';
 import PersonActive from '../../images/person_active.svg';
 import Calendar from '../../images/calendar.svg';
@@ -11,8 +12,9 @@ import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 
 const AccountMenu = () => {
-  const { handleLogout } = useAuth();
+  const { handleLogout, currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState(0);
+  const location = useLocation();
 
   const handleLogoutClick = async () => {
     try {
@@ -29,16 +31,12 @@ const AccountMenu = () => {
 
   const tabs = [
     {
-      headText: 'Organizator777',
-      subtext: 'subzero2000@yandex.ru',
       imageDefault: Person,
       imageActive: PersonActive,
       title: 'Мой аккаунт',
       link: '/account',
     },
     {
-      headText: 'Мои события',
-      subtext: 'Здесь Вы можете управлять своими событиями',
       imageDefault: Calendar,
       imageActive: CalendarActive,
       title: 'Мои события',
@@ -52,40 +50,60 @@ const AccountMenu = () => {
     },
   ];
 
-  const currentTab = tabs[activeTab];
+  const menuTitles = {
+    0: {
+      title: currentUser.username,
+      subtitle: currentUser.email,
+      titleClass: styles.titleUser,
+      subtitleClass: styles.subtitleUser,
+    },
+    1: {
+      title: 'Мои события',
+      subtitle: 'Здесь Вы можете управлять своими событиями',
+      titleClass: styles.titleEvents,
+      subtitleClass: styles.subtitleEvents,
+    },
+  };
 
-  const userName = 'Организация';
+  // const currentTab = tabs[activeTab];
 
+  const { username } = currentUser;
   return (
     <section>
-      <div className={styles.accountMenu}>
-        <div className={styles.userLogo}>
-          <Avatar name={userName} />
-          <div>
-            <h1 className={styles.headerName}>Organizator777</h1>
-            <p className={styles.headerEmail}>subzero2000@yandex.ru</p>
+      {currentUser && (
+        <div className={styles.accountMenu}>
+          <div className={styles.userLogo}>
+            {location.pathname === '/account' && <Avatar name={username} />}
+            <div>
+              <h1 className={menuTitles[activeTab].titleClass}>
+                {menuTitles[activeTab].title}
+              </h1>
+              <p className={menuTitles[activeTab].subtitleClass}>
+                {menuTitles[activeTab].subtitle}
+              </p>
+            </div>
           </div>
+          <nav className={styles.accountTabs}>
+            {tabs.map((tab, index) => (
+              <AccountButton
+                key={index}
+                to={tab.link}
+                name={tab.name}
+                title={tab.title}
+                imageSrc={
+                  index === activeTab ? tab.imageActive : tab.imageDefault
+                }
+                isActive={index === activeTab}
+                onClick={
+                  tab.name === 'exit'
+                    ? handleLogoutClick
+                    : () => handleTabClick(index)
+                }
+              />
+            ))}
+          </nav>
         </div>
-        <nav className={styles.accountTabs}>
-          {tabs.map((tab, index) => (
-            <AccountButton
-              key={index}
-              to={tab.link}
-              name={tab.name}
-              title={tab.title}
-              imageSrc={
-                index === activeTab ? tab.imageActive : tab.imageDefault
-              }
-              isActive={index === activeTab}
-              onClick={
-                tab.name === 'exit'
-                  ? handleLogoutClick
-                  : () => handleTabClick(index)
-              }
-            />
-          ))}
-        </nav>
-      </div>
+      )}
     </section>
   );
 };

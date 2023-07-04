@@ -14,7 +14,10 @@ export function useFormWithValidation() {
   const handleChange = (event) => {
     const target = event.target;
     const { name, value } = target;
-    setValues({ ...values, [name]: value });
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: target.validationMessage,
