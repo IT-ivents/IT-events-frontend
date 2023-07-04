@@ -1,7 +1,9 @@
-const Avatar = ({ name }) => {
-  const firstLetter = name.charAt(0).toUpperCase();
+import React, { useMemo } from 'react';
 
-  const generateAvatar = () => {
+const Avatar = ({ name }) => {
+  const firstLetter = useMemo(() => name.charAt(0).toUpperCase(), [name]);
+
+  const generateAvatar = useMemo(() => {
     const backgroundColors = [
       '#40337E',
       '#B53047',
@@ -23,18 +25,18 @@ const Avatar = ({ name }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      width: '80px',
-      height: '80px',
+      width: '88px',
+      height: '88px',
       borderRadius: '50%',
       color: '#fff',
-      fontSize: '38px',
+      fontSize: '32px',
       fontWeight: '700',
     };
 
     return <div style={avatarStyle}>{firstLetter}</div>;
-  };
+  }, [firstLetter]);
 
-  return <div>{generateAvatar()}</div>;
+  return <div>{generateAvatar}</div>;
 };
 
 export default Avatar;

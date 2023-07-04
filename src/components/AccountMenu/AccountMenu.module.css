@@ -1,13 +1,20 @@
 .accountMenu {
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 50px;
   width: fit-content;
+}
+
+.userLogo {
+  display: flex;
+  margin: 24px 0 0;
+  gap: 16px;
 }
 
 .headerName {
   font-size: 20px;
   font-weight: 700;
+  margin: 10px 0;
 }
 
 .headerEmail {

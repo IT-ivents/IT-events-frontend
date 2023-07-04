@@ -6,6 +6,10 @@ import { motion as m } from 'framer-motion';
 
 const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
   const location = useLocation();
+  const isCheckboxInvisible =
+    location.pathname === '/notifications' ||
+    location.pathname === '/account/events';
+
   return (
     <section className={`${styles.section}`}>
       {title && (
@@ -16,9 +20,7 @@ const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
       <ul className={`${styles.list}`}>
         {events?.map((event, index) => (
           <div key={index} className={styles.listContainer}>
-            {location.pathname === '/notifications' && (
-              <CustomCheckbox position="none" />
-            )}
+            {isCheckboxInvisible && <CustomCheckbox position="none" />}
             <HorizontalEventCard
               key={event.id}
               isLiked={event.isLiked}

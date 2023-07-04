@@ -8,6 +8,10 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 
+const width = {
+  width: '40%',
+};
+
 const Organization = () => {
   const {
     values,
@@ -650,7 +654,7 @@ const Organization = () => {
           <SubmitButton
             title="Отправить"
             disabled={disabledButton}
-            width={'40%'}
+            style={width}
           />
         </div>
       </form>

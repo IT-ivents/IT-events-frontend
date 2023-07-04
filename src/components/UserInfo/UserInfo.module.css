@@ -5,20 +5,22 @@
 }
 
 .title {
-  font-size: 38px;
+  font-size: 32px;
   color: rgba(0, 0, 0, 0.8);
-  margin: 20px 0 10px;
+  margin: 25px 0 10px;
 }
 
 .edit {
   display: flex;
-  font-size: 22px;
+  width: 504px;
+  margin-bottom: 59px;
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.6);
 }
 
 .subtitle {
-  margin-top: 40px;
-  font-size: 26px;
+  margin: 0 0 22px;
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -37,8 +39,8 @@
 .fieldsetContainer {
   display: flex;
   flex-direction: column;
-  gap: 11px;
-  padding-bottom: 14px;
+  gap: 25px;
+  padding-bottom: 41px;
   width: 518px;
 }
 
@@ -53,24 +55,34 @@
 }
 
 .label {
+  position: relative;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 16.2px;
   color: rgba(0, 0, 0, 0.6);
-  padding-bottom: 5px;
+  padding-bottom: 3px;
+}
+
+.attention {
+  position: absolute;
+  bottom: 4px;
+  margin-left: 12px;
 }
 
 .inputContainer {
   position: relative;
+  width: 361px;
 }
 
 .input {
-  padding: 10px 14px;
+  padding: 12px 14px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
-  width: 100%;
+  width: 364px;
+  height: 44px;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .input:hover {
@@ -114,7 +126,15 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  padding-top: 4px;
+  width: 364px;
+}
+
+.support {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  width: 364px;
 }
 
 .spanError {
@@ -129,12 +149,11 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  padding-top: 4px;
   position: absolute;
   bottom: -17px;
 }
 
 .button {
-  width: 230px;
-  margin-left: auto;
+  width: 214px;
+  margin: 9px 0 0;
 }

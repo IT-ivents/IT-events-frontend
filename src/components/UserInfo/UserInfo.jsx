@@ -3,7 +3,11 @@ import styles from './UserInfo.module.css';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import useAuth from '../../utils/hooks/useAuth';
-import Avatar from '../Avatar/Avatar';
+import attention from '../../images/tooltip_attention.svg';
+
+const height = {
+  height: '44px',
+};
 
 const UserInfo = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -44,17 +48,16 @@ const UserInfo = () => {
     }
   };
 
-  const userName = 'Организация';
+  // const userName = 'Организация';
 
   return (
     <div className={styles.userInfo}>
       <h1 className={styles.title}>Персональная информация</h1>
-      <span className={styles.edit}>Редактирование личных данных</span>
-      <h2 className={styles.subtitle}>Профиль</h2>
-      <div className={styles.userLogo}>
-        <Avatar name={userName} />
-      </div>
+      <span className={styles.edit}>
+        Здесь Вы можете поменять свои данные указанные при регистарции.
+      </span>
       <form>
+        <h2 className={styles.subtitle}>Мой профиль</h2>
         <div className={styles.fieldsetContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="name" className={styles.label}>
@@ -71,12 +74,45 @@ const UserInfo = () => {
               // required
               minLength={2}
               maxLength={25}
-              value={values?.name ?? currentUser?.username}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              // value={values?.name ?? currentUser?.username}
+              // onChange={handleChange}
+              // onBlur={handleBlur}
               autoComplete="off"
+              disabled={true}
             />
             {errors.name && <span className={styles.span}>{errors.name}</span>}
+          </fieldset>
+          <fieldset className={styles.fieldset}>
+            <label htmlFor="organization" className={styles.label}>
+              Организация{' '}
+              <span>
+                <img
+                  src={attention}
+                  alt="Предупреждение"
+                  className={styles.attention}
+                />
+              </span>
+            </label>
+            <input
+              className={`${styles.input} ${
+                errors.name ? styles.inputError : ''
+              }`}
+              id="organization"
+              name="organization"
+              type="text"
+              placeholder="Organizator777"
+              // required
+              minLength={2}
+              maxLength={25}
+              // value={values?.name ?? currentUser?.username}
+              // onChange={handleChange}
+              // onBlur={handleBlur}
+              autoComplete="off"
+            />
+            <span className={styles.support}>
+              Для смены названия организации, обратитесь в поддержку
+              It@connect-event@ayndex.ru
+            </span>
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="email" className={styles.label}>
@@ -108,9 +144,14 @@ const UserInfo = () => {
             <SubmitButton
               title="Сохранить изменения"
               disabled={disabledButton}
+              style={height}
             />
           </div>
-          <h2 className={styles.subtitle}>Обновление пароля</h2>
+        </div>
+      </form>
+      <form>
+        <h2 className={styles.subtitle}>Смена пароля</h2>
+        <div className={styles.fieldsetContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="password" type="password" className={styles.label}>
               Старый пароль
@@ -219,6 +260,7 @@ const UserInfo = () => {
           <SubmitButton
             title="Обновить"
             disabled={disabledButton || !isPrivacyChecked}
+            style={height}
           />
         </div>
       </form>
