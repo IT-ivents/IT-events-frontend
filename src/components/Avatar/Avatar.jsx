@@ -1,7 +1,9 @@
-const Avatar = ({ name }) => {
-  const firstLetter = name.charAt(0).toUpperCase();
+import React, { useMemo } from 'react';
 
-  const generateAvatar = () => {
+const Avatar = ({ name }) => {
+  const firstLetter = useMemo(() => name.charAt(0).toUpperCase(), [name]);
+
+  const generateAvatar = useMemo(() => {
     const backgroundColors = [
       '#40337E',
       '#B53047',
@@ -32,9 +34,9 @@ const Avatar = ({ name }) => {
     };
 
     return <div style={avatarStyle}>{firstLetter}</div>;
-  };
+  }, [firstLetter]);
 
-  return <div>{generateAvatar()}</div>;
+  return <div>{generateAvatar}</div>;
 };
 
 export default Avatar;

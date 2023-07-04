@@ -8,9 +8,10 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 
-const Organization = () => {
+const Organization = ({ selectedEvent }) => {
   const {
     values,
+    setValues,
     handleChange,
     inputTypeNumberValidation,
     handleBlur,
@@ -42,7 +43,46 @@ const Organization = () => {
   const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
 
   const [newCardData, setNewCardData] = useState({});
-  console.log(newCardData);
+
+  useEffect(() => {
+    if (selectedEvent) {
+      const currentTags = selectedEvent.tags?.map((tag) => ({
+        value: tag.id,
+        label: tag.name,
+        slug: tag.slug,
+      }));
+      setSelectedTags(currentTags);
+      const currentFormats = selectedEvent.format?.map((item) => ({
+        value: item.slug,
+        label: item.name,
+      }));
+      setSelectedFormat(currentFormats);
+      const currentTopics = selectedEvent.topic?.map((item) => ({
+        value: item.slug,
+        label: item.name,
+      }));
+      setSelectedTopics(currentTopics);
+      // Имитация ассинхронного поведения чтобы убедиться что selectedEvent появился
+      setTimeout(() => {
+        setValues((prev) => ({
+          ...prev,
+          title: selectedEvent.title,
+          description: selectedEvent.description,
+          program: selectedEvent.program,
+          city: selectedEvent.city?.name,
+          url: selectedEvent.url,
+          address: selectedEvent.address,
+          partners: selectedEvent.partners,
+          price: selectedEvent.price,
+          image: selectedEvent.image,
+          date_start: selectedEvent.date_start.substring(0, 10),
+          time_start: selectedEvent.date_start.substring(11, 19),
+          date_end: selectedEvent.date_end.substring(0, 10),
+          time_end: selectedEvent.date_end.substring(11, 19),
+        }));
+      }, 0);
+    }
+  }, [selectedEvent]);
 
   useEffect(() => {
     const selectedTagsSlugs = selectedTags.map((tag) => tag.slug);
@@ -65,6 +105,7 @@ const Organization = () => {
       url: values.url || '',
     }));
   }, [selectedTags, selectedTopics, selectedFormat]);
+  console.log(newCardData);
 
   const handleTopicChange = (selectedOptions) => {
     setSelectedTopics(selectedOptions);
@@ -84,8 +125,8 @@ const Organization = () => {
   // Для предпросмотра
   const eventDetails = {
     title: values.title,
-    city: { name: values.city || 'Invalid city' },
-    image: imageSmall,
+    city: { name: values.city || 'Invalid City' },
+    image: imageSmall || selectedEvent?.image,
     price: values.price || 0,
     date_start: values.date_start,
   };
@@ -160,6 +201,18 @@ const Organization = () => {
 
   const handleSelectBlur = (section) => {
     setIsFocused((prevState) => ({ ...prevState, [section]: false }));
+  };
+
+  const handlePostNewEvent = (event) => {
+    event.preventDefault();
+    apiEvents
+      .postNewEvent(newCardData)
+      .then((response) => {
+        console.log('Новое событие успешно создано', response.data);
+      })
+      .catch((error) => {
+        console.error('Ошибка при создании события', error);
+      });
   };
 
   const customSelectStyles = {
@@ -649,8 +702,10 @@ const Organization = () => {
           </p>
           <SubmitButton
             title="Отправить"
+            type="submit"
             disabled={disabledButton}
             width={'40%'}
+            onClick={handlePostNewEvent}
           />
         </div>
       </form>
