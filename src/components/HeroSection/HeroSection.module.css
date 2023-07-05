@@ -11,21 +11,12 @@
   cursor: default;
 }
 
-/* .textContainer {
-  margin: 48px 0 40px;
-  margin-bottom: 40px;
-} */
-
 .headText {
   font-size: 48px;
-  /* letter-spacing: 1.1px; */
-  /* text-align: center; */
   margin: 0 0 28px;
 }
 
 .subText {
   font-size: 24px;
   font-weight: 500;
-  /* line-height: 32px; */
-  /* text-align: center; */
 }

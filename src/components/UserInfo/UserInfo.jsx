@@ -3,6 +3,7 @@ import styles from './UserInfo.module.css';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import Tooltip from '../Tooltip/Tooltip';
 import useAuth from '../../utils/hooks/useAuth';
 import attention from '../../images/tooltip_attention.svg';
 import AddImage from '../../images/Actions/Add.svg';
@@ -14,6 +15,7 @@ const height = {
 const UserInfo = ({ onNewEventClick }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const { currentUser } = useAuth();
   const {
     values,
@@ -29,6 +31,7 @@ const UserInfo = ({ onNewEventClick }) => {
       setValues({
         name: currentUser.username,
         email: currentUser.email,
+        organization_name: currentUser.organization_name,
       });
     }
   }, [currentUser, setValues]);
@@ -50,7 +53,9 @@ const UserInfo = ({ onNewEventClick }) => {
     }
   };
 
-  // const userName = 'Организация';
+  const toggleTooltip = () => {
+    setIsTooltipVisible(!isTooltipVisible);
+  };
 
   return (
     <div className={styles.userInfo}>
@@ -87,6 +92,7 @@ const UserInfo = ({ onNewEventClick }) => {
               name="name"
               type="text"
               placeholder="Ваше имя"
+              value={values?.name}
               // required
               minLength={2}
               maxLength={25}
@@ -94,36 +100,36 @@ const UserInfo = ({ onNewEventClick }) => {
               // onChange={handleChange}
               // onBlur={handleBlur}
               autoComplete="off"
-              disabled={true}
             />
             {errors.name && <span className={styles.span}>{errors.name}</span>}
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="organization" className={styles.label}>
               Организация{' '}
-              <span>
-                <img
-                  src={attention}
-                  alt="Предупреждение"
-                  className={styles.attention}
-                />
-              </span>
+              {isTooltipVisible && (
+                <Tooltip onClick={toggleTooltip} right={'-8%'} />
+              )}
+              <img
+                className={styles.recommendation}
+                alt="attention"
+                src={attention}
+                onClick={toggleTooltip}
+              />
             </label>
             <input
               className={`${styles.input} ${
                 errors.name ? styles.inputError : ''
               }`}
-              id="organization"
-              name="organization"
+              id="organization_name"
+              name="organization_name"
               type="text"
-              placeholder="Organizator777"
+              value={values?.organization_name}
               // required
-              minLength={2}
-              maxLength={25}
               // value={values?.name ?? currentUser?.username}
               // onChange={handleChange}
               // onBlur={handleBlur}
               autoComplete="off"
+              disabled={true}
             />
             <span className={styles.support}>
               Для смены названия организации, обратитесь в поддержку
@@ -145,7 +151,7 @@ const UserInfo = ({ onNewEventClick }) => {
               // required
               minLength={6}
               maxLength={254}
-              value={values?.email || currentUser?.email}
+              value={values?.email}
               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
               onChange={handleChange}
               onBlur={handleBlur}

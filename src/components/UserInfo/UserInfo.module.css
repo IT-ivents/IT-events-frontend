@@ -67,6 +67,8 @@
   line-height: 16.2px;
   color: rgba(0, 0, 0, 0.6);
   padding-bottom: 3px;
+  display: flex;
+  align-items: center;
 }
 
 .attention {
@@ -193,4 +195,11 @@
 
 .link {
   text-decoration: none;
+}
+
+.recommendation {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  cursor: pointer;
 }

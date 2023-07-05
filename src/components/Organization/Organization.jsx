@@ -27,6 +27,7 @@ const Organization = ({ selectedEvent }) => {
   const [selectedFormat, setSelectedFormat] = useState([]);
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
+  const [newCardData, setNewCardData] = useState({});
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -42,12 +43,11 @@ const Organization = ({ selectedEvent }) => {
   const correctDateStartFormat = dateStart + 'T' + timeStart + ':00Z';
   const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
 
-  const [newCardData, setNewCardData] = useState({});
-
   const width = {
     width: '40%',
   };
 
+  // ЗАПОЛНИТЬ ФОРМУ ЗНАЧЕНИЯМИ ИЗ SELECTED EVENT
   useEffect(() => {
     if (selectedEvent) {
       const currentTags = selectedEvent.tags?.map((tag) => ({
@@ -57,46 +57,46 @@ const Organization = ({ selectedEvent }) => {
       }));
       setSelectedTags(currentTags);
       const currentFormats = selectedEvent.format?.map((item) => ({
+        id: item.id,
         value: item.slug,
         label: item.name,
       }));
       setSelectedFormat(currentFormats);
       const currentTopics = selectedEvent.topic?.map((item) => ({
+        id: item.id,
         value: item.slug,
         label: item.name,
       }));
       setSelectedTopics(currentTopics);
-      // Имитация ассинхронного поведения чтобы убедиться что selectedEvent появился
-      setTimeout(() => {
-        setValues((prev) => ({
-          ...prev,
-          title: selectedEvent.title,
-          description: selectedEvent.description,
-          program: selectedEvent.program,
-          city: selectedEvent.city?.name,
-          url: selectedEvent.url,
-          address: selectedEvent.address,
-          partners: selectedEvent.partners,
-          price: selectedEvent.price,
-          image: selectedEvent.image,
-          date_start: selectedEvent.date_start.substring(0, 10),
-          time_start: selectedEvent.date_start.substring(11, 19),
-          date_end: selectedEvent.date_end.substring(0, 10),
-          time_end: selectedEvent.date_end.substring(11, 19),
-        }));
-      }, 0);
+      setValues((prev) => ({
+        ...prev,
+        title: selectedEvent.title || '',
+        description: selectedEvent.description || '',
+        program: selectedEvent.program || '',
+        city: selectedEvent.city?.name || [],
+        url: selectedEvent.url || '',
+        address: selectedEvent.address,
+        partners: selectedEvent.partners || '',
+        price: selectedEvent.price,
+        image: selectedEvent.image || '',
+        date_start: selectedEvent.date_start.substring(0, 10),
+        time_start: selectedEvent.date_start.substring(11, 19),
+        date_end: selectedEvent.date_end.substring(0, 10),
+        time_end: selectedEvent.date_end.substring(11, 19),
+      }));
     }
   }, [selectedEvent]);
 
+  // ДАННЫЕ ДЛЯ ОТПРАВКИ НА СЕРВЕР
   useEffect(() => {
-    const selectedTagsSlugs = selectedTags.map((tag) => tag.slug);
-    const selectedTopcsSlugs = selectedTopics.map((topic) => topic.value);
-    const selectedFormatSlugs = selectedFormat.map((format) => format.value);
+    const selectedTagsSlugs = selectedTags.map((tag) => tag.value);
+    const selectedTopcsSlugs = selectedTopics.map((topic) => topic.id);
+    const selectedFormatSlugs = selectedFormat.map((format) => format.id);
     setNewCardData((prevData) => ({
       ...prevData,
-      tags: selectedTagsSlugs,
-      topic: selectedTopcsSlugs,
-      format: selectedFormatSlugs,
+      tags: selectedTagsSlugs || [],
+      topic: selectedTopcsSlugs || [],
+      format: selectedFormatSlugs || [],
       title: values.title,
       description: values.description,
       program: values.program,
@@ -108,8 +108,12 @@ const Organization = ({ selectedEvent }) => {
       date_end: correctDateEndFormat,
       url: values.url || '',
     }));
-  }, [selectedTags, selectedTopics, selectedFormat]);
-  console.log(newCardData);
+  }, [selectedTags, selectedTopics, selectedFormat, values]);
+
+  // ОТЛАДКА - смотреть что готовится к отправке на сервер
+  useEffect(() => {
+    console.log('newCardData updated:', newCardData);
+  }, [newCardData]);
 
   const handleTopicChange = (selectedOptions) => {
     setSelectedTopics(selectedOptions);
@@ -171,20 +175,24 @@ const Organization = ({ selectedEvent }) => {
   }));
 
   const formatOptions = [
-    { value: 'online', label: 'Online' },
-    { value: 'offline', label: 'Offline' },
+    { id: 1, value: 'online', label: 'Online' },
+    { id: 2, value: 'offline', label: 'Offline' },
   ];
 
   const topicOptions = [
-    { value: 'frontend', label: 'Frontend' },
-    { value: 'backend', label: 'Backend' },
-    { value: 'ux/ui', label: 'UX/UI' },
-    { value: 'big-data-and-analytics', label: 'Data analytics' },
-    { value: 'hr', label: 'HR' },
-    { value: 'management', label: 'Management' },
-    { value: 'devops', label: 'Devops' },
-    { value: 'artificial-intelligence-and-machine-learning', label: 'AI & ML' },
-    { value: 'information_security', label: 'Кибербезопасность' },
+    { id: 14, value: 'frontend', label: 'Frontend' },
+    { id: 15, value: 'backend', label: 'Backend' },
+    { id: 17, value: 'ux/ui', label: 'UX/UI' },
+    { id: 6, value: 'big-data-and-analytics', label: 'Data analytics' },
+    { id: 30, value: 'hr', label: 'HR' },
+    { id: 12, value: 'management', label: 'Management' },
+    { id: 10, value: 'devops', label: 'Devops' },
+    {
+      id: 5,
+      value: 'artificial-intelligence-and-machine-learning',
+      label: 'AI & ML',
+    },
+    { id: 34, value: 'information_security', label: 'Кибербезопасность' },
   ];
 
   useEffect(() => {
@@ -310,23 +318,6 @@ const Organization = ({ selectedEvent }) => {
               />
               <span className={styles.spanError}>{errors.url}</span>
             </fieldset>
-
-            {/* <fieldset className={styles.fieldset}>
-              <label htmlFor="preview" className={styles.label}>
-                Ссылка на изображение для предпросмотра
-              </label>
-              <input
-                className={styles.input}
-                type="url"
-                id="url"
-                name="preview"
-                value={values.preview || ''}
-                onChange={handleChange}
-                placeholder="Ваша ссылка"
-                maxLength={200}
-                autoComplete="off"
-              />
-            </fieldset> */}
 
             <fieldset className={styles.fieldset}>
               <label htmlFor="description" className={styles.label}>
