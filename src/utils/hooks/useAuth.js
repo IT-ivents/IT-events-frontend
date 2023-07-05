@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as auth from '../../utils/auth';
 
 function useAuth() {
@@ -6,6 +7,7 @@ function useAuth() {
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkLoggedInStatus = () => {
@@ -13,7 +15,6 @@ function useAuth() {
       const user = localStorage.getItem('currentUser');
       if (token) {
         setIsLoggedIn(true);
-
         setCurrentUser(JSON.parse(user)); // Чтобы юзер успел дойти из localStorage
       } else {
         setIsLoggedIn(false);
@@ -46,33 +47,30 @@ function useAuth() {
     console.error('Ошибка:', error);
   }
 
-  function handleLogin({ email, password }) {
+  async function handleLogin({ email, password }) {
     setIsLoading(true);
-    auth
-      .authorization({ email, password })
-      .then((res) => {
-        console.log('TOKEN_OK');
-        if (res.auth_token) {
-          localStorage.setItem('jwt', res.auth_token);
-          setIsLoggedIn(true);
-          auth
-            .getUserInfo(res.auth_token)
-            .then((userData) => {
-              console.log('USER_DATA_OK');
-              setCurrentUser(userData);
-              localStorage.setItem('currentUser', JSON.stringify(userData));
-            })
-            .catch((error) => {
-              handleError(error);
-            });
+    try {
+      const res = await auth.authorization({ email, password });
+      console.log('TOKEN_OK');
+      if (res.auth_token) {
+        localStorage.setItem('jwt', res.auth_token);
+        setIsLoggedIn(true);
+
+        try {
+          const userData = await auth.getUserInfo(res.auth_token);
+          console.log('USER_DATA_OK');
+          setCurrentUser(userData);
+          localStorage.setItem('currentUser', JSON.stringify(userData));
+          navigate('/account'); // Перенаправление на страницу /account
+        } catch (error) {
+          handleError(error);
         }
-      })
-      .catch((error) => {
-        handleError(error);
-      })
-      .finally(() => {
-        setTimeout(() => setIsLoading(false), 500);
-      });
+      }
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setTimeout(() => setIsLoading(false), 500);
+    }
   }
 
   function handleRegister({ username, email, password, organization_name }) {
@@ -90,20 +88,19 @@ function useAuth() {
         setTimeout(() => setIsLoading(false), 500);
       });
   }
-
-  function handleLogout() {
+  async function handleLogout() {
     const token = localStorage.getItem('jwt');
     if (token) {
-      auth
-        .logout(token)
-        .then(() => {
-          localStorage.removeItem('jwt');
-          setIsLoggedIn(false);
-          console.log('Вышли из учетной записи');
-        })
-        .catch((error) => {
-          console.error('Ошибка при выходе:', error);
-        });
+      try {
+        await auth.logout(token);
+        setIsLoggedIn(false);
+        navigate('/');
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('currentUser');
+        console.log('Вышли из учетной записи');
+      } catch (error) {
+        console.error('Ошибка при выходе:', error);
+      }
     }
   }
 

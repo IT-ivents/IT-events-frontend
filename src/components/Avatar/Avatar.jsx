@@ -36,7 +36,7 @@ const Avatar = ({ name, style }) => {
       ...style,
     };
 
-    return <div style={avatarStyle}>{firstLetter}</div>;
+    return <div style={avatarStyle}>{firstLetter ?? ''}</div>;
   }, [firstLetter, style]);
 
   return <div>{generateAvatar}</div>;

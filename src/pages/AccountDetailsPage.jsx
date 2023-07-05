@@ -10,10 +10,12 @@ const AccountDetailsPage = ({
   selectedEvent,
   onCardClick,
   onNewEventClick,
+  handleLogout,
+  currentUser,
 }) => {
   return (
     <section className={styles.userInfo}>
-      <AccountMenu />
+      <AccountMenu handleLogout={handleLogout} currentUser={currentUser} />
       <Routes>
         <Route
           path="/"
