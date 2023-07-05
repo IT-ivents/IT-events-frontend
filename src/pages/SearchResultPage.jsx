@@ -45,15 +45,13 @@ const SearchResultPage = ({
     <section className={styles.searchResultPageWrapper}>
       <LeftFilterBar searchQuery={searchQuery} />
       <div>
-        <div className={styles.topFilterContainer}>
-          <TopFilersBar></TopFilersBar>
-          {isNothingFind && (
-            <PageTitle
-              title="Ничего не нашлось"
-              subtitle="Но нам есть, что предложить"
-            />
-          )}
-        </div>
+        <TopFilersBar />
+        {isNothingFind && (
+          <PageTitle
+            title="Ничего не нашлось"
+            subtitle="Но нам есть, что предложить"
+          />
+        )}
         <div className={styles.searchResultListContainer}>
           <VerticalEventList
             events={getPageItems()}

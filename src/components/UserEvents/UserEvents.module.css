@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin: 16px 0 0 11px;
+  /* margin: 15px 0 0 -47px; */
+  margin: 0 0 0 -47px;
 }
 
 .title {
@@ -23,8 +24,10 @@
 
 .filterBar {
   display: flex;
-  width: 771px;
-  margin: 0 0 13px 45px;
+  /* width: 771px; */
+  width: 807px;
+  /* margin: 0 0 13px 45px; */
+  margin: -41px 0 13px 45px;
 }
 
 .buttons {

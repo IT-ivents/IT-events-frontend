@@ -47,6 +47,11 @@
   border-bottom: 1px solid #c9ccd8;
 }
 
+.footerItem:hover .disabled {
+  cursor: default;
+  border-bottom: 0;
+}
+
 .logoLink {
   padding-bottom: 3px;
   text-decoration: none;

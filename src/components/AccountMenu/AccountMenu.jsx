@@ -6,7 +6,6 @@ import PersonActive from '../../images/person_active.svg';
 import Calendar from '../../images/calendar.svg';
 import CalendarActive from '../../images/calendar_active.svg';
 import Exit from './../../images/exit.svg';
-import Logout from './../../images/logout.svg';
 import AccountButton from '../AccountButton/AccountButton';
 import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
