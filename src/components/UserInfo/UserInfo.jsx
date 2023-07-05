@@ -29,9 +29,9 @@ const UserInfo = ({ onNewEventClick }) => {
   useEffect(() => {
     if (currentUser) {
       setValues({
-        name: currentUser.username,
-        email: currentUser.email,
-        organization_name: currentUser.organization_name,
+        name: currentUser.username || '',
+        email: currentUser.email || '',
+        organization_name: currentUser.organization_name || '',
       });
     }
   }, [currentUser, setValues]);
@@ -123,7 +123,7 @@ const UserInfo = ({ onNewEventClick }) => {
               id="organization_name"
               name="organization_name"
               type="text"
-              value={values?.organization_name}
+              value={values.organization_name || ''}
               // required
               // value={values?.name ?? currentUser?.username}
               // onChange={handleChange}
@@ -151,8 +151,8 @@ const UserInfo = ({ onNewEventClick }) => {
               // required
               minLength={6}
               maxLength={254}
-              value={values?.email}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
+              value={values?.email || ''}
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               onChange={handleChange}
               onBlur={handleBlur}
               autoComplete="off"
@@ -209,20 +209,24 @@ const UserInfo = ({ onNewEventClick }) => {
             )}
           </fieldset>
           <fieldset className={styles.fieldset}>
-            <label htmlFor="password" type="password" className={styles.label}>
+            <label
+              htmlFor="newPassword"
+              type="password"
+              className={styles.label}
+            >
               Новый пароль
             </label>
             <div className={styles.inputContainer}>
               <input
                 className={`${styles.input} ${
-                  errors.password ? styles.inputError : ''
+                  errors.newPassword ? styles.inputError : ''
                 }`}
-                id="password"
-                name="password"
+                id="newPassword"
+                name="newPassword"
                 type={isPasswordVisible ? 'text' : 'password'}
                 placeholder="Введите пароль"
                 // required
-                value={values.password || ''}
+                value={values.newPassword || ''}
                 minLength={6}
                 maxLength={25}
                 onChange={handleChange}
@@ -238,12 +242,12 @@ const UserInfo = ({ onNewEventClick }) => {
                 onClick={togglePasswordVisible}
               />
             </div>
-            {errors.password && (
-              <span className={styles.span}>{errors.password}</span>
+            {errors.newPassword && (
+              <span className={styles.span}>{errors.newPassword}</span>
             )}
           </fieldset>
           <fieldset className={styles.fieldset}>
-            <label htmlFor="password_repeat" className={styles.label}>
+            <label htmlFor="confirmPassword" className={styles.label}>
               Подтвердите новый пароль
             </label>
             <div className={styles.inputContainer}>

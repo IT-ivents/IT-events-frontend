@@ -154,6 +154,7 @@
   width: 1232px;
   gap: 110px;
   padding-top: 32px;
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Страница: 404 */

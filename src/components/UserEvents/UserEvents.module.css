@@ -70,3 +70,9 @@
 .link {
   text-decoration: none;
 }
+
+.divider {
+  height: 2px;
+  max-width: 1440px;
+  color: rgba(0, 0, 0, 0.08);
+}

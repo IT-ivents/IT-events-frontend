@@ -5,7 +5,7 @@
   display: flex; */
   gap: 24px;
   display: grid;
-  grid-template-columns: 296px 600px;
+  grid-template-columns: 296px 1fr;
 }
 
 .imageContainer {
