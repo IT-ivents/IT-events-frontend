@@ -230,6 +230,7 @@
   font-size: 48px;
   line-height: 52.8px;
   color: #181818;
+  cursor: default;
 }
 
 .asideText {
@@ -239,6 +240,7 @@
   font-weight: 700;
   line-height: 21.6px;
   color: #39364f;
+  cursor: default;
 }
 
 .tagsBlocks {
@@ -248,10 +250,6 @@
   gap: 32px;
   margin: 64px 0 80px;
 }
-
-/* .topFilterContainer {
-  margin-bottom: 39px;
-} */
 
 .filterField {
   display: flex;

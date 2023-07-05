@@ -66,9 +66,7 @@ const MainPage = ({
       <div className={styles.mainPageListWrapper}>
         <div>
           <SearchField onSearch={onSearch} searchQuery={searchQuery} />
-          <div className={styles.topFilterContainer}>
-            <TopFilersBar />
-          </div>
+          <TopFilersBar />
           {isLoading ? (
             <div className={styles.loaderContainer}>
               <Circles

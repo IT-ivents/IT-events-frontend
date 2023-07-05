@@ -319,23 +319,6 @@ const Organization = ({ selectedEvent }) => {
               <span className={styles.spanError}>{errors.url}</span>
             </fieldset>
 
-            {/* <fieldset className={styles.fieldset}>
-              <label htmlFor="preview" className={styles.label}>
-                Ссылка на изображение для предпросмотра
-              </label>
-              <input
-                className={styles.input}
-                type="url"
-                id="url"
-                name="preview"
-                value={values.preview || ''}
-                onChange={handleChange}
-                placeholder="Ваша ссылка"
-                maxLength={200}
-                autoComplete="off"
-              />
-            </fieldset> */}
-
             <fieldset className={styles.fieldset}>
               <label htmlFor="description" className={styles.label}>
                 Описание<span className={styles.spanError}>*</span>{' '}

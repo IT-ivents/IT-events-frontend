@@ -6,6 +6,8 @@ import HeroSection from '../HeroSection/HeroSection';
 import notificationIcon from '../../images/notifications-icon.svg';
 import enterIcon from '../../images/enter_acc.svg';
 import favoritesIcon from '../../images/favorites-header-icon.svg';
+import Avatar from '../Avatar/Avatar';
+import useAuth from '../../utils/hooks/useAuth';
 
 const smallForm = {
   width: '450px',
@@ -24,19 +26,25 @@ const smallInput = {
   width: '397px',
 };
 
-const Header = ({ onSearch, searchQuery, onEnter }) => {
+const avatar = {
+  width: '44px',
+  height: '44px',
+  fontSize: '20px',
+  backgroundColor: 'transparent',
+  color: 'rgba(0, 0, 0, 0.8)',
+  border: '1px solid rgba(0, 0, 0, 0.6)',
+};
+
+const Header = ({ onSearch, searchQuery, onEnter, loggedIn }) => {
+  const { handleLogout, currentUser } = useAuth();
   const location = useLocation();
-  // const isSearchFieldInvisible =
-  //   location.pathname !== '/favorites' &&
-  //   location.pathname !== '/notifications' &&
-  //   location.pathname !== '/results' &&
-  //   location.pathname !== '/preferences' &&
-  //   location.pathname !== '/privacy';
 
   const isSearchFieldOnTop =
     location.pathname === '/event' ||
     location.pathname === '/favorites' ||
     location.pathname === '/notifications';
+
+  const { username } = currentUser || {};
 
   const navLinks = [
     {
@@ -53,22 +61,20 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
       src: favoritesIcon,
       alt: 'Иконка, Избранное',
     },
-    {
-      id: 3,
-      name: 'Войти',
-      src: enterIcon,
-      alt: 'Иконка, Войти в кабинет',
-    },
-    // {
-    //   id: 4,
-    //   name: 'form',
-    //   path: '/organization',
-    // },
-    {
-      id: 5,
-      name: 'account',
-      path: '/account',
-    },
+    loggedIn
+      ? {
+          id: 3,
+          component: <Avatar name={username} style={avatar} />,
+          path: '/account',
+        }
+      : !loggedIn && handleLogout
+      ? {
+          id: 3,
+          name: 'Войти',
+          src: enterIcon,
+          alt: 'Иконка, Войти в кабинет',
+        }
+      : null,
   ];
 
   return (
@@ -95,10 +101,20 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
               className={styles.navLink}
               key={link.id}
               to={link.path}
-              onClick={link.id === 3 ? onEnter : null}
+              onClick={
+                link.id === 3 && !loggedIn
+                  ? onEnter
+                  : () => (window.location.href = link.path)
+              }
             >
-              <img src={link.src} alt={link.alt} />
-              <p>{link.name}</p>
+              {link.component ? (
+                link.component
+              ) : (
+                <>
+                  <img src={link.src} alt={link.alt} />
+                  <p>{link.name}</p>
+                </>
+              )}
             </Link>
           ))}
         </nav>
@@ -120,96 +136,3 @@ const Header = ({ onSearch, searchQuery, onEnter }) => {
 };
 
 export default Header;
-
-// const Header = ({ onSearch, searchQuery, onEnter }) => {
-//   const location = useLocation();
-//   const isSearchFieldInvisible =
-//     // location.pathname !== '/event' &&
-//     location.pathname !== '/favorites' &&
-//     location.pathname !== '/notifications' &&
-//     location.pathname !== '/results' &&
-//     location.pathname !== '/preferences' &&
-//     location.pathname !== '/privacy';
-
-//   const navLinks = [
-//     {
-//       id: 1,
-//       name: 'Уведомления',
-//       path: '/notifications',
-//       src: notificationIcon,
-//       alt: 'Иконка, Колокольчик',
-//     },
-//     {
-//       id: 2,
-//       name: 'Избранное',
-//       path: '/favorites',
-//       src: favoritesIcon,
-//       alt: 'Иконка, Избранное',
-//     },
-//     {
-//       id: 3,
-//       name: 'Войти',
-//       src: enterIcon,
-//       alt: 'Иконка, Войти в кабинет',
-//     },
-//   ];
-
-//   return location.pathname === '/' ? (
-//     // <header className={styles.header}>
-//     <header className={styles.container}>
-//       <div className={styles.linksContainer}>
-//         <Logo />
-//         <nav className={styles.navigationBar}>
-//           {navLinks.map((link) => (
-//             <Link
-//               className={styles.navLink}
-//               key={link.id}
-//               to={link.path}
-//               onClick={link.id === 3 ? onEnter : null}
-//             >
-//               <img src={link.src} alt={link.alt} />
-//               <p>{link.name}</p>
-//             </Link>
-//           ))}
-//         </nav>
-//       </div>
-//       <HeroSection />
-//       {/* <SearchField onSearch={onSearch} /> */}
-//     </header>
-//   ) : (
-//     // </header>
-//     // <header className={styles.header} style={{ height: 'fit-content' }}>
-//     <header className={styles.borderContainer}>
-//       <div className={styles.linksContainer}>
-//         <Logo />
-//         {!isSearchFieldInvisible && (
-//           <SearchField
-//             onSearch={onSearch}
-//             searchQuery={searchQuery}
-//             smallForm={smallForm}
-//             smallFieldset={smallFieldset}
-//             smallInput={smallInput}
-//           />
-//         )}
-//         <nav className={styles.navigationBar}>
-//           {navLinks.map((link) => (
-//             <>
-//               <Link
-//                 className={styles.navLink}
-//                 key={link.id}
-//                 to={link.path}
-//                 onClick={link.id === 3 ? onEnter : null}
-//               >
-//                 <img src={link.src} alt={link.alt} />
-//                 <p>{link.name}</p>
-//               </Link>
-//             </>
-//           ))}
-//         </nav>
-//       </div>
-//     </header>
-//     // </header>
-//   );
-// };
-
-// export default Header;
