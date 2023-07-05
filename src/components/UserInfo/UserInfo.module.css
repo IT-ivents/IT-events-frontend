@@ -101,6 +101,11 @@
   background-color: #fefefe;
 }
 
+.input:disabled {
+  color: rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+}
+
 .input::placeholder {
   font-weight: 400;
   font-size: 16px;
@@ -202,4 +207,10 @@
   height: 20px;
   margin-left: 6px;
   cursor: pointer;
+}
+
+.divider {
+  height: 2px;
+  width: 1440px;
+  color: rgba(0, 0, 0, 0.08);
 }
