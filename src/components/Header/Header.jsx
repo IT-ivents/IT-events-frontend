@@ -1,5 +1,6 @@
 import styles from './Header.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import SearchField from '../SearchField/SearchField';
 import HeroSection from '../HeroSection/HeroSection';
@@ -35,16 +36,24 @@ const avatar = {
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
-const Header = ({ onSearch, searchQuery, onEnter, loggedIn }) => {
-  const { handleLogout, currentUser } = useAuth();
+const Header = ({ onSearch, searchQuery, onEnter, loggedIn, currentUser }) => {
+  //const { handleLogout, currentUser } = useAuth();
+  const [username, setUsername] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser && loggedIn) {
+      setUsername(currentUser.username);
+    } else if (!loggedIn) {
+      setUsername(null);
+    }
+  }, [currentUser, loggedIn]);
 
   const isSearchFieldOnTop =
     location.pathname === '/event' ||
     location.pathname === '/favorites' ||
     location.pathname === '/notifications';
-
-  const { username } = currentUser || {};
 
   const navLinks = [
     {
@@ -61,20 +70,19 @@ const Header = ({ onSearch, searchQuery, onEnter, loggedIn }) => {
       src: favoritesIcon,
       alt: 'Иконка, Избранное',
     },
-    loggedIn
-      ? {
-          id: 3,
-          component: <Avatar name={username} style={avatar} />,
-          path: '/account',
-        }
-      : !loggedIn && handleLogout
-      ? {
-          id: 3,
-          name: 'Войти',
-          src: enterIcon,
-          alt: 'Иконка, Войти в кабинет',
-        }
-      : null,
+    {
+      id: 3,
+      name: loggedIn ? username : 'Войти',
+      component: loggedIn ? (
+        <Avatar name={username} style={avatar} />
+      ) : (
+        <>
+          <img src={enterIcon} alt="Иконка, Войти в кабинет" />
+          <p>Войти</p>
+        </>
+      ),
+      path: loggedIn ? '/account' : null,
+    },
   ];
 
   return (
@@ -100,7 +108,7 @@ const Header = ({ onSearch, searchQuery, onEnter, loggedIn }) => {
             <Link
               className={styles.navLink}
               key={link.id}
-              to={link.path}
+              to={link.path ? link.path : ''}
               onClick={
                 link.id === 3 && !loggedIn
                   ? onEnter

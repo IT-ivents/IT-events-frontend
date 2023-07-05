@@ -48,6 +48,7 @@ function App() {
     handleRegister,
     handleLogout,
     loggedIn,
+    currentUser,
     isLoading,
     serverError,
     setServerError,
@@ -416,6 +417,7 @@ function App() {
             searchQuery={searchQuery}
             onEnter={toggleModalSignIn}
             loggedIn={loggedIn}
+            currentUser={currentUser}
           />
           {isModalSignInOpen && (
             <ModalSignIn
@@ -514,6 +516,8 @@ function App() {
                   selectedEvent={selectedEvent}
                   onCardClick={handleCardClick}
                   onNewEventClick={() => setSelectedEvent(null)}
+                  currentUser={currentUser}
+                  handleLogout={handleLogout}
                 />
               }
             />

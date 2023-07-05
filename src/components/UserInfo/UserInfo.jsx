@@ -36,8 +36,8 @@ const UserInfo = ({ onNewEventClick }) => {
     }
   }, [currentUser, setValues]);
 
-  console.log(currentUser);
-  console.log(values);
+  // console.log(currentUser);
+  // console.log(values);
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -92,7 +92,8 @@ const UserInfo = ({ onNewEventClick }) => {
               name="name"
               type="text"
               placeholder="Ваше имя"
-              value={values?.name}
+              value={values.name || ''}
+              onChange={handleChange}
               // required
               minLength={2}
               maxLength={25}
@@ -152,7 +153,7 @@ const UserInfo = ({ onNewEventClick }) => {
               minLength={6}
               maxLength={254}
               value={values?.email || ''}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+              pattern="^([\\w.%+-]+)@([\\w-]+\\.)+([\\w]{2,})$"
               onChange={handleChange}
               onBlur={handleBlur}
               autoComplete="off"

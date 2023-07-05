@@ -10,8 +10,7 @@ import AccountButton from '../AccountButton/AccountButton';
 import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 
-const AccountMenu = () => {
-  const { handleLogout, currentUser } = useAuth();
+const AccountMenu = ({ handleLogout, currentUser }) => {
   const [activeTab, setActiveTab] = useState(0);
   const location = useLocation();
 
@@ -66,13 +65,14 @@ const AccountMenu = () => {
 
   // const currentTab = tabs[activeTab];
 
-  const { username } = currentUser;
   return (
     <section>
       {currentUser && (
         <div className={styles.accountMenu}>
           <div className={styles.userLogo}>
-            {location.pathname === '/account' && <Avatar name={username} />}
+            {location.pathname === '/account' && (
+              <Avatar name={currentUser.username} />
+            )}
             <div>
               <h1 className={menuTitles[activeTab].titleClass}>
                 {menuTitles[activeTab].title}
