@@ -152,7 +152,7 @@ const UserInfo = ({ onNewEventClick }) => {
               minLength={6}
               maxLength={254}
               value={values?.email || ''}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
               onChange={handleChange}
               onBlur={handleBlur}
               autoComplete="off"
