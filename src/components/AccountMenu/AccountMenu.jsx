@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './AccountMenu.module.css';
 import { useLocation } from 'react-router-dom';
 import Person from './../../images/person.svg';
@@ -14,6 +14,13 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
   const [activeTab, setActiveTab] = useState(0);
   const location = useLocation();
 
+  useEffect(() => {
+    const storedActiveTab = localStorage.getItem('activeMenuTab');
+    if (storedActiveTab) {
+      setActiveTab(parseInt(storedActiveTab));
+    }
+  }, []);
+
   const handleLogoutClick = async () => {
     try {
       await handleLogout();
@@ -25,6 +32,7 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const handleTabClick = (index) => {
     setActiveTab(index);
+    localStorage.setItem('activeMenuTab', index.toString());
   };
 
   const tabs = [

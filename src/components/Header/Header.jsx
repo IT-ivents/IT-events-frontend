@@ -33,6 +33,7 @@ const avatar = {
   fontSize: '20px',
   backgroundColor: 'transparent',
   color: 'rgba(0, 0, 0, 0.8)',
+  cursor: 'pointer',
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
