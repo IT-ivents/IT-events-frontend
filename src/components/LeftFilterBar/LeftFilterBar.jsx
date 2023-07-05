@@ -40,6 +40,10 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
     setShowAllDates(!showAllDates);
   };
 
+  const toggleTopics = () => {
+    setShowTopic(!showTopic);
+  };
+
   const renderDateOptions = () => {
     const dateOptions = [
       { id: 'today', value: 'Today', label: 'Сегодня' },
@@ -83,7 +87,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   };
 
   const renderSpecialityOptions = () => {
-    return dataLists.topics.map((item, index) => (
+    return dataLists?.topics?.map((item, index) => (
       <label htmlFor={item.id} key={index}>
         <input
           onChange={handleInputChange}
@@ -172,10 +176,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
         </li>
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
-          <button
-            onClick={() => setShowTopic(!showTopic)}
-            className={styles.topicButton}
-          >
+          <button onClick={toggleTopics} className={styles.topicButton}>
             Направление
           </button>
           {showTopic && (

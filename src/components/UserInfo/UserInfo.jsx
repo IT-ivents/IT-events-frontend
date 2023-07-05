@@ -17,14 +17,13 @@ const UserInfo = ({ onNewEventClick }) => {
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const { currentUser } = useAuth();
-  const {
-    values,
-    setValues,
-    handleChange,
-    handleBlur,
-    errors,
-    disabledButton,
-  } = useFormWithValidation();
+  const { values, setValues, isValid, handleChange, handleBlur, errors } =
+    useFormWithValidation();
+
+  const disabledButton =
+    !isValid ||
+    (currentUser.username === values.name &&
+      currentUser.email === values.email);
 
   useEffect(() => {
     if (currentUser) {
@@ -94,12 +93,9 @@ const UserInfo = ({ onNewEventClick }) => {
               placeholder="Ваше имя"
               value={values.name || ''}
               onChange={handleChange}
-              // required
+              required
               minLength={2}
               maxLength={25}
-              // value={values?.name ?? currentUser?.username}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
               autoComplete="off"
             />
             {errors.name && <span className={styles.span}>{errors.name}</span>}
@@ -125,11 +121,6 @@ const UserInfo = ({ onNewEventClick }) => {
               name="organization_name"
               type="text"
               value={values.organization_name || ''}
-              // required
-              // value={values?.name ?? currentUser?.username}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-              autoComplete="off"
               disabled={true}
             />
             <span className={styles.support}>
@@ -149,7 +140,7 @@ const UserInfo = ({ onNewEventClick }) => {
               name="email"
               type="email"
               placeholder="Email"
-              // required
+              required
               minLength={6}
               maxLength={254}
               value={values?.email || ''}
