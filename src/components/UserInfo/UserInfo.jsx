@@ -3,6 +3,7 @@ import styles from './UserInfo.module.css';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
 import useAuth from '../../utils/hooks/useAuth';
 import attention from '../../images/tooltip_attention.svg';
@@ -16,7 +17,7 @@ const UserInfo = ({ onNewEventClick }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const { currentUser } = useAuth();
+  const { currentUser, isLoading } = useAuth();
   const { values, setValues, isValid, handleChange, handleBlur, errors } =
     useFormWithValidation();
 
@@ -55,6 +56,10 @@ const UserInfo = ({ onNewEventClick }) => {
   const toggleTooltip = () => {
     setIsTooltipVisible(!isTooltipVisible);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.userInfo}>
