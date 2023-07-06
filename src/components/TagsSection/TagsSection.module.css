@@ -16,3 +16,13 @@
   font-size: 12px;
   list-style-type: none;
 }
+
+.showMore {
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 17px;
+  color: #674eae;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

@@ -1,17 +1,53 @@
+import { useEffect, useState } from 'react';
 import styles from './TagsSection.module.css';
 import TagButton from '../TagButton/TagButton';
-import { tagsPopular } from '../../utils/constants/tags';
+import { apiEvents } from '../../utils/api';
 
 const TagsSection = ({ handleChange }) => {
+  const [tags, setTags] = useState([]);
+  const [showAllTags, setShowAllTags] = useState(false);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await apiEvents.getTags();
+        setTags(response.data);
+      } catch (error) {
+        console.log('Error fetching tags:', error);
+      }
+    };
+    fetchTags();
+  }, []);
+
+  const tagOptions = tags.map((tag) => ({
+    value: tag.id,
+    label: tag.name,
+    slug: tag.slug,
+  }));
+
+  const toggleShowAllTags = () => {
+    setShowAllTags(!showAllTags);
+  };
+
   return (
-    <section className={styles.TagsSection}>
-      <h4 className={styles.tagsListTitle}>Популярные теги</h4>
+    <>
       <div className={styles.tagsList}>
-        {tagsPopular.map((value, index) => (
-          <TagButton value={value} key={index} handleChange={handleChange} />
-        ))}
+        {tagOptions
+          .slice(0, showAllTags ? tags.length : 7)
+          .map((tag, index) => (
+            <TagButton
+              key={index}
+              value={tag.label}
+              handleChange={handleChange}
+            />
+          ))}
       </div>
-    </section>
+      {tags.length > 10 && (
+        <button onClick={toggleShowAllTags} className={styles.showMore}>
+          {showAllTags ? 'Показать меньше' : 'Показать больше'}
+        </button>
+      )}
+    </>
   );
 };
 
