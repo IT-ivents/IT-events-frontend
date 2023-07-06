@@ -215,9 +215,9 @@ const Organization = ({ selectedEvent }) => {
     setIsFocused((prevState) => ({ ...prevState, [section]: false }));
   };
 
-  const handlePostNewEvent = (event) => {
+  const handlePostNewEvent = async (event) => {
     event.preventDefault();
-    apiEvents
+    await apiEvents
       .postNewEvent(newCardData)
       .then((response) => {
         console.log('Новое событие успешно создано', response.data);

@@ -21,7 +21,6 @@ import {
   Organization,
   PrivacyPolicyPage,
   CookiePage,
-  AccountPage,
   AccountDetailsPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
@@ -177,79 +176,100 @@ function App() {
   //     clearInterval(interval);
   //   };
   // }, []);
-  const fetchDataAndSaveToLocalStorage = async () => {
-    try {
-      const data = await apiEvents.getEvents();
-      //const data = events;
-      const newData = data.data;
-      console.log(newData);
-      setEventsFromApi(newData);
-      localStorage.setItem('eventsData', JSON.stringify(newData));
-      // Разложить события по разным массивам
-      if (newData) {
-        const mostAnticipated = newData.slice(0, 6);
-        const popular = newData.slice(7, 19);
-        const interesting = newData.slice(19, 31);
-        const soon = newData.slice(32, newData.length - 1);
 
-        setMostAnticipatedEvents(mostAnticipated);
-        setPopularEvents(popular);
-        setInterestingEvents(interesting);
-        setSoonEvents(soon);
-      } else {
-        throw new Error('Неверный формат данных eventsData:');
-      }
-    } catch (error) {
-      console.error('Ошибка при выполнении запроса:', error);
-    }
-  };
-
-  // Если Events есть в сторадж, достаем оттуда
   useEffect(() => {
-    const storagedEventsData = localStorage.getItem('eventsData');
-    if (!storagedEventsData) {
-      fetchDataAndSaveToLocalStorage();
-    } else {
+    const fetchDataAndSaveToLocalStorage = async () => {
       try {
-        const resultData = JSON.parse(storagedEventsData);
-        //console.log('results', resultData);
-        setEventsFromApi(resultData);
-        // Разложить события по разным массивам
-        const mostAnticipated = resultData.slice(0, 6);
-        const popular = resultData.slice(7, 19);
-        const interesting = resultData.slice(19, 31);
-        const soon = resultData.slice(32, resultData.length - 1);
-        setMostAnticipatedEvents(mostAnticipated);
-        setPopularEvents(popular);
-        setInterestingEvents(interesting);
-        setSoonEvents(soon);
+        const data = await apiEvents.getEvents();
+        const newData = data.data;
+        console.log(newData);
+        setEventsFromApi(newData);
+        localStorage.setItem('eventsData', JSON.stringify(newData));
+        // Обновить массивы событий с учетом избранных событий
+        updateEventArrays(newData);
       } catch (error) {
-        console.error('Неверный формат данных eventsData:', error);
+        console.error('Ошибка при выполнении запроса:', error);
       }
-    }
-    // Обновление данных с сервера и сохранение в локальном хранилище
-    fetchDataAndSaveToLocalStorage();
-    // Устанавливаем интервал для периодического обновления данных
-    const interval = setInterval(() => {
-      fetchDataAndSaveToLocalStorage();
-    }, 10 * 60 * 1000); // 10 минут в миллисекундах
-    // Очищаем интервал при размонтировании компонента
-    return () => {
-      clearInterval(interval);
     };
+    const updateEventArrays = (events) => {
+      const updatedEvents = events.map((event) => {
+        const isLiked = favorites.some((item) => item.id === event.id);
+        return { ...event, isLiked };
+      });
+      setMostAnticipatedEvents(updatedEvents.slice(0, 6));
+      setPopularEvents(updatedEvents.slice(7, 19));
+      setInterestingEvents(updatedEvents.slice(19, 31));
+      setSoonEvents(updatedEvents.slice(32, updatedEvents.length - 1));
+      setRecommendedEvents(updateRecommendedEvents(updatedEvents));
+      setSearchResult(updatedEvents);
+    };
+
+    const updateRecommendedEvents = (events) => {
+      // Если у нас нет выбранного события или в нем нет тегов, то и рекомендовать нечего
+      if (!selectedEvent || !selectedEvent.tags) {
+        return [];
+      }
+      const recommended = events.filter((event) => {
+        return (
+          // Исключаем из рекомендаций карточку которая выбрана на текущий момент
+          event.id !== selectedEvent.id &&
+          event.tags.some((tag) => {
+            const tagName = tag.name.toLowerCase().trim();
+            return selectedEvent.tags.some(
+              (selectedTag) => selectedTag.name.toLowerCase().trim() === tagName
+            );
+          })
+        );
+      });
+
+      if (recommended.length === 0) {
+        const randomEvents = getRandomEvents(events, 4);
+        return randomEvents;
+      } else {
+        return recommended.slice(0, 4);
+      }
+    };
+    const fetchData = async () => {
+      try {
+        const savedFavorites = localStorage.getItem('favorites');
+        if (savedFavorites) {
+          setFavorites(JSON.parse(savedFavorites));
+        }
+        const savedSelectedEvent = JSON.parse(
+          localStorage.getItem('selectedEvent')
+        );
+        if (savedSelectedEvent) {
+          setSelectedEvent(savedSelectedEvent);
+        }
+        const storagedEventsData = localStorage.getItem('eventsData');
+        if (!storagedEventsData) {
+          await fetchDataAndSaveToLocalStorage();
+        } else {
+          const resultData = JSON.parse(storagedEventsData);
+          setEventsFromApi(resultData);
+          updateEventArrays(resultData);
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+      }
+    };
+    fetchData();
   }, []);
 
   // Загрузка избранных событий из локального хранилища
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
-    if (savedFavorites) {
-      setFavorites(savedFavorites);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedFavorites = localStorage.getItem('favorites');
+  //   if (savedFavorites) {
+  //     setFavorites(JSON.parse(savedFavorites));
+  //   }
+  // }, []);
 
   // Сохранение избранных событий в локальное хранилище
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    if (favorites.length > 0) {
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      console.log('Favorites saved:', favorites);
+    }
   }, [favorites]);
 
   useEffect(() => {
@@ -267,12 +287,12 @@ function App() {
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
-    setSelectedEvent(event);
     if (location.pathname === '/account/events') {
       navigate('/organization');
     } else {
       navigate(`event/${event.id}`);
     }
+    setSelectedEvent(event);
   };
 
   // Функция обновления массива избранных событий
@@ -311,12 +331,12 @@ function App() {
   }, [favorites]);
 
   // Функция обновления массивов событий
-  const updateEvents = (events) => {
+  function updateEvents(events) {
     return events.map((event) => {
       const isLiked = favorites.some((item) => item.id === event.id);
       return { ...event, isLiked };
     });
-  };
+  }
 
   const searchEvents = (query) => {
     console.log(query);
@@ -457,7 +477,7 @@ function App() {
               }
             />
             <Route
-              path="event/:id"
+              path="event/*"
               element={
                 <EventPage
                   recommendedEvents={recommendedEvents}

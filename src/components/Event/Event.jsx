@@ -2,17 +2,19 @@ import styles from './Event.module.css';
 import EventDescription from '../EventDescription/EventDescription';
 import HorizontalEventsList from '../HorizontalEventList/HorizontalEventList';
 import defaultImage from '../../images/default-image.png';
+import Loader from '../Loader/Loader';
 
 const Event = ({
   selectedEvent,
   onCardClick,
   onLikeClick,
   recommendedEvents,
+  setSelectedEvent,
 }) => {
   // Здесь нужен будет Loader потому что Event монтируется раньше того как приходит selectedEvent
   // и приложение крашится
   if (!selectedEvent) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const handleImageError = (e) => {
@@ -39,6 +41,7 @@ const Event = ({
           list={recommendedEvents}
           onCardClick={onCardClick}
           onLikeClick={onLikeClick}
+          setSelectedEvent={setSelectedEvent}
         />
       </div>
     </div>
