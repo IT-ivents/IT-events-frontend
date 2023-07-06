@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
