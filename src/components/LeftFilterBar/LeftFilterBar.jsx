@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 
 const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   const [showAllDates, setShowAllDates] = useState(false);
+  const [showAllTopics, setShowAllTopics] = useState(false);
   const [showTopic, setShowTopic] = useState(false);
   const { dataLists } = useInitialFilter();
   const location = useLocation();
@@ -38,6 +39,10 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
 
   const toggleShowAllDates = () => {
     setShowAllDates(!showAllDates);
+  };
+
+  const toggleShowAllTopics = () => {
+    setShowAllTopics(!showAllTopics);
   };
 
   const toggleTopics = () => {
@@ -87,20 +92,22 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   };
 
   const renderSpecialityOptions = () => {
-    return dataLists?.topics?.map((item, index) => (
-      <label htmlFor={item.id} key={index}>
-        <input
-          onChange={handleInputChange}
-          id={item}
-          type="checkbox"
-          value={item}
-          name="specialities"
-          checked={values.specialities.includes(item)}
-          className={styles.checkboxListButton}
-        />
-        <span className={styles.checkboxListLabel}>{item}</span>
-      </label>
-    ));
+    return dataLists?.topics
+      ?.slice(0, showAllTopics ? dataLists.topics.length : 4)
+      .map((item, index) => (
+        <label htmlFor={item.id} key={index}>
+          <input
+            onChange={handleInputChange}
+            id={item}
+            name="specialities"
+            value={item}
+            type="checkbox"
+            className={styles.checkboxButton}
+            checked={values.specialities.includes(item)}
+          />
+          <span className={styles.checkboxLabel}>{item}</span>
+        </label>
+      ));
   };
 
   return (
@@ -167,20 +174,18 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
         </li>
         <li>
           <h3 className={styles.itemTitle}>Дата</h3>
-          <div className={styles.lessBlock}>
-            {renderDateOptions()}
-            <button onClick={toggleShowAllDates} className={styles.showMore}>
-              {showAllDates ? 'Показать меньше' : 'Показать больше'}
-            </button>
-          </div>
+          {renderDateOptions()}
+          <button onClick={toggleShowAllDates} className={styles.showMore}>
+            {showAllDates ? 'Показать меньше' : 'Показать больше'}
+          </button>
         </li>
         <li>
           <h3 className={styles.itemTitle}>Направление</h3>
-          <button onClick={toggleTopics} className={styles.topicButton}>
-            Направление
-          </button>
-          {showTopic && (
-            <div className={styles.topicsList}>{renderSpecialityOptions()}</div>
+          {renderSpecialityOptions()}
+          {dataLists?.topics?.length > 3 && (
+            <button onClick={toggleShowAllTopics} className={styles.showMore}>
+              {showAllTopics ? 'Показать меньше' : 'Показать больше'}
+            </button>
           )}
         </li>
         <li>
@@ -242,7 +247,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
           className={styles.buttonSearch}
           type="button"
         >
-          Поиск
+          Найти
         </button>
       )}
     </m.section>

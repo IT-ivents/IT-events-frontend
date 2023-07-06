@@ -98,7 +98,7 @@ export const prevTeam = [
   {
     id: 3,
     photo: member.Default,
-    name: 'Владислав Мартыненко',
+    name: 'Влад Мартыненко',
     role: 'Менеджер проекта',
   },
   {

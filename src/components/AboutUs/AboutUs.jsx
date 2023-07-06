@@ -37,7 +37,7 @@ const AboutUs = () => {
               </li>
             ))}
           </ul>
-          <PrimaryButton title="Стать партнером" />
+          <PrimaryButton title="Стать организатором" />
         </div>
         {/* IMAGES BLOCK */}
         <aside className={styles.aside}>

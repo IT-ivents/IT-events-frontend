@@ -22,7 +22,7 @@ const Footer = ({ onEnter }) => {
   const renderFooterItems = () => {
     const footerItems = [
       { text: 'О нас', to: '/about' },
-      { text: 'События' },
+      { text: 'События', disabled },
       { text: 'Cookies', onClick: () => setShowPopup(true) },
       { text: 'Мы в СМИ!', disabled },
       { text: 'Войти в ЛК', onClick: onEnter },
