@@ -37,13 +37,6 @@
   margin-bottom: 120px;
 }
 
-.loaderContainer {
-  display: flex;
-  justify-content: center;
-  width: 920px;
-  margin: 150px 0 0;
-}
-
 /* Страница: Политика */
 .policyPageWrapper {
   display: flex;

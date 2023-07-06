@@ -21,7 +21,6 @@ import {
   Organization,
   PrivacyPolicyPage,
   CookiePage,
-  AccountPage,
   AccountDetailsPage,
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
@@ -241,15 +240,18 @@ function App() {
 
   // Загрузка избранных событий из локального хранилища
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favorites'));
+    const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) {
-      setFavorites(savedFavorites);
+      setFavorites(JSON.parse(savedFavorites));
     }
   }, []);
 
   // Сохранение избранных событий в локальное хранилище
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    if (favorites.length > 0) {
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      console.log('Favorites saved:', favorites);
+    }
   }, [favorites]);
 
   useEffect(() => {
@@ -267,12 +269,12 @@ function App() {
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
-    setSelectedEvent(event);
     if (location.pathname === '/account/events') {
       navigate('/organization');
     } else {
       navigate(`event/${event.id}`);
     }
+    setSelectedEvent(event);
   };
 
   // Функция обновления массива избранных событий
@@ -311,12 +313,12 @@ function App() {
   }, [favorites]);
 
   // Функция обновления массивов событий
-  const updateEvents = (events) => {
+  function updateEvents(events) {
     return events.map((event) => {
       const isLiked = favorites.some((item) => item.id === event.id);
       return { ...event, isLiked };
     });
-  };
+  }
 
   const searchEvents = (query) => {
     console.log(query);
@@ -457,7 +459,7 @@ function App() {
               }
             />
             <Route
-              path="event/:id"
+              path="event/*"
               element={
                 <EventPage
                   recommendedEvents={recommendedEvents}
