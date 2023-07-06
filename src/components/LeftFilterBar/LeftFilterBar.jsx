@@ -247,7 +247,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
           className={styles.buttonSearch}
           type="button"
         >
-          Поиск
+          Найти
         </button>
       )}
     </m.section>

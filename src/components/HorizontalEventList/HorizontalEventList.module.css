@@ -46,11 +46,11 @@
   margin-bottom: 0;
 }
 
-.listItem {
+/* .listItem {
   display: grid;
   grid-column: span 1;
   grid-row: auto;
-}
+} */
 
 .navigationContainer {
   display: flex;

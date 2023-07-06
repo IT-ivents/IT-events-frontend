@@ -8,7 +8,6 @@ import notificationIcon from '../../images/notifications-icon.svg';
 import enterIcon from '../../images/enter_acc.svg';
 import favoritesIcon from '../../images/favorites-header-icon.svg';
 import Avatar from '../Avatar/Avatar';
-import useAuth from '../../utils/hooks/useAuth';
 
 const smallForm = {
   width: '450px',
