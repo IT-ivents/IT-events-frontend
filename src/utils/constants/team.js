@@ -50,12 +50,6 @@ export const team = [
     role: 'Backend',
   },
   {
-    id: 9,
-    photo: member.Default,
-    name: 'Михаил Аксенов',
-    role: 'Frontend',
-  },
-  {
     id: 10,
     photo: member.Shchepochkina,
     name: 'Полина Щепочкина',
@@ -76,22 +70,16 @@ export const team = [
   {
     id: 13,
     photo: member.Default,
-    name: 'Виктор Коровин',
-    role: 'QA Engineer',
-  },
-  {
-    id: 14,
-    photo: member.Default,
     name: 'Егор Гущин',
     role: 'Backend',
   },
   {
-    id: 15,
+    id: 14,
     photo: member.Default,
     name: 'Артем Павлищев',
     role: 'Backend',
   },
-  { id: 16, photo: member.Default, name: 'Денис Филатов', role: 'Frontend' },
+  { id: 15, photo: member.Default, name: 'Денис Филатов', role: 'Frontend' },
 ];
 
 export const prevTeam = [
@@ -112,5 +100,11 @@ export const prevTeam = [
     photo: member.Default,
     name: 'Владислав Мартыненко',
     role: 'Менеджер проекта',
+  },
+  {
+    id: 4,
+    photo: member.Default,
+    name: 'Виктор Коровин',
+    role: 'QA Engineer',
   },
 ];

@@ -57,7 +57,7 @@ const MainPage = ({
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 750);
   }, []);
 
   return (

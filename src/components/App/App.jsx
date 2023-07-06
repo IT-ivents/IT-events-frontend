@@ -477,9 +477,10 @@ function App() {
               }
             />
             <Route
-              path="event/*"
+              path="/event/:id"
               element={
                 <EventPage
+                  eventsFromApi={eventsFromApi}
                   recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
                   setSelectedEvent={setSelectedEvent}

@@ -7,6 +7,7 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
+import useAuth from '../../utils/hooks/useAuth';
 
 const Organization = ({ selectedEvent }) => {
   const {
@@ -28,6 +29,7 @@ const Organization = ({ selectedEvent }) => {
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
+  const { currentUser } = useAuth();
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -40,8 +42,8 @@ const Organization = ({ selectedEvent }) => {
   const dateEnd = values.date_end;
   const timeEnd = values.time_end;
   // Конвертация дат мероприятия в нужный формат
-  const correctDateStartFormat = dateStart + 'T' + timeStart + ':00Z';
-  const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
+  const correctDateStartFormat = dateStart + 'T' + timeStart + 'Z';
+  const correctDateEndFormat = dateEnd + 'T' + timeEnd + 'Z';
 
   const width = {
     width: '40%',
@@ -107,6 +109,7 @@ const Organization = ({ selectedEvent }) => {
       date_start: correctDateStartFormat,
       date_end: correctDateEndFormat,
       url: values.url || '',
+      //organization: currentUser.id
     }));
   }, [selectedTags, selectedTopics, selectedFormat, values]);
 
