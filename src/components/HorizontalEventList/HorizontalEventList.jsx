@@ -20,6 +20,7 @@ const HorizontalEventList = ({
   const location = useLocation();
   const totalPages = Math.ceil(list.length / eventOnPage) || 0;
   const eventPage = location.pathname.includes('/event');
+
   const handleLikeClick = useCallback(
     (eventId) => {
       onLikeClick(eventId);
