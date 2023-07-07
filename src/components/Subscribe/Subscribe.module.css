@@ -5,6 +5,7 @@
   margin: 24px 0 0 192px;
   background: #f9f9f9;
   cursor: default;
+  z-index: -1;
 }
 
 .formText {
