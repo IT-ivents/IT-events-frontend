@@ -5,7 +5,6 @@ import ShowAllButton from '../ShowAllButton/ShowAllButton';
 // import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
-import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
 const HorizontalEventList = ({
@@ -15,13 +14,13 @@ const HorizontalEventList = ({
   onCardClick,
   onLikeClick,
   eventOnPage,
-  setSelectedEvent,
 }) => {
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
   const location = useLocation();
   const totalPages = Math.ceil(list.length / eventOnPage) || 0;
   const eventPage = location.pathname.includes('/event');
+
   const handleLikeClick = useCallback(
     (eventId) => {
       onLikeClick(eventId);
@@ -77,7 +76,6 @@ const HorizontalEventList = ({
               event={event}
               onCardClick={onCardClick}
               onLikeClick={handleLikeClick}
-              setSelectedEvent={setSelectedEvent}
             />
           )
         )}

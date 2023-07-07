@@ -268,9 +268,6 @@ const Organization = ({ selectedEvent }) => {
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="title" className={styles.label}>
                 Название мероприятия<span className={styles.spanError}>*</span>{' '}
-                <span className={styles.recommendation}>
-                  Максимум 50 символов
-                </span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -290,15 +287,18 @@ const Organization = ({ selectedEvent }) => {
                 minLength={2}
                 maxLength={50}
               />
-              <span className={styles.spanError}>{errors.title}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.title}</span>
+                <span className={styles.recommendation}>
+                  {values?.title?.length}/
+                  <span className={styles.spanError}>50</span>
+                </span>
+              </div>
             </fieldset>
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="price" className={styles.label}>
                 Ссылка на сайт
-                <span className={styles.recommendation}>
-                  {' '}
-                  Максимум 200 символов
-                </span>
+                <span className={styles.recommendation}> </span>
               </label>
               <input
                 className={`${styles.input} ${
