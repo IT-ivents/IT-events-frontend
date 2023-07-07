@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styles from './Event.module.css';
 import EventDescription from '../EventDescription/EventDescription';
 import HorizontalEventsList from '../HorizontalEventList/HorizontalEventList';
@@ -13,37 +14,50 @@ const Event = ({
 }) => {
   // Здесь нужен будет Loader потому что Event монтируется раньше того как приходит selectedEvent
   // и приложение крашится
-  if (!selectedEvent) {
-    return <Loader />;
-  }
+  // if (!selectedEvent) {
+  //   return <Loader />;
+  // }
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleImageError = (e) => {
     e.target.src = defaultImage;
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 750);
+  }, []);
+
   return (
     <div className={styles.eventContainer}>
-      <EventDescription
-        selectedEvent={selectedEvent}
-        onLikeClick={onLikeClick}
-      />
-      <aside>
-        <img
-          className={styles.eventImage}
-          src={selectedEvent.image}
-          alt={selectedEvent.title}
-          onError={handleImageError}
-        />
-      </aside>
-      <div className={styles.horizontalList}>
-        <HorizontalEventsList
-          title="Смотрите также"
-          list={recommendedEvents}
-          onCardClick={onCardClick}
-          onLikeClick={onLikeClick}
-          setSelectedEvent={setSelectedEvent}
-        />
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <EventDescription
+            selectedEvent={selectedEvent}
+            onLikeClick={onLikeClick}
+          />
+          <aside>
+            <img
+              className={styles.eventImage}
+              src={selectedEvent.image}
+              alt={selectedEvent.title}
+              onError={handleImageError}
+            />
+          </aside>
+          <div className={styles.horizontalList}>
+            <HorizontalEventsList
+              title="Смотрите также"
+              list={recommendedEvents}
+              onCardClick={onCardClick}
+              onLikeClick={onLikeClick}
+              setSelectedEvent={setSelectedEvent}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

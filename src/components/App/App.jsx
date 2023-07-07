@@ -272,7 +272,7 @@ function App() {
 
   // Сохранение избранных событий в локальное хранилище
   useEffect(() => {
-    if (favorites.length > 0) {
+    if (favorites.length >= 0) {
       localStorage.setItem('favorites', JSON.stringify(favorites));
       console.log('Favorites saved:', favorites);
     }

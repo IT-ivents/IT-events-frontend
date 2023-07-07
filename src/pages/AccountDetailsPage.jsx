@@ -19,6 +19,7 @@ const AccountDetailsPage = ({
       <Routes>
         <Route
           path="/"
+          // exact={true}
           element={<UserInfo onNewEventClick={onNewEventClick} />}
         />
         <Route
