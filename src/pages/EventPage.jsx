@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Event from '../components/Event/Event';
 
 const EventPage = ({
@@ -11,13 +11,14 @@ const EventPage = ({
   eventsFromApi,
 }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const eventId = parseInt(id);
     const eventFromParams = eventsFromApi.find((event) => event.id === eventId);
-
     if (eventFromParams) {
       setSelectedEvent(eventFromParams);
+      navigate(`/event/${eventId}`);
     }
   }, [id, setSelectedEvent, eventsFromApi]);
 

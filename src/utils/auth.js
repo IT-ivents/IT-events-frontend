@@ -64,3 +64,15 @@ export const getUserInfo = async (token) => {
   });
   return await handleResponse(response);
 };
+
+export const getFullUser = async (token, id) => {
+  const response = await fetch(`${BASE_URL}/users/${id}/profile`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Token ${token}`,
+    },
+  });
+  return await handleResponse(response);
+};

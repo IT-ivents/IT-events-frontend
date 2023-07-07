@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
@@ -266,7 +272,7 @@ function App() {
 
   // Сохранение избранных событий в локальное хранилище
   useEffect(() => {
-    if (favorites.length > 0) {
+    if (favorites.length >= 0) {
       localStorage.setItem('favorites', JSON.stringify(favorites));
       console.log('Favorites saved:', favorites);
     }

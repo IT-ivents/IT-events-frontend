@@ -58,10 +58,15 @@ function useAuth() {
 
         try {
           const userData = await auth.getUserInfo(res.auth_token);
-          console.log('USER_DATA_OK');
-          setCurrentUser(userData);
-          localStorage.setItem('currentUser', JSON.stringify(userData));
-          navigate('/account'); // Перенаправление на страницу /account
+          console.log('USER_DATA_OK', userData);
+          const fullUserData = await auth.getFullUser(
+            res.auth_token,
+            userData.id
+          );
+          setCurrentUser(fullUserData);
+          //setCurrentUser(userData);
+          localStorage.setItem('currentUser', JSON.stringify(fullUserData));
+          //navigate('/account'); // Перенаправление на страницу /account
         } catch (error) {
           handleError(error);
         }
