@@ -472,7 +472,7 @@ function App() {
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                   mostAnticipatedEvents={mostAnticipatedEvents}
-                  popularEvents={eventsFromApi}
+                  popularEvents={popularEvents}
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
                   handleSearch={handleFilterSearch}

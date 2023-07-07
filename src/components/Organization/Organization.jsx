@@ -290,7 +290,7 @@ const Organization = ({ selectedEvent }) => {
               <div className={styles.spanContainer}>
                 <span className={styles.spanError}>{errors.title}</span>
                 <span className={styles.recommendation}>
-                  {values?.title?.length}/
+                  {values?.title?.length || 0}/
                   <span className={styles.spanError}>50</span>
                 </span>
               </div>

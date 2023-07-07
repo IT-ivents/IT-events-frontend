@@ -153,6 +153,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
             </div>
           </div>
           <SubmitButton
+            type="submit"
             title="Войти"
             disabled={disabledButton}
             onClick={handleSignIn}
