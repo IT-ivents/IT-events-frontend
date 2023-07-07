@@ -29,7 +29,7 @@ const smallInput = {
 const avatar = {
   width: '44px',
   height: '44px',
-  fontSize: '20px',
+  fontSize: '16px',
   backgroundColor: 'transparent',
   color: 'rgba(0, 0, 0, 0.8)',
   cursor: 'pointer',

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 304px;
+  height: 302px;
   padding-left: 20px;
   background: url(../../images/banner.svg) no-repeat;
   background-size: cover;
@@ -13,7 +13,7 @@
 
 .headText {
   font-size: 48px;
-  margin: 0 0 28px;
+  margin: 2px 0 27px;
 }
 
 .subText {
