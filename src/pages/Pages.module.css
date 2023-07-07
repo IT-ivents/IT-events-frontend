@@ -60,6 +60,7 @@
   flex-grow: 1;
   padding: 64px 104px 0;
   width: 100%;
+  min-height: calc(100vh - 113px - 152px);
 }
 
 .favoritesPageListContainer {

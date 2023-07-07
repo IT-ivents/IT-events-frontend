@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  min-height: calc(100vh - 113px - 152px - 62px);
   margin: 62px 104px 0;
 }
 
