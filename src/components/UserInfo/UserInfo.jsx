@@ -23,13 +23,12 @@ const UserInfo = ({ onNewEventClick }) => {
 
   const disabledButton =
     !isValid ||
-    (currentUser.username === values.name &&
-      currentUser.email === values.email);
+    (currentUser.name === values.name && currentUser.email === values.email);
 
   useEffect(() => {
     if (currentUser) {
       setValues({
-        name: currentUser.username || '',
+        name: currentUser.name || '',
         email: currentUser.email || '',
         organization_name: currentUser.organization_name || '',
       });

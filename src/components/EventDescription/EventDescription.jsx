@@ -66,8 +66,9 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
         </li>
         <li className={styles.eventDate}>
           <img src={PlaceImage} alt="Место проведения" />
-          {selectedEvent?.address?.split(' ').slice(0, 9).join(' ') ||
-            selectedEvent?.city?.name ||
+          {selectedEvent?.address ||
+            'Нет данных' ||
+            selectedEvent?.city ||
             'Нет данных'}
         </li>
         <li className={styles.eventPrice}>

@@ -24,7 +24,7 @@ const VerticalEventList = ({ title, onCardClick, onLikeClick, events }) => {
   };
 
   useEffect(() => {
-    console.log(checkedEvents);
+    console.log('TO_DEL_CHECKBOX', checkedEvents);
   }, [checkedEvents]);
 
   return (

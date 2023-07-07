@@ -58,7 +58,7 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const menuTitles = {
     0: {
-      title: currentUser.username,
+      title: currentUser.name,
       subtitle: currentUser.email,
       titleClass: styles.titleUser,
       subtitleClass: styles.subtitleUser,
@@ -79,7 +79,7 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
         <div className={styles.accountMenu}>
           <div className={styles.userLogo}>
             {location.pathname === '/account' && (
-              <Avatar name={currentUser.username} />
+              <Avatar name={currentUser.name} />
             )}
             <div>
               <h1 className={menuTitles[activeTab].titleClass}>

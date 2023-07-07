@@ -1,6 +1,6 @@
 export const apiConfig = {
   baseUrl: `http://80.87.107.15/api/v1`,
-  events: `/events`,
+  events: `/events/`,
   topics: `/topics/`,
   tags: `/tags/`,
   sities: `/sities/`,
@@ -97,6 +97,8 @@ class Api {
     const token = localStorage.getItem('jwt');
     return {
       ...this._headers,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     };
   }
