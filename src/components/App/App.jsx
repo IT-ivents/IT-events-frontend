@@ -119,6 +119,14 @@ function App() {
     }
   }, [selectedEvent, eventsFromApi]);
 
+  const getSoonEvents = (events) => {
+    const currentDate = new Date();
+    return events
+      .filter((event) => new Date(event.date_start) >= currentDate)
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
+      .slice(0, 6);
+  };
+
   useEffect(() => {
     const fetchDataAndSaveToLocalStorage = async () => {
       try {
@@ -138,10 +146,11 @@ function App() {
         const isLiked = favorites.some((item) => item.id === event.id);
         return { ...event, isLiked };
       });
+      const soonEvents = getSoonEvents(updatedEvents);
       setMostAnticipatedEvents(updatedEvents.slice(0, 6));
       setPopularEvents(updatedEvents.slice(7, 19));
-      setInterestingEvents(updatedEvents.slice(19, 31));
-      setSoonEvents(updatedEvents.slice(32, updatedEvents.length - 1));
+      setInterestingEvents(updatedEvents.slice(19, events.length - 1));
+      setSoonEvents(soonEvents);
       setSearchResult(updatedEvents);
     };
 
@@ -250,13 +259,15 @@ function App() {
       return eventsFromApi;
     }
     const words = query.toLowerCase().trim().split(' ');
+    const currentDate = Date.now();
+
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
-    const currentEvents = eventsFromApi.filter((event) => {
-      const startDate = new Date(event.date_start).getTime();
-      const isPastEvent = startDate < Date.now();
-      return !isPastEvent;
-    });
+    // const currentEvents = eventsFromApi.filter((event) => {
+    //   const startDate = new Date(event.date_start).getTime();
+    //   const isPastEvent = startDate < Date.now();
+    //   return !isPastEvent;
+    // });
 
     const filteredEvents = [...eventsFromApi]
       .map((event) => {
@@ -265,8 +276,16 @@ function App() {
         return { ...event, isLiked, relevance: 0 };
       })
       .map((event) => {
-        const { title, description, city, price, topic, tags, date_start } =
-          event;
+        const {
+          title,
+          description,
+          city,
+          price,
+          topic,
+          tags,
+          date_start,
+          program,
+        } = event;
 
         words.forEach((word) => {
           const lowerCaseWord = word.toLowerCase().trim();
@@ -274,10 +293,11 @@ function App() {
           if (
             title?.toLowerCase().trim().includes(lowerCaseWord) ||
             description?.toLowerCase().trim().includes(lowerCaseWord) ||
+            program?.toLowerCase().trim().includes(lowerCaseWord) ||
             city?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
             price?.toLowerCase().trim().includes(lowerCaseWord) ||
             topic?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
-            tags.some((tag) =>
+            tags?.some((tag) =>
               tag.name.toLowerCase().trim().includes(lowerCaseWord)
             )
           ) {
@@ -288,19 +308,26 @@ function App() {
         });
         const startDate = new Date(date_start).getTime();
         event.startDate = startDate;
-
         return event;
       })
       .filter((event) => event.relevance > 0)
       // Сортируем по релевантности наши карточки и потом по дате от ближайшего
       .sort((a, b) => {
-        if (a.relevance !== b.relevance) {
-          return b.relevance - a.relevance;
-        } else {
+        if (a.startDate !== b.startDate) {
           return a.startDate - b.startDate;
+        } else {
+          return b.relevance - a.relevance;
         }
       });
-    return filteredEvents;
+    const pastEvents = filteredEvents.filter(
+      (event) => event.startDate < currentDate
+    );
+    const currentEvents = filteredEvents.filter(
+      (event) => event.startDate >= currentDate
+    );
+    console.log('Прошедшие', pastEvents);
+    console.log('Актуальные', currentEvents);
+    return currentEvents;
   };
 
   //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);

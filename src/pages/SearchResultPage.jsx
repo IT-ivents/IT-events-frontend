@@ -21,7 +21,6 @@ const SearchResultPage = ({
   const itemsPerPage = 8;
   const totalPages = Math.ceil(filteredList.length / itemsPerPage);
   const isNothingFind = !filteredList || filteredList.length === 0;
-  console.log('filtered', filteredList);
 
   const handleShowMore = () => {
     if (currentPage < totalPages) {

@@ -44,7 +44,7 @@ const Header = ({ onSearch, searchQuery, onEnter, loggedIn, currentUser }) => {
 
   useEffect(() => {
     if (currentUser && loggedIn) {
-      setUsername(currentUser.username);
+      setUsername(currentUser.name);
     } else if (!loggedIn) {
       setUsername(null);
     }
