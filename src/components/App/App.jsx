@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-  Navigate,
-} from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
@@ -47,6 +41,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
 
   const {
     handleLogin,
@@ -119,14 +114,21 @@ function App() {
     }
   }, [selectedEvent, eventsFromApi]);
 
-  const getSoonEvents = (events) => {
+  // ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
+  const getCurrentEvents = (events) => {
     const currentDate = new Date();
     return events
       .filter((event) => new Date(event.date_start) >= currentDate)
-      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
-      .slice(0, 6);
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
   };
-
+  // ------------ ПРОШЕДШИЕ СОБЫТИЯ ----------- //
+  const getPastEvents = (events) => {
+    const currentDate = new Date();
+    return events
+      .filter((event) => new Date(event.date_start) < currentDate)
+      .sort((a, b) => new Date(b.date_start) - new Date(a.date_start));
+  };
+  // ------------ ПОЛУЧЕНИЕ СОБЫТИЙ С СЕРВЕРА ------------ //
   useEffect(() => {
     const fetchDataAndSaveToLocalStorage = async () => {
       try {
@@ -146,12 +148,17 @@ function App() {
         const isLiked = favorites.some((item) => item.id === event.id);
         return { ...event, isLiked };
       });
-      const soonEvents = getSoonEvents(updatedEvents);
-      setMostAnticipatedEvents(updatedEvents.slice(0, 6));
-      setPopularEvents(updatedEvents.slice(7, 19));
-      setInterestingEvents(updatedEvents.slice(19, events.length - 1));
-      setSoonEvents(soonEvents);
-      setSearchResult(updatedEvents);
+      // ДЕЛИМ НА ПРЕДСТОЯЩИЕ И ПРОШЕДШИЕ
+      const upcomingEvents = getCurrentEvents(updatedEvents);
+      const pastEvents = getPastEvents(updatedEvents);
+      console.log('Upcoming events:', upcomingEvents);
+      console.log('Past Events:', pastEvents);
+      setMostAnticipatedEvents(upcomingEvents);
+      setPopularEvents(upcomingEvents);
+      setInterestingEvents(upcomingEvents);
+      setSoonEvents(upcomingEvents.slice(0, 6));
+      setSearchResult(upcomingEvents);
+      setPastEvents(pastEvents);
     };
 
     const fetchData = async () => {
@@ -179,10 +186,10 @@ function App() {
       }
     };
     fetchData();
+    // ОБНОВЛЕНИЕ СОБЫТИЙ С СЕРВЕРА КАЖДЫЕ 10 МИНУТ
     const interval = setInterval(() => {
       fetchData();
-    }, 600000); // 10 минут в миллисекундах
-
+    }, 600000);
     return () => {
       clearInterval(interval);
     };
@@ -223,7 +230,7 @@ function App() {
       }
     });
   };
-
+  // MAIN LIKE UPDATE FUNCTION
   const toggleFavorite = (event) => {
     updateFavorites(event);
     // Обновление isLiked у selectedEvent
@@ -254,7 +261,6 @@ function App() {
   }
 
   const searchEvents = (query) => {
-    console.log(query);
     if (typeof query !== 'string') {
       return eventsFromApi;
     }
@@ -263,11 +269,6 @@ function App() {
 
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
-    // const currentEvents = eventsFromApi.filter((event) => {
-    //   const startDate = new Date(event.date_start).getTime();
-    //   const isPastEvent = startDate < Date.now();
-    //   return !isPastEvent;
-    // });
 
     const filteredEvents = [...eventsFromApi]
       .map((event) => {
@@ -319,15 +320,8 @@ function App() {
           return b.relevance - a.relevance;
         }
       });
-    const pastEvents = filteredEvents.filter(
-      (event) => event.startDate < currentDate
-    );
-    const currentEvents = filteredEvents.filter(
-      (event) => event.startDate >= currentDate
-    );
-    console.log('Прошедшие', pastEvents);
-    console.log('Актуальные', currentEvents);
-    return currentEvents;
+
+    return filteredEvents;
   };
 
   //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);

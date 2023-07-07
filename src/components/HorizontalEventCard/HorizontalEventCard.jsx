@@ -63,7 +63,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
           </li>
           <li className={styles.rowItem}>
             <img src={PlaceImage} alt="Место проведения" />
-            <p>{event.city || 'Нет данных о городе'}</p>
+            <p>{event.city !== ' ' ? event.city : event.address}</p>
           </li>
           <li className={styles.rowItem}>
             <span className={styles.price}>{formatPrice(event.price)}</span>
