@@ -219,8 +219,8 @@ function App() {
 
   const handleCardClick = (event) => {
     if (location.pathname === '/account/events') {
-      navigate('/organization');
-      navigate('/');
+      // navigate('/organization');
+      navigate('/edit');
     } else {
       navigate(`event/${event.id}`);
     }
