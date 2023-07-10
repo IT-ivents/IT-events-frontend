@@ -4,6 +4,7 @@ export const apiConfig = {
   topics: `/topics/`,
   tags: `/tags/`,
   sities: `/sities/`,
+  userEvents: `/users-events/`,
   // defaultHeaders: {
   //   'Content-Type': 'application/json'
   // }
@@ -16,6 +17,7 @@ class Api {
     topics,
     tags,
     sities,
+    userEvents,
     headers,
     // , defaultHeaders
   }) {
@@ -24,6 +26,7 @@ class Api {
     this._topicsEndpoint = topics;
     this._tagsEndpoint = tags;
     this._sitiesEndpoint = sities;
+    this._userEvents = userEvents;
     this._headers = headers;
     // this._defaultHeaders = defaultHeaders;
   }
@@ -51,6 +54,16 @@ class Api {
       // headers: this._defaultHeaders
     };
     return fetch(this._makeUrl(this._eventsEndpoint), options).then(
+      this._handleResponse
+    );
+  }
+
+  getUserEvents() {
+    const options = {
+      method: 'GET',
+      headers: this.getHeaders(),
+    };
+    return fetch(this._makeUrl(this._userEvents), options).then(
       this._handleResponse
     );
   }

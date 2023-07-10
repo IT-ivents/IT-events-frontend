@@ -27,10 +27,10 @@ function useAuth() {
 
   function handleError(error) {
     let message = '';
-
-    switch (error) {
+    console.log(error);
+    switch (error.status) {
       case 400:
-        message = 'Некорректное значение одного или нескольких полей';
+        message = 'Логин или пароль не совпадают. Проверьте введённые данные.';
         break;
       case 401:
         message = 'Неверно указаны e-mail или пароль';
@@ -39,7 +39,7 @@ function useAuth() {
         message = 'Пользователь с такой почтой уже зарегистрирован.';
         break;
       default:
-        message = 'Логин или пароль не совпадают. Проверьте введённые данные.';
+        message = 'Что-то пошло не так, попробуйте еще раз...';
     }
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);

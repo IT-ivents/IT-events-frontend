@@ -40,8 +40,18 @@ const UserEvents = ({
 
   // Получение созданных событий
   useEffect(() => {
-    setCreatedEvents(mostAnticipatedEvents);
-  }, [mostAnticipatedEvents]);
+    const fetchUserEvents = async () => {
+      try {
+        const response = await apiEvents.getUserEvents();
+        const userEvents = response.data;
+        setCreatedEvents(userEvents);
+      } catch (error) {
+        // Обработка ошибки при выполнении запроса
+      }
+    };
+    fetchUserEvents();
+  }, []);
+  console.log(createdEvents);
 
   const handleFilter = (option) => {
     let sortedList = [...createdEvents];
@@ -100,7 +110,7 @@ const UserEvents = ({
     } else {
       return (
         <VerticalEventList
-          events={createdEvents}
+          events={mostAnticipatedEvents}
           onCardClick={onCardClick}
           checkedEvents={checkedEvents}
           handleCheckboxChange={handleCheckboxChange}
@@ -110,13 +120,12 @@ const UserEvents = ({
     }
   };
 
-  const eventId = checkedEvents.map((event) => event.id);
-  // console.log(eventId);
+  const eventsToDelArray = checkedEvents.map((event) => event.id);
+  console.log(eventsToDelArray);
 
-  const handleDeleteEvent = async (event) => {
-    event.preventDefault();
+  const handleDeleteEvent = async (eventId) => {
     try {
-      const response = await apiEvents.deleteEvent(eventId);
+      const response = await apiEvents.deleteEvent(eventsToDelArray);
       console.log('Событие успешно удалено', response.data);
     } catch (error) {
       console.error('Ошибка при удалении события', error);

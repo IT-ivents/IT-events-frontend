@@ -14,6 +14,7 @@ const Organization = ({ selectedEvent }) => {
     values,
     setValues,
     handleChange,
+    handleDateChange,
     inputTypeNumberValidation,
     handleBlur,
     errors,
@@ -329,9 +330,6 @@ const Organization = ({ selectedEvent }) => {
             <fieldset className={styles.fieldset}>
               <label htmlFor="description" className={styles.label}>
                 Описание<span className={styles.spanError}>*</span>{' '}
-                <span className={styles.recommendation}>
-                  Максимум 1000 символов
-                </span>
               </label>
               <textarea
                 id="description"
@@ -351,7 +349,13 @@ const Organization = ({ selectedEvent }) => {
                     : ''
                 }`}
               />
-              <span className={styles.spanError}>{errors.description}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.description}</span>
+                <span className={styles.recommendation}>
+                  {values?.description?.length || 0}/
+                  <span className={styles.spanError}>1000</span>
+                </span>
+              </div>
             </fieldset>
           </div>
 
@@ -424,9 +428,6 @@ const Organization = ({ selectedEvent }) => {
         <fieldset className={styles.fieldset}>
           <label htmlFor="program" className={styles.label}>
             Программа<span className={styles.spanError}>*</span>{' '}
-            <span className={styles.recommendation}>
-              Максимум 3000 символов
-            </span>
           </label>
           <textarea
             id="program"
@@ -446,12 +447,18 @@ const Organization = ({ selectedEvent }) => {
                 : ''
             }`}
           ></textarea>
-          <span className={styles.spanError}>{errors.program}</span>
+          <div className={styles.spanContainer}>
+            <span className={styles.spanError}>{errors.program}</span>
+            <span className={styles.recommendation}>
+              {values?.program?.length || 0}/
+              <span className={styles.spanError}>3000</span>
+            </span>
+          </div>
         </fieldset>
 
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
-            <fieldset className={styles.fieldset}>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="start" className={styles.label}>
                 Дата и время начала<span className={styles.spanError}>*</span>{' '}
               </label>
@@ -461,7 +468,7 @@ const Organization = ({ selectedEvent }) => {
                 name="date_start"
                 required
                 value={values.date_start || ''}
-                onChange={handleChange}
+                onChange={handleDateChange}
                 className={`${styles.input} ${
                   errors.date_start
                     ? styles.inputError
@@ -470,7 +477,7 @@ const Organization = ({ selectedEvent }) => {
                     : ''
                 }`}
               />
-              <span className={styles.spanError}>{errors.date_start}</span>
+              <span className={styles.spanError}>{errors?.date_start}</span>
             </fieldset>
             <fieldset className={styles.fieldset}>
               <input
@@ -492,7 +499,7 @@ const Organization = ({ selectedEvent }) => {
             </fieldset>
           </div>
           <div className={styles.columnContainer}>
-            <fieldset className={styles.fieldset}>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="finish" className={styles.label}>
                 Дата и время окончания
                 <span className={styles.spanError}>*</span>{' '}
@@ -503,7 +510,7 @@ const Organization = ({ selectedEvent }) => {
                 name="date_end"
                 required
                 value={values.date_end || ''}
-                onChange={handleChange}
+                onChange={handleDateChange}
                 className={`${styles.input} ${
                   errors.date_end
                     ? styles.inputError
@@ -512,7 +519,7 @@ const Organization = ({ selectedEvent }) => {
                     : ''
                 }`}
               />
-              <span className={styles.spanError}>{errors.date_end}</span>
+              <span className={styles.spanError}>{errors?.date_end}</span>
             </fieldset>
             <fieldset className={styles.fieldset}>
               <input
@@ -538,9 +545,6 @@ const Organization = ({ selectedEvent }) => {
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="city" className={styles.label}>
               Город<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>
-                Максимум 25 символов
-              </span>
             </label>
             <input
               type="text"
@@ -561,15 +565,18 @@ const Organization = ({ selectedEvent }) => {
               minLength={2}
               maxLength={25}
             />
-            <span className={styles.spanError}>{errors.city}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.city}</span>
+              <span className={styles.recommendation}>
+                {values?.city?.length || 0}/
+                <span className={styles.spanError}>25</span>
+              </span>
+            </div>
           </fieldset>
 
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="address" className={styles.label}>
               Адрес<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>
-                Максимум 130 символов
-              </span>
             </label>
             <input
               type="text"
@@ -590,7 +597,13 @@ const Organization = ({ selectedEvent }) => {
               minLength={2}
               maxLength={130}
             />
-            <span className={styles.spanError}>{errors.address}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.address}</span>
+              <span className={styles.recommendation}>
+                {values?.address?.length || 0}/
+                <span className={styles.spanError}>130</span>
+              </span>
+            </div>
           </fieldset>
         </div>
 
@@ -598,9 +611,6 @@ const Organization = ({ selectedEvent }) => {
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="partners" className={styles.label}>
               Партнеры{' '}
-              <span className={styles.recommendation}>
-                Максимум 1000 символов
-              </span>
             </label>
             <input
               className={`${styles.input} ${
@@ -620,7 +630,13 @@ const Organization = ({ selectedEvent }) => {
               onBlur={handleBlur}
               maxLength={1000}
             />
-            <span className={styles.spanError}>{errors.partners}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.partners}</span>
+              <span className={styles.recommendation}>
+                {values?.partners?.length || 0}/
+                <span className={styles.spanError}>1000</span>
+              </span>
+            </div>
           </fieldset>
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="price" className={styles.label}>
@@ -654,10 +670,15 @@ const Organization = ({ selectedEvent }) => {
         <div className={styles.rowContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="image" className={styles.label}>
-              Добавьте баннер<span className={styles.spanError}>*</span>{' '}
+              Добавьте основной баннер
+              <span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
                 Рекомендуемый размер: 608х390, допустимые форматы .png, .jpeg,
-                .bmp, до 1 МБ включительно
+                .bmp, до 1 МБ включительно.
+              </span>{' '}
+              <span className={styles.recommendation}>
+                Перед тем как вставить изображение, обязательно убедитесь, что
+                вы не нарушаете ничьих авторских прав.
               </span>
             </label>
 
@@ -676,10 +697,14 @@ const Organization = ({ selectedEvent }) => {
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="image" className={styles.label}>
-              Добавьте баннер<span className={styles.spanError}>*</span>{' '}
+              Добавьте обложку<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
                 Рекомендуемый размер: 296x240, допустимые форматы .png, .jpeg,
-                .bmp, до 1 МБ включительно
+                .bmp, до 1 МБ включительно.
+              </span>{' '}
+              <span className={styles.recommendation}>
+                Изображение попадет в шапку события и будет отображаться в ленте
+                мероприятий.
               </span>
             </label>
             <input

@@ -32,8 +32,8 @@ export function useFilterdList({ values, searchResult }) {
       );
     }
     if (city) {
-      filteredArray = filteredArray.filter(
-        (event) => event.city?.name?.toLowerCase() === city
+      filteredArray = filteredArray.filter((event) =>
+        event.city.toLowerCase().trim().includes(city.toLowerCase().trim())
       );
     }
     if (price && price === 'Бесплатно') {
