@@ -5,6 +5,7 @@ export const apiConfig = {
   topics: `/topics/`,
   tags: `/tags/`,
   sities: `/sities/`,
+  userEvents: `/users-events/`,
   // defaultHeaders: {
   //   'Content-Type': 'application/json'
   // }
@@ -18,6 +19,7 @@ class Api {
     topics,
     tags,
     sities,
+    userEvents,
     headers,
     // , defaultHeaders
   }) {
@@ -27,6 +29,7 @@ class Api {
     this._topicsEndpoint = topics;
     this._tagsEndpoint = tags;
     this._sitiesEndpoint = sities;
+    this._userEvents = userEvents;
     this._headers = headers;
     // this._defaultHeaders = defaultHeaders;
   }
@@ -58,6 +61,16 @@ class Api {
     );
   }
 
+  getUserEvents() {
+    const options = {
+      method: 'GET',
+      headers: this.getHeaders(),
+    };
+    return fetch(this._makeUrl(this._userEvents), options).then(
+      this._handleResponse
+    );
+  }
+
   postNewEvent(data) {
     const options = {
       method: 'POST',
@@ -81,14 +94,14 @@ class Api {
     ).then(this._handleResponse);
   }
 
-  deleteEvent(id, data) {
+  deleteEvent(data) {
     const options = {
       method: 'DELETE',
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(
-      this._makeUrl(this._editEventsEndpoint) + `${id}/`,
+      this._makeUrl(this._userEvents) + `batch_delete/`,
       options
     ).then(this._handleResponse);
   }

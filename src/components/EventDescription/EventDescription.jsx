@@ -18,6 +18,9 @@ import {
 
 const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
+  const CalendarImage = require('../../images/EventInfo/calendar.svg').default;
+  const TimeImage = require('../../images/EventInfo/time.svg').default;
+  const PlaceImage = require('../../images/EventInfo/place.svg').default;
 
   const handleButtonClick = () => {
     const link = `${window.location.origin}/event/${selectedEvent.id}`;

@@ -8,7 +8,10 @@ export const handleResponse = async (res) => {
       return await res.json();
     }
   } else {
-    throw new Error(`Запрос отклонен: ${res.status}`);
+    throw {
+      status: res.status,
+      message: `Запрос отклонен: ${res.status}`,
+    };
   }
 };
 
