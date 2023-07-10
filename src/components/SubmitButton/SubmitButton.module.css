@@ -1,11 +1,16 @@
 .submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #674eae;
+  color: white;
+  border: 0;
+  border-radius: 8px;
   width: 100%;
   padding: 10px 0;
-  color: white;
-  background-color: #674eae;
-  border-radius: 8px;
-  border: none;
+  font-size: 16px;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.3s;
 }
 
