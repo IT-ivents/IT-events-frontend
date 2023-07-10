@@ -33,7 +33,7 @@ const TagsSection = ({ handleChange }) => {
     <>
       <div className={styles.tagsList}>
         {tagOptions
-          .slice(0, showAllTags ? tags.length : 7)
+          .slice(0, showAllTags ? tags.length : 9)
           .map((tag, index) => (
             <TagButton
               key={index}
@@ -44,7 +44,7 @@ const TagsSection = ({ handleChange }) => {
       </div>
       {tags.length > 10 && (
         <button onClick={toggleShowAllTags} className={styles.showMore}>
-          {showAllTags ? 'Показать меньше' : 'Показать больше'}
+          {showAllTags ? 'Свернуть все' : 'Показать больше'}
         </button>
       )}
     </>

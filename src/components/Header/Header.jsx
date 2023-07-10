@@ -17,6 +17,10 @@ const smallForm = {
   borderRadius: '20px',
 };
 
+const radiusForm = {
+  borderRadius: '34px',
+};
+
 const smallFieldset = {
   gap: '6px',
   marginLeft: '13px',
@@ -29,14 +33,21 @@ const smallInput = {
 const avatar = {
   width: '44px',
   height: '44px',
-  fontSize: '20px',
+  fontSize: '16px',
   backgroundColor: 'transparent',
   color: 'rgba(0, 0, 0, 0.8)',
   cursor: 'pointer',
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
-const Header = ({ onSearch, searchQuery, onEnter, loggedIn, currentUser }) => {
+const Header = ({
+  onSearch,
+  searchQuery,
+  onEnter,
+  loggedIn,
+  currentUser,
+  selectedEvent,
+}) => {
   //const { handleLogout, currentUser } = useAuth();
   const [username, setUsername] = useState('');
   const location = useLocation();
@@ -53,6 +64,7 @@ const Header = ({ onSearch, searchQuery, onEnter, loggedIn, currentUser }) => {
   const isSearchFieldOnTop =
     location.pathname === '/event' ||
     location.pathname === '/favorites' ||
+    // location.pathname === `/event/${selectedEvent.id}` ||
     location.pathname === '/notifications';
 
   const navLinks = [
@@ -133,9 +145,7 @@ const Header = ({ onSearch, searchQuery, onEnter, loggedIn, currentUser }) => {
           <SearchField
             onSearch={onSearch}
             searchQuery={searchQuery}
-            smallForm={smallForm}
-            smallFieldset={smallFieldset}
-            smallInput={smallInput}
+            radiusForm={radiusForm}
           />
         </div>
       )}

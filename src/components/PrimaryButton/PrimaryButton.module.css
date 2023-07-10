@@ -1,13 +1,14 @@
 .primaryButton {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 9px;
   background-color: #674eae;
   color: #f1f0eb;
   border: 0;
   border-radius: 8px;
   width: fit-content;
-  padding: 12px 23px;
+  height: 44px;
+  padding: 12px 24px;
   font-size: 16px;
   cursor: pointer;
   text-decoration: none;
@@ -20,4 +21,9 @@
 
 .primaryButton:active {
   background-color: #291b51;
+}
+
+.figure {
+  width: 20px;
+  height: 20px;
 }

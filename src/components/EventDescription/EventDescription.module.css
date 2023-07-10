@@ -1,7 +1,7 @@
 .eventDescription {
   position: relative;
   width: 600px;
-  margin-bottom: 217px;
+  margin-bottom: 221px;
   cursor: default;
 }
 
@@ -31,7 +31,14 @@
 }
 
 .eventFigure {
+  width: 24px;
+  height: 24px;
   cursor: pointer;
+}
+
+.image {
+  width: 24px;
+  height: 24px;
 }
 
 .eventDates {
