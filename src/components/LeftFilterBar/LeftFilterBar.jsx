@@ -119,7 +119,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
     >
       {resultLocation && <h2 className={styles.filterTitle}>Фильтры</h2>}
       <ul className={styles.filterList}>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Формат</h3>
           <label htmlFor="online">
             <input
@@ -146,7 +146,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             <span className={styles.checkboxLabel}>Offline</span>
           </label>
         </li>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Город</h3>
           <input
             onChange={handleInputChange}
@@ -172,14 +172,14 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             </div>
           )}
         </li>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Дата</h3>
           {renderDateOptions()}
           <button onClick={toggleShowAllDates} className={styles.showMore}>
             {showAllDates ? 'Показать меньше' : 'Показать больше'}
           </button>
         </li>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Направление</h3>
           {renderSpecialityOptions()}
           {dataLists?.topics?.length > 3 && (
@@ -188,7 +188,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             </button>
           )}
         </li>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Цена</h3>
           <label htmlFor="free" className={styles.radioButton}>
             <input
@@ -213,7 +213,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             <span>Платно</span>
           </label>
         </li>
-        <li>
+        <li className={styles.list}>
           <h3 className={styles.itemTitle}>Теги</h3>
           <input
             onChange={handleInputChange}
@@ -238,6 +238,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
               </div>
             </div>
           )}
+          <span className={styles.popularTags}>Популярные теги</span>
         </li>
       </ul>
       <TagsSection handleChange={handleButtonChange} />

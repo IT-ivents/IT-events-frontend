@@ -5,6 +5,7 @@
   align-items: center;
   height: 302px;
   padding-left: 20px;
+  margin-bottom: -24px;
   background: url(../../images/banner.svg) no-repeat;
   background-size: cover;
   color: #f1f0eb;

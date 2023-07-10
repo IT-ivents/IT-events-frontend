@@ -136,7 +136,7 @@ const Organization = ({ selectedEvent }) => {
   // Для предпросмотра
   const eventDetails = {
     title: values.title,
-    city: { name: values.city || 'Invalid City' },
+    city: values.city,
     image: imageSmall || selectedEvent?.image,
     price: values.price || 0,
     date_start: values.date_start,
@@ -145,7 +145,7 @@ const Organization = ({ selectedEvent }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 1048576) {
+    if (file?.size > 1048576) {
       setImageErrorMessage('Файл больше допустимого размера');
       return;
     }
@@ -220,14 +220,12 @@ const Organization = ({ selectedEvent }) => {
 
   const handlePostNewEvent = async (event) => {
     event.preventDefault();
-    await apiEvents
-      .postNewEvent(newCardData)
-      .then((response) => {
-        console.log('Новое событие успешно создано', response.data);
-      })
-      .catch((error) => {
-        console.error('Ошибка при создании события', error);
-      });
+    try {
+      const response = await apiEvents.postNewEvent(newCardData);
+      console.log('Новое событие успешно создано', response.data);
+    } catch (error) {
+      console.error('Ошибка при создании события', error);
+    }
   };
 
   const customSelectStyles = {
@@ -290,7 +288,7 @@ const Organization = ({ selectedEvent }) => {
               <div className={styles.spanContainer}>
                 <span className={styles.spanError}>{errors.title}</span>
                 <span className={styles.recommendation}>
-                  {values?.title?.length}/
+                  {values?.title?.length || 0}/
                   <span className={styles.spanError}>50</span>
                 </span>
               </div>
@@ -319,7 +317,13 @@ const Organization = ({ selectedEvent }) => {
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              <span className={styles.spanError}>{errors.url}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.url}</span>
+                <span className={styles.recommendation}>
+                  {values?.url?.length || 0}/
+                  <span className={styles.spanError}>200</span>
+                </span>
+              </div>
             </fieldset>
 
             <fieldset className={styles.fieldset}>

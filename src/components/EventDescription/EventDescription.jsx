@@ -37,6 +37,10 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
       ? eventStartDate
       : `${eventStartDate} - ${eventEndDate}`;
 
+  const height = {
+    height: '42px',
+  };
+
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
@@ -57,24 +61,33 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
       </header>
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>
-          <img src={CalendarImage} alt="Календарь" />
+          <img src={CalendarImage} alt="Календарь" className={styles.image} />
           {eventDate}
         </li>
         <li className={styles.eventDate}>
-          <img src={TimeImage} alt="Время" />
+          <img src={TimeImage} alt="Время" className={styles.image} />
           {formatTimeRange(selectedEvent.date_start, selectedEvent.date_end)}
         </li>
         <li className={styles.eventDate}>
-          <img src={PlaceImage} alt="Место проведения" />
-          {selectedEvent?.address?.split(' ').slice(0, 9).join(' ') ||
-            selectedEvent?.city?.name ||
+          <img
+            src={PlaceImage}
+            alt="Место проведения"
+            className={styles.image}
+          />
+          {selectedEvent?.address ||
+            'Нет данных' ||
+            selectedEvent?.city ||
             'Нет данных'}
         </li>
         <li className={styles.eventPrice}>
           {formatPrice(selectedEvent.price)}
         </li>
       </ul>
-      <PrimaryButton title="Сайт мероприятия" to={selectedEvent?.url} />
+      <PrimaryButton
+        title="Сайт мероприятия"
+        to={selectedEvent?.url}
+        style={height}
+      />
       <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );

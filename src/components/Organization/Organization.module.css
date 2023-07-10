@@ -138,7 +138,6 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  /* padding-top: 4px; */
 }
 
 .message {
@@ -150,7 +149,6 @@
 
 .recommendation {
   color: rgba(0, 0, 0, 0.6);
-  text-decoration-line: underline;
   font-size: 12px;
 }
 

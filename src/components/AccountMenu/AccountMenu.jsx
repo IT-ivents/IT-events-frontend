@@ -7,7 +7,6 @@ import Calendar from '../../images/calendar.svg';
 import CalendarActive from '../../images/calendar_active.svg';
 import Exit from './../../images/exit.svg';
 import AccountButton from '../AccountButton/AccountButton';
-import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 
 const AccountMenu = ({ handleLogout, currentUser }) => {
@@ -58,7 +57,7 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const menuTitles = {
     0: {
-      title: currentUser.username,
+      title: currentUser.name,
       subtitle: currentUser.email,
       titleClass: styles.titleUser,
       subtitleClass: styles.subtitleUser,
@@ -71,15 +70,13 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
     },
   };
 
-  // const currentTab = tabs[activeTab];
-
   return (
     <section>
       {currentUser && (
         <div className={styles.accountMenu}>
           <div className={styles.userLogo}>
             {location.pathname === '/account' && (
-              <Avatar name={currentUser.username} />
+              <Avatar name={currentUser.name} />
             )}
             <div>
               <h1 className={menuTitles[activeTab].titleClass}>

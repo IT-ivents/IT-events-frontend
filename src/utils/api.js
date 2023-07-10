@@ -1,6 +1,6 @@
 export const apiConfig = {
   baseUrl: `http://80.87.107.15/api/v1`,
-  events: `/events`,
+  events: `/events/`,
   topics: `/topics/`,
   tags: `/tags/`,
   sities: `/sities/`,
@@ -66,6 +66,18 @@ class Api {
     );
   }
 
+  deleteEvent(data) {
+    const options = {
+      method: 'DELETE',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    };
+    return fetch(
+      this._makeUrl(this._eventsEndpoint) + `${data}/`,
+      options
+    ).then(this._handleResponse);
+  }
+
   getTopics() {
     const options = {
       method: 'GET',
@@ -97,6 +109,8 @@ class Api {
     const token = localStorage.getItem('jwt');
     return {
       ...this._headers,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     };
   }
