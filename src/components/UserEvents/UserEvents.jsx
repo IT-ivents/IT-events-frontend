@@ -98,7 +98,7 @@ const UserEvents = ({
   };
 
   const pageRender = () => {
-    if (mostAnticipatedEvents.length === 0 || !mostAnticipatedEvents) {
+    if (createdEvents.length === 0 || !createdEvents) {
       return (
         <>
           <h2 className={styles.title}>У Вас пока нет созданных событий</h2>
@@ -110,7 +110,7 @@ const UserEvents = ({
     } else {
       return (
         <VerticalEventList
-          events={mostAnticipatedEvents}
+          events={createdEvents}
           onCardClick={onCardClick}
           checkedEvents={checkedEvents}
           handleCheckboxChange={handleCheckboxChange}
@@ -120,13 +120,16 @@ const UserEvents = ({
     }
   };
 
-  const eventsToDelArray = checkedEvents.map((event) => event.id);
-  console.log(eventsToDelArray);
-
-  const handleDeleteEvent = async (eventId) => {
+  const handleDeleteEvent = async () => {
+    const eventsToDelArray = checkedEvents?.map((event) => event.id);
     try {
-      const response = await apiEvents.deleteEvent(eventsToDelArray);
-      console.log('Событие успешно удалено', response.data);
+      const response = await apiEvents.deleteEvent({
+        event_ids: eventsToDelArray,
+      });
+      const updatedEvents = response.data;
+      setCreatedEvents(updatedEvents);
+      console.log('USER_EVENTS:', createdEvents);
+      console.log('Событие успешно удалено');
     } catch (error) {
       console.error('Ошибка при удалении события', error);
     }

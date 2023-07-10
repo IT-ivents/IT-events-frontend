@@ -94,14 +94,14 @@ class Api {
     ).then(this._handleResponse);
   }
 
-  deleteEvent(id, data) {
+  deleteEvent(data) {
     const options = {
       method: 'DELETE',
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(
-      this._makeUrl(this._editEventsEndpoint) + `${id}/`,
+      this._makeUrl(this._userEvents) + `batch_delete/`,
       options
     ).then(this._handleResponse);
   }

@@ -140,7 +140,7 @@ const Organization = ({ selectedEvent }) => {
   // Для предпросмотра
   const eventDetails = {
     title: values.title,
-    city: values.city,
+    city: values.city || 'Invalid City',
     image: imageSmall || selectedEvent?.image,
     price: values.price || 0,
     date_start: values.date_start,
