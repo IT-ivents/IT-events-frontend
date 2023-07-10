@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import styles from './App.module.css';
 
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-  Navigate,
-} from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
@@ -47,6 +41,8 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+  const [pastEvents, setPastEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   const {
     handleLogin,
@@ -93,40 +89,54 @@ function App() {
     }
   }, [location]);
 
-  const recommendedList = useMemo(() => {
+  // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
+  const getRecommendedEvents = (events) => {
     if (!selectedEvent || !selectedEvent.tags) {
       return [];
     }
-    const recommended = eventsFromApi.filter((event) => {
+    const selectedTags = selectedEvent.tags.map((tag) =>
+      tag.name.toLowerCase().trim()
+    );
+    const recommended = events.filter((event) => {
       return (
-        // Исключаем попадание выбранной карточки в список рекомендаций
         event.id !== selectedEvent.id &&
-        event.tags.some((tag) => {
-          const tagName = tag.name.toLowerCase().trim();
-          return selectedEvent.tags.some(
-            (selectedTag) => selectedTag.name.toLowerCase().trim() === tagName
-          );
-        })
+        event.tags?.some((tag) =>
+          selectedTags.includes(tag.name.toLowerCase().trim())
+        ) &&
+        event.topic?.some((topic) =>
+          selectedTags.includes(topic.name.toLowerCase().trim())
+        )
       );
     });
-    if (recommended.length === 0) {
-      const randomEvents = getRandomEvents(eventsFromApi, 4);
-      setRecommendedEvents(randomEvents);
-      return randomEvents; // Добавлен возврат значения
-    } else {
-      setRecommendedEvents(recommended.slice(0, 4));
-      return recommended.slice(0, 4); // Добавлен возврат значения
-    }
-  }, [selectedEvent, eventsFromApi]);
 
-  const getSoonEvents = (events) => {
+    if (recommended.length === 0) {
+      const randomEvents = getRandomEvents(events, 4);
+      return randomEvents;
+    } else {
+      return recommended.slice(0, 4);
+    }
+  };
+
+  useEffect(() => {
+    const recommended = getRecommendedEvents(upcomingEvents);
+    setRecommendedEvents(recommended);
+  }, [selectedEvent]);
+
+  // ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
+  const getCurrentEvents = (events) => {
     const currentDate = new Date();
     return events
       .filter((event) => new Date(event.date_start) >= currentDate)
-      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start))
-      .slice(0, 6);
+      .sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
   };
-
+  // ------------ ПРОШЕДШИЕ СОБЫТИЯ ----------- //
+  const getPastEvents = (events) => {
+    const currentDate = new Date();
+    return events
+      .filter((event) => new Date(event.date_start) < currentDate)
+      .sort((a, b) => new Date(b.date_start) - new Date(a.date_start));
+  };
+  // ------------ ПОЛУЧЕНИЕ СОБЫТИЙ С СЕРВЕРА ------------ //
   useEffect(() => {
     const fetchDataAndSaveToLocalStorage = async () => {
       try {
@@ -146,12 +156,18 @@ function App() {
         const isLiked = favorites.some((item) => item.id === event.id);
         return { ...event, isLiked };
       });
-      const soonEvents = getSoonEvents(updatedEvents);
-      setMostAnticipatedEvents(updatedEvents.slice(0, 6));
-      setPopularEvents(updatedEvents.slice(7, 19));
-      setInterestingEvents(updatedEvents.slice(19, events.length - 1));
-      setSoonEvents(soonEvents);
-      setSearchResult(updatedEvents);
+      // ДЕЛИМ НА ПРЕДСТОЯЩИЕ И ПРОШЕДШИЕ
+      const upcomingEvents = getCurrentEvents(updatedEvents);
+      const pastEvents = getPastEvents(updatedEvents);
+      console.log('Upcoming events:', upcomingEvents);
+      console.log('Past Events:', pastEvents);
+      setMostAnticipatedEvents(upcomingEvents);
+      setPopularEvents(upcomingEvents);
+      setInterestingEvents(upcomingEvents);
+      setSoonEvents(upcomingEvents.slice(0, 6));
+      setSearchResult(upcomingEvents);
+      setPastEvents(pastEvents);
+      setUpcomingEvents(upcomingEvents);
     };
 
     const fetchData = async () => {
@@ -179,10 +195,10 @@ function App() {
       }
     };
     fetchData();
+    // ОБНОВЛЕНИЕ СОБЫТИЙ С СЕРВЕРА КАЖДЫЕ 10 МИНУТ
     const interval = setInterval(() => {
       fetchData();
-    }, 600000); // 10 минут в миллисекундах
-
+    }, 600000);
     return () => {
       clearInterval(interval);
     };
@@ -223,7 +239,7 @@ function App() {
       }
     });
   };
-
+  // MAIN LIKE UPDATE FUNCTION
   const toggleFavorite = (event) => {
     updateFavorites(event);
     // Обновление isLiked у selectedEvent
@@ -243,6 +259,7 @@ function App() {
     setSearchResult((prevEvents) => updateEvents(prevEvents));
     setRecommendedEvents((prevEvents) => updateEvents(prevEvents));
     setEventsFromApi((prevEvents) => updateEvents(prevEvents));
+    setUpcomingEvents((prevEvents) => updateEvents(prevEvents));
   }, [favorites]);
 
   // Функция обновления массивов событий
@@ -254,22 +271,14 @@ function App() {
   }
 
   const searchEvents = (query) => {
-    console.log(query);
     if (typeof query !== 'string') {
       return eventsFromApi;
     }
     const words = query.toLowerCase().trim().split(' ');
-    const currentDate = Date.now();
-
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
-    // const currentEvents = eventsFromApi.filter((event) => {
-    //   const startDate = new Date(event.date_start).getTime();
-    //   const isPastEvent = startDate < Date.now();
-    //   return !isPastEvent;
-    // });
 
-    const filteredEvents = [...eventsFromApi]
+    const filteredEvents = [...upcomingEvents]
       .map((event) => {
         const isLiked = favorites.some((item) => item.id === event.id);
         // Установим релевантность
@@ -319,15 +328,8 @@ function App() {
           return b.relevance - a.relevance;
         }
       });
-    const pastEvents = filteredEvents.filter(
-      (event) => event.startDate < currentDate
-    );
-    const currentEvents = filteredEvents.filter(
-      (event) => event.startDate >= currentDate
-    );
-    console.log('Прошедшие', pastEvents);
-    console.log('Актуальные', currentEvents);
-    return currentEvents;
+
+    return filteredEvents;
   };
 
   //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);
@@ -341,7 +343,7 @@ function App() {
 
   const handleFilterSearch = () => {
     //setSearchQuery(query)
-    setSearchResult(eventsFromApi);
+    setSearchResult(upcomingEvents);
     navigate('/results');
   };
 
@@ -379,6 +381,9 @@ function App() {
               handleClose={toggleModalSignIn}
               isRegister={toggleModalSignUp}
               onSignIn={handleLogin}
+              loggedIn={loggedIn}
+              serverError={serverError}
+              setServerError={setServerError}
             />
           )}
           {isModalSignUpOpen && (
@@ -386,6 +391,7 @@ function App() {
               isOpen={toggleModalSignUp}
               handleClose={toggleModalSignUp}
               onSignUp={handleRegister}
+              loggedIn={loggedIn}
               isLoading={isLoading}
               setServerError={setServerError}
               serverError={serverError}

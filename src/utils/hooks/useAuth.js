@@ -39,7 +39,7 @@ function useAuth() {
         message = 'Пользователь с такой почтой уже зарегистрирован.';
         break;
       default:
-        message = 'Что-то пошло не так! Попробуйте ещё раз.';
+        message = 'Логин или пароль не совпадают. Проверьте введённые данные.';
     }
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
@@ -66,7 +66,7 @@ function useAuth() {
           setCurrentUser(fullUserData);
           //setCurrentUser(userData);
           localStorage.setItem('currentUser', JSON.stringify(fullUserData));
-          //navigate('/account'); // Перенаправление на страницу /account
+          navigate('/account'); // Перенаправление на страницу /account
         } catch (error) {
           handleError(error);
         }

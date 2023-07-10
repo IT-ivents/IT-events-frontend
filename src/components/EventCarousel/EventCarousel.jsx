@@ -11,7 +11,7 @@ export default function EventCarousel({ mostAnticipatedEvents, onCardClick }) {
     infinite: true,
     speed: 750,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     autoplay: false,
     autoplaySpeed: 750,
     cssEase: 'linear',

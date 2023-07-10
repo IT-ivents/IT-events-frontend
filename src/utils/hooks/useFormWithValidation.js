@@ -25,6 +25,56 @@ export function useFormWithValidation() {
     setIsValid(target.closest('form').checkValidity());
   };
 
+  const handleEmailChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let validationPattern;
+    let error = '';
+    if (name === 'email') {
+      validationPattern = /^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!validationPattern.test(value)) {
+        error = 'Введите корректный email';
+      }
+    }
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handlePasswordChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let validationPattern;
+    let error = '';
+    if (name === 'password') {
+      validationPattern =
+        /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{8,}$/;
+      if (!validationPattern.test(value)) {
+        error = 'Введите корректный пароль';
+      }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
   useEffect(() => {
     const hasErrors = Object.keys(errors).some((key) => errors[key]);
     const hasOptionalFields = !!values.partners || !!values.url;
@@ -73,6 +123,8 @@ export function useFormWithValidation() {
     values,
     setValues,
     handleChange,
+    handleEmailChange,
+    handlePasswordChange,
     handleBlur,
     errors,
     isValid,
