@@ -2,9 +2,9 @@ import styles from './EventDescription.module.css';
 import { useState } from 'react';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-import CalendarImage from '../../../src/images/EventInfo/calendar.svg';
-import TimeImage from '../../../src/images/EventInfo/time.svg';
-import PlaceImage from '../../../src/images/EventInfo/place.svg';
+//import CalendarImage from '../../../src/images/EventInfo/calendar.svg';
+//import TimeImage from '../../../src/images/EventInfo/time.svg';
+//import PlaceImage from '../../../src/images/EventInfo/place.svg';
 import LikeImage from './../../images/like-button.svg';
 import LikeImageActive from './../../images/like-button_active.svg';
 import ShareImage from './../../images/Actions/Share.svg';
@@ -18,6 +18,9 @@ import {
 
 const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
+  const CalendarImage = require('../../images/EventInfo/calendar.svg').default;
+  const TimeImage = require('../../images/EventInfo/time.svg').default;
+  const PlaceImage = require('../../images/EventInfo/place.svg').default;
 
   const handleButtonClick = () => {
     const link = `${window.location.origin}/event/${selectedEvent.id}`;
