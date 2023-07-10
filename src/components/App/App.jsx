@@ -373,6 +373,7 @@ function App() {
             onEnter={toggleModalSignIn}
             loggedIn={loggedIn}
             currentUser={currentUser}
+            selectedEvent={selectedEvent}
           />
           {isModalSignInOpen && (
             <ModalSignIn

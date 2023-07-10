@@ -66,6 +66,18 @@ class Api {
     );
   }
 
+  deleteEvent(data) {
+    const options = {
+      method: 'DELETE',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    };
+    return fetch(
+      this._makeUrl(this._eventsEndpoint) + `${data}/`,
+      options
+    ).then(this._handleResponse);
+  }
+
   getTopics() {
     const options = {
       method: 'GET',

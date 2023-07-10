@@ -7,7 +7,6 @@ import Calendar from '../../images/calendar.svg';
 import CalendarActive from '../../images/calendar_active.svg';
 import Exit from './../../images/exit.svg';
 import AccountButton from '../AccountButton/AccountButton';
-import useAuth from '../../utils/hooks/useAuth';
 import Avatar from '../Avatar/Avatar';
 
 const AccountMenu = ({ handleLogout, currentUser }) => {
@@ -70,8 +69,6 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
       subtitleClass: styles.subtitleEvents,
     },
   };
-
-  // const currentTab = tabs[activeTab];
 
   return (
     <section>

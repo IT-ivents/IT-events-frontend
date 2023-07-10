@@ -40,11 +40,15 @@ const SearchResultPage = ({
     return filteredList.slice(startIndex, endIndex);
   };
 
+  const filterBar = {
+    margin: '32px 0',
+  };
+
   return (
     <section className={styles.searchResultPageWrapper}>
       <LeftFilterBar searchQuery={searchQuery} />
       <div>
-        <TopFilersBar />
+        <TopFilersBar style={filterBar} />
         {isNothingFind && (
           <PageTitle
             title="Ничего не нашлось"

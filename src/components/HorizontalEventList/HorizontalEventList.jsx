@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
-// import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
 import { useLocation } from 'react-router-dom';

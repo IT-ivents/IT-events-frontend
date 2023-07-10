@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './UserEvents.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import FilterBar from '../FilterBar/FilterBar';
 import VerticalEventList from '../VerticalEventList/VerticalEventList';
 import AddImage from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
+import { apiEvents } from '../../utils/api';
 
 const UserEvents = ({
   mostAnticipatedEvents,
@@ -15,8 +16,29 @@ const UserEvents = ({
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
   const [sortByDate, setSortByDate] = useState(true);
-  const noEvents = !mostAnticipatedEvents.length;
+  const [checkedEvents, setCheckedEvents] = useState([]);
 
+  // Выбор карточки
+  const location = useLocation();
+  const isCheckboxInvisible =
+    location.pathname === '/notifications' ||
+    location.pathname === '/account/events';
+
+  const handleCheckboxChange = (event, isChecked) => {
+    if (isChecked) {
+      setCheckedEvents((prevCheckedEvents) => [...prevCheckedEvents, event]);
+    } else {
+      setCheckedEvents((prevCheckedEvents) =>
+        prevCheckedEvents.filter((checkedEvent) => checkedEvent.id !== event.id)
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log('TO_DEL_CHECKBOX', checkedEvents);
+  }, [checkedEvents]);
+
+  // Получение созданных событий
   useEffect(() => {
     setCreatedEvents(mostAnticipatedEvents);
   }, [mostAnticipatedEvents]);
@@ -77,8 +99,27 @@ const UserEvents = ({
       );
     } else {
       return (
-        <VerticalEventList events={createdEvents} onCardClick={onCardClick} />
+        <VerticalEventList
+          events={createdEvents}
+          onCardClick={onCardClick}
+          checkedEvents={checkedEvents}
+          handleCheckboxChange={handleCheckboxChange}
+          isCheckboxInvisible={isCheckboxInvisible}
+        />
       );
+    }
+  };
+
+  const eventId = checkedEvents.map((event) => event.id);
+  // console.log(eventId);
+
+  const handleDeleteEvent = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await apiEvents.deleteEvent(eventId);
+      console.log('Событие успешно удалено', response.data);
+    } catch (error) {
+      console.error('Ошибка при удалении события', error);
     }
   };
 
@@ -87,7 +128,11 @@ const UserEvents = ({
       <div className={styles.filterBar}>
         <FilterBar onFilter={handleFilter} />
         <div className={styles.buttons}>
-          <button type="button" className={styles.delete}></button>
+          <button
+            type="button"
+            onClick={handleDeleteEvent}
+            className={styles.delete}
+          ></button>
           <Link
             to="/organization"
             className={styles.link}
