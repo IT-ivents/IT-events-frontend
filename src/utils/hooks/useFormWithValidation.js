@@ -56,9 +56,43 @@ export function useFormWithValidation() {
     let error = '';
     if (name === 'password') {
       validationPattern =
-        /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{8,}$/;
+        /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{6,}$/u;
       if (!validationPattern.test(value)) {
-        error = 'Введите корректный пароль';
+        error = target.validationMessage;
+      }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handleDateChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let error = '';
+
+    if (name === 'date_start' || name === 'date_end') {
+      const startDate =
+        name === 'date_start' ? new Date(value) : new Date(values.date_start);
+      const endDate =
+        name === 'date_end' ? new Date(value) : new Date(values.date_end);
+      const currentDate = new Date();
+
+      if (startDate && endDate && startDate > endDate) {
+        error = 'Дата окончания должна быть позже даты начала';
+      }
+
+      if (startDate && startDate < currentDate) {
+        error = 'Выберите дату начала, которая больше или равна текущей дате';
       }
     }
 
@@ -125,6 +159,7 @@ export function useFormWithValidation() {
     handleChange,
     handleEmailChange,
     handlePasswordChange,
+    handleDateChange,
     handleBlur,
     errors,
     isValid,

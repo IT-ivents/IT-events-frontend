@@ -144,8 +144,6 @@ function App() {
         const newData = data.data;
         console.log(newData);
         setEventsFromApi(newData);
-        localStorage.setItem('eventsData', JSON.stringify(newData));
-        // Обновить массивы событий с учетом избранных событий
         updateEventArrays(newData);
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);
@@ -158,7 +156,7 @@ function App() {
       });
       // ДЕЛИМ НА ПРЕДСТОЯЩИЕ И ПРОШЕДШИЕ
       const upcomingEvents = getCurrentEvents(updatedEvents);
-      const pastEvents = getPastEvents(updatedEvents);
+      const pastEvents = getPastEvents(eventsFromApi);
       console.log('Upcoming events:', upcomingEvents);
       console.log('Past Events:', pastEvents);
       setMostAnticipatedEvents(upcomingEvents);
@@ -168,6 +166,7 @@ function App() {
       setSearchResult(upcomingEvents);
       setPastEvents(pastEvents);
       setUpcomingEvents(upcomingEvents);
+      localStorage.setItem('eventsData', JSON.stringify(upcomingEvents));
     };
 
     const fetchData = async () => {
