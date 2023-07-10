@@ -1,16 +1,18 @@
+import { Link } from 'react-router-dom';
 import styles from './SubmitButton.module.css';
 
-const SubmitButton = ({ title, type, disabled, style, onClick }) => {
+const SubmitButton = ({ title, to, type, disabled, style, onClick }) => {
   return (
-    <button
+    <Link
       className={styles.submitBtn}
+      to={to}
       type={type || 'button'}
       onClick={onClick}
       disabled={disabled}
       style={style}
     >
       {title}
-    </button>
+    </Link>
   );
 };
 

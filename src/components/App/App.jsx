@@ -220,6 +220,7 @@ function App() {
   const handleCardClick = (event) => {
     if (location.pathname === '/account/events') {
       navigate('/organization');
+      navigate('/');
     } else {
       navigate(`event/${event.id}`);
     }
@@ -465,10 +466,16 @@ function App() {
             <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="cookies" element={<CookiePage />} />
             <Route path="about" element={<About />} />
+
             <Route
               path="organization"
               element={<Organization selectedEvent={selectedEvent} />}
             />
+            <Route
+              path="edit"
+              element={<Organization selectedEvent={selectedEvent} />}
+            />
+
             <Route
               path="account/*"
               element={

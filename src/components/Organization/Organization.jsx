@@ -8,6 +8,7 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import useAuth from '../../utils/hooks/useAuth';
+import { useLocation } from 'react-router-dom';
 
 const Organization = ({ selectedEvent }) => {
   const {
@@ -30,6 +31,8 @@ const Organization = ({ selectedEvent }) => {
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
   const { currentUser } = useAuth();
+
+  const location = useLocation();
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -225,6 +228,16 @@ const Organization = ({ selectedEvent }) => {
       console.log('Новое событие успешно создано', response.data);
     } catch (error) {
       console.error('Ошибка при создании события', error);
+    }
+  };
+
+  const handleEditEvent = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await apiEvents.editEvent(selectedEvent.id, newCardData);
+      console.log('Событие успешно изменено', response.data);
+    } catch (error) {
+      console.error('Ошибка при редактировании события', error);
     }
   };
 
@@ -702,13 +715,23 @@ const Organization = ({ selectedEvent }) => {
             корректность заполненных данных. Карточка с Вашим мероприятием
             появится на сайте после проверки модератором.{' '}
           </p>
-          <SubmitButton
-            title="Отправить"
-            type="submit"
-            disabled={disabledButton}
-            style={width}
-            onClick={handlePostNewEvent}
-          />
+          {location.pathname === '/organization' ? (
+            <SubmitButton
+              title="Отправить"
+              type="submit"
+              disabled={disabledButton}
+              style={width}
+              onClick={handlePostNewEvent}
+            />
+          ) : (
+            <SubmitButton
+              title="Изменить"
+              type="submit"
+              disabled={disabledButton}
+              style={width}
+              onClick={handleEditEvent}
+            />
+          )}
         </div>
       </form>
     </div>
