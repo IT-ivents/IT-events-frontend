@@ -1,6 +1,7 @@
 export const apiConfig = {
   baseUrl: `http://80.87.107.15/api/v1`,
   events: `/events/`,
+  edit: `/users-events/`,
   topics: `/topics/`,
   tags: `/tags/`,
   sities: `/sities/`,
@@ -14,6 +15,7 @@ class Api {
   constructor({
     baseUrl,
     events,
+    edit,
     topics,
     tags,
     sities,
@@ -23,6 +25,7 @@ class Api {
   }) {
     this._baseUrl = baseUrl;
     this._eventsEndpoint = events;
+    this._editEventsEndpoint = edit;
     this._topicsEndpoint = topics;
     this._tagsEndpoint = tags;
     this._sitiesEndpoint = sities;
@@ -79,14 +82,26 @@ class Api {
     );
   }
 
-  deleteEvent(data) {
+  editEvent(id, data) {
+    const options = {
+      method: 'PATCH',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    };
+    return fetch(
+      this._makeUrl(this._editEventsEndpoint) + `${id}/`,
+      options
+    ).then(this._handleResponse);
+  }
+
+  deleteEvent(id, data) {
     const options = {
       method: 'DELETE',
       headers: this.getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(
-      this._makeUrl(this._eventsEndpoint) + `${data}/`,
+      this._makeUrl(this._editEventsEndpoint) + `${id}/`,
       options
     ).then(this._handleResponse);
   }

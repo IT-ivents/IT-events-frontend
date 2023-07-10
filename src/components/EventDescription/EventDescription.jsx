@@ -37,10 +37,6 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
       ? eventStartDate
       : `${eventStartDate} - ${eventEndDate}`;
 
-  const height = {
-    height: '42px',
-  };
-
   return (
     <section className={styles.eventDescription}>
       <header className={styles.eventHeader}>
@@ -83,11 +79,7 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
           {formatPrice(selectedEvent.price)}
         </li>
       </ul>
-      <PrimaryButton
-        title="Сайт мероприятия"
-        to={selectedEvent?.url}
-        style={height}
-      />
+      <PrimaryButton title="Сайт мероприятия" to={selectedEvent?.url} />
       <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );
