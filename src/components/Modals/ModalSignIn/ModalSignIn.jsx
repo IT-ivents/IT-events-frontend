@@ -6,12 +6,19 @@ import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
-const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
-  const [isServerError, setIsServerError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+const ModalSignIn = ({
+  isOpen,
+  handleClose,
+  isRegister,
+  onSignIn,
+  serverError,
+  setServerError,
+  loggedIn,
+}) => {
   const {
     values,
-    handleChange,
+    handleEmailChange,
+    handlePasswordChange,
     handleBlur,
     errors,
     disabledButton,
@@ -25,7 +32,14 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
 
   useEffect(() => {
     resetForm();
+    setServerError('');
   }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      handleClose();
+    }
+  }, [loggedIn, handleClose]);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -33,7 +47,6 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
       email: values.email,
       password: values.password,
     });
-    handleClose();
   };
 
   const handleKeyPress = (e) => {
@@ -52,17 +65,15 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
         </div>
         <p
           className={`${styles.formSubtext} ${
-            isServerError ? styles.paddingError : styles.paddingNoError
+            serverError ? styles.paddingError : styles.paddingNoError
           }`}
         >
           Чтобы создать своё событие, необходимо войти на сайт
         </p>
-        {isServerError && (
+        {serverError && (
           <div className={styles.errorContainer}>
             <figure className={styles.serverErrorFigure} />
-            <span className={styles.serverError}>
-              Логин или пароль не совпадают. Проверьте введённые данные.
-            </span>
+            <span className={styles.serverError}>{serverError}</span>
           </div>
         )}
         <form className={styles.modalForm} onSubmit={handleSignIn} noValidate>
@@ -88,14 +99,13 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
                 id="email"
                 name="email"
                 type="email"
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
                 placeholder="Email"
                 required
                 minLength={6}
                 maxLength={254}
                 autoComplete="off"
                 value={values.email || ''}
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 onBlur={handleBlur}
                 onKeyDown={handleKeyPress}
               />
@@ -127,7 +137,7 @@ const ModalSignIn = ({ isOpen, handleClose, isRegister, onSignIn }) => {
                   maxLength={25}
                   autoComplete="off"
                   value={values.password || ''}
-                  onChange={handleChange}
+                  onChange={handlePasswordChange}
                   onBlur={handleBlur}
                   onKeyDown={handleKeyPress}
                 />

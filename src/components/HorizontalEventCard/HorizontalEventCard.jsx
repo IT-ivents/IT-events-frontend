@@ -10,6 +10,30 @@ import CalendarImage from '../../images/EventInfo/calendar.svg';
 import TimeImage from '../../images/EventInfo/time.svg';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
+  const renderLocationInfo = (event) => {
+    const isOnline = event?.format?.some((item) => item.name === 'Online');
+    if (isOnline) {
+      return (
+        <>
+          <p>Online</p>
+        </>
+      );
+    }
+    if (event.city !== ' ') {
+      return (
+        <>
+          <p>{event.city || 'Нет данных'}</p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p>{event.address || 'Нет данных'}</p>
+        </>
+      );
+    }
+  };
+
   const handleCardClick = () => {
     onCardClick(event);
   };
@@ -63,7 +87,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
           </li>
           <li className={styles.rowItem}>
             <img src={PlaceImage} alt="Место проведения" />
-            <p>{event.city !== ' ' ? event.city : event.address}</p>
+            {renderLocationInfo(event)}
           </li>
           <li className={styles.rowItem}>
             <span className={styles.price}>{formatPrice(event.price)}</span>

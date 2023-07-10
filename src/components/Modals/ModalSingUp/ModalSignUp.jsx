@@ -14,6 +14,7 @@ const ModalSignUp = ({
   handleClose,
   onSignUp,
   isLoading,
+  loggedIn,
   serverError,
   setServerError,
 }) => {
@@ -24,6 +25,8 @@ const ModalSignUp = ({
   const {
     values,
     handleChange,
+    handleEmailChange,
+    handlePasswordChange,
     handleBlur,
     isValid,
     errors,
@@ -48,6 +51,12 @@ const ModalSignUp = ({
     setServerError('');
   }, []);
 
+  useEffect(() => {
+    if (loggedIn) {
+      handleClose();
+    }
+  }, [loggedIn, handleClose]);
+
   const handleKeyPress = (e) => {
     if (e.key === ' ') {
       e.preventDefault();
@@ -64,7 +73,6 @@ const ModalSignUp = ({
         organization_name: values.organization_name,
       });
     }
-    handleClose();
   };
 
   const postData = {
@@ -104,7 +112,7 @@ const ModalSignUp = ({
               </label>
               <input
                 className={`${styles.input} ${
-                  errors.name ? styles.inputError : ''
+                  errors.username ? styles.inputError : ''
                 }`}
                 id="username"
                 name="username"
@@ -118,8 +126,8 @@ const ModalSignUp = ({
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              {errors.name && (
-                <span className={styles.span}>{errors.name}</span>
+              {errors.username && (
+                <span className={styles.span}>{errors.username}</span>
               )}
             </fieldset>
             <fieldset className={styles.fieldset}>
@@ -149,8 +157,8 @@ const ModalSignUp = ({
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              {errors.organization && (
-                <span className={styles.span}>{errors.organization}</span>
+              {errors.organization_name && (
+                <span className={styles.span}>{errors.organization_name}</span>
               )}
             </fieldset>
             <fieldset className={styles.fieldset}>
@@ -169,8 +177,7 @@ const ModalSignUp = ({
                 minLength={6}
                 maxLength={254}
                 value={values.email || ''}
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 onBlur={handleBlur}
                 autoComplete="off"
                 onKeyDown={handleKeyPress}
@@ -200,9 +207,8 @@ const ModalSignUp = ({
                   value={values.password || ''}
                   minLength={6}
                   maxLength={25}
-                  onChange={handleChange}
+                  onChange={handlePasswordChange}
                   onBlur={handleBlur}
-                  pattern="[^\s]+"
                   autoComplete="off"
                   onKeyDown={handleKeyPress}
                 />

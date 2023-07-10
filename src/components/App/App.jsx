@@ -42,6 +42,7 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   const {
     handleLogin,
@@ -88,31 +89,38 @@ function App() {
     }
   }, [location]);
 
-  const recommendedList = useMemo(() => {
+  // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
+  const getRecommendedEvents = (events) => {
     if (!selectedEvent || !selectedEvent.tags) {
       return [];
     }
-    const recommended = eventsFromApi.filter((event) => {
+    const selectedTags = selectedEvent.tags.map((tag) =>
+      tag.name.toLowerCase().trim()
+    );
+    const recommended = events.filter((event) => {
       return (
-        // Исключаем попадание выбранной карточки в список рекомендаций
         event.id !== selectedEvent.id &&
-        event.tags.some((tag) => {
-          const tagName = tag.name.toLowerCase().trim();
-          return selectedEvent.tags.some(
-            (selectedTag) => selectedTag.name.toLowerCase().trim() === tagName
-          );
-        })
+        event.tags?.some((tag) =>
+          selectedTags.includes(tag.name.toLowerCase().trim())
+        ) &&
+        event.topic?.some((topic) =>
+          selectedTags.includes(topic.name.toLowerCase().trim())
+        )
       );
     });
+
     if (recommended.length === 0) {
-      const randomEvents = getRandomEvents(eventsFromApi, 4);
-      setRecommendedEvents(randomEvents);
-      return randomEvents; // Добавлен возврат значения
+      const randomEvents = getRandomEvents(events, 4);
+      return randomEvents;
     } else {
-      setRecommendedEvents(recommended.slice(0, 4));
-      return recommended.slice(0, 4); // Добавлен возврат значения
+      return recommended.slice(0, 4);
     }
-  }, [selectedEvent, eventsFromApi]);
+  };
+
+  useEffect(() => {
+    const recommended = getRecommendedEvents(upcomingEvents);
+    setRecommendedEvents(recommended);
+  }, [selectedEvent]);
 
   // ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
   const getCurrentEvents = (events) => {
@@ -159,6 +167,7 @@ function App() {
       setSoonEvents(upcomingEvents.slice(0, 6));
       setSearchResult(upcomingEvents);
       setPastEvents(pastEvents);
+      setUpcomingEvents(upcomingEvents);
     };
 
     const fetchData = async () => {
@@ -250,6 +259,7 @@ function App() {
     setSearchResult((prevEvents) => updateEvents(prevEvents));
     setRecommendedEvents((prevEvents) => updateEvents(prevEvents));
     setEventsFromApi((prevEvents) => updateEvents(prevEvents));
+    setUpcomingEvents((prevEvents) => updateEvents(prevEvents));
   }, [favorites]);
 
   // Функция обновления массивов событий
@@ -265,12 +275,10 @@ function App() {
       return eventsFromApi;
     }
     const words = query.toLowerCase().trim().split(' ');
-    const currentDate = Date.now();
-
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
     // хотя бы одного слова.
 
-    const filteredEvents = [...eventsFromApi]
+    const filteredEvents = [...upcomingEvents]
       .map((event) => {
         const isLiked = favorites.some((item) => item.id === event.id);
         // Установим релевантность
@@ -335,7 +343,7 @@ function App() {
 
   const handleFilterSearch = () => {
     //setSearchQuery(query)
-    setSearchResult(eventsFromApi);
+    setSearchResult(upcomingEvents);
     navigate('/results');
   };
 
@@ -372,6 +380,9 @@ function App() {
               handleClose={toggleModalSignIn}
               isRegister={toggleModalSignUp}
               onSignIn={handleLogin}
+              loggedIn={loggedIn}
+              serverError={serverError}
+              setServerError={setServerError}
             />
           )}
           {isModalSignUpOpen && (
@@ -379,6 +390,7 @@ function App() {
               isOpen={toggleModalSignUp}
               handleClose={toggleModalSignUp}
               onSignUp={handleRegister}
+              loggedIn={loggedIn}
               isLoading={isLoading}
               setServerError={setServerError}
               serverError={serverError}
