@@ -75,7 +75,11 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
         <Loader />
       ) : (
         <>
-          <PageTitle title="Избранное" subtitle="Сохраненные мероприятия" />
+          <PageTitle
+            title="Избранное"
+            subtitle="Сохраненные мероприятия"
+            size="48px"
+          />
           <FilterBar onFilter={handleFilter} />
           <div className={styles.divider} />
           {noEvents && (
