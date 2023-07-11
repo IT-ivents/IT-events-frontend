@@ -232,6 +232,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
                       key={index}
                       value={item}
                       handleChange={handleButtonChange}
+                      disabled={false}
                     />
                   );
                 })}
