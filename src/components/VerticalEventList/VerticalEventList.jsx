@@ -13,6 +13,7 @@ const VerticalEventList = ({
   checkedEvents,
   handleCheckboxChange,
   isCheckboxInvisible,
+  style,
 }) => {
   // const [checkedEvents, setCheckedEvents] = useState([]);
 
@@ -58,6 +59,7 @@ const VerticalEventList = ({
               event={event}
               onCardClick={onCardClick}
               onLikeClick={(event) => onLikeClick(event)}
+              style={style}
             />
           </div>
         ))}

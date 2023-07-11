@@ -10,7 +10,7 @@ import { ReactComponent as PlaceImage } from '../../images/EventInfo/place.svg';
 import { ReactComponent as CalendarImage } from '../../images/EventInfo/calendar.svg';
 import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
 
-const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
+const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   const [imageError, setImageError] = useState(false);
 
   const renderLocationInfo = (event) => {
@@ -92,7 +92,9 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick }) => {
 
       <div className={`${styles.descriptionContainer}`}>
         <div className={styles.titleContainer}>
-          <h3 className={styles.title}>{event.title}</h3>
+          <h3 className={styles.title} style={style}>
+            {event.title}
+          </h3>
         </div>
         <ul className={styles.rowContainer}>
           <li className={styles.rowItem}>

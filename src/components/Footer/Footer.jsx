@@ -23,6 +23,7 @@ const Footer = ({ onEnter, loggedIn }) => {
   const handleLogin = () => {
     if (loggedIn) {
       navigate('/account');
+      scrollToTop();
     } else {
       onEnter();
     }
@@ -30,19 +31,23 @@ const Footer = ({ onEnter, loggedIn }) => {
 
   const renderFooterItems = () => {
     const footerItems = [
-      { text: 'О нас', to: '/about' },
+      { text: 'О нас', to: '/about', id: 'about' },
       { text: 'События', disabled },
-      { text: 'Cookies', onClick: () => setShowPopup(true) },
+      { text: 'Cookies', onClick: () => setShowPopup(true), id: 'cookies' },
       { text: 'Мы в СМИ!', disabled },
-      { text: 'Войти в ЛК', onClick: handleLogin },
-      { text: 'Политика конфиденциональности', to: '/privacy' },
+      { text: 'Войти в ЛК', onClick: handleLogin, id: 'login' },
+      { text: 'Политика конфиденциональности', to: '/privacy', id: 'privacy' },
     ];
 
     return footerItems.map((item, index) => (
-      <li className={styles.footerItem} key={index}>
+      <li className={styles.footerItem} key={index} id={item.id}>
         {item.to ? (
           <Link to={item.to} className={styles.logoLink}>
-            <span>{item.text}</span>
+            {item.id === 'about' ? (
+              <span onClick={scrollToTop}>{item.text}</span>
+            ) : (
+              <span>{item.text}</span>
+            )}
           </Link>
         ) : (
           <span

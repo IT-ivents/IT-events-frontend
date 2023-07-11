@@ -7,7 +7,15 @@ import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
 import { apiEvents } from '../../utils/api';
 
-const UserEvents = ({ onCardClick, onNewEventClick }) => {
+const font = {
+  fontSize: '20px',
+};
+
+const UserEvents = ({
+  mostAnticipatedEvents,
+  onCardClick,
+  onNewEventClick,
+}) => {
   const [createdEvents, setCreatedEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
@@ -110,6 +118,7 @@ const UserEvents = ({ onCardClick, onNewEventClick }) => {
           checkedEvents={checkedEvents}
           handleCheckboxChange={handleCheckboxChange}
           isCheckboxInvisible={isCheckboxInvisible}
+          style={font}
         />
       );
     }
