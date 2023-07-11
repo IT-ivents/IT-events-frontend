@@ -73,6 +73,10 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
           type="radio"
           value={option.label}
           name="date"
+          checked={
+            option.label.includes(values.date) ||
+            (option.label === 'Выбрать дату' && !isNaN(Date.parse(values.date)))
+          }
         />
         <span className={`${option.id === 'pickdate' && styles.radioText}`}>
           {option.label}

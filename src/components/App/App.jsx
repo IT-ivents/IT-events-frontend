@@ -89,6 +89,12 @@ function App() {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (location.pathname === '/results') {
+      resetFilters();
+    }
+  }, [searchResult]);
+
   // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
   const getRecommendedEvents = (events) => {
     if (!selectedEvent || !selectedEvent.tags) {
