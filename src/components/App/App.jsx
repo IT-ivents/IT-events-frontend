@@ -303,7 +303,7 @@ function App() {
             title?.toLowerCase().trim().includes(lowerCaseWord) ||
             description?.toLowerCase().trim().includes(lowerCaseWord) ||
             program?.toLowerCase().trim().includes(lowerCaseWord) ||
-            city?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
+            city?.toLowerCase().trim().includes(lowerCaseWord) ||
             price?.toLowerCase().trim().includes(lowerCaseWord) ||
             topic?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
             tags?.some((tag) =>

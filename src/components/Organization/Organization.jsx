@@ -1,4 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import styles from './Organization.module.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -8,7 +10,7 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import useAuth from '../../utils/hooks/useAuth';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Organization = ({ selectedEvent }) => {
   const {
@@ -16,7 +18,7 @@ const Organization = ({ selectedEvent }) => {
     setValues,
     handleChange,
     handleDateChange,
-    inputTypeNumberValidation,
+    handlePriceChange,
     handleBlur,
     errors,
     disabledButton,
@@ -34,12 +36,20 @@ const Organization = ({ selectedEvent }) => {
   const { currentUser } = useAuth();
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
     topic: false,
     format: false,
   });
+
+  const formatDisabled =
+    selectedFormat.some((item) => item.value === 'online') &&
+    selectedFormat.some((item) => item.value === 'offline')
+      ? false
+      : true;
+  console.log(formatDisabled);
 
   const dateStart = values.date_start;
   const timeStart = values.time_start;
@@ -79,7 +89,7 @@ const Organization = ({ selectedEvent }) => {
         title: selectedEvent.title || '',
         description: selectedEvent.description || '',
         program: selectedEvent.program || '',
-        city: selectedEvent.city?.name || [],
+        city: selectedEvent.city || '',
         url: selectedEvent.url || '',
         address: selectedEvent.address,
         partners: selectedEvent.partners || '',
@@ -227,6 +237,7 @@ const Organization = ({ selectedEvent }) => {
     try {
       const response = await apiEvents.postNewEvent(newCardData);
       console.log('Новое событие успешно создано', response.data);
+      navigate('/account/events');
     } catch (error) {
       console.error('Ошибка при создании события', error);
     }
@@ -237,6 +248,7 @@ const Organization = ({ selectedEvent }) => {
     try {
       const response = await apiEvents.editEvent(selectedEvent.id, newCardData);
       console.log('Событие успешно изменено', response.data);
+      navigate('/account/events');
     } catch (error) {
       console.error('Ошибка при редактировании события', error);
     }
@@ -327,7 +339,7 @@ const Organization = ({ selectedEvent }) => {
                 onChange={handleChange}
                 placeholder="Ваша ссылка"
                 minLength={4}
-                maxLength={250}
+                maxLength={200}
                 onBlur={handleBlur}
                 autoComplete="off"
               />
@@ -522,6 +534,7 @@ const Organization = ({ selectedEvent }) => {
                 id="date_end"
                 name="date_end"
                 required
+                readOnly
                 value={values.date_end || ''}
                 onChange={handleDateChange}
                 className={`${styles.input} ${
@@ -574,6 +587,7 @@ const Organization = ({ selectedEvent }) => {
               }`}
               placeholder="Укажите город проведения"
               required
+              disabled={formatDisabled}
               autoComplete="off"
               minLength={2}
               maxLength={25}
@@ -606,6 +620,7 @@ const Organization = ({ selectedEvent }) => {
               }`}
               placeholder="Укажите адрес"
               required
+              disabled={formatDisabled}
               autoComplete="off"
               minLength={2}
               maxLength={130}
@@ -667,10 +682,8 @@ const Organization = ({ selectedEvent }) => {
               id="price"
               name="price"
               value={values.price || ''}
-              onChange={handleChange}
-              onInput={inputTypeNumberValidation}
+              onChange={handlePriceChange}
               required
-              pattern="\d+"
               autoComplete="off"
               minLength={2}
               maxLength={8}
