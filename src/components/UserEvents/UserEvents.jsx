@@ -7,6 +7,10 @@ import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
 import { apiEvents } from '../../utils/api';
 
+const font = {
+  fontSize: '20px',
+};
+
 const UserEvents = ({
   mostAnticipatedEvents,
   onCardClick,
@@ -115,6 +119,7 @@ const UserEvents = ({
           checkedEvents={checkedEvents}
           handleCheckboxChange={handleCheckboxChange}
           isCheckboxInvisible={isCheckboxInvisible}
+          style={font}
         />
       );
     }
