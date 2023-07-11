@@ -2,12 +2,12 @@ import styles from './EventDescription.module.css';
 import { useState } from 'react';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-//import CalendarImage from '../../../src/images/EventInfo/calendar.svg';
-//import TimeImage from '../../../src/images/EventInfo/time.svg';
-//import PlaceImage from '../../../src/images/EventInfo/place.svg';
-import LikeImage from './../../images/like-button.svg';
-import LikeImageActive from './../../images/like-button_active.svg';
-import ShareImage from './../../images/Actions/Share.svg';
+import { ReactComponent as CalendarImage } from '../../images/EventInfo/calendar.svg';
+import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
+import { ReactComponent as PlaceImage } from '../../images/EventInfo/place.svg';
+import { ReactComponent as LikeImage } from '../../images/like-button.svg';
+import { ReactComponent as LikeImageActive } from '../../images/like-button_active.svg';
+import { ReactComponent as ShareImage } from '../../images/Actions/Share.svg';
 import PopupLink from '../PopupLink/PopupLink';
 import {
   formatDate,
@@ -18,9 +18,6 @@ import {
 
 const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
-  const CalendarImage = require('../../images/EventInfo/calendar.svg').default;
-  const TimeImage = require('../../images/EventInfo/time.svg').default;
-  const PlaceImage = require('../../images/EventInfo/place.svg').default;
 
   const handleButtonClick = () => {
     const link = `${window.location.origin}/event/${selectedEvent.id}`;
@@ -46,33 +43,38 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
         {showNotification && <PopupLink top="55px" right="-100px" />}
         <h1 className={styles.eventName}>{selectedEvent.title}</h1>
         <div className={styles.eventFigures}>
-          <figure className={styles.eventFigure}>
-            <img
+          <figure className={styles.eventFigure} onClick={handleLikeClick}>
+            {selectedEvent.isLiked ? <LikeImageActive /> : <LikeImage />}
+            {/* <img
               src={selectedEvent.isLiked ? LikeImageActive : LikeImage}
               alt="Like"
               onClick={handleLikeClick}
-            />
+            /> */}
           </figure>
           <figure className={styles.eventFigure} onClick={handleButtonClick}>
-            <img src={ShareImage} alt="Share" />
+            <ShareImage />
+            {/* <img src={ShareImage} alt="Share" /> */}
           </figure>
         </div>
       </header>
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>
-          <img src={CalendarImage} alt="Календарь" className={styles.image} />
+          <CalendarImage />
+          {/* <img src={CalendarImage} alt="Календарь" className={styles.image} /> */}
           {eventDate}
         </li>
         <li className={styles.eventDate}>
-          <img src={TimeImage} alt="Время" className={styles.image} />
+          <TimeImage />
+          {/* <img src={TimeImage} alt="Время" className={styles.image} /> */}
           {formatTimeRange(selectedEvent.date_start, selectedEvent.date_end)}
         </li>
         <li className={styles.eventDate}>
-          <img
+          <PlaceImage />
+          {/* <img
             src={PlaceImage}
             alt="Место проведения"
             className={styles.image}
-          />
+          /> */}
           {selectedEvent?.address ||
             'Нет данных' ||
             selectedEvent?.city ||

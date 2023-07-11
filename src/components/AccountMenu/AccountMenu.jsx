@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import styles from './AccountMenu.module.css';
 import { useLocation } from 'react-router-dom';
-import Person from './../../images/person.svg';
-import PersonActive from '../../images/person_active.svg';
-import Calendar from '../../images/calendar.svg';
-import CalendarActive from '../../images/calendar_active.svg';
-import Exit from './../../images/exit.svg';
+import { ReactComponent as Person } from './../../images/person.svg';
+import { ReactComponent as PersonActive } from '../../images/person_active.svg';
+import { ReactComponent as Calendar } from '../../images/calendar.svg';
+import { ReactComponent as CalendarActive } from '../../images/calendar_active.svg';
+import { ReactComponent as Exit } from './../../images/exit.svg';
 import AccountButton from '../AccountButton/AccountButton';
 import Avatar from '../Avatar/Avatar';
 
@@ -36,20 +36,20 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const tabs = [
     {
-      imageDefault: Person,
-      imageActive: PersonActive,
+      imageDefault: <Person />,
+      imageActive: <PersonActive />,
       title: 'Мой аккаунт',
       link: '/account',
     },
     {
-      imageDefault: Calendar,
-      imageActive: CalendarActive,
+      imageDefault: <Calendar />,
+      imageActive: <CalendarActive />,
       title: 'Мои события',
       link: 'events',
     },
     {
       name: 'exit',
-      imageDefault: Exit,
+      imageDefault: <Exit />,
       title: 'Выйти',
       link: '/',
     },

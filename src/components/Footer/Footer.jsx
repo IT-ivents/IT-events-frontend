@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Footer.module.css';
 import Logo from '../Logo/Logo';
 import GitHubLogo from '../../images/SocialNetworks/GitHub.svg';
@@ -13,11 +13,20 @@ const logoSize = {
   color: '#F1F0EB',
 };
 
-const Footer = ({ onEnter }) => {
+const Footer = ({ onEnter, loggedIn }) => {
   const date = new Date().getFullYear();
   const { scrollToTop } = useScrollToTop();
   const [showPopup, setShowPopup] = useState(false);
   const disabled = true;
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (loggedIn) {
+      navigate('/account');
+    } else {
+      onEnter();
+    }
+  };
 
   const renderFooterItems = () => {
     const footerItems = [
@@ -25,7 +34,7 @@ const Footer = ({ onEnter }) => {
       { text: 'События', disabled },
       { text: 'Cookies', onClick: () => setShowPopup(true) },
       { text: 'Мы в СМИ!', disabled },
-      { text: 'Войти в ЛК', onClick: onEnter },
+      { text: 'Войти в ЛК', onClick: handleLogin },
       { text: 'Политика конфиденциональности', to: '/privacy' },
     ];
 

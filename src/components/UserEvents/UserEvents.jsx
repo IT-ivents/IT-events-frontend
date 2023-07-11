@@ -3,7 +3,7 @@ import styles from './UserEvents.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import FilterBar from '../FilterBar/FilterBar';
 import VerticalEventList from '../VerticalEventList/VerticalEventList';
-import AddImage from '../../images/Actions/Add.svg';
+import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
 import { apiEvents } from '../../utils/api';
 
@@ -151,7 +151,8 @@ const UserEvents = ({
             onClick={onNewEventClick}
           >
             <button title="Создать событие" className={styles.create}>
-              <img src={AddImage} alt="Создать событие" />
+              <AddImage />
+              {/* <img src={AddImage} alt="Создать событие" /> */}
               Создать событие
             </button>
           </Link>

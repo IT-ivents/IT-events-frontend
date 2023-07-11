@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
-import { events } from '../../utils/events';
+// import { events } from '../../utils/events';
 import { apiEvents } from '../../utils/api';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import {
@@ -490,7 +490,7 @@ function App() {
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-          <Footer onEnter={toggleModalSignIn} />
+          <Footer onEnter={toggleModalSignIn} loggedIn={loggedIn} />
         </div>
       </div>
     </SearchFilterContext.Provider>
