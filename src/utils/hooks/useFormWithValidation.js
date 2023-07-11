@@ -101,6 +101,34 @@ export function useFormWithValidation() {
     setIsValid(target.closest('form').checkValidity());
   };
 
+  const handleUrlChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let error = '';
+
+    if (name === 'url') {
+      // Паттерн для валидации URL
+      const validationPattern =
+        /^(https?:\/\/)?([^\s.]+\.\S{2}|localhost)(\/[^\s]*)?$/;
+
+      if (!validationPattern.test(value)) {
+        error = 'Введите корректный URL с полным доменом';
+      }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
   const handleDateChange = (date, name) => {
     let error = '';
 
@@ -114,7 +142,7 @@ export function useFormWithValidation() {
         error = 'Дата окончания должна быть позже даты начала';
       }
 
-      if (startDate && startDate < currentDate) {
+      if (startDate && startDate < currentDate.setHours(0, 0, 0, 0)) {
         error = 'Выберите дату начала, которая больше или равна текущей дате';
       }
     }
@@ -182,6 +210,7 @@ export function useFormWithValidation() {
     handleChange,
     handleEmailChange,
     handlePasswordChange,
+    handleUrlChange,
     handleDateChange,
     handlePriceChange,
     handleBlur,

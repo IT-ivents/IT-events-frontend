@@ -27,7 +27,6 @@ function useAuth() {
 
   function handleError(error) {
     let message = '';
-    console.log(error);
     switch (error.status) {
       case 400:
         message = 'Логин или пароль не совпадают. Проверьте введённые данные.';
@@ -35,8 +34,17 @@ function useAuth() {
       case 401:
         message = 'Неверно указаны e-mail или пароль';
         break;
+      case 406:
+        message = 'Введённый пароль состоит только из цифр.';
+        break;
       case 409:
         message = 'Пользователь с такой почтой уже зарегистрирован.';
+        break;
+      case 418:
+        message = 'Введённый пароль слишком широко распространён.';
+        break;
+      case 412:
+        message = 'Введённый пароль слишком похож на email address.';
         break;
       default:
         message = 'Что-то пошло не так, попробуйте еще раз...';

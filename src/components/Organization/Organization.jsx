@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import ReactDatePicker from 'react-datepicker';
+import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ru from 'date-fns/locale/ru';
 import styles from './Organization.module.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -12,6 +14,8 @@ import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import useAuth from '../../utils/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+registerLocale('ru', ru);
+
 const Organization = ({ selectedEvent }) => {
   const {
     values,
@@ -19,6 +23,7 @@ const Organization = ({ selectedEvent }) => {
     handleChange,
     handleDateChange,
     handlePriceChange,
+    handleUrlChange,
     handleBlur,
     errors,
     disabledButton,
@@ -34,6 +39,7 @@ const Organization = ({ selectedEvent }) => {
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
   const { currentUser } = useAuth();
+  const currentDate = new Date();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,19 +51,35 @@ const Organization = ({ selectedEvent }) => {
   });
 
   const formatDisabled =
-    selectedFormat.some((item) => item.value === 'online') &&
-    selectedFormat.some((item) => item.value === 'offline')
-      ? false
-      : true;
-  console.log(formatDisabled);
+    selectedFormat.length === 1 && selectedFormat[0].value === 'online';
 
-  const dateStart = values.date_start;
+  console.log(selectedFormat);
+
+  const dateStart =
+    values?.date_start
+      ?.toLocaleDateString('ru', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('.')
+      .reverse()
+      .join('-') || null;
   const timeStart = values.time_start;
-  const dateEnd = values.date_end;
+  const dateEnd =
+    values?.date_end
+      ?.toLocaleDateString('ru', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('.')
+      .reverse()
+      .join('-') || null;
   const timeEnd = values.time_end;
   // Конвертация дат мероприятия в нужный формат
-  const correctDateStartFormat = dateStart + 'T' + timeStart + 'Z';
-  const correctDateEndFormat = dateEnd + 'T' + timeEnd + 'Z';
+  const correctDateStartFormat = `${dateStart}T${timeStart}:00Z`;
+  const correctDateEndFormat = `${dateEnd}T${timeEnd}:00Z`;
 
   const width = {
     width: '40%',
@@ -118,8 +140,8 @@ const Organization = ({ selectedEvent }) => {
       program: values.program,
       partners: values.partners || '',
       price: values.price,
-      city: values.city,
-      address: values.address,
+      city: !formatDisabled ? values.city : null,
+      address: !formatDisabled ? values.address : null,
       date_start: correctDateStartFormat,
       date_end: correctDateEndFormat,
       url: values.url || '',
@@ -336,7 +358,7 @@ const Organization = ({ selectedEvent }) => {
                 id="url"
                 name="url"
                 value={values.url || ''}
-                onChange={handleChange}
+                onChange={handleUrlChange}
                 placeholder="Ваша ссылка"
                 minLength={4}
                 maxLength={200}
@@ -487,13 +509,11 @@ const Organization = ({ selectedEvent }) => {
               <label htmlFor="start" className={styles.label}>
                 Дата и время начала<span className={styles.spanError}>*</span>{' '}
               </label>
-              <input
-                type="date"
+              <ReactDatePicker
                 id="date_start"
                 name="date_start"
-                required
-                value={values.date_start || ''}
-                onChange={handleDateChange}
+                selected={values.date_start || ''}
+                onChange={(date) => handleDateChange(date, 'date_start')}
                 className={`${styles.input} ${
                   errors.date_start
                     ? styles.inputError
@@ -501,6 +521,16 @@ const Organization = ({ selectedEvent }) => {
                     ? styles.inputSuccess
                     : ''
                 }`}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Выберите дату"
+                autoComplete="off"
+                onKeyDown={(e) => e.preventDefault()} // Запрещаем нажатие клавиш на поле ввода
+                locale="ru" // Устанавливаем русскую локализацию
+                minDate={currentDate}
+                showMonthDropdown // Показываем выпадающий список с месяцами
+                //showYearDropdown // Показываем выпадающий список с годами
+                dropdownMode="select" // Режим выбора в выпадающих списках
+                required
               />
               <span className={styles.spanError}>{errors?.date_start}</span>
             </fieldset>
@@ -529,14 +559,11 @@ const Organization = ({ selectedEvent }) => {
                 Дата и время окончания
                 <span className={styles.spanError}>*</span>{' '}
               </label>
-              <input
-                type="date"
+              <ReactDatePicker
                 id="date_end"
                 name="date_end"
-                required
-                readOnly
-                value={values.date_end || ''}
-                onChange={handleDateChange}
+                selected={values.date_end || ''}
+                onChange={(date) => handleDateChange(date, 'date_end')}
                 className={`${styles.input} ${
                   errors.date_end
                     ? styles.inputError
@@ -544,6 +571,16 @@ const Organization = ({ selectedEvent }) => {
                     ? styles.inputSuccess
                     : ''
                 }`}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Выберите дату"
+                onKeyDown={(e) => e.preventDefault()} // Запрещаем нажатие клавиш на поле ввода
+                locale="ru" // Устанавливаем русскую локализацию
+                showMonthDropdown // Показываем выпадающий список с месяцами
+                minDate={currentDate}
+                //showYearDropdown // Показываем выпадающий список с годами
+                dropdownMode="select" // Режим выбора в выпадающих списках
+                autoComplete="off"
+                required
               />
               <span className={styles.spanError}>{errors?.date_end}</span>
             </fieldset>
@@ -576,7 +613,7 @@ const Organization = ({ selectedEvent }) => {
               type="text"
               id="city"
               name="city"
-              value={values.city || ''}
+              value={!formatDisabled ? values.city || '' : ''}
               onChange={handleChange}
               className={`${styles.input} ${
                 errors.city
@@ -595,7 +632,7 @@ const Organization = ({ selectedEvent }) => {
             <div className={styles.spanContainer}>
               <span className={styles.spanError}>{errors.city}</span>
               <span className={styles.recommendation}>
-                {values?.city?.length || 0}/
+                {!formatDisabled ? values?.city?.length || 0 : 0}/
                 <span className={styles.spanError}>25</span>
               </span>
             </div>
@@ -609,7 +646,7 @@ const Organization = ({ selectedEvent }) => {
               type="text"
               id="address"
               name="address"
-              value={values.address || ''}
+              value={!formatDisabled ? values.address || '' : ''}
               onChange={handleChange}
               className={`${styles.input} ${
                 errors.address
@@ -628,7 +665,7 @@ const Organization = ({ selectedEvent }) => {
             <div className={styles.spanContainer}>
               <span className={styles.spanError}>{errors.address}</span>
               <span className={styles.recommendation}>
-                {values?.address?.length || 0}/
+                {!formatDisabled ? values?.address?.length || 0 : 0}/
                 <span className={styles.spanError}>130</span>
               </span>
             </div>
