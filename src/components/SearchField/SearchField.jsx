@@ -39,7 +39,8 @@ const SearchField = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    const trimQuery = query.trim();
+    onSearch(trimQuery);
   };
 
   return (

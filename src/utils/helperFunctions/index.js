@@ -4,11 +4,13 @@ export const parsePrice = (priceString) => {
 };
 
 export const formatPrice = (price) => {
-  if (price === '0.00') {
+  if (price.startsWith('0')) {
     return 'Бесплатно';
   } else {
     const formattedPrice = parseFloat(price).toFixed(2);
-    return `${formattedPrice.replace('.00', '')} ₽`;
+    const parts = formattedPrice.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return `${parts[0]} ₽`;
   }
 };
 

@@ -2,14 +2,15 @@ import styles from './PrimaryButton.module.css';
 import { ReactComponent as RightArrow } from '../../images/Arrows/arrow-right.svg';
 import { Link } from 'react-router-dom';
 
-const PrimaryButton = ({ title, to, disabled, style }) => {
+const PrimaryButton = ({ title, to, target, disabled, style, onClick }) => {
   return (
     <Link
       className={styles.primaryButton}
       to={to}
-      target="_blank"
+      target={target || ''}
       disabled={disabled}
       style={style}
+      onClick={onClick}
     >
       {title}
       <RightArrow />

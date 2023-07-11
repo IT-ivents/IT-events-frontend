@@ -18,12 +18,20 @@ const UserInfo = ({ onNewEventClick }) => {
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const { currentUser, isLoading } = useAuth();
-  const { values, setValues, isValid, handleChange, handleBlur, errors } =
-    useFormWithValidation();
+  const {
+    values,
+    setValues,
+    isValid,
+    handleChange,
+    handleEmailChange,
+    handleBlur,
+    errors,
+  } = useFormWithValidation();
 
   const disabledButton =
     !isValid ||
     (currentUser.name === values.name && currentUser.email === values.email);
+  console.log(disabledButton);
 
   useEffect(() => {
     if (currentUser) {
@@ -100,7 +108,7 @@ const UserInfo = ({ onNewEventClick }) => {
               onChange={handleChange}
               required
               minLength={2}
-              maxLength={25}
+              maxLength={50}
               autoComplete="off"
             />
             {errors.name && <span className={styles.span}>{errors.name}</span>}
@@ -153,8 +161,7 @@ const UserInfo = ({ onNewEventClick }) => {
               minLength={6}
               maxLength={254}
               value={values?.email || ''}
-              pattern="^([\\w.%+-]+)@([\\w-]+\\.)+([\\w]{2,})$"
-              onChange={handleChange}
+              onChange={handleEmailChange}
               onBlur={handleBlur}
               autoComplete="off"
               onKeyDown={handleKeyPress}
@@ -166,6 +173,7 @@ const UserInfo = ({ onNewEventClick }) => {
           <div className={styles.button}>
             <SubmitButton
               title="Сохранить изменения"
+              type="submit"
               disabled={disabledButton}
               style={height}
             />
