@@ -32,7 +32,11 @@ const Footer = ({ onEnter, loggedIn }) => {
   const renderFooterItems = () => {
     const footerItems = [
       { text: 'О нас', to: '/about', id: 'about' },
-      { text: 'События', disabled },
+      {
+        text: 'События',
+        to: '/results',
+        // disabled
+      },
       { text: 'Cookies', onClick: () => setShowPopup(true), id: 'cookies' },
       { text: 'Мы в СМИ!', disabled },
       { text: 'Войти в ЛК', onClick: handleLogin, id: 'login' },
