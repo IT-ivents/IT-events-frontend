@@ -6,8 +6,8 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
 import useAuth from '../../utils/hooks/useAuth';
-import attention from '../../images/tooltip_attention.svg';
-import AddImage from '../../images/Actions/Add.svg';
+import { ReactComponent as Attention } from '../../images/tooltip_attention.svg';
+import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 
 const height = {
   height: '44px',
@@ -75,7 +75,8 @@ const UserInfo = ({ onNewEventClick }) => {
           onClick={onNewEventClick}
         >
           <button title="Создать событие" className={styles.create}>
-            <img src={AddImage} alt="Создать событие" />
+            <AddImage />
+            {/* <img src={AddImage} alt="Создать событие" /> */}
             Создать событие
           </button>
         </Link>
@@ -110,12 +111,16 @@ const UserInfo = ({ onNewEventClick }) => {
               {isTooltipVisible && (
                 <Tooltip onClick={toggleTooltip} right={'-8%'} />
               )}
-              <img
+              <Attention
                 className={styles.recommendation}
-                alt="attention"
-                src={attention}
                 onClick={toggleTooltip}
               />
+              {/* <img
+                className={styles.recommendation}
+                alt="attention"
+                src={Attention}
+                onClick={toggleTooltip}
+              /> */}
             </label>
             <input
               className={`${styles.input} ${

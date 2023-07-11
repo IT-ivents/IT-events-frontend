@@ -8,7 +8,7 @@
   border-radius: 8px;
   width: fit-content;
   height: 44px;
-  padding: 12px 24px;
+  padding: 10px 24px;
   font-size: 16px;
   cursor: pointer;
   text-decoration: none;
@@ -23,7 +23,7 @@
   background-color: #291b51;
 }
 
-.figure {
+/* .figure {
   width: 20px;
   height: 20px;
-}
+} */
