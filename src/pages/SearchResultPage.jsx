@@ -21,7 +21,6 @@ const SearchResultPage = ({
   const itemsPerPage = 8;
   const totalPages = Math.ceil(filteredList.length / itemsPerPage);
   const isNothingFind = !filteredList || filteredList.length === 0;
-  console.log('filtered', filteredList);
 
   const handleShowMore = () => {
     if (currentPage < totalPages) {
@@ -41,19 +40,21 @@ const SearchResultPage = ({
     return filteredList.slice(startIndex, endIndex);
   };
 
+  const filterBar = {
+    margin: '32px 0',
+  };
+
   return (
     <section className={styles.searchResultPageWrapper}>
       <LeftFilterBar searchQuery={searchQuery} />
       <div>
-        <div className={styles.topFilterContainer}>
-          <TopFilersBar></TopFilersBar>
-          {isNothingFind && (
-            <PageTitle
-              title="Ничего не нашлось"
-              subtitle="Но нам есть, что предложить"
-            />
-          )}
-        </div>
+        <TopFilersBar style={filterBar} />
+        {isNothingFind && (
+          <PageTitle
+            title="Ничего не нашлось"
+            subtitle="Но нам есть, что предложить"
+          />
+        )}
         <div className={styles.searchResultListContainer}>
           <VerticalEventList
             events={getPageItems()}

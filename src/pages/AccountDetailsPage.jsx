@@ -5,15 +5,32 @@ import UserInfo from '../components/UserInfo/UserInfo';
 import UserEvents from '../components/UserEvents/UserEvents';
 import Organization from '../components/Organization/Organization';
 
-const AccountDetailsPage = ({ mostAnticipatedEvents }) => {
+const AccountDetailsPage = ({
+  mostAnticipatedEvents,
+  selectedEvent,
+  onCardClick,
+  onNewEventClick,
+  handleLogout,
+  currentUser,
+}) => {
   return (
     <section className={styles.userInfo}>
-      <AccountMenu />
+      <AccountMenu handleLogout={handleLogout} currentUser={currentUser} />
       <Routes>
-        <Route path="/" element={<UserInfo />} />
+        <Route
+          path="/"
+          element={<UserInfo onNewEventClick={onNewEventClick} />}
+        />
         <Route
           path="events"
-          element={<UserEvents mostAnticipatedEvents={mostAnticipatedEvents} />}
+          element={
+            <UserEvents
+              mostAnticipatedEvents={mostAnticipatedEvents}
+              selectedEvent={selectedEvent}
+              onCardClick={onCardClick}
+              onNewEventClick={onNewEventClick}
+            />
+          }
         />
         <Route path="organization" element={<Organization />} />
       </Routes>

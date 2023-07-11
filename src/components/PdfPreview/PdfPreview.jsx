@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useLocation } from 'react-router-dom';
 import styles from './PdfPreview.module.css';
@@ -18,6 +18,27 @@ const PrivacyPolicyPreview = () => {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
+
+  useEffect(() => {
+    const fetchCookies = async () => {
+      try {
+        const response = await fetch('http://80.87.107.15/api/v1/cookies/');
+        if (response.ok) {
+          const cookies = await response.json();
+          console.log('Полученные cookies:', cookies);
+          // Дальнейшая обработка полученных cookies
+        } else {
+          console.error('Ошибка при получении cookies:', response.status);
+          // Обработка ошибки получения cookies
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
+        // Обработка ошибки выполнения запроса
+      }
+    };
+
+    fetchCookies();
+  }, []);
 
   const zoomFactor = 0.9;
 

@@ -4,7 +4,6 @@ import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
 import Pagination from '../Pagination/Pagination';
 import SpanCard from '../SpanCard/SpanCard';
-import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
 const HorizontalEventList = ({
@@ -14,18 +13,17 @@ const HorizontalEventList = ({
   onCardClick,
   onLikeClick,
   eventOnPage,
-  setSelectedEvent,
 }) => {
   const [page, setPage] = useState(1);
   const [isAllShown, setIsAllShown] = useState(false);
   const location = useLocation();
   const totalPages = Math.ceil(list.length / eventOnPage) || 0;
   const eventPage = location.pathname.includes('/event');
+
   const handleLikeClick = useCallback(
     (eventId) => {
       onLikeClick(eventId);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [] // Пустой массив зависимостей, чтобы сохранить этот экземпляр обратного вызова неизменным
   );
 
@@ -67,30 +65,19 @@ const HorizontalEventList = ({
         </div>
       )}
       <ul className={styles.list}>
-        {listToRender.map((event, index) => (
-          <motion.li
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            key={event.id}
-            className={styles.listItem}
-          >
-            {index === 2 && span && page === 1 ? (
-              <React.Fragment>
-                <SpanCard />
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <VerticalEventCard
-                  event={event}
-                  onCardClick={onCardClick}
-                  onLikeClick={handleLikeClick}
-                  setSelectedEvent={setSelectedEvent}
-                />
-              </React.Fragment>
-            )}
-          </motion.li>
-        ))}
+        {listToRender.map((event, index) =>
+          index === 2 && span && page === 1 ? (
+            <SpanCard key={event.id} />
+          ) : (
+            <VerticalEventCard
+              key={event.id}
+              index={index}
+              event={event}
+              onCardClick={onCardClick}
+              onLikeClick={handleLikeClick}
+            />
+          )
+        )}
 
         {totalPages > 1 && <ShowAllButton handleShowAll={handleShowAll} />}
       </ul>

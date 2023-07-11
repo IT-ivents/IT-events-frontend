@@ -9,6 +9,7 @@ const SearchField = ({
   smallFieldset,
   smallInput,
   searchQuery,
+  radiusForm,
 }) => {
   // Устанавливаем значение в поисковую строку из Пропса
   const [query, setQuery] = useState(searchQuery || '');
@@ -38,11 +39,16 @@ const SearchField = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    const trimQuery = query.trim();
+    onSearch(trimQuery);
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} style={smallForm}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+      style={smallForm || radiusForm}
+    >
       <fieldset className={styles.fieldset} style={smallFieldset}>
         <img src={searchIcon} alt="search-icon" className={styles.icon} />
         <input

@@ -1,12 +1,12 @@
 .eventTabs {
-  width: 590px;
+  width: 592px;
   margin: 60px 0 45px;
   display: flex;
-  gap: 26px;
+  gap: 28px;
   font-weight: 500;
   cursor: pointer;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .activeTab {
@@ -23,7 +23,7 @@
   transform: translateX(-50%);
   width: 102%;
   height: 3px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .tab {

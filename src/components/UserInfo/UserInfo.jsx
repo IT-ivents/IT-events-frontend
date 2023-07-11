@@ -1,13 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './UserInfo.module.css';
+import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
+import Loader from '../Loader/Loader';
+import Tooltip from '../Tooltip/Tooltip';
+import useAuth from '../../utils/hooks/useAuth';
+import { ReactComponent as Attention } from '../../images/tooltip_attention.svg';
+import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 
-const UserInfo = () => {
+const height = {
+  height: '44px',
+};
+
+const UserInfo = ({ onNewEventClick }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
-  const { values, handleChange, handleBlur, errors, disabledButton } =
-    useFormWithValidation();
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const { currentUser, isLoading } = useAuth();
+  const {
+    values,
+    setValues,
+    isValid,
+    handleChange,
+    handleEmailChange,
+    handleBlur,
+    errors,
+  } = useFormWithValidation();
+
+  const disabledButton =
+    !isValid ||
+    (currentUser.name === values.name && currentUser.email === values.email);
+  console.log(disabledButton);
+
+  useEffect(() => {
+    if (currentUser) {
+      setValues({
+        name: currentUser.name || '',
+        email: currentUser.email || '',
+        organization_name: currentUser.organization_name || '',
+      });
+    }
+  }, [currentUser, setValues]);
+
+  // console.log(currentUser);
+  // console.log(values);
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -23,16 +60,37 @@ const UserInfo = () => {
     }
   };
 
+  const toggleTooltip = () => {
+    setIsTooltipVisible(!isTooltipVisible);
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className={styles.userInfo}>
-      <h1 className={styles.title}>Персональная информация</h1>
-      <span className={styles.edit}>Редактирование личных данных</span>
-      <h2 className={styles.subtitle}>Профиль</h2>
-      <div className={styles.userLogo}>
-        <img src="" alt="Аватар" className={styles.avatar} />
-        <span>Организация</span>
+      <div className={styles.userHeader}>
+        <div>
+          <h1 className={styles.title}>Персональная информация</h1>
+          <span className={styles.edit}>
+            Здесь Вы можете поменять свои данные указанные при регистарции.
+          </span>
+        </div>
+        <Link
+          to="/organization"
+          className={styles.link}
+          onClick={onNewEventClick}
+        >
+          <button title="Создать событие" className={styles.create}>
+            <AddImage />
+            {/* <img src={AddImage} alt="Создать событие" /> */}
+            Создать событие
+          </button>
+        </Link>
       </div>
       <form>
+        <h2 className={styles.subtitle}>Мой профиль</h2>
         <div className={styles.fieldsetContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="name" className={styles.label}>
@@ -46,15 +104,46 @@ const UserInfo = () => {
               name="name"
               type="text"
               placeholder="Ваше имя"
-              // required
-              minLength={2}
-              maxLength={25}
               value={values.name || ''}
               onChange={handleChange}
-              onBlur={handleBlur}
+              required
+              minLength={2}
+              maxLength={50}
               autoComplete="off"
             />
             {errors.name && <span className={styles.span}>{errors.name}</span>}
+          </fieldset>
+          <fieldset className={styles.fieldset}>
+            <label htmlFor="organization" className={styles.label}>
+              Организация{' '}
+              {isTooltipVisible && (
+                <Tooltip onClick={toggleTooltip} right={'-8%'} />
+              )}
+              <Attention
+                className={styles.recommendation}
+                onClick={toggleTooltip}
+              />
+              {/* <img
+                className={styles.recommendation}
+                alt="attention"
+                src={Attention}
+                onClick={toggleTooltip}
+              /> */}
+            </label>
+            <input
+              className={`${styles.input} ${
+                errors.name ? styles.inputError : ''
+              }`}
+              id="organization_name"
+              name="organization_name"
+              type="text"
+              value={values.organization_name || ''}
+              disabled={true}
+            />
+            <span className={styles.support}>
+              Для смены названия организации, обратитесь в поддержку
+              It@connect-event@ayndex.ru
+            </span>
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="email" className={styles.label}>
@@ -68,12 +157,11 @@ const UserInfo = () => {
               name="email"
               type="email"
               placeholder="Email"
-              // required
+              required
               minLength={6}
               maxLength={254}
-              value={values.email || ''}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
-              onChange={handleChange}
+              value={values?.email || ''}
+              onChange={handleEmailChange}
               onBlur={handleBlur}
               autoComplete="off"
               onKeyDown={handleKeyPress}
@@ -85,10 +173,16 @@ const UserInfo = () => {
           <div className={styles.button}>
             <SubmitButton
               title="Сохранить изменения"
-              disabled={disabledButton || !isPrivacyChecked}
+              type="submit"
+              disabled={disabledButton}
+              style={height}
             />
           </div>
-          <h2 className={styles.subtitle}>Обновление пароля</h2>
+        </div>
+      </form>
+      <form>
+        <h2 className={styles.subtitle}>Смена пароля</h2>
+        <div className={styles.fieldsetContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="password" type="password" className={styles.label}>
               Старый пароль
@@ -124,20 +218,24 @@ const UserInfo = () => {
             )}
           </fieldset>
           <fieldset className={styles.fieldset}>
-            <label htmlFor="password" type="password" className={styles.label}>
+            <label
+              htmlFor="newPassword"
+              type="password"
+              className={styles.label}
+            >
               Новый пароль
             </label>
             <div className={styles.inputContainer}>
               <input
                 className={`${styles.input} ${
-                  errors.password ? styles.inputError : ''
+                  errors.newPassword ? styles.inputError : ''
                 }`}
-                id="password"
-                name="password"
+                id="newPassword"
+                name="newPassword"
                 type={isPasswordVisible ? 'text' : 'password'}
                 placeholder="Введите пароль"
                 // required
-                value={values.password || ''}
+                value={values.newPassword || ''}
                 minLength={6}
                 maxLength={25}
                 onChange={handleChange}
@@ -153,12 +251,12 @@ const UserInfo = () => {
                 onClick={togglePasswordVisible}
               />
             </div>
-            {errors.password && (
-              <span className={styles.span}>{errors.password}</span>
+            {errors.newPassword && (
+              <span className={styles.span}>{errors.newPassword}</span>
             )}
           </fieldset>
           <fieldset className={styles.fieldset}>
-            <label htmlFor="password_repeat" className={styles.label}>
+            <label htmlFor="confirmPassword" className={styles.label}>
               Подтвердите новый пароль
             </label>
             <div className={styles.inputContainer}>
@@ -197,6 +295,7 @@ const UserInfo = () => {
           <SubmitButton
             title="Обновить"
             disabled={disabledButton || !isPrivacyChecked}
+            style={height}
           />
         </div>
       </form>

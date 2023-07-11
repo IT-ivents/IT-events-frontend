@@ -2,11 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 62px 104px 0;
+  min-height: calc(100vh - 113px - 152px - 62px);
+  margin: 40px 104px 0;
 }
 
 .eventImage {
-  width: 600px;
+  width: 608px;
   height: 390px;
   object-fit: cover;
   border-radius: 11px;

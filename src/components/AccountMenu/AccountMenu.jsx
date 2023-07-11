@@ -1,68 +1,113 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './AccountMenu.module.css';
-import Person from './../../images/person.svg';
-import PersonActive from '../../images/person_active.svg';
-import Calendar from '../../images/calendar.svg';
-import CalendarActive from '../../images/calendar_active.svg';
-import Exit from './../../images/exit.svg';
-import Logout from './../../images/logout.svg';
+import { useLocation } from 'react-router-dom';
+import { ReactComponent as Person } from './../../images/person.svg';
+import { ReactComponent as PersonActive } from '../../images/person_active.svg';
+import { ReactComponent as Calendar } from '../../images/calendar.svg';
+import { ReactComponent as CalendarActive } from '../../images/calendar_active.svg';
+import { ReactComponent as Exit } from './../../images/exit.svg';
 import AccountButton from '../AccountButton/AccountButton';
-import PageTitle from '../PageTitle/PageTitle';
+import Avatar from '../Avatar/Avatar';
 
-const AccountMenu = () => {
+const AccountMenu = ({ handleLogout, currentUser }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedActiveTab = localStorage.getItem('activeMenuTab');
+    if (storedActiveTab) {
+      setActiveTab(parseInt(storedActiveTab));
+    }
+  }, []);
+
+  const handleLogoutClick = async () => {
+    try {
+      await handleLogout();
+      handleTabClick(activeTab);
+    } catch (error) {
+      console.error('Ошибка выхода:', error);
+    }
+  };
 
   const handleTabClick = (index) => {
     setActiveTab(index);
+    localStorage.setItem('activeMenuTab', index.toString());
   };
 
   const tabs = [
     {
-      headText: 'Organizator777',
-      subtext: 'subzero2000@yandex.ru',
-      imageDefault: Person,
-      imageActive: PersonActive,
+      imageDefault: <Person />,
+      imageActive: <PersonActive />,
       title: 'Мой аккаунт',
       link: '/account',
     },
     {
-      headText: 'Мои события',
-      subtext: 'Здесь Вы можете управлять своими событиями',
-      imageDefault: Calendar,
-      imageActive: CalendarActive,
+      imageDefault: <Calendar />,
+      imageActive: <CalendarActive />,
       title: 'Мои события',
       link: 'events',
     },
     {
       name: 'exit',
-      imageDefault: Exit,
-      title: 'Выход',
+      imageDefault: <Exit />,
+      title: 'Выйти',
       link: '/',
     },
   ];
 
-  const currentTab = tabs[activeTab];
+  const menuTitles = {
+    0: {
+      title: currentUser.name,
+      subtitle: currentUser.email,
+      titleClass: styles.titleUser,
+      subtitleClass: styles.subtitleUser,
+    },
+    1: {
+      title: 'Мои события',
+      subtitle: 'Здесь Вы можете управлять своими событиями',
+      titleClass: styles.titleEvents,
+      subtitleClass: styles.subtitleEvents,
+    },
+  };
 
   return (
     <section>
-      <div className={styles.accountMenu}>
-        <PageTitle title={currentTab.headText} subtitle={currentTab.subtext} />
-        <nav className={styles.accountTabs}>
-          {tabs.map((tab, index) => (
-            <AccountButton
-              key={index}
-              to={tab.link}
-              name={tab.name}
-              title={tab.title}
-              imageSrc={
-                index === activeTab ? tab.imageActive : tab.imageDefault
-              }
-              isActive={index === activeTab}
-              onClick={() => handleTabClick(index)}
-            />
-          ))}
-        </nav>
-      </div>
+      {currentUser && (
+        <div className={styles.accountMenu}>
+          <div className={styles.userLogo}>
+            {location.pathname === '/account' && (
+              <Avatar name={currentUser.name} />
+            )}
+            <div>
+              <h1 className={menuTitles[activeTab].titleClass}>
+                {menuTitles[activeTab].title}
+              </h1>
+              <p className={menuTitles[activeTab].subtitleClass}>
+                {menuTitles[activeTab].subtitle}
+              </p>
+            </div>
+          </div>
+          <nav className={styles.accountTabs}>
+            {tabs.map((tab, index) => (
+              <AccountButton
+                key={index}
+                to={tab.link}
+                name={tab.name}
+                title={tab.title}
+                imageSrc={
+                  index === activeTab ? tab.imageActive : tab.imageDefault
+                }
+                isActive={index === activeTab}
+                onClick={
+                  tab.name === 'exit'
+                    ? handleLogoutClick
+                    : () => handleTabClick(index)
+                }
+              />
+            ))}
+          </nav>
+        </div>
+      )}
     </section>
   );
 };

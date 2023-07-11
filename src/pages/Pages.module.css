@@ -2,10 +2,10 @@
 .mainPageWrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 120px;
+  gap: 110px;
   flex-grow: 1;
   align-items: start;
-  padding-top: 55px;
+  padding-top: 54px;
   position: relative;
   max-width: 1232px;
 }
@@ -16,12 +16,20 @@
   gap: 100px;
 }
 
+/* // ORGANIZATION  */
+
+.organizationWrapper {
+  display: flex;
+  align-self: center;
+  flex-grow: 1;
+}
+
 .searchResultPageWrapper {
   display: flex;
-  gap: 136px;
+  gap: 120px;
   align-self: start;
   flex-grow: 1;
-  padding: 20px 104px 0;
+  padding: 25px 104px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -35,13 +43,6 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 120px;
-}
-
-.loaderContainer {
-  display: flex;
-  justify-content: center;
-  width: 920px;
-  margin: 150px 0 0;
 }
 
 /* Страница: Политика */
@@ -67,6 +68,7 @@
   flex-grow: 1;
   padding: 64px 104px 0;
   width: 100%;
+  min-height: calc(100vh - 113px - 152px);
 }
 
 .favoritesPageListContainer {
@@ -152,8 +154,9 @@
   justify-content: flex-start;
   flex-grow: 1;
   width: 1232px;
-  gap: 50px;
+  gap: 110px;
   padding-top: 32px;
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Страница: 404 */
@@ -230,6 +233,7 @@
   font-size: 48px;
   line-height: 52.8px;
   color: #181818;
+  cursor: default;
 }
 
 .asideText {
@@ -239,6 +243,7 @@
   font-weight: 700;
   line-height: 21.6px;
   color: #39364f;
+  cursor: default;
 }
 
 .tagsBlocks {
@@ -248,10 +253,6 @@
   gap: 32px;
   margin: 64px 0 80px;
 }
-
-/* .topFilterContainer {
-  margin-bottom: 39px;
-} */
 
 .filterField {
   display: flex;

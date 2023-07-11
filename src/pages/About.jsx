@@ -1,10 +1,10 @@
 import AboutUs from '../components/AboutUs/AboutUs';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
 
-const About = () => {
+const About = ({ toggleModalSignUp }) => {
   return (
     <>
-      <AboutUs />
+      <AboutUs toggleModalSignUp={toggleModalSignUp} />
       <ScrollToTopButton />
     </>
   );

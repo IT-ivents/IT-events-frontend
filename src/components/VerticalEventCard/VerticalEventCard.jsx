@@ -6,14 +6,10 @@ import {
   handleCopyLink,
 } from '../../utils/helperFunctions';
 import PopupLink from '../PopupLink/PopupLink';
+import { motion as m } from 'framer-motion';
 import defaultImage from '../../images/default-image.png';
 
-const VerticalEventCard = ({
-  event,
-  onCardClick,
-  onLikeClick,
-  setSelectedEvent,
-}) => {
+const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleCardClick = () => {
@@ -29,20 +25,25 @@ const VerticalEventCard = ({
   };
 
   const handleCopyButtonClick = () => {
-    const link = `${window.location.origin}/#/event/${event.id}`;
-    setSelectedEvent(event);
+    const link = `${window.location.origin}/event/${event.id}`;
+    console.log('Ссылка скопирована в MainPage', link);
     handleCopyLink(link, setShowNotification);
   };
 
   return (
-    <div key={event.id} className={`${styles.card}`}>
+    <m.li
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`${styles.card}`}
+    >
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
         <img
           src={event.image ? event.image : defaultImage}
           alt="event_picture"
           className={styles.image}
-          onClick={handleCardClick}
+          onClick={() => handleCardClick(event.id)}
           onError={handleImageError}
         />
         <button
@@ -66,9 +67,9 @@ const VerticalEventCard = ({
       <div className={styles.rowContainer}>
         <time>{formatDate(event.date_start)}</time>
         <span>&bull;</span>
-        <p>{event.city?.name || 'Город неизвестен'}</p>
+        <p>{event.city === ' ' ? 'Нет данных' : event.city}</p>
       </div>
-    </div>
+    </m.li>
   );
 };
 

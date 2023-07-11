@@ -2,12 +2,12 @@ import styles from './EventDescription.module.css';
 import { useState } from 'react';
 import DescriptionTabs from '../DescriptionTabs/DescriptionTabs';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-import CalendarImage from '../../images/EventInfo/calendar.svg';
-import TimeImage from '../../images/EventInfo/time.svg';
-import PlaceImage from '../../images/EventInfo/place.svg';
-import LikeImage from '../../images/like-button.svg';
-import LikeImageActive from '../../images/like-button_active.svg';
-import ShareImage from '../../images/Actions/Share.svg';
+import { ReactComponent as CalendarImage } from '../../images/EventInfo/calendar.svg';
+import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
+import { ReactComponent as PlaceImage } from '../../images/EventInfo/place.svg';
+import { ReactComponent as LikeImage } from '../../images/like-button.svg';
+import { ReactComponent as LikeImageActive } from '../../images/like-button_active.svg';
+import { ReactComponent as ShareImage } from '../../images/Actions/Share.svg';
 import PopupLink from '../PopupLink/PopupLink';
 import {
   formatDate,
@@ -20,8 +20,9 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
-    const link = `${window.location.origin}/#/event/${selectedEvent.id}`;
-    setSelectedEvent(selectedEvent);
+    const link = `${window.location.origin}/event/${selectedEvent.id}`;
+    console.log('Ссылка скопирована в EventPage', link);
+    //setSelectedEvent(selectedEvent);
     handleCopyLink(link, setShowNotification);
   };
 
@@ -42,38 +43,52 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
         {showNotification && <PopupLink top="55px" right="-100px" />}
         <h1 className={styles.eventName}>{selectedEvent.title}</h1>
         <div className={styles.eventFigures}>
-          <figure className={styles.eventFigure}>
-            <img
+          <figure className={styles.eventFigure} onClick={handleLikeClick}>
+            {selectedEvent.isLiked ? <LikeImageActive /> : <LikeImage />}
+            {/* <img
               src={selectedEvent.isLiked ? LikeImageActive : LikeImage}
               alt="Like"
               onClick={handleLikeClick}
-            />
+            /> */}
           </figure>
           <figure className={styles.eventFigure} onClick={handleButtonClick}>
-            <img src={ShareImage} alt="Share" />
+            <ShareImage />
+            {/* <img src={ShareImage} alt="Share" /> */}
           </figure>
         </div>
       </header>
       <ul className={styles.eventDates}>
         <li className={styles.eventDate}>
-          <img src={CalendarImage} alt="Календарь" />
+          <CalendarImage />
+          {/* <img src={CalendarImage} alt="Календарь" className={styles.image} /> */}
           {eventDate}
         </li>
         <li className={styles.eventDate}>
-          <img src={TimeImage} alt="Время" />
+          <TimeImage />
+          {/* <img src={TimeImage} alt="Время" className={styles.image} /> */}
           {formatTimeRange(selectedEvent.date_start, selectedEvent.date_end)}
         </li>
         <li className={styles.eventDate}>
-          <img src={PlaceImage} alt="Место проведения" />
-          {selectedEvent?.address?.split(' ').slice(0, 9).join(' ') ||
-            selectedEvent?.city?.name ||
+          <PlaceImage />
+          {/* <img
+            src={PlaceImage}
+            alt="Место проведения"
+            className={styles.image}
+          /> */}
+          {selectedEvent?.address ||
+            'Нет данных' ||
+            selectedEvent?.city ||
             'Нет данных'}
         </li>
         <li className={styles.eventPrice}>
           {formatPrice(selectedEvent.price)}
         </li>
       </ul>
-      <PrimaryButton title="Сайт мероприятия" to={selectedEvent?.url} />
+      <PrimaryButton
+        title="Сайт мероприятия"
+        to={selectedEvent?.url}
+        target="_blank"
+      />
       <DescriptionTabs selectedEvent={selectedEvent} />
     </section>
   );

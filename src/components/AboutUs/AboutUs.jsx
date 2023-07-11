@@ -22,7 +22,7 @@ const images = [
   { src: Image5, style: styles.imageFive },
 ];
 
-const AboutUs = () => {
+const AboutUs = ({ toggleModalSignUp }) => {
   return (
     <section className={styles.about}>
       <div className={styles.background}>
@@ -37,7 +37,11 @@ const AboutUs = () => {
               </li>
             ))}
           </ul>
-          <PrimaryButton title="Стать партнером" />
+          <PrimaryButton
+            title="Стать организатором"
+            onClick={toggleModalSignUp}
+            target=""
+          />
         </div>
         {/* IMAGES BLOCK */}
         <aside className={styles.aside}>
@@ -127,18 +131,21 @@ const AboutUs = () => {
             name="name"
             placeholder="Ваше Имя"
             className={styles.input}
+            disabled={true}
           />
           <input
             type="text"
             name="email"
             placeholder="Электронная почта"
             className={styles.input}
+            disabled={true}
           />
           <input
             type="text"
             name="message"
             placeholder="Сообщение"
             className={styles.input}
+            disabled={true}
           />
           <div className={styles.checkboxContainer}>
             <CustomCheckbox />

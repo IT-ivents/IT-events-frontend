@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  margin: 0 0 0 -47px;
 }
 
 .title {
@@ -22,8 +23,8 @@
 
 .filterBar {
   display: flex;
-  width: 771px;
-  margin: 0 0 13px 9px;
+  width: 807px;
+  margin: -41px 0 13px 45px;
 }
 
 .buttons {
@@ -36,6 +37,7 @@
   border: 0;
   margin-top: 77px;
   background: url(../../images/delete.svg) no-repeat center;
+  cursor: pointer;
 }
 
 .create {
@@ -63,4 +65,14 @@
 
 .create:active {
   background-color: #291b51;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.divider {
+  height: 2px;
+  max-width: 1440px;
+  color: rgba(0, 0, 0, 0.08);
 }

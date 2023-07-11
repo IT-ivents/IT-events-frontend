@@ -3,7 +3,7 @@ import SearchFilterContext from '../../utils/context/SearchFilterContext';
 import styles from './TopFilersBar.module.css';
 import Cross from './../../images/Actions/Close_gray.svg';
 
-const TopFilersBar = () => {
+const TopFilersBar = ({ style }) => {
   const { values, setValues } = useContext(SearchFilterContext);
   const arr = Object.entries(values);
 
@@ -45,10 +45,8 @@ const TopFilersBar = () => {
   }
 
   return (
-    <div className={styles.container}>
-      {/* {filterCount && ( */}
+    <div className={styles.container} style={style}>
       <div className={styles.countContainer}>Фильтры: {filterCount.length}</div>
-      {/* )} */}
       {arr.map((item, index) => {
         const name = item[0];
         const value = item[1];
@@ -73,7 +71,7 @@ const TopFilersBar = () => {
       })}
       {filterCount && (
         <div onClick={handleClearFilter} className={styles.clearData}>
-          очистить все
+          Очистить все
         </div>
       )}
     </div>

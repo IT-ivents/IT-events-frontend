@@ -32,8 +32,8 @@ export function useFilterdList({ values, searchResult }) {
       );
     }
     if (city) {
-      filteredArray = filteredArray.filter(
-        (event) => event.city?.name?.toLowerCase() === city
+      filteredArray = filteredArray.filter((event) =>
+        event.city.toLowerCase().trim().includes(city.toLowerCase().trim())
       );
     }
     if (price && price === 'Бесплатно') {
@@ -45,9 +45,18 @@ export function useFilterdList({ values, searchResult }) {
 
     if (specialities.length > 0) {
       filteredArray = filteredArray.filter((event) => {
-        return specialities.includes(event?.topic?.name);
+        return (
+          event &&
+          event.topic &&
+          Array.isArray(event.topic) &&
+          event.topic.some((topic) => specialities.includes(topic.name))
+        );
       });
     }
+    // добавляем дополнительную проверку Array.isArray(event.topic),
+    // чтобы убедиться, что event.topic является массивом.
+    // Затем мы используем метод some(), чтобы проверить,
+    // совпадает ли хотя бы одно из event.topic[i].name с элементом списка specialities
 
     if (tags.length > 0) {
       filteredArray = filteredArray.filter((event) => {

@@ -5,7 +5,9 @@
   height: 28px;
   border: 1px solid #797979;
   border-radius: 30px;
+  gap: 5px;
   padding: 0 12px;
+  font-size: 12px;
   color: #797979;
   background-color: transparent;
   cursor: pointer;

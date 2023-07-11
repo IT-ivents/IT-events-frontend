@@ -7,27 +7,36 @@ import attention from '../../../images/tooltip_attention.svg';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
+import Tooltip from '../../Tooltip/Tooltip';
 
 const ModalSignUp = ({
   isOpen,
   handleClose,
   onSignUp,
   isLoading,
+  loggedIn,
   serverError,
   setServerError,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const {
     values,
     handleChange,
+    handleEmailChange,
+    handlePasswordChange,
     handleBlur,
     isValid,
     errors,
     disabledButton,
     resetForm,
   } = useFormWithValidation();
+
+  const toggleTooltip = () => {
+    setIsTooltipVisible(!isTooltipVisible);
+  };
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -41,6 +50,12 @@ const ModalSignUp = ({
     resetForm();
     setServerError('');
   }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      handleClose();
+    }
+  }, [loggedIn, handleClose]);
 
   const handleKeyPress = (e) => {
     if (e.key === ' ') {
@@ -97,7 +112,7 @@ const ModalSignUp = ({
               </label>
               <input
                 className={`${styles.input} ${
-                  errors.name ? styles.inputError : ''
+                  errors.username ? styles.inputError : ''
                 }`}
                 id="username"
                 name="username"
@@ -105,23 +120,25 @@ const ModalSignUp = ({
                 placeholder="Ваше имя"
                 required
                 minLength={2}
-                maxLength={25}
+                maxLength={50}
                 value={values.username || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              {errors.name && (
-                <span className={styles.span}>{errors.name}</span>
+              {errors.username && (
+                <span className={styles.span}>{errors.username}</span>
               )}
             </fieldset>
             <fieldset className={styles.fieldset}>
+              {isTooltipVisible && <Tooltip onClick={toggleTooltip} />}
               <label htmlFor="organization" className={styles.label}>
                 Организация <span className={styles.spanError}>*</span>{' '}
                 <img
                   className={styles.recommendation}
                   alt="attention"
                   src={attention}
+                  onClick={toggleTooltip}
                 />
               </label>
               <input
@@ -134,14 +151,14 @@ const ModalSignUp = ({
                 placeholder="Ваша организация"
                 required
                 minLength={2}
-                maxLength={254}
+                maxLength={100}
                 value={values.organization_name || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              {errors.organization && (
-                <span className={styles.span}>{errors.organization}</span>
+              {errors.organization_name && (
+                <span className={styles.span}>{errors.organization_name}</span>
               )}
             </fieldset>
             <fieldset className={styles.fieldset}>
@@ -160,8 +177,7 @@ const ModalSignUp = ({
                 minLength={6}
                 maxLength={254}
                 value={values.email || ''}
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}"
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 onBlur={handleBlur}
                 autoComplete="off"
                 onKeyDown={handleKeyPress}
@@ -191,9 +207,8 @@ const ModalSignUp = ({
                   value={values.password || ''}
                   minLength={6}
                   maxLength={25}
-                  onChange={handleChange}
+                  onChange={handlePasswordChange}
                   onBlur={handleBlur}
-                  pattern="[^\s]+"
                   autoComplete="off"
                   onKeyDown={handleKeyPress}
                 />

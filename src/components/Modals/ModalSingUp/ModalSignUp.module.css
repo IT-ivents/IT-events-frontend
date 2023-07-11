@@ -60,6 +60,8 @@
   padding-bottom: 4px;
   display: flex;
   align-items: center;
+  gap: 3px;
+  position: relative;
 }
 
 .inputContainer {
@@ -142,7 +144,7 @@
 .recommendation {
   width: 20px;
   height: 20px;
-  margin-left: 12px;
+  margin-left: 6px;
   cursor: pointer;
 }
 

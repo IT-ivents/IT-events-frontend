@@ -1,4 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
+import ReactDatePicker from 'react-datepicker';
+import { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import ru from 'date-fns/locale/ru';
 import styles from './Organization.module.css';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
@@ -7,12 +11,19 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
+import useAuth from '../../utils/hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Organization = () => {
+registerLocale('ru', ru);
+
+const Organization = ({ selectedEvent }) => {
   const {
     values,
+    setValues,
     handleChange,
-    inputTypeNumberValidation,
+    handleDateChange,
+    handlePriceChange,
+    handleUrlChange,
     handleBlur,
     errors,
     disabledButton,
@@ -26,6 +37,11 @@ const Organization = () => {
   const [selectedFormat, setSelectedFormat] = useState([]);
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
+  const [newCardData, setNewCardData] = useState({});
+  const currentDate = new Date();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -33,38 +49,109 @@ const Organization = () => {
     format: false,
   });
 
-  const dateStart = values.date_start;
+  const formatDisabled =
+    selectedFormat.length === 1 && selectedFormat[0].value === 'online';
+
+  console.log(selectedFormat);
+
+  const dateStart =
+    values?.date_start
+      ?.toLocaleDateString('ru', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('.')
+      .reverse()
+      .join('-') || null;
   const timeStart = values.time_start;
-  const dateEnd = values.date_end;
+  const dateEnd =
+    values?.date_end
+      ?.toLocaleDateString('ru', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('.')
+      .reverse()
+      .join('-') || null;
   const timeEnd = values.time_end;
   // Конвертация дат мероприятия в нужный формат
-  const correctDateStartFormat = dateStart + 'T' + timeStart + ':00Z';
-  const correctDateEndFormat = dateEnd + 'T' + timeEnd + ':00Z';
+  const correctDateStartFormat = `${dateStart}T${timeStart}Z`;
+  const correctDateEndFormat = `${dateEnd}T${timeEnd}Z`;
 
-  const [newCardData, setNewCardData] = useState({});
-  console.log(newCardData);
+  const width = {
+    width: '40%',
+  };
 
+  // ЗАПОЛНИТЬ ФОРМУ ЗНАЧЕНИЯМИ ИЗ SELECTED EVENT
   useEffect(() => {
-    const selectedTagsSlugs = selectedTags.map((tag) => tag.slug);
-    const selectedTopcsSlugs = selectedTopics.map((topic) => topic.value);
-    const selectedFormatSlugs = selectedFormat.map((format) => format.value);
+    if (selectedEvent) {
+      const currentTags = selectedEvent.tags?.map((tag) => ({
+        value: tag.id,
+        label: tag.name,
+        slug: tag.slug,
+      }));
+      setSelectedTags(currentTags);
+      const currentFormats = selectedEvent.format?.map((item) => ({
+        id: item.id,
+        value: item.slug,
+        label: item.name,
+      }));
+      setSelectedFormat(currentFormats);
+      const currentTopics = selectedEvent.topic?.map((item) => ({
+        id: item.id,
+        value: item.slug,
+        label: item.name,
+      }));
+      setSelectedTopics(currentTopics);
+      setValues((prev) => ({
+        ...prev,
+        title: selectedEvent.title || '',
+        description: selectedEvent.description || '',
+        program: selectedEvent.program || '',
+        city: selectedEvent.city || '',
+        url: selectedEvent.url || '',
+        address: selectedEvent.address,
+        partners: selectedEvent.partners || '',
+        price: selectedEvent.price,
+        image: selectedEvent.image || '',
+        date_start: new Date(selectedEvent.date_start),
+        time_start: selectedEvent.date_start.substring(11, 19),
+        date_end: new Date(selectedEvent.date_end),
+        time_end: selectedEvent.date_end.substring(11, 19),
+      }));
+    }
+  }, [selectedEvent]);
+
+  // ДАННЫЕ ДЛЯ ОТПРАВКИ НА СЕРВЕР
+  useEffect(() => {
+    const selectedTagsSlugs = selectedTags.map((tag) => tag.value);
+    const selectedTopcsSlugs = selectedTopics.map((topic) => topic.id);
+    const selectedFormatSlugs = selectedFormat.map((format) => format.id);
     setNewCardData((prevData) => ({
       ...prevData,
-      tags: selectedTagsSlugs,
-      topic: selectedTopcsSlugs,
-      format: selectedFormatSlugs,
+      tags: selectedTagsSlugs || [],
+      topic: selectedTopcsSlugs || [],
+      format: selectedFormatSlugs || [],
       title: values.title,
       description: values.description,
       program: values.program,
       partners: values.partners || '',
       price: values.price,
-      city: values.city,
-      address: values.address,
+      city: !formatDisabled ? values.city : '',
+      address: !formatDisabled ? values.address : '',
       date_start: correctDateStartFormat,
       date_end: correctDateEndFormat,
       url: values.url || '',
+      //organization: currentUser.id
     }));
-  }, [selectedTags, selectedTopics, selectedFormat]);
+  }, [selectedTags, selectedTopics, selectedFormat, values]);
+
+  // ОТЛАДКА - смотреть что готовится к отправке на сервер
+  useEffect(() => {
+    console.log('newCardData updated:', newCardData);
+  }, [newCardData]);
 
   const handleTopicChange = (selectedOptions) => {
     setSelectedTopics(selectedOptions);
@@ -84,16 +171,16 @@ const Organization = () => {
   // Для предпросмотра
   const eventDetails = {
     title: values.title,
-    city: { name: values.city || 'Invalid city' },
-    image: imageSmall,
+    city: values.city || 'Invalid City',
+    image: imageSmall || selectedEvent?.image,
     price: values.price || 0,
-    date_start: values.date_start,
+    date_start: values.date_start || selectedEvent?.date_start,
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 1048576) {
+    if (file?.size > 1048576) {
       setImageErrorMessage('Файл больше допустимого размера');
       return;
     }
@@ -126,20 +213,24 @@ const Organization = () => {
   }));
 
   const formatOptions = [
-    { value: 'online', label: 'Online' },
-    { value: 'offline', label: 'Offline' },
+    { id: 1, value: 'online', label: 'Online' },
+    { id: 2, value: 'offline', label: 'Offline' },
   ];
 
   const topicOptions = [
-    { value: 'frontend', label: 'Frontend' },
-    { value: 'backend', label: 'Backend' },
-    { value: 'ux/ui', label: 'UX/UI' },
-    { value: 'big-data-and-analytics', label: 'Data analytics' },
-    { value: 'hr', label: 'HR' },
-    { value: 'management', label: 'Management' },
-    { value: 'devops', label: 'Devops' },
-    { value: 'artificial-intelligence-and-machine-learning', label: 'AI & ML' },
-    { value: 'information_security', label: 'Кибербезопасность' },
+    { id: 14, value: 'frontend', label: 'Frontend' },
+    { id: 15, value: 'backend', label: 'Backend' },
+    { id: 17, value: 'ux/ui', label: 'UX/UI' },
+    { id: 6, value: 'big-data-and-analytics', label: 'Data analytics' },
+    { id: 30, value: 'hr', label: 'HR' },
+    { id: 12, value: 'management', label: 'Management' },
+    { id: 10, value: 'devops', label: 'Devops' },
+    {
+      id: 5,
+      value: 'artificial-intelligence-and-machine-learning',
+      label: 'AI & ML',
+    },
+    { id: 34, value: 'information_security', label: 'Кибербезопасность' },
   ];
 
   useEffect(() => {
@@ -160,6 +251,28 @@ const Organization = () => {
 
   const handleSelectBlur = (section) => {
     setIsFocused((prevState) => ({ ...prevState, [section]: false }));
+  };
+
+  const handlePostNewEvent = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await apiEvents.postNewEvent(newCardData);
+      console.log('Новое событие успешно создано', response.data);
+      navigate('/account/events');
+    } catch (error) {
+      console.error('Ошибка при создании события', error);
+    }
+  };
+
+  const handleEditEvent = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await apiEvents.editEvent(selectedEvent.id, newCardData);
+      console.log('Событие успешно изменено', response.data);
+      navigate('/account/events');
+    } catch (error) {
+      console.error('Ошибка при редактировании события', error);
+    }
   };
 
   const customSelectStyles = {
@@ -200,9 +313,6 @@ const Organization = () => {
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="title" className={styles.label}>
                 Название мероприятия<span className={styles.spanError}>*</span>{' '}
-                <span className={styles.recommendation}>
-                  Максимум 50 символов
-                </span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -222,15 +332,18 @@ const Organization = () => {
                 minLength={2}
                 maxLength={50}
               />
-              <span className={styles.spanError}>{errors.title}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.title}</span>
+                <span className={styles.recommendation}>
+                  {values?.title?.length || 0}/
+                  <span className={styles.spanError}>50</span>
+                </span>
+              </div>
             </fieldset>
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="price" className={styles.label}>
                 Ссылка на сайт
-                <span className={styles.recommendation}>
-                  {' '}
-                  Максимум 200 символов
-                </span>
+                <span className={styles.recommendation}> </span>
               </label>
               <input
                 className={`${styles.input} ${
@@ -244,39 +357,25 @@ const Organization = () => {
                 id="url"
                 name="url"
                 value={values.url || ''}
-                onChange={handleChange}
+                onChange={handleUrlChange}
                 placeholder="Ваша ссылка"
                 minLength={4}
-                maxLength={250}
+                maxLength={200}
                 onBlur={handleBlur}
                 autoComplete="off"
               />
-              <span className={styles.spanError}>{errors.url}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.url}</span>
+                <span className={styles.recommendation}>
+                  {values?.url?.length || 0}/
+                  <span className={styles.spanError}>200</span>
+                </span>
+              </div>
             </fieldset>
-
-            {/* <fieldset className={styles.fieldset}>
-              <label htmlFor="preview" className={styles.label}>
-                Ссылка на изображение для предпросмотра
-              </label>
-              <input
-                className={styles.input}
-                type="url"
-                id="url"
-                name="preview"
-                value={values.preview || ''}
-                onChange={handleChange}
-                placeholder="Ваша ссылка"
-                maxLength={200}
-                autoComplete="off"
-              />
-            </fieldset> */}
 
             <fieldset className={styles.fieldset}>
               <label htmlFor="description" className={styles.label}>
                 Описание<span className={styles.spanError}>*</span>{' '}
-                <span className={styles.recommendation}>
-                  Максимум 1000 символов
-                </span>
               </label>
               <textarea
                 id="description"
@@ -296,7 +395,13 @@ const Organization = () => {
                     : ''
                 }`}
               />
-              <span className={styles.spanError}>{errors.description}</span>
+              <div className={styles.spanContainer}>
+                <span className={styles.spanError}>{errors.description}</span>
+                <span className={styles.recommendation}>
+                  {values?.description?.length || 0}/
+                  <span className={styles.spanError}>1000</span>
+                </span>
+              </div>
             </fieldset>
           </div>
 
@@ -369,9 +474,6 @@ const Organization = () => {
         <fieldset className={styles.fieldset}>
           <label htmlFor="program" className={styles.label}>
             Программа<span className={styles.spanError}>*</span>{' '}
-            <span className={styles.recommendation}>
-              Максимум 3000 символов
-            </span>
           </label>
           <textarea
             id="program"
@@ -391,22 +493,26 @@ const Organization = () => {
                 : ''
             }`}
           ></textarea>
-          <span className={styles.spanError}>{errors.program}</span>
+          <div className={styles.spanContainer}>
+            <span className={styles.spanError}>{errors.program}</span>
+            <span className={styles.recommendation}>
+              {values?.program?.length || 0}/
+              <span className={styles.spanError}>3000</span>
+            </span>
+          </div>
         </fieldset>
 
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
-            <fieldset className={styles.fieldset}>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="start" className={styles.label}>
                 Дата и время начала<span className={styles.spanError}>*</span>{' '}
               </label>
-              <input
-                type="date"
+              <ReactDatePicker
                 id="date_start"
                 name="date_start"
-                required
-                value={values.date_start || ''}
-                onChange={handleChange}
+                selected={values.date_start || ''}
+                onChange={(date) => handleDateChange(date, 'date_start')}
                 className={`${styles.input} ${
                   errors.date_start
                     ? styles.inputError
@@ -414,8 +520,18 @@ const Organization = () => {
                     ? styles.inputSuccess
                     : ''
                 }`}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Выберите дату"
+                autoComplete="off"
+                onKeyDown={(e) => e.preventDefault()} // Запрещаем нажатие клавиш на поле ввода
+                locale="ru" // Устанавливаем русскую локализацию
+                minDate={currentDate}
+                showMonthDropdown // Показываем выпадающий список с месяцами
+                //showYearDropdown // Показываем выпадающий список с годами
+                dropdownMode="select" // Режим выбора в выпадающих списках
+                required
               />
-              <span className={styles.spanError}>{errors.date_start}</span>
+              <span className={styles.spanError}>{errors?.date_start}</span>
             </fieldset>
             <fieldset className={styles.fieldset}>
               <input
@@ -437,18 +553,16 @@ const Organization = () => {
             </fieldset>
           </div>
           <div className={styles.columnContainer}>
-            <fieldset className={styles.fieldset}>
+            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="finish" className={styles.label}>
                 Дата и время окончания
                 <span className={styles.spanError}>*</span>{' '}
               </label>
-              <input
-                type="date"
+              <ReactDatePicker
                 id="date_end"
                 name="date_end"
-                required
-                value={values.date_end || ''}
-                onChange={handleChange}
+                selected={values.date_end || ''}
+                onChange={(date) => handleDateChange(date, 'date_end')}
                 className={`${styles.input} ${
                   errors.date_end
                     ? styles.inputError
@@ -456,8 +570,18 @@ const Organization = () => {
                     ? styles.inputSuccess
                     : ''
                 }`}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Выберите дату"
+                onKeyDown={(e) => e.preventDefault()} // Запрещаем нажатие клавиш на поле ввода
+                locale="ru" // Устанавливаем русскую локализацию
+                showMonthDropdown // Показываем выпадающий список с месяцами
+                minDate={currentDate}
+                //showYearDropdown // Показываем выпадающий список с годами
+                dropdownMode="select" // Режим выбора в выпадающих списках
+                autoComplete="off"
+                required
               />
-              <span className={styles.spanError}>{errors.date_end}</span>
+              <span className={styles.spanError}>{errors?.date_end}</span>
             </fieldset>
             <fieldset className={styles.fieldset}>
               <input
@@ -483,15 +607,12 @@ const Organization = () => {
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="city" className={styles.label}>
               Город<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>
-                Максимум 25 символов
-              </span>
             </label>
             <input
               type="text"
               id="city"
               name="city"
-              value={values.city || ''}
+              value={!formatDisabled ? values.city || '' : ''}
               onChange={handleChange}
               className={`${styles.input} ${
                 errors.city
@@ -502,25 +623,29 @@ const Organization = () => {
               }`}
               placeholder="Укажите город проведения"
               required
+              disabled={formatDisabled}
               autoComplete="off"
               minLength={2}
               maxLength={25}
             />
-            <span className={styles.spanError}>{errors.city}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.city}</span>
+              <span className={styles.recommendation}>
+                {!formatDisabled ? values?.city?.length || 0 : 0}/
+                <span className={styles.spanError}>25</span>
+              </span>
+            </div>
           </fieldset>
 
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="address" className={styles.label}>
               Адрес<span className={styles.spanError}>*</span>{' '}
-              <span className={styles.recommendation}>
-                Максимум 130 символов
-              </span>
             </label>
             <input
               type="text"
               id="address"
               name="address"
-              value={values.address || ''}
+              value={!formatDisabled ? values.address || '' : ''}
               onChange={handleChange}
               className={`${styles.input} ${
                 errors.address
@@ -531,11 +656,18 @@ const Organization = () => {
               }`}
               placeholder="Укажите адрес"
               required
+              disabled={formatDisabled}
               autoComplete="off"
               minLength={2}
               maxLength={130}
             />
-            <span className={styles.spanError}>{errors.address}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.address}</span>
+              <span className={styles.recommendation}>
+                {!formatDisabled ? values?.address?.length || 0 : 0}/
+                <span className={styles.spanError}>130</span>
+              </span>
+            </div>
           </fieldset>
         </div>
 
@@ -543,9 +675,6 @@ const Organization = () => {
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="partners" className={styles.label}>
               Партнеры{' '}
-              <span className={styles.recommendation}>
-                Максимум 1000 символов
-              </span>
             </label>
             <input
               className={`${styles.input} ${
@@ -565,7 +694,13 @@ const Organization = () => {
               onBlur={handleBlur}
               maxLength={1000}
             />
-            <span className={styles.spanError}>{errors.partners}</span>
+            <div className={styles.spanContainer}>
+              <span className={styles.spanError}>{errors.partners}</span>
+              <span className={styles.recommendation}>
+                {values?.partners?.length || 0}/
+                <span className={styles.spanError}>1000</span>
+              </span>
+            </div>
           </fieldset>
           <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
             <label htmlFor="price" className={styles.label}>
@@ -583,10 +718,8 @@ const Organization = () => {
               id="price"
               name="price"
               value={values.price || ''}
-              onChange={handleChange}
-              onInput={inputTypeNumberValidation}
+              onChange={handlePriceChange}
               required
-              pattern="\d+"
               autoComplete="off"
               minLength={2}
               maxLength={8}
@@ -599,10 +732,15 @@ const Organization = () => {
         <div className={styles.rowContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="image" className={styles.label}>
-              Добавьте баннер<span className={styles.spanError}>*</span>{' '}
+              Добавьте основной баннер
+              <span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
                 Рекомендуемый размер: 608х390, допустимые форматы .png, .jpeg,
-                .bmp, до 1 МБ включительно
+                .bmp, до 1 МБ включительно.
+              </span>{' '}
+              <span className={styles.recommendation}>
+                Перед тем как вставить изображение, обязательно убедитесь, что
+                вы не нарушаете ничьих авторских прав.
               </span>
             </label>
 
@@ -621,10 +759,14 @@ const Organization = () => {
           </fieldset>
           <fieldset className={styles.fieldset}>
             <label htmlFor="image" className={styles.label}>
-              Добавьте баннер<span className={styles.spanError}>*</span>{' '}
+              Добавьте обложку<span className={styles.spanError}>*</span>{' '}
               <span className={styles.recommendation}>
                 Рекомендуемый размер: 296x240, допустимые форматы .png, .jpeg,
-                .bmp, до 1 МБ включительно
+                .bmp, до 1 МБ включительно.
+              </span>{' '}
+              <span className={styles.recommendation}>
+                Изображение попадет в шапку события и будет отображаться в ленте
+                мероприятий.
               </span>
             </label>
             <input
@@ -647,11 +789,23 @@ const Organization = () => {
             корректность заполненных данных. Карточка с Вашим мероприятием
             появится на сайте после проверки модератором.{' '}
           </p>
-          <SubmitButton
-            title="Отправить"
-            disabled={disabledButton}
-            width={'40%'}
-          />
+          {location.pathname === '/organization' ? (
+            <SubmitButton
+              title="Отправить"
+              type="submit"
+              disabled={disabledButton}
+              style={width}
+              onClick={handlePostNewEvent}
+            />
+          ) : (
+            <SubmitButton
+              title="Изменить"
+              type="submit"
+              disabled={disabledButton}
+              style={width}
+              onClick={handleEditEvent}
+            />
+          )}
         </div>
       </form>
     </div>

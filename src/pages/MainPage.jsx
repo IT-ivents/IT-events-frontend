@@ -6,7 +6,7 @@ import SearchField from '../components/SearchField/SearchField';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
 import EventCarousel from '../components/EventCarousel/EventCarousel';
-import { Circles } from 'react-loader-spinner';
+import Loader from '../components/Loader/Loader';
 import { useEffect, useState } from 'react';
 
 const MainPage = ({
@@ -57,7 +57,7 @@ const MainPage = ({
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 750);
   }, []);
 
   return (
@@ -66,19 +66,9 @@ const MainPage = ({
       <div className={styles.mainPageListWrapper}>
         <div>
           <SearchField onSearch={onSearch} searchQuery={searchQuery} />
-          <div className={styles.topFilterContainer}>
-            <TopFilersBar />
-          </div>
+          <TopFilersBar />
           {isLoading ? (
-            <div className={styles.loaderContainer}>
-              <Circles
-                height="80"
-                width="80"
-                color="#674EAE"
-                ariaLabel="circles-loading"
-                visible={true}
-              />
-            </div>
+            <Loader />
           ) : (
             <div>
               <EventCarousel
@@ -95,6 +85,7 @@ const MainPage = ({
                   onLikeClick={onLikeClick}
                   elseButton={event.else}
                   eventOnPage={event.eventOnPage}
+                  setSelectedEvent={setSelectedEvent}
                 />
               ))}
             </div>

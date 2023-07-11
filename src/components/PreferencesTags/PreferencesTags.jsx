@@ -11,7 +11,7 @@ const TagBlock = ({ imageSrc, altText, caption, tags }) => {
       </figure>
       <div className={styles.tagsList}>
         {tags.map((value, index) => (
-          <TagButton value={value} key={index} />
+          <TagButton value={value} key={index} disabled={true} />
         ))}
       </div>
     </div>

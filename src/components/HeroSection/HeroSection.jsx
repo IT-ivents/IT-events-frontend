@@ -6,10 +6,8 @@ const HeroSection = () => {
 
   return (
     <section className={styles.section}>
-      {/* <div className={styles.textContainer}> */}
       <h1 className={styles.headText}>{headText}</h1>
       <p className={styles.subText}>{subtext}</p>
-      {/* </div> */}
     </section>
   );
 };
