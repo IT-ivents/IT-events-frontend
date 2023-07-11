@@ -117,10 +117,10 @@ const Organization = ({ selectedEvent }) => {
         partners: selectedEvent.partners || '',
         price: selectedEvent.price,
         image: selectedEvent.image || '',
-        date_start: selectedEvent.date_start.substring(0, 10),
-        time_start: selectedEvent.date_start.substring(11, 19),
-        date_end: selectedEvent.date_end.substring(0, 10),
-        time_end: selectedEvent.date_end.substring(11, 19),
+        // date_start: selectedEvent.date_start.substring(0, 10),
+        // time_start: selectedEvent.date_start.substring(11, 19),
+        // date_end: selectedEvent.date_end.substring(0, 10),
+        // time_end: selectedEvent.date_end.substring(11, 19),
       }));
     }
   }, [selectedEvent]);
