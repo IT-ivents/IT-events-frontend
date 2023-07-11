@@ -38,24 +38,24 @@ const UserEvents = ({
     }
   };
 
-  useEffect(() => {
-    console.log('TO_DEL_CHECKBOX', checkedEvents);
-  }, [checkedEvents]);
+  // useEffect(() => {
+  //   console.log('TO_DEL_CHECKBOX', checkedEvents);
+  // }, [checkedEvents]);
 
+  const fetchUserEvents = async () => {
+    try {
+      const response = await apiEvents.getUserEvents();
+      const userEvents = response.data;
+      setCreatedEvents(userEvents);
+    } catch (error) {
+      console.error('Ошибка при получении событий пользователя', error);
+    }
+  };
   // Получение созданных событий
   useEffect(() => {
-    const fetchUserEvents = async () => {
-      try {
-        const response = await apiEvents.getUserEvents();
-        const userEvents = response.data;
-        setCreatedEvents(userEvents);
-      } catch (error) {
-        // Обработка ошибки при выполнении запроса
-      }
-    };
     fetchUserEvents();
+    console.log('USER_EVENTS', createdEvents);
   }, []);
-  console.log(createdEvents);
 
   const handleFilter = (option) => {
     let sortedList = [...createdEvents];
@@ -97,12 +97,11 @@ const UserEvents = ({
       default:
         break;
     }
-
     setCreatedEvents([...sortedList]);
   };
 
   const pageRender = () => {
-    if (createdEvents.length === 0 || !createdEvents) {
+    if (createdEvents.length === 0) {
       return (
         <>
           <h2 className={styles.title}>У Вас пока нет созданных событий</h2>
@@ -128,12 +127,10 @@ const UserEvents = ({
   const handleDeleteEvent = async () => {
     const eventsToDelArray = checkedEvents?.map((event) => event.id);
     try {
-      const response = await apiEvents.deleteEvent({
+      await apiEvents.deleteEvent({
         event_ids: eventsToDelArray,
       });
-      const updatedEvents = response.data;
-      setCreatedEvents(updatedEvents);
-      console.log('USER_EVENTS:', createdEvents);
+      fetchUserEvents();
       console.log('Событие успешно удалено');
     } catch (error) {
       console.error('Ошибка при удалении события', error);

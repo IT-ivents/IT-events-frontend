@@ -120,7 +120,7 @@ const ModalSignUp = ({
                 placeholder="Ваше имя"
                 required
                 minLength={2}
-                maxLength={25}
+                maxLength={50}
                 value={values.username || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -151,7 +151,7 @@ const ModalSignUp = ({
                 placeholder="Ваша организация"
                 required
                 minLength={2}
-                maxLength={254}
+                maxLength={100}
                 value={values.organization_name || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}

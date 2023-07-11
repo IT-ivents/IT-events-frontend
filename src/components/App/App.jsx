@@ -94,8 +94,8 @@ function App() {
     if (!selectedEvent || !selectedEvent.tags) {
       return [];
     }
-    const selectedTags = selectedEvent.tags.map((tag) =>
-      tag.name.toLowerCase().trim()
+    const selectedTags = selectedEvent.tags?.map((tag) =>
+      tag?.name?.toLowerCase().trim()
     );
     const recommended = events.filter((event) => {
       return (
@@ -142,7 +142,7 @@ function App() {
       try {
         const data = await apiEvents.getEvents();
         const newData = data.data;
-        console.log(newData);
+        //console.log(newData);
         setEventsFromApi(newData);
         updateEventArrays(newData);
       } catch (error) {
@@ -181,23 +181,23 @@ function App() {
         if (savedSelectedEvent) {
           setSelectedEvent(savedSelectedEvent);
         }
-        const storagedEventsData = localStorage.getItem('eventsData');
-        if (!storagedEventsData) {
+        const storagedEvents = JSON.parse(localStorage.getItem('eventsData'));
+        if (!storagedEvents) {
           await fetchDataAndSaveToLocalStorage();
         } else {
-          const resultData = JSON.parse(storagedEventsData);
-          setEventsFromApi(resultData);
-          updateEventArrays(resultData);
+          updateEventArrays(storagedEvents);
         }
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
       }
     };
     fetchData();
-    // ОБНОВЛЕНИЕ СОБЫТИЙ С СЕРВЕРА КАЖДЫЕ 10 МИНУТ
+    // ОБНОВЛЕНИЕ СОБЫТИЙ С СЕРВЕРА КАЖДЫЕ 7 МИНУТ
     const interval = setInterval(() => {
+      localStorage.removeItem('eventsData');
+      console.log('Обновились данные');
       fetchData();
-    }, 600000);
+    }, 420000);
     return () => {
       clearInterval(interval);
     };
@@ -464,7 +464,10 @@ function App() {
             <Route path="preferences" element={<PreferencesPage />} />
             <Route path="privacy" element={<PrivacyPolicyPage />} />
             <Route path="cookies" element={<CookiePage />} />
-            <Route path="about" element={<About />} />
+            <Route
+              path="about"
+              element={<About toggleModalSignUp={toggleModalSignUp} />}
+            />
 
             <Route
               path="organization"

@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import { isEmail } from 'validator';
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({});

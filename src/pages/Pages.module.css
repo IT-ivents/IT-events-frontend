@@ -16,6 +16,14 @@
   gap: 100px;
 }
 
+/* // ORGANIZATION  */
+
+.organizationWrapper {
+  display: flex;
+  align-self: center;
+  flex-grow: 1;
+}
+
 .searchResultPageWrapper {
   display: flex;
   gap: 120px;
