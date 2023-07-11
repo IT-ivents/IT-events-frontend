@@ -1,15 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
+import { isEmail } from 'validator';
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-
-  const inputTypeNumberValidation = (e) => {
-    return (e.target.value =
-      Math.max(0, parseInt(e.target.value.trim().slice(0, 8))) || '');
-  };
 
   const handleChange = (event) => {
     const target = event.target;
@@ -75,24 +71,20 @@ export function useFormWithValidation() {
     setIsValid(target.closest('form').checkValidity());
   };
 
-  const handleDateChange = (event) => {
+  const handlePriceChange = (event) => {
     const target = event.target;
     const { name, value } = target;
+    let validationPattern;
     let error = '';
-
-    if (name === 'date_start' || name === 'date_end') {
-      const startDate =
-        name === 'date_start' ? new Date(value) : new Date(values.date_start);
-      const endDate =
-        name === 'date_end' ? new Date(value) : new Date(values.date_end);
-      const currentDate = new Date();
-
-      if (startDate && endDate && startDate > endDate) {
-        error = 'Дата окончания должна быть позже даты начала';
+    if (name === 'price') {
+      validationPattern = /^\d{0,6}$/;
+      if (!validationPattern.test(value)) {
+        error = 'Введите корректное значение';
       }
-
-      if (startDate && startDate < currentDate) {
-        error = 'Выберите дату начала, которая больше или равна текущей дате';
+      // Запрет отрицательных значений
+      const numberValue = parseInt(value, 10);
+      if (numberValue < 0) {
+        error = 'Значение не может быть отрицательным';
       }
     }
 
@@ -107,6 +99,65 @@ export function useFormWithValidation() {
     }));
 
     setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handleUrlChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let error = '';
+
+    if (name === 'url') {
+      // Паттерн для валидации URL
+      const validationPattern =
+        /^(https?:\/\/)?([^\s.]+\.\S{2}|localhost)(\/[^\s]*)?$/;
+
+      if (!validationPattern.test(value)) {
+        error = 'Введите корректный URL с полным доменом';
+      }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handleDateChange = (date, name) => {
+    let error = '';
+
+    if (name === 'date_start' || name === 'date_end') {
+      const startDate =
+        name === 'date_start' ? date : new Date(values.date_start);
+      const endDate = name === 'date_end' ? date : new Date(values.date_end);
+      const currentDate = new Date();
+
+      if (startDate && endDate && startDate > endDate) {
+        error = 'Дата окончания должна быть позже даты начала';
+      }
+
+      if (startDate && startDate < currentDate.setHours(0, 0, 0, 0)) {
+        error = 'Выберите дату начала, которая больше или равна текущей дате';
+      }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: date,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(true);
   };
 
   useEffect(() => {
@@ -159,12 +210,13 @@ export function useFormWithValidation() {
     handleChange,
     handleEmailChange,
     handlePasswordChange,
+    handleUrlChange,
     handleDateChange,
+    handlePriceChange,
     handleBlur,
     errors,
     isValid,
     resetForm,
     disabledButton,
-    inputTypeNumberValidation,
   };
 }
