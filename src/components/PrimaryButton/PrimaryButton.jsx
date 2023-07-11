@@ -1,5 +1,5 @@
 import styles from './PrimaryButton.module.css';
-import RightArrow from './../../images/Arrows/arrow-right.svg';
+import { ReactComponent as RightArrow } from '../../images/Arrows/arrow-right.svg';
 import { Link } from 'react-router-dom';
 
 const PrimaryButton = ({ title, to, disabled, style }) => {
@@ -12,9 +12,10 @@ const PrimaryButton = ({ title, to, disabled, style }) => {
       style={style}
     >
       {title}
-      <figure className={styles.figure}>
+      <RightArrow />
+      {/* <figure className={styles.figure}>
         <img src={RightArrow} alt="Arrow" />
-      </figure>
+      </figure> */}
     </Link>
   );
 };

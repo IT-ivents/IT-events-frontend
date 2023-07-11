@@ -19,7 +19,8 @@ const AccountButton = ({
       disabled={disabled}
       onClick={onClick}
     >
-      <img src={imageSrc} alt="icon" />
+      {imageSrc}
+      {/* <img src={imageSrc} alt="icon" /> */}
       {title}
     </Link>
   );
