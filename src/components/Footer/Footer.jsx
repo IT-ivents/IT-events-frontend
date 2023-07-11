@@ -23,6 +23,7 @@ const Footer = ({ onEnter, loggedIn }) => {
   const handleLogin = () => {
     if (loggedIn) {
       navigate('/account');
+      // scrollToTop();
     } else {
       onEnter();
     }
@@ -30,7 +31,7 @@ const Footer = ({ onEnter, loggedIn }) => {
 
   const renderFooterItems = () => {
     const footerItems = [
-      { text: 'О нас', to: '/about' },
+      { text: 'О нас', to: '/about', onClick: scrollToTop() },
       { text: 'События', disabled },
       { text: 'Cookies', onClick: () => setShowPopup(true) },
       { text: 'Мы в СМИ!', disabled },
