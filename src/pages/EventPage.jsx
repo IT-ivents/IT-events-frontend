@@ -15,7 +15,7 @@ const EventPage = ({
 
   useEffect(() => {
     const eventId = Number(id);
-    const eventFromParams = eventsFromApi.find((event) => event.id === eventId);
+    const eventFromParams = eventsFromApi.find((event) => event.id);
     if (eventFromParams) {
       setSelectedEvent(eventFromParams);
       navigate(`/event/${eventId}`);
