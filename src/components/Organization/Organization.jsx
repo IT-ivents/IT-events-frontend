@@ -38,7 +38,6 @@ const Organization = ({ selectedEvent }) => {
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
-  const { currentUser } = useAuth();
   const currentDate = new Date();
 
   const location = useLocation();
@@ -78,8 +77,8 @@ const Organization = ({ selectedEvent }) => {
       .join('-') || null;
   const timeEnd = values.time_end;
   // Конвертация дат мероприятия в нужный формат
-  const correctDateStartFormat = `${dateStart}T${timeStart}:00Z`;
-  const correctDateEndFormat = `${dateEnd}T${timeEnd}:00Z`;
+  const correctDateStartFormat = `${dateStart}T${timeStart}Z`;
+  const correctDateEndFormat = `${dateEnd}T${timeEnd}Z`;
 
   const width = {
     width: '40%',
@@ -117,10 +116,10 @@ const Organization = ({ selectedEvent }) => {
         partners: selectedEvent.partners || '',
         price: selectedEvent.price,
         image: selectedEvent.image || '',
-        // date_start: selectedEvent.date_start.substring(0, 10),
-        // time_start: selectedEvent.date_start.substring(11, 19),
-        // date_end: selectedEvent.date_end.substring(0, 10),
-        // time_end: selectedEvent.date_end.substring(11, 19),
+        date_start: new Date(selectedEvent.date_start),
+        time_start: selectedEvent.date_start.substring(11, 19),
+        date_end: new Date(selectedEvent.date_end),
+        time_end: selectedEvent.date_end.substring(11, 19),
       }));
     }
   }, [selectedEvent]);
@@ -140,8 +139,8 @@ const Organization = ({ selectedEvent }) => {
       program: values.program,
       partners: values.partners || '',
       price: values.price,
-      city: !formatDisabled ? values.city : null,
-      address: !formatDisabled ? values.address : null,
+      city: !formatDisabled ? values.city : '',
+      address: !formatDisabled ? values.address : '',
       date_start: correctDateStartFormat,
       date_end: correctDateEndFormat,
       url: values.url || '',
@@ -175,7 +174,7 @@ const Organization = ({ selectedEvent }) => {
     city: values.city || 'Invalid City',
     image: imageSmall || selectedEvent?.image,
     price: values.price || 0,
-    date_start: values.date_start,
+    date_start: values.date_start || selectedEvent?.date_start,
   };
 
   const handleFileChange = (event) => {
