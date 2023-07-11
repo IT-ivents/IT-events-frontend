@@ -11,7 +11,6 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
-import useAuth from '../../utils/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 registerLocale('ru', ru);
@@ -23,6 +22,7 @@ const Organization = ({ selectedEvent }) => {
     handleChange,
     handleDateChange,
     handlePriceChange,
+    handlePartnersChange,
     handleUrlChange,
     handleBlur,
     errors,
@@ -38,6 +38,7 @@ const Organization = ({ selectedEvent }) => {
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const currentDate = new Date();
 
   const location = useLocation();
@@ -52,7 +53,22 @@ const Organization = ({ selectedEvent }) => {
   const formatDisabled =
     selectedFormat.length === 1 && selectedFormat[0].value === 'online';
 
-  console.log(selectedFormat);
+  useEffect(() => {
+    setSubmitDisabled(
+      disabledButton ||
+        (selectedFormat.length === 0 &&
+          selectedTopics.length === 0 &&
+          selectedTags.length === 0 &&
+          (!!values?.partners || !!values?.url))
+    );
+  }, [
+    selectedFormat,
+    selectedTags,
+    selectedTopics,
+    values.partners,
+    values.url,
+  ]);
+  console.log(selectedTopics.length);
 
   const dateStart =
     values?.date_start
@@ -306,7 +322,9 @@ const Organization = ({ selectedEvent }) => {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form}>
-        <PageTitle title="Добавить событие" />
+        <PageTitle
+          title={selectedEvent ? 'Изменить событие' : 'Добавить событие'}
+        />
 
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
@@ -347,16 +365,16 @@ const Organization = ({ selectedEvent }) => {
               </label>
               <input
                 className={`${styles.input} ${
-                  errors.url
+                  errors?.url
                     ? styles.inputError
-                    : values.url
+                    : values?.url
                     ? styles.inputSuccess
                     : ''
                 }`}
                 type="url"
                 id="url"
                 name="url"
-                value={values.url || ''}
+                value={values?.url || ''}
                 onChange={handleUrlChange}
                 placeholder="Ваша ссылка"
                 minLength={4}
@@ -365,7 +383,7 @@ const Organization = ({ selectedEvent }) => {
                 autoComplete="off"
               />
               <div className={styles.spanContainer}>
-                <span className={styles.spanError}>{errors.url}</span>
+                <span className={styles.spanError}>{errors?.url}</span>
                 <span className={styles.recommendation}>
                   {values?.url?.length || 0}/
                   <span className={styles.spanError}>200</span>
@@ -418,7 +436,7 @@ const Organization = ({ selectedEvent }) => {
         <div className={styles.rowContainer}>
           <fieldset className={styles.fieldset}>
             <label htmlFor="topic" className={styles.label}>
-              Тема<span className={styles.spanError}>*</span>
+              Направление<span className={styles.spanError}>*</span>
             </label>
             <Select
               isMulti
@@ -446,6 +464,7 @@ const Organization = ({ selectedEvent }) => {
               components={animatedComponents}
               value={selectedFormat}
               styles={customSelectStyles}
+              required
               onFocus={() => handleSelectFocus('format')}
               onBlur={() => handleSelectBlur('format')}
               placeholder="Выберите формат"
@@ -465,6 +484,7 @@ const Organization = ({ selectedEvent }) => {
               components={animatedComponents}
               value={selectedTags}
               styles={customSelectStyles}
+              required
               onFocus={() => handleSelectFocus('tags')}
               onBlur={() => handleSelectBlur('tags')}
               placeholder="Выберите теги"
@@ -678,24 +698,25 @@ const Organization = ({ selectedEvent }) => {
             </label>
             <input
               className={`${styles.input} ${
-                errors.partners
+                errors?.partners
                   ? styles.inputError
-                  : values.partners
+                  : values?.partners
                   ? styles.inputSuccess
                   : ''
               }`}
               type="text"
               id="partners"
               name="partners"
-              value={values.partners || ''}
-              onChange={handleChange}
+              value={values?.partners || ''}
+              onChange={handlePartnersChange}
+              onBlur={handleBlur}
               placeholder="Есть партнеры?"
               autoComplete="off"
-              onBlur={handleBlur}
+              minLength={0}
               maxLength={1000}
             />
             <div className={styles.spanContainer}>
-              <span className={styles.spanError}>{errors.partners}</span>
+              <span className={styles.spanError}>{errors?.partners}</span>
               <span className={styles.recommendation}>
                 {values?.partners?.length || 0}/
                 <span className={styles.spanError}>1000</span>
@@ -801,7 +822,7 @@ const Organization = ({ selectedEvent }) => {
             <SubmitButton
               title="Изменить"
               type="submit"
-              disabled={disabledButton}
+              disabled={submitDisabled}
               style={width}
               onClick={handleEditEvent}
             />
