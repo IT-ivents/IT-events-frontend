@@ -168,8 +168,8 @@ function App() {
       console.log('Upcoming events:', upcomingEvents);
       console.log('Past Events:', pastEvents);
       setMostAnticipatedEvents(upcomingEvents);
-      setPopularEvents(upcomingEvents);
-      setInterestingEvents(upcomingEvents);
+      setPopularEvents(upcomingEvents.slice(9, 24));
+      setInterestingEvents(upcomingEvents.slice(10, upcomingEvents.length - 1));
       setSoonEvents(upcomingEvents.slice(0, 6));
       setSearchResult(upcomingEvents);
       setPastEvents(pastEvents);
