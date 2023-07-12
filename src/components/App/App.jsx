@@ -67,7 +67,7 @@ function App() {
   });
   const [findValues, setFindValues] = useState(null);
 
-  console.log(findValues, 'findValues');
+  //console.log(findValues, 'findValues');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -166,7 +166,7 @@ function App() {
       const upcomingEvents = getCurrentEvents(updatedEvents);
       const pastEvents = getPastEvents(eventsFromApi);
       console.log('Upcoming events:', upcomingEvents);
-      console.log('Past Events:', pastEvents);
+      //console.log('Past Events:', pastEvents);
       setMostAnticipatedEvents(upcomingEvents);
       setPopularEvents(upcomingEvents.slice(9, 24));
       setInterestingEvents(upcomingEvents.slice(10, upcomingEvents.length - 1));
