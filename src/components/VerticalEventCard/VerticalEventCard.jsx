@@ -40,7 +40,13 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
         <img
-          src={event.image ? event.image : defaultImage}
+          src={
+            event.image_small
+              ? event.image_small
+              : event.image
+              ? event.image
+              : defaultImage
+          }
           alt="event_picture"
           className={styles.image}
           onClick={() => handleCardClick(event.id)}
