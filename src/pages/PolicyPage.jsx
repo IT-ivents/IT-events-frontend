@@ -13,9 +13,13 @@ const PrivacyPolicyPage = () => {
       </h1>
       <ul>
         {policySections.map((block) => (
-          <li className={styles.policyList}>
+          <li key={block.id} className={styles.policyList}>
             <h2 className={styles.policySubtitle}>{block.title}</h2>
-            <p className={styles.policyText}>{block.content}</p>
+            {block.content.map((content, index) => (
+              <p key={index} className={styles.policyText}>
+                {content}
+              </p>
+            ))}
           </li>
         ))}
       </ul>
