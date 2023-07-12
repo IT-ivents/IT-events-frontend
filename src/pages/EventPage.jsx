@@ -13,14 +13,14 @@ const EventPage = ({
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const eventId = Number(id);
-    const eventFromParams = upcomingEvents.find((event) => event.id);
-    if (eventFromParams) {
-      setSelectedEvent(eventFromParams);
-      navigate(`/event/${eventId}`);
-    }
-  }, [id, setSelectedEvent, upcomingEvents]);
+  // useEffect(() => {
+  //   const eventId = Number(id);
+  //   const eventFromParams = upcomingEvents.find((event) => event.id);
+  //   if (eventFromParams) {
+  //     setSelectedEvent(eventFromParams);
+  //     navigate(`/event/${eventId}`);
+  //   }
+  // }, [id, setSelectedEvent, upcomingEvents]);
 
   return (
     <Event
