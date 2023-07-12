@@ -43,7 +43,10 @@ const Footer = ({ onEnter, loggedIn }) => {
       <li className={styles.footerItem} key={index} id={item.id}>
         {item.to ? (
           <Link to={item.to} className={styles.logoLink}>
-            {item.id === 'about' || 'privacy' ? (
+            {item.id === 'about' ||
+            item.id === 'privacy' ||
+            item.id === 'results' ||
+            item.id === 'cookies' ? (
               <span onClick={scrollToTop}>{item.text}</span>
             ) : (
               <span>{item.text}</span>
