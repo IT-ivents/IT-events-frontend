@@ -65,7 +65,8 @@ const Header = ({
     location.pathname === '/event' ||
     location.pathname === '/favorites' ||
     // location.pathname === `/event/${selectedEvent.id}` ||
-    location.pathname === '/notifications';
+    location.pathname === '/notifications' ||
+    location.pathname === '/privacy';
 
   const navLinks = [
     {

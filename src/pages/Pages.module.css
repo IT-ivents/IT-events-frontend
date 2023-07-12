@@ -46,7 +46,74 @@
 }
 
 /* Страница: Политика */
-.policyPageWrapper {
+/* .policyBackground {
+  width: 100vw;
+  background: #f1f1f1;
+} */
+
+.policySection {
+  width: 922px;
+  margin: 44px auto 0 104px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.policySpan {
+  font-size: 20px;
+}
+
+.policyTitle {
+  font-size: 48px;
+  margin: 25px 0 72px;
+  line-height: 52.8px;
+}
+
+.policyList {
+  list-style-type: none;
+  margin-bottom: 71px;
+}
+
+/* .policyList:last-of-type {
+  margin-bottom: 120px;
+} */
+
+.policySubtitle {
+  font-size: 32px;
+  line-height: 38.4px;
+  padding-left: 9px;
+  margin-bottom: 20px;
+}
+
+.policyText {
+  font-size: 20px;
+  line-height: 31px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.downloadPdf {
+  display: flex;
+  margin-bottom: 120px;
+  width: fit-content;
+  padding: 12px 20px;
+  color: white;
+  background-color: #674eae;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.downloadPdf:hover {
+  background-color: #443375;
+}
+
+.downloadPdf:active {
+  background-color: #291b51;
+}
+
+/* .policyPageWrapper {
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -58,7 +125,7 @@
   flex-direction: column;
   align-self: center;
   flex-grow: 1;
-}
+} */
 
 /* Страница: Избранное */
 .favoritesPageWrapper {

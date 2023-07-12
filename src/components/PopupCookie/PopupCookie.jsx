@@ -1,12 +1,13 @@
 import styles from './PopupCookie.module.css';
 import { Link } from 'react-router-dom';
 
-const PopupCookie = ({ setShowPopup }) => {
+const PopupCookie = ({ setShowPopup, scrollToTop }) => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
 
   const handleLinkClick = () => {
+    scrollToTop();
     setShowPopup(false);
   };
 

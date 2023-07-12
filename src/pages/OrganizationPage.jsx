@@ -4,7 +4,7 @@ import Organization from '../components/Organization/Organization';
 const OrganizationPage = ({ selectedEvent }) => {
   return (
     <div className={styles.organizationWrapper}>
-      <Organization selectedEvent={selectedEvent} />;
+      <Organization selectedEvent={selectedEvent} />
     </div>
   );
 };
