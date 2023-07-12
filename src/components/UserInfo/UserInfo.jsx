@@ -74,7 +74,7 @@ const UserInfo = ({ onNewEventClick }) => {
         <div>
           <h1 className={styles.title}>Персональная информация</h1>
           <span className={styles.edit}>
-            Здесь Вы можете поменять свои данные указанные при регистарции.
+            Здесь Вы можете поменять свои данные указанные при регистрации.
           </span>
         </div>
         <Link
