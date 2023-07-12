@@ -75,10 +75,13 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
             alt="Место проведения"
             className={styles.image}
           /> */}
-          {selectedEvent?.address ||
+          {/* {selectedEvent?.address ||
             'Нет данных' ||
             selectedEvent?.city ||
-            'Нет данных'}
+            'Нет данных'} */}
+          {selectedEvent?.city === ' ' || selectedEvent?.city === ''
+            ? 'Online'
+            : selectedEvent?.city}
         </li>
         <li className={styles.eventPrice}>
           {formatPrice(selectedEvent.price)}

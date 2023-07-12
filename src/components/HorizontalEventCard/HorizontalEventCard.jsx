@@ -13,29 +13,29 @@ import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   const [imageError, setImageError] = useState(false);
 
-  const renderLocationInfo = (event) => {
-    const isOnline = event?.format?.some((item) => item.name === 'Online');
-    if (isOnline) {
-      return (
-        <>
-          <p>Online</p>
-        </>
-      );
-    }
-    if (event.city !== ' ') {
-      return (
-        <>
-          <p>{event.city || 'Нет данных'}</p>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <p>{event.address || 'Нет данных'}</p>
-        </>
-      );
-    }
-  };
+  // const renderLocationInfo = (event) => {
+  //   const isOnline = event?.format?.some((item) => item.name === 'Online');
+  //   if (isOnline) {
+  //     return (
+  //       <>
+  //         <p>Online</p>
+  //       </>
+  //     );
+  //   }
+  //   if (event.city !== ' ') {
+  //     return (
+  //       <>
+  //         <p>{event.city || 'Нет данных'}</p>
+  //       </>
+  //     );
+  //   } else {
+  //     return (
+  //       <>
+  //         <p>{event.address || 'Нет данных'}</p>
+  //       </>
+  //     );
+  //   }
+  // };
 
   const handleCardClick = () => {
     onCardClick(event);
@@ -110,7 +110,10 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
           <li className={styles.rowItem}>
             <PlaceImage />
             {/* <img src={PlaceImage} alt="Место проведения" /> */}
-            {renderLocationInfo(event)}
+            {/* {renderLocationInfo(event)} */}
+            <p>
+              {event.city !== '' && event.city !== ' ' ? event.city : 'Online'}
+            </p>
           </li>
           <li className={styles.rowItem}>
             <span className={styles.price}>{formatPrice(event.price)}</span>
