@@ -9,7 +9,7 @@ export const team = [
   },
   {
     id: 2,
-    photo: member.Default,
+    photo: member.Obolenskaya,
     name: 'Ольга Оболенская',
     role: 'UX/UI - Дизайнер ',
   },
@@ -21,7 +21,7 @@ export const team = [
   },
   {
     id: 4,
-    photo: member.Default,
+    photo: member.Ivanov,
     name: 'Артём Иванов',
     role: 'QA Engineer',
   },
@@ -39,7 +39,7 @@ export const team = [
   },
   {
     id: 7,
-    photo: member.Default,
+    photo: member.Troyan,
     name: 'Ирина Троян',
     role: 'QA Engineer',
   },
@@ -57,7 +57,7 @@ export const team = [
   },
   {
     id: 11,
-    photo: member.Default,
+    photo: member.Lesnuhina,
     name: 'Полина Леснухина',
     role: 'QA Engineer',
   },
