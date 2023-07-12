@@ -13,12 +13,12 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
   const [activeTab, setActiveTab] = useState(0);
   const location = useLocation();
 
-  useEffect(() => {
-    const storedActiveTab = localStorage.getItem('activeMenuTab');
-    if (storedActiveTab) {
-      setActiveTab(parseInt(storedActiveTab));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedActiveTab = localStorage.getItem('activeMenuTab');
+  //   if (storedActiveTab) {
+  //     setActiveTab(parseInt(storedActiveTab));
+  //   }
+  // }, []);
 
   const handleLogoutClick = async () => {
     try {
@@ -31,7 +31,7 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const handleTabClick = (index) => {
     setActiveTab(index);
-    localStorage.setItem('activeMenuTab', index.toString());
+    // localStorage.setItem('activeMenuTab', index.toString());
   };
 
   const tabs = [
