@@ -17,6 +17,7 @@ const MainPage = ({
   mostAnticipatedEvents,
   soonEvents,
   onSearch,
+  handleFilterSearch,
   searchQuery,
   setSelectedEvent,
 }) => {
@@ -62,7 +63,8 @@ const MainPage = ({
 
   return (
     <div className={styles.mainPageWrapper}>
-      <LeftFilerBar handleSearch={onSearch} />
+      <LeftFilerBar handleSearch={handleFilterSearch} />
+      {/* handleSearch={onSearch} /> */}
       <div className={styles.mainPageListWrapper}>
         <div>
           <SearchField onSearch={onSearch} searchQuery={searchQuery} />

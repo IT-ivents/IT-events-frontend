@@ -67,6 +67,8 @@ function App() {
   });
   const [findValues, setFindValues] = useState(null);
 
+  console.log(findValues, 'findValues');
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -278,7 +280,7 @@ function App() {
 
   const searchEvents = (query) => {
     if (typeof query !== 'string') {
-      return eventsFromApi;
+      return upcomingEvents;
     }
     const words = query.toLowerCase().trim().split(' ');
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
@@ -415,7 +417,7 @@ function App() {
                   popularEvents={popularEvents}
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
-                  handleSearch={handleFilterSearch}
+                  handleFilterSearch={handleFilterSearch}
                   searchQuery={searchQuery}
                   onSearch={handleSearch}
                   setSelectedEvent={setSelectedEvent}
