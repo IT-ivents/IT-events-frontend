@@ -181,11 +181,6 @@ function App() {
         if (savedFavorites) {
           setFavorites(JSON.parse(savedFavorites));
         }
-        const savedSelectedEvent = localStorage.getItem('selectedEvent');
-
-        if (savedSelectedEvent) {
-          setSelectedEvent(JSON.parse(savedSelectedEvent));
-        }
         const storagedEvents = localStorage.getItem('eventsData');
         if (!storagedEvents) {
           await fetchDataAndSaveToLocalStorage();
@@ -222,6 +217,13 @@ function App() {
       localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
     }
   }, [selectedEvent]);
+
+  useEffect(() => {
+    const savedSelectedEvent = localStorage.getItem('selectedEvent');
+    if (savedSelectedEvent) {
+      setSelectedEvent(JSON.parse(savedSelectedEvent));
+    }
+  }, []);
 
   const handleCardClick = (event) => {
     if (location.pathname === '/account/events') {
@@ -279,7 +281,7 @@ function App() {
 
   const searchEvents = (query) => {
     if (typeof query !== 'string') {
-      return eventsFromApi;
+      return upcomingEvents;
     }
     const words = query.toLowerCase().trim().split(' ');
     // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
