@@ -7,7 +7,7 @@ export function useFilter({ values, setValues, setFindValues }) {
   const [date, setDate] = useState(null);
 
   const handleFilter = ({ name, value }) => {
-    console.log(dataLists);
+    // console.log(dataLists);
     const searchList = dataLists[name]?.map((item) => item?.toLowerCase());
     const debouncedSetFindValues = debounce((data) => setFindValues(data), 500);
 

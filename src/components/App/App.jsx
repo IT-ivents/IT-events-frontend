@@ -67,6 +67,8 @@ function App() {
   });
   const [findValues, setFindValues] = useState(null);
 
+  console.log(findValues, 'findValues');
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -89,11 +91,11 @@ function App() {
     }
   }, [location]);
 
-  useEffect(() => {
-    if (location.pathname === '/results') {
-      resetFilters();
-    }
-  }, [searchResult]);
+  // useEffect(() => {
+  //   if (location.pathname === '/results') {
+  //     resetFilters();
+  //   }
+  // }, []);
 
   // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
   const getRecommendedEvents = (events) => {
@@ -418,7 +420,7 @@ function App() {
                   popularEvents={popularEvents}
                   soonEvents={soonEvents}
                   interestingEvents={interestingEvents}
-                  handleSearch={handleFilterSearch}
+                  handleFilterSearch={handleFilterSearch}
                   searchQuery={searchQuery}
                   onSearch={handleSearch}
                   setSelectedEvent={setSelectedEvent}

@@ -35,6 +35,7 @@ const SearchResultPage = ({
   };
 
   const getPageItems = () => {
+    console.log(filteredList, 'filteredList');
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return filteredList.slice(startIndex, endIndex);
