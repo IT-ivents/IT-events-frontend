@@ -26,7 +26,7 @@ const Organization = ({ selectedEvent }) => {
     handleUrlChange,
     handleBlur,
     errors,
-    disabledButton,
+    isValid,
     resetForm,
   } = useFormWithValidation();
 
@@ -53,22 +53,16 @@ const Organization = ({ selectedEvent }) => {
   const formatDisabled =
     selectedFormat.length === 1 && selectedFormat[0].value === 'online';
 
-  useEffect(() => {
-    setSubmitDisabled(
-      disabledButton ||
-        (selectedFormat.length === 0 &&
-          selectedTopics.length === 0 &&
-          selectedTags.length === 0 &&
-          (!!values?.partners || !!values?.url))
-    );
-  }, [
-    selectedFormat,
-    selectedTags,
-    selectedTopics,
-    values.partners,
-    values.url,
-  ]);
-  console.log(selectedTopics.length);
+  const disabledButton =
+    !isValid ||
+    selectedFormat.length === 0 ||
+    selectedTopics.length === 0 ||
+    selectedTags.length === 0 ||
+    !values.date_start ||
+    !values.date_end ||
+    !values.time_start ||
+    !values.time_end ||
+    console.log(!values.image);
 
   const dateStart =
     values?.date_start
@@ -822,7 +816,7 @@ const Organization = ({ selectedEvent }) => {
             <SubmitButton
               title="Изменить"
               type="submit"
-              disabled={submitDisabled}
+              disabled={disabledButton}
               style={width}
               onClick={handleEditEvent}
             />
