@@ -318,7 +318,11 @@ const Organization = ({ selectedEvent }) => {
     <div className={styles.formContainer}>
       <form className={styles.form}>
         <PageTitle
-          title={selectedEvent ? 'Изменить событие' : 'Добавить событие'}
+          title={
+            location.pathname === '/organization'
+              ? 'Добавить событие'
+              : 'Изменить событие'
+          }
         />
 
         <div className={styles.rowContainer}>
