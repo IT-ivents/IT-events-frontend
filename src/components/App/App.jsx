@@ -431,7 +431,7 @@ function App() {
               path="/event/:id"
               element={
                 <EventPage
-                  eventsFromApi={eventsFromApi}
+                  upcomingEvents={upcomingEvents}
                   recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
                   setSelectedEvent={setSelectedEvent}
