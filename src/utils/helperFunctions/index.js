@@ -4,7 +4,7 @@ export const parsePrice = (priceString) => {
 };
 
 export const formatPrice = (price) => {
-  if (price === 0.0) {
+  if (price === '0.00') {
     return 'Бесплатно';
   } else {
     const formattedPrice = parseFloat(price).toFixed(2);

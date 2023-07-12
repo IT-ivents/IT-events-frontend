@@ -181,17 +181,16 @@ function App() {
         if (savedFavorites) {
           setFavorites(JSON.parse(savedFavorites));
         }
-        const savedSelectedEvent = JSON.parse(
-          localStorage.getItem('selectedEvent')
-        );
+        const savedSelectedEvent = localStorage.getItem('selectedEvent');
+
         if (savedSelectedEvent) {
-          setSelectedEvent(savedSelectedEvent);
+          setSelectedEvent(JSON.parse(savedSelectedEvent));
         }
-        const storagedEvents = JSON.parse(localStorage.getItem('eventsData'));
+        const storagedEvents = localStorage.getItem('eventsData');
         if (!storagedEvents) {
           await fetchDataAndSaveToLocalStorage();
         } else {
-          updateEventArrays(storagedEvents);
+          updateEventArrays(JSON.parse(storagedEvents));
         }
       } catch (error) {
         console.error('Ошибка при загрузке данных:', error);
@@ -219,7 +218,9 @@ function App() {
 
   // Cохранение текущего события в локальное хранилище чтобы не терять контекст.
   useEffect(() => {
-    localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
+    if (selectedEvent) {
+      localStorage.setItem('selectedEvent', JSON.stringify(selectedEvent));
+    }
   }, [selectedEvent]);
 
   const handleCardClick = (event) => {
