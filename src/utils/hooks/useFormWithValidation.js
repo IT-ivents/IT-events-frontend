@@ -76,7 +76,7 @@ export function useFormWithValidation() {
     let validationPattern;
     let error = '';
     if (name === 'price') {
-      validationPattern = /^\d{0,6}$/;
+      validationPattern = /^\d{0,8}$/;
       if (!validationPattern.test(value)) {
         error = 'Введите корректное значение';
       }
@@ -84,6 +84,8 @@ export function useFormWithValidation() {
       const numberValue = parseInt(value, 10);
       if (numberValue < 0) {
         error = 'Значение не может быть отрицательным';
+      } else {
+        error = '';
       }
     }
 
@@ -112,7 +114,34 @@ export function useFormWithValidation() {
 
       if (!validationPattern.test(value)) {
         error = 'Введите корректный URL с полным доменом';
+      } else {
+        error = '';
       }
+    }
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handlePartnersChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let error = '';
+
+    // Паттерн для валидации partners
+    const validationPattern = /^.{0,1000}$/;
+
+    if (!validationPattern.test(value)) {
+      error = 'Введите от 0 до 1000 символов';
     }
 
     setValues((prevValues) => ({
@@ -161,11 +190,12 @@ export function useFormWithValidation() {
 
   useEffect(() => {
     const hasErrors = Object.keys(errors).some((key) => errors[key]);
-    const hasOptionalFields = !!values.partners || !!values.url;
+    //const hasOptionalFields = !!values.partners || !!values.url;
     setDisabledButton(
       !isValid ||
-        (hasErrors && !hasOptionalFields) ||
+        hasErrors ||
         (values.confirmPassword ? errors.confirmPassword !== '' : false)
+      //!hasOptionalFields
     );
   }, [isValid, errors, values]);
 
@@ -175,7 +205,10 @@ export function useFormWithValidation() {
     const target = event.target;
     const { name } = target;
     if (name === 'partners' || name === 'url') {
-      setErrors({ ...errors, [name]: target.validationMessage });
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: target.value ? '' : target.validationMessage,
+      }));
     }
   };
 
@@ -212,6 +245,7 @@ export function useFormWithValidation() {
     handleUrlChange,
     handleDateChange,
     handlePriceChange,
+    handlePartnersChange,
     handleBlur,
     errors,
     isValid,

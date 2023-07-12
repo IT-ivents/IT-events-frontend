@@ -30,9 +30,12 @@ const ModalSignUp = ({
     handleBlur,
     isValid,
     errors,
-    disabledButton,
     resetForm,
   } = useFormWithValidation();
+
+  const disabledButton =
+    !isValid ||
+    (values.confirmPassword ? errors.confirmPassword !== '' : false);
 
   const toggleTooltip = () => {
     setIsTooltipVisible(!isTooltipVisible);

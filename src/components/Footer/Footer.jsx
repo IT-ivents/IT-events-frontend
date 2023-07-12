@@ -22,8 +22,8 @@ const Footer = ({ onEnter, loggedIn }) => {
 
   const handleLogin = () => {
     if (loggedIn) {
-      navigate('/account');
       scrollToTop();
+      navigate('/account');
     } else {
       onEnter();
     }
@@ -32,7 +32,7 @@ const Footer = ({ onEnter, loggedIn }) => {
   const renderFooterItems = () => {
     const footerItems = [
       { text: 'О нас', to: '/about', id: 'about' },
-      { text: 'События', disabled },
+      { text: 'События', to: '/results', id: 'results' },
       { text: 'Cookies', onClick: () => setShowPopup(true), id: 'cookies' },
       { text: 'Мы в СМИ!', disabled },
       { text: 'Войти в ЛК', onClick: handleLogin, id: 'login' },
@@ -43,7 +43,10 @@ const Footer = ({ onEnter, loggedIn }) => {
       <li className={styles.footerItem} key={index} id={item.id}>
         {item.to ? (
           <Link to={item.to} className={styles.logoLink}>
-            {item.id === 'about' ? (
+            {item.id === 'about' ||
+            item.id === 'privacy' ||
+            item.id === 'results' ||
+            item.id === 'cookies' ? (
               <span onClick={scrollToTop}>{item.text}</span>
             ) : (
               <span>{item.text}</span>
@@ -78,7 +81,9 @@ const Footer = ({ onEnter, loggedIn }) => {
           </div>
         </div>
       </div>
-      {showPopup && <PopupCookie setShowPopup={setShowPopup} />}
+      {showPopup && (
+        <PopupCookie setShowPopup={setShowPopup} scrollToTop={scrollToTop} />
+      )}
     </footer>
   );
 };

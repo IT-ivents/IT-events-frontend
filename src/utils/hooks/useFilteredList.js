@@ -33,7 +33,7 @@ export function useFilterdList({ values, searchResult }) {
     }
     if (city) {
       filteredArray = filteredArray.filter((event) =>
-        event.city.toLowerCase().trim().includes(city.toLowerCase().trim())
+        event.city?.toLowerCase().trim().includes(city?.toLowerCase().trim())
       );
     }
     if (price && price === 'Бесплатно') {
