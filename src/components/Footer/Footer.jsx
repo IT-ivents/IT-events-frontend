@@ -22,8 +22,8 @@ const Footer = ({ onEnter, loggedIn }) => {
 
   const handleLogin = () => {
     if (loggedIn) {
-      navigate('/account');
       scrollToTop();
+      navigate('/account');
     } else {
       onEnter();
     }
@@ -43,7 +43,7 @@ const Footer = ({ onEnter, loggedIn }) => {
       <li className={styles.footerItem} key={index} id={item.id}>
         {item.to ? (
           <Link to={item.to} className={styles.logoLink}>
-            {item.id === 'about' ? (
+            {item.id === 'about' || 'privacy' ? (
               <span onClick={scrollToTop}>{item.text}</span>
             ) : (
               <span>{item.text}</span>
@@ -78,7 +78,9 @@ const Footer = ({ onEnter, loggedIn }) => {
           </div>
         </div>
       </div>
-      {showPopup && <PopupCookie setShowPopup={setShowPopup} />}
+      {showPopup && (
+        <PopupCookie setShowPopup={setShowPopup} scrollToTop={scrollToTop} />
+      )}
     </footer>
   );
 };

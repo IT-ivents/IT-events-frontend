@@ -1,11 +1,24 @@
 import styles from './Pages.module.css';
+import { cookiesSections } from '../utils/constants/cookies';
+import CookieFile from '../pdf/Cookie.pdf';
 
 const CookiePage = () => {
   return (
-    <section className={styles.cookiesSection}>
+    <section className={styles.policySection}>
       <h1 className={styles.policyTitle}>
         Политика в отношении использования файлов Cookies
       </h1>
+      <ul>
+        {cookiesSections.map((block) => (
+          <li className={styles.policyList}>
+            <h2 className={styles.policySubtitle}>{block.title}</h2>
+            <p className={styles.policyText}>{block.content}</p>
+          </li>
+        ))}
+      </ul>
+      <a href={CookieFile} download className={styles.downloadPdf}>
+        Скачать в формате PDF
+      </a>
     </section>
   );
 };
