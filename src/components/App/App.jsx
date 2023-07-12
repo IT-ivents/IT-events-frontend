@@ -91,11 +91,11 @@ function App() {
     }
   }, [location]);
 
-  useEffect(() => {
-    if (location.pathname === '/results') {
-      resetFilters();
-    }
-  }, [searchResult]);
+  // useEffect(() => {
+  //   if (location.pathname === '/results') {
+  //     resetFilters();
+  //   }
+  // }, []);
 
   // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
   const getRecommendedEvents = (events) => {
