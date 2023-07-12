@@ -8,19 +8,19 @@ const EventPage = ({
   recommendedEvents,
   selectedEvent,
   setSelectedEvent,
-  eventsFromApi,
+  upcomingEvents,
 }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const eventId = Number(id);
-    const eventFromParams = eventsFromApi.find((event) => event.id);
+    const eventFromParams = upcomingEvents.find((event) => event.id);
     if (eventFromParams) {
       setSelectedEvent(eventFromParams);
       navigate(`/event/${eventId}`);
     }
-  }, [id, setSelectedEvent, eventsFromApi]);
+  }, [id, setSelectedEvent, upcomingEvents]);
 
   return (
     <Event
