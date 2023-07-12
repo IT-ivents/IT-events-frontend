@@ -190,7 +190,8 @@ export function useFormWithValidation() {
 
   useEffect(() => {
     const hasErrors = Object.keys(errors).some((key) => errors[key]);
-    const hasOptionalFields = !!values.partners || !!values.url;
+    // const hasOptionalFields = !!values.partners && !!values.url;
+    const hasOptionalFields = !!values.partners && !!values.url;
     setDisabledButton(
       !isValid ||
         hasErrors ||
