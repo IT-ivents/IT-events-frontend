@@ -230,6 +230,7 @@ const Organization = ({ selectedEvent }) => {
   const topicOptions = [
     { id: 14, value: 'frontend', label: 'Frontend' },
     { id: 15, value: 'backend', label: 'Backend' },
+    { id: 11, value: 'software-testing', label: 'Software Testing' },
     { id: 17, value: 'ux/ui', label: 'UX/UI' },
     { id: 6, value: 'big-data-and-analytics', label: 'Data analytics' },
     { id: 30, value: 'hr', label: 'HR' },
