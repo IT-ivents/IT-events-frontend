@@ -36,7 +36,7 @@ export const spanBlock = [
   },
   {
     id: 3,
-    title: '300',
+    title: '30',
     subtitle: 'замечательных сотрудников',
     span: '+',
   },
