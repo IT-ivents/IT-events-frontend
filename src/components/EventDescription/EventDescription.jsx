@@ -17,6 +17,8 @@ import {
 } from '../../utils/helperFunctions';
 
 const EventDescription = ({ selectedEvent, onLikeClick }) => {
+  console.log(selectedEvent);
+
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
