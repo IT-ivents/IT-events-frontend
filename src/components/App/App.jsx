@@ -205,21 +205,25 @@ function App() {
   //   }
   //   setSelectedEvent(event);
   // };
-  const handleCardClick = async (event) => {
-    try {
-      if (location.pathname === '/account/events') {
-        navigate('/edit');
-      } else {
-        const selectedEvent = await apiEvents.getSelectedEvent(event.id);
-        const { data } = selectedEvent;
-        console.log('Получили событие с сервера', data);
-        setSelectedEvent(data);
-        navigate(`events/${event.id}`);
-      }
-    } catch (error) {
-      console.error('Ошибка получения события с сервера', error);
+  const handleCardClick = (event) => {
+    if (location.pathname === '/account/events') {
+      navigate('/edit');
+    } else {
+      navigate(`events/${event.id}`);
     }
+    setSelectedEvent(event);
   };
+
+  // const handleCardSelection = async (event) => {
+  //   try {
+  //     const selectedEvent = await apiEvents.getSelectedEvent(event.id);
+  //     const { data } = selectedEvent;
+  //     console.log('Получили событие с сервера', data);
+  //     setSelectedEvent(data);
+  //   } catch (error) {
+  //     console.error('Ошибка получения события с сервера', error);
+  //   }
+  // };
 
   // Функция обновления массива избранных событий
   const updateFavorites = (event) => {

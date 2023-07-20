@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { apiEvents } from '../utils/api';
 import Event from '../components/Event/Event';
 import Loader from '../components/Loader/Loader';
@@ -11,27 +11,29 @@ const EventPage = ({
   selectedEvent,
   setSelectedEvent,
 }) => {
-  // const { id } = useParams();
+  const { id } = useParams();
+  console.log(window.location.href);
+
   // //const [selectedEvent, setSelectedEvent] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchEvent = async () => {
-  //     try {
-  //       const response = await apiEvents.getSelectedEvent(id);
-  //       const { data } = response;
-  //       setSelectedEvent(data);
-  //       console.log('Получили событие на странице Event', data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.error('Ошибка получения события с сервера', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await apiEvents.getSelectedEvent(id);
+        const { data } = response;
+        setSelectedEvent(data);
+        console.log('Получили событие на странице Event', data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Ошибка получения события с сервера', error);
+      }
+    };
 
-  //   fetchEvent();
-  // }, []);
+    fetchEvent();
+  }, [id]);
 
-  if (!selectedEvent) {
+  if (isLoading) {
     return <Loader />;
   }
 
