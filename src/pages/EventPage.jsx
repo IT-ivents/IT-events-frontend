@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Event from '../components/Event/Event';
 import Loader from '../components/Loader/Loader';
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const EventPage = ({
   recommendedEvents,
@@ -10,23 +10,27 @@ const EventPage = ({
   selectedEvent,
   setSelectedEvent,
 }) => {
-  if (selectedEvent === null && !selectedEvent) {
+  if (!selectedEvent) {
     return <Loader />;
   }
   return (
     <Routes>
-      <Route
-        path={`/${selectedEvent.id}`}
-        element={
-          <Event
-            selectedEvent={selectedEvent}
-            onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
-            recommendedEvents={recommendedEvents}
-            setSelectedEvent={setSelectedEvent}
-          />
-        }
-      />
+      {selectedEvent === null ? (
+        <Loader />
+      ) : (
+        <Route
+          path={`${selectedEvent.id}`}
+          element={
+            <Event
+              selectedEvent={selectedEvent}
+              onCardClick={onCardClick}
+              onLikeClick={onLikeClick}
+              recommendedEvents={recommendedEvents}
+              setSelectedEvent={setSelectedEvent}
+            />
+          }
+        />
+      )}
     </Routes>
   );
 };
