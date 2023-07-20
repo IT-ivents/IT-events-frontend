@@ -205,13 +205,25 @@ function App() {
   //   }
   //   setSelectedEvent(event);
   // };
-  const handleCardClick = (event) => {
+
+  const fetchEvent = async (id) => {
+    try {
+      const response = await apiEvents.getSelectedEvent(id);
+      const { data } = response;
+      setSelectedEvent(data);
+      console.log('Получили событие', data);
+    } catch (error) {
+      console.error('Ошибка получения события с сервера', error);
+    }
+  };
+
+  const handleCardClick = async (event) => {
+    await fetchEvent(event.id);
     if (location.pathname === '/account/events') {
       navigate('/edit');
     } else {
       navigate(`events/${event.id}`);
     }
-    setSelectedEvent(event);
   };
 
   // const handleCardSelection = async (event) => {
@@ -417,6 +429,7 @@ function App() {
             />
             <Route
               path="/events/:id"
+              //path=':id'
               element={
                 <EventPage
                   upcomingEvents={upcomingEvents}

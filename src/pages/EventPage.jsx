@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { apiEvents } from '../utils/api';
+import React from 'react';
 import Event from '../components/Event/Event';
 import Loader from '../components/Loader/Loader';
 
@@ -11,32 +9,12 @@ const EventPage = ({
   selectedEvent,
   setSelectedEvent,
 }) => {
-  const { id } = useParams();
-  console.log(window.location.href);
+  // console.log(window.location.href);
+  console.log(selectedEvent);
 
-  // //const [selectedEvent, setSelectedEvent] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await apiEvents.getSelectedEvent(id);
-        const { data } = response;
-        setSelectedEvent(data);
-        console.log('Получили событие на странице Event', data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Ошибка получения события с сервера', error);
-      }
-    };
-
-    fetchEvent();
-  }, [id]);
-
-  if (isLoading) {
+  if (selectedEvent === null && !selectedEvent) {
     return <Loader />;
   }
-
   return (
     <Event
       selectedEvent={selectedEvent}
