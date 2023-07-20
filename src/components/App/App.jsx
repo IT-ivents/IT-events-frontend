@@ -226,17 +226,6 @@ function App() {
     }
   };
 
-  // const handleCardSelection = async (event) => {
-  //   try {
-  //     const selectedEvent = await apiEvents.getSelectedEvent(event.id);
-  //     const { data } = selectedEvent;
-  //     console.log('Получили событие с сервера', data);
-  //     setSelectedEvent(data);
-  //   } catch (error) {
-  //     console.error('Ошибка получения события с сервера', error);
-  //   }
-  // };
-
   // Функция обновления массива избранных событий
   const updateFavorites = (event) => {
     setFavorites((prevFavorites) => {
@@ -427,7 +416,6 @@ function App() {
                 />
               }
             />
-            <Route path="events" element={<NotFoundPage />} />
             <Route
               path="events/*"
               //path=':id'
