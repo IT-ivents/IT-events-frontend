@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Event from '../components/Event/Event';
 import Loader from '../components/Loader/Loader';
+import { useLocation } from 'react-router-dom';
 
 const EventPage = ({
   recommendedEvents,
@@ -10,7 +11,11 @@ const EventPage = ({
   setSelectedEvent,
 }) => {
   // console.log(window.location.href);
-  console.log(selectedEvent);
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+  }, [selectedEvent]);
 
   if (selectedEvent === null && !selectedEvent) {
     return <Loader />;

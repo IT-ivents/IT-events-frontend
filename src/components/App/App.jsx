@@ -427,8 +427,9 @@ function App() {
                 />
               }
             />
+            <Route path="events" element={<NotFoundPage />} />
             <Route
-              path="/events/:id"
+              path="events/:id"
               //path=':id'
               element={
                 <EventPage
