@@ -1,5 +1,6 @@
 import styles from './VerticalEventCard.module.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   formatDate,
   formatPrice,
@@ -39,19 +40,21 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
     >
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
-        <img
-          src={
-            event.image_small
-              ? event.image_small
-              : event.image
-              ? event.image
-              : defaultImage
-          }
-          alt="event_picture"
-          className={styles.image}
-          onClick={() => handleCardClick(event.id)}
-          onError={handleImageError}
-        />
+        <Link to={`/events/${event.id}`}>
+          <img
+            src={
+              event.image_small
+                ? event.image_small
+                : event.image
+                ? event.image
+                : defaultImage
+            }
+            alt="event_picture"
+            className={styles.image}
+            onClick={() => handleCardClick(event.id)}
+            onError={handleImageError}
+          />
+        </Link>
         <button
           className={`${
             event.isLiked ? styles.likeButtonActive : styles.likeButton
