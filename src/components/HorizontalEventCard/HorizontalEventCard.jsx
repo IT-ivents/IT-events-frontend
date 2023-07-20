@@ -5,7 +5,7 @@ import {
   formatPrice,
   formatTimeRange,
 } from '../../utils/helperFunctions';
-import { ReactComponent as DefaultImage } from '../../images/default-image.svg';
+import DefaultImage from '../../images/default-image.png';
 import { ReactComponent as PlaceImage } from '../../images/EventInfo/place.svg';
 import { ReactComponent as CalendarImage } from '../../images/EventInfo/calendar.svg';
 import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
@@ -63,7 +63,12 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
         {imageError ? (
-          <DefaultImage className={styles.image} />
+          <img
+            src={DefaultImage}
+            alt="Изображение отсутствует"
+            className={styles.image}
+            onClick={handleCardClick}
+          />
         ) : (
           <img
             src={event.image_small ? event.image_small : event.image}

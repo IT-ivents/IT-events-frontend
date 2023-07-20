@@ -75,7 +75,7 @@
   flex-direction: column;
   position: relative;
   width: 192px;
-  max-height: 269px;
+  /* max-height: 269px; */
   overflow: hidden;
   background: linear-gradient(
     180deg,
@@ -125,9 +125,9 @@
   background-color: #f8f8f8;
 }
 
-.findItem:last-child {
+/* .findItem:last-child {
   margin-bottom: 10px;
-}
+} */
 
 .topicButton {
   display: flex;

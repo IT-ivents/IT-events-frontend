@@ -206,20 +206,19 @@ function App() {
   //   setSelectedEvent(event);
   // };
   const handleCardClick = async (event) => {
-    if (location.pathname === '/account/events') {
-      navigate('/edit');
-    } else {
-      await apiEvents
-        .getSelectedEvent(event.id)
-        .then((selectedEvent) => {
-          navigate(`events/${event.id}`);
-          console.log(selectedEvent);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    try {
+      if (location.pathname === '/account/events') {
+        navigate('/edit');
+      } else {
+        const selectedEvent = await apiEvents.getSelectedEvent(event.id);
+        const { data } = selectedEvent;
+        console.log('Получили событие с сервера', data);
+        setSelectedEvent(data);
+        navigate(`events/${event.id}`);
+      }
+    } catch (error) {
+      console.error('Ошибка получения события с сервера', error);
     }
-    setSelectedEvent(event);
   };
 
   // Функция обновления массива избранных событий
