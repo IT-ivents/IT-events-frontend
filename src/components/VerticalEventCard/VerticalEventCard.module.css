@@ -116,6 +116,17 @@
   line-height: 24px;
   color: rgba(0, 0, 0, 0.6);
   padding-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: horizontal;
+}
+
+.city {
+  width: 150px;
+  height: 28px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .descriptionContainer {

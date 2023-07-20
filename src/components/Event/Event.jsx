@@ -15,10 +15,6 @@ const Event = ({
 }) => {
   // Здесь нужен будет Loader потому что Event монтируется раньше того как приходит selectedEvent
   // и приложение крашится
-  // if (!selectedEvent) {
-  //   return <Loader />;
-  // }
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleImageError = (e) => {
     e.target.src = defaultImage;
@@ -43,67 +39,67 @@ const Event = ({
   //       setIsLoading(false);
   //     });
   // }, [setSelectedEvent]);
-  useEffect(() => {
-    // Получение события с сервера при загрузке компонента
-    const url = window.location.href;
-    const eventId = extractEventIdFromUrl(url);
+  // useEffect(() => {
+  //   // Получение события с сервера при загрузке компонента
+  //   const url = window.location.href;
+  //   const eventId = extractEventIdFromUrl(url);
 
-    apiEvents
-      .getSelectedEvent(eventId)
-      .then((event) => {
-        setSelectedEvent(event);
-        // setTimeout(() => {
-        setIsLoading(false);
-        // }, 750)
-      })
-      .catch((error) => {
-        console.error(error);
-        setIsLoading(false);
-      });
-  }, [setSelectedEvent]);
+  //   apiEvents
+  //     .getSelectedEvent(eventId)
+  //     .then((event) => {
+  //       setSelectedEvent(event);
+  //       // setTimeout(() => {
+  //       setIsLoading(false);
+  //       // }, 750)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       setIsLoading(false);
+  //     });
+  // }, [setSelectedEvent]);
 
-  function extractEventIdFromUrl(url) {
-    // Регулярное выражение для извлечения идентификатора события из URL
-    const regex = /events\/(\d+)/;
-    const match = url.match(regex);
+  // function extractEventIdFromUrl(url) {
+  //   // Регулярное выражение для извлечения идентификатора события из URL
+  //   const regex = /events\/(\d+)/;
+  //   const match = url.match(regex);
 
-    if (match && match[1]) {
-      return match[1];
-    } else {
-      // Если идентификатор не найден, вернуть значение по умолчанию или обработать ошибку
-      return null;
-    }
+  //   if (match && match[1]) {
+  //     return match[1];
+  //   } else {
+  //     // Если идентификатор не найден, вернуть значение по умолчанию или обработать ошибку
+  //     return null;
+  //   }
+  // }
+
+  if (!selectedEvent) {
+    return <Loader />;
   }
 
   return (
     <div className={styles.eventContainer}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <EventDescription
-            selectedEvent={selectedEvent}
-            onLikeClick={onLikeClick}
+      <>
+        <EventDescription
+          selectedEvent={selectedEvent}
+          onLikeClick={onLikeClick}
+        />
+        <aside>
+          <img
+            className={styles.eventImage}
+            src={selectedEvent.image}
+            alt={selectedEvent.title}
+            onError={handleImageError}
           />
-          <aside>
-            <img
-              className={styles.eventImage}
-              src={selectedEvent.image}
-              alt={selectedEvent.title}
-              onError={handleImageError}
-            />
-          </aside>
-          <div className={styles.horizontalList}>
-            <HorizontalEventsList
-              title="Смотрите также"
-              list={recommendedEvents}
-              onCardClick={onCardClick}
-              onLikeClick={onLikeClick}
-              setSelectedEvent={setSelectedEvent}
-            />
-          </div>
-        </>
-      )}
+        </aside>
+        <div className={styles.horizontalList}>
+          <HorizontalEventsList
+            title="Смотрите также"
+            list={recommendedEvents}
+            onCardClick={onCardClick}
+            onLikeClick={onLikeClick}
+            setSelectedEvent={setSelectedEvent}
+          />
+        </div>
+      </>
     </div>
   );
 };
