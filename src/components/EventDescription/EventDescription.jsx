@@ -16,7 +16,7 @@ import {
   handleCopyLink,
 } from '../../utils/helperFunctions';
 
-const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
+const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
