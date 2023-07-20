@@ -32,7 +32,7 @@ const AccountDetailsPage = ({
             />
           }
         />
-        <Route path="organization" element={<Organization />} />
+        {/* <Route path="organization" element={<Organization />} /> */}
       </Routes>
     </section>
   );

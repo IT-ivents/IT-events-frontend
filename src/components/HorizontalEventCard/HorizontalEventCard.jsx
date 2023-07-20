@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './HorizontalEventCard.module.css';
+import { Link } from 'react-router-dom';
 import {
   parseEventDate,
   formatPrice,
@@ -62,22 +63,24 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   return (
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
-        {imageError ? (
-          <img
-            src={DefaultImage}
-            alt="Изображение отсутствует"
-            className={styles.image}
-            onClick={handleCardClick}
-          />
-        ) : (
-          <img
-            src={event.image_small ? event.image_small : event.image}
-            alt="event_picture"
-            className={styles.image}
-            onClick={handleCardClick}
-            onError={handleImageError}
-          />
-        )}
+        <Link to={`/events/${event.id}`}>
+          {imageError ? (
+            <img
+              src={DefaultImage}
+              alt="Изображение отсутствует"
+              className={styles.image}
+              onClick={handleCardClick}
+            />
+          ) : (
+            <img
+              src={event.image_small ? event.image_small : event.image}
+              alt="event_picture"
+              className={styles.image}
+              onClick={handleCardClick}
+              onError={handleImageError}
+            />
+          )}
+        </Link>
 
         {/* <img
           src={event.image}

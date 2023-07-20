@@ -27,10 +27,9 @@ const EventPage = ({
     fetchEvent(id);
   }, [id]);
 
-  if (!selectedEvent) {
-    return <Loader />;
-  }
-  return (
+  return !selectedEvent ? (
+    <Loader />
+  ) : (
     <Event
       selectedEvent={selectedEvent}
       onCardClick={onCardClick}
