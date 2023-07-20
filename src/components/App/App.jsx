@@ -429,7 +429,7 @@ function App() {
             />
             <Route path="events" element={<NotFoundPage />} />
             <Route
-              path="events/:id"
+              path="events/*"
               //path=':id'
               element={
                 <EventPage
