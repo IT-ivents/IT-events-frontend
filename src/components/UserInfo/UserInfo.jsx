@@ -79,14 +79,12 @@ const UserInfo = ({ onNewEventClick }) => {
         </div>
         <Link
           to="/organization"
-          className={styles.link}
           onClick={onNewEventClick}
+          title="Создать событие"
+          className={styles.create}
         >
-          <button title="Создать событие" className={styles.create}>
-            <AddImage />
-            {/* <img src={AddImage} alt="Создать событие" /> */}
-            Создать событие
-          </button>
+          <AddImage />
+          Создать событие
         </Link>
       </div>
       <form>

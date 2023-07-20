@@ -418,22 +418,7 @@ function App() {
               }
             />
             <Route
-              path="events/"
-              //path=':id'
-              element={
-                <EventPage
-                  upcomingEvents={upcomingEvents}
-                  recommendedEvents={recommendedEvents}
-                  selectedEvent={selectedEvent}
-                  setSelectedEvent={setSelectedEvent}
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                />
-              }
-            />
-            <Route
               path="events/:id"
-              //path=':id'
               element={
                 <EventPage
                   upcomingEvents={upcomingEvents}
