@@ -73,73 +73,73 @@ const Event = ({
   // if (!selectedEvent) {
   //   return <Loader />;
   // }
-  const [isLoading, setIsLoading] = useState(true);
+  //const [isLoading, setIsLoading] = useState(true);
 
   const handleImageError = (e) => {
     e.target.src = defaultImage;
   };
 
-  useEffect(() => {
-    // Получение события с сервера при загрузке компонента
-    const url = window.location.href;
-    const eventId = extractEventIdFromUrl(url);
+  // useEffect(() => {
+  //   // Получение события с сервера при загрузке компонента
+  //   const url = window.location.href;
+  //   const eventId = extractEventIdFromUrl(url);
 
-    apiEvents
-      .getSelectedEvent(eventId)
-      .then((selectedEvent) => {
-        setSelectedEvent(selectedEvent.data);
-        // setTimeout(() => {
-        setIsLoading(false);
-        // console.log(selectedEvent)
-        // }, 750)
-      })
-      .catch((error) => {
-        console.error(error);
-        setIsLoading(false);
-      });
-  }, [setSelectedEvent]);
+  //   apiEvents
+  //     .getSelectedEvent(eventId)
+  //     .then((selectedEvent) => {
+  //       setSelectedEvent(selectedEvent.data);
+  //       // setTimeout(() => {
+  //       setIsLoading(false);
+  //       // console.log(selectedEvent)
+  //       // }, 750)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       setIsLoading(false);
+  //     });
+  // }, [setSelectedEvent]);
 
-  function extractEventIdFromUrl(url) {
-    // Регулярное выражение для извлечения идентификатора события из URL
-    const regex = /events\/(\d+)/;
-    const match = url.match(regex);
+  // function extractEventIdFromUrl(url) {
+  //   // Регулярное выражение для извлечения идентификатора события из URL
+  //   const regex = /events\/(\d+)/;
+  //   const match = url.match(regex);
 
-    if (match && match[1]) {
-      return match[1];
-    } else {
-      return null;
-    }
-  }
+  //   if (match && match[1]) {
+  //     return match[1];
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   return (
     <div className={styles.eventContainer}>
-      {isLoading ? (
+      {/* {isLoading ? (
         <Loader />
-      ) : (
-        <>
-          <EventDescription
-            selectedEvent={selectedEvent}
-            onLikeClick={onLikeClick}
+      ) : ( */}
+      <>
+        <EventDescription
+          selectedEvent={selectedEvent}
+          onLikeClick={onLikeClick}
+        />
+        <aside>
+          <img
+            className={styles.eventImage}
+            src={selectedEvent.image}
+            alt={selectedEvent.title}
+            onError={handleImageError}
           />
-          {/* <aside>
-            <img
-              className={styles.eventImage}
-              src={selectedEvent.image}
-              alt={selectedEvent.title}
-              onError={handleImageError}
-            />
-          </aside> */}
-          <div className={styles.horizontalList}>
-            <HorizontalEventsList
-              title="Смотрите также"
-              list={recommendedEvents}
-              onCardClick={onCardClick}
-              onLikeClick={onLikeClick}
-              setSelectedEvent={setSelectedEvent}
-            />
-          </div>
-        </>
-      )}
+        </aside>
+        <div className={styles.horizontalList}>
+          <HorizontalEventsList
+            title="Смотрите также"
+            list={recommendedEvents}
+            onCardClick={onCardClick}
+            onLikeClick={onLikeClick}
+            setSelectedEvent={setSelectedEvent}
+          />
+        </div>
+      </>
+      {/* )} */}
     </div>
   );
 };
