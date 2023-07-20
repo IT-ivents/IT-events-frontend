@@ -1,7 +1,7 @@
 import styles from './SearchField.module.css';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import searchIcon from '../../images/Actions/loupe-purple.svg';
+import { ReactComponent as SearchIcon } from '../../images/Actions/loupe-purple.svg';
 
 const SearchField = ({
   onSearch,
@@ -50,7 +50,7 @@ const SearchField = ({
       style={smallForm || radiusForm}
     >
       <fieldset className={styles.fieldset} style={smallFieldset}>
-        <img src={searchIcon} alt="search-icon" className={styles.icon} />
+        <SearchIcon className={styles.icon} />
         <input
           className={styles.input}
           placeholder={placeholder}

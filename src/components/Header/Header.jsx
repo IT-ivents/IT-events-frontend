@@ -64,7 +64,7 @@ const Header = ({
   const isSearchFieldOnTop =
     // location.pathname === '/events' ||
     location.pathname === '/favorites' ||
-    // location.pathname === `/event/${selectedEvent.id}` ||
+    location.pathname.includes('event') ||
     location.pathname === '/notifications' ||
     location.pathname === '/privacy';
 

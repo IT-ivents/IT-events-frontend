@@ -281,6 +281,7 @@
 .preferencesPageWrapper {
   display: flex;
   width: 100%;
+  flex-grow: 1;
   background: linear-gradient(
     90deg,
     #ffffff 0%,

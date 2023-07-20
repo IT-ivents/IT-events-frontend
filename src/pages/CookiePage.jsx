@@ -10,7 +10,7 @@ const CookiePage = () => {
       </h1>
       <ul>
         {cookiesSections.map((block) => (
-          <li className={styles.policyList}>
+          <li key={block.id} className={styles.policyList}>
             <h2 className={styles.policySubtitle}>{block.title}</h2>
             <p className={styles.policyText}>{block.content}</p>
           </li>

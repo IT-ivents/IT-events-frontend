@@ -8,19 +8,19 @@ const EventPage = ({
   recommendedEvents,
   selectedEvent,
   setSelectedEvent,
-  eventsFromApi,
+  upcomingEvents,
 }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const eventId = Number(id);
-    const eventFromParams = eventsFromApi.find((event) => event.id);
-    if (eventFromParams) {
-      setSelectedEvent(eventFromParams);
-      navigate(`/events/${eventId}`);
-    }
-  }, [id, setSelectedEvent, eventsFromApi]);
+  // useEffect(() => {
+  //   const eventId = Number(id);
+  //   const eventFromParams = upcomingEvents.find((event) => event.id);
+  //   if (eventFromParams) {
+  //     setSelectedEvent(eventFromParams);
+  //     navigate(`/events/${eventId}`);
+  //   }
+  // }, [id, setSelectedEvent, upcomingEvents]);
 
   return (
     <Event

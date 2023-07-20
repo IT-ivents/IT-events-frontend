@@ -63,10 +63,10 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
         {imageError ? (
-          <DefaultImage />
+          <DefaultImage className={styles.image} />
         ) : (
           <img
-            src={event.image}
+            src={event.image_small ? event.image_small : event.image}
             alt="event_picture"
             className={styles.image}
             onClick={handleCardClick}

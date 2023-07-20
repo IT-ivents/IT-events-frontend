@@ -67,7 +67,7 @@ function App() {
   });
   const [findValues, setFindValues] = useState(null);
 
-  console.log(findValues, 'findValues');
+  //console.log(findValues, 'findValues');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -96,39 +96,6 @@ function App() {
   //     resetFilters();
   //   }
   // }, []);
-
-  // -------------- РЕКОМЕНДОВАННЫЕ СОБЫТИЯ ------------  //
-  const getRecommendedEvents = (events) => {
-    if (!selectedEvent || !selectedEvent.tags) {
-      return [];
-    }
-    const selectedTags = selectedEvent.tags?.map((tag) =>
-      tag?.name?.toLowerCase().trim()
-    );
-    const recommended = events.filter((event) => {
-      return (
-        event.id !== selectedEvent.id &&
-        event.tags?.some((tag) =>
-          selectedTags.includes(tag.name.toLowerCase().trim())
-        ) &&
-        event.topic?.some((topic) =>
-          selectedTags.includes(topic.name.toLowerCase().trim())
-        )
-      );
-    });
-
-    if (recommended.length === 0) {
-      const randomEvents = getRandomEvents(events, 4);
-      return randomEvents;
-    } else {
-      return recommended.slice(0, 4);
-    }
-  };
-
-  useEffect(() => {
-    const recommended = getRecommendedEvents(upcomingEvents);
-    setRecommendedEvents(recommended);
-  }, [selectedEvent]);
 
   // ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
   const getCurrentEvents = (events) => {
@@ -163,13 +130,15 @@ function App() {
         return { ...event, isLiked };
       });
       // ДЕЛИМ НА ПРЕДСТОЯЩИЕ И ПРОШЕДШИЕ
-      const upcomingEvents = getCurrentEvents(updatedEvents);
-      const pastEvents = getPastEvents(eventsFromApi);
+      const upcomingEvents = getCurrentEvents([...updatedEvents]);
+      const pastEvents = getPastEvents([...eventsFromApi]);
+      const recommended = getRandomEvents([...upcomingEvents], 4);
       console.log('Upcoming events:', upcomingEvents);
-      console.log('Past Events:', pastEvents);
+      //console.log('Past Events:', pastEvents);
+      setRecommendedEvents(recommended);
       setMostAnticipatedEvents(upcomingEvents);
-      setPopularEvents(upcomingEvents);
-      setInterestingEvents(upcomingEvents);
+      setPopularEvents(upcomingEvents.slice(9, 24));
+      setInterestingEvents(upcomingEvents.slice(10, upcomingEvents.length - 1));
       setSoonEvents(upcomingEvents.slice(0, 6));
       setSearchResult(upcomingEvents);
       setPastEvents(pastEvents);
@@ -447,7 +416,7 @@ function App() {
               path="/events/:id"
               element={
                 <EventPage
-                  eventsFromApi={eventsFromApi}
+                  upcomingEvents={upcomingEvents}
                   recommendedEvents={recommendedEvents}
                   selectedEvent={selectedEvent}
                   setSelectedEvent={setSelectedEvent}
