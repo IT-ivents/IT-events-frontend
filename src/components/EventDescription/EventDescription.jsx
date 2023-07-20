@@ -20,7 +20,7 @@ const EventDescription = ({ selectedEvent, setSelectedEvent, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
-    const link = `${window.location.origin}/event/${selectedEvent.id}`;
+    const link = `${window.location.origin}/events/${selectedEvent.id}`;
     console.log('Ссылка скопирована в EventPage', link);
     //setSelectedEvent(selectedEvent);
     handleCopyLink(link, setShowNotification);

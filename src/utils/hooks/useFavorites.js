@@ -53,7 +53,7 @@ const useFavorites = () => {
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
-    navigate(`event/${event.id}`);
+    navigate(`events/${event.id}`);
   };
 
   // Загрузка избранных событий из локального хранилища

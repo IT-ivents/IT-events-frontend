@@ -8,6 +8,18 @@ const EventPage = ({
   selectedEvent,
   setSelectedEvent,
 }) => {
+  // const { id } = useParams();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const eventId = Number(id);
+  //   const eventFromParams = upcomingEvents.find((event) => event.id);
+  //   if (eventFromParams) {
+  //     setSelectedEvent(eventFromParams);
+  //     navigate(`/events/${eventId}`);
+  //   }
+  // }, [id, setSelectedEvent, upcomingEvents]);
+
   return (
     <Event
       selectedEvent={selectedEvent}

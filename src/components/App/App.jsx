@@ -196,14 +196,29 @@ function App() {
     }
   }, []);
 
-  const handleCardClick = (event) => {
-    if (location.pathname === '/account/events') {
-      // navigate('/organization');
-      navigate('/edit');
-    } else {
-      navigate(`event/${event.id}`);
+  // const handleCardClick = (event) => {
+  //   if (location.pathname === '/account/events') {
+  //     // navigate('/organization');
+  //     navigate('/edit');
+  //   } else {
+  //     navigate(`event/${event.id}`);
+  //   }
+  //   setSelectedEvent(event);
+  // };
+  const handleCardClick = async (event) => {
+    try {
+      if (location.pathname === '/account/events') {
+        navigate('/edit');
+      } else {
+        const selectedEvent = await apiEvents.getSelectedEvent(event.id);
+        const { data } = selectedEvent;
+        console.log('Получили событие с сервера', data);
+        setSelectedEvent(data);
+        navigate(`events/${event.id}`);
+      }
+    } catch (error) {
+      console.error('Ошибка получения события с сервера', error);
     }
-    setSelectedEvent(event);
   };
 
   // Функция обновления массива избранных событий
@@ -397,7 +412,7 @@ function App() {
               }
             />
             <Route
-              path="/event/:id"
+              path="/events/:id"
               element={
                 <EventPage
                   upcomingEvents={upcomingEvents}
