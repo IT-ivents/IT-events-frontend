@@ -196,12 +196,28 @@ function App() {
     }
   }, []);
 
-  const handleCardClick = (event) => {
+  // const handleCardClick = (event) => {
+  //   if (location.pathname === '/account/events') {
+  //     // navigate('/organization');
+  //     navigate('/edit');
+  //   } else {
+  //     navigate(`event/${event.id}`);
+  //   }
+  //   setSelectedEvent(event);
+  // };
+  const handleCardClick = async (event) => {
     if (location.pathname === '/account/events') {
-      // navigate('/organization');
       navigate('/edit');
     } else {
-      navigate(`event/${event.id}`);
+      await apiEvents
+        .getSelectedEvent(event.id)
+        .then((selectedEvent) => {
+          navigate(`events/${event.id}`);
+          console.log(selectedEvent);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
     setSelectedEvent(event);
   };
@@ -397,7 +413,7 @@ function App() {
               }
             />
             <Route
-              path="/event/:id"
+              path="/events/:id"
               element={
                 <EventPage
                   upcomingEvents={upcomingEvents}

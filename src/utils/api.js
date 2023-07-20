@@ -61,6 +61,15 @@ class Api {
     );
   }
 
+  getSelectedEvent(id) {
+    const options = {
+      method: 'GET',
+    };
+    return fetch(this._makeUrl(this._eventsEndpoint) + `${id}/`, options).then(
+      this._handleResponse
+    );
+  }
+
   getUserEvents() {
     const options = {
       method: 'GET',
