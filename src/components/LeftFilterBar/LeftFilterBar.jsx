@@ -159,6 +159,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             value={values.city || ''}
             placeholder="Поиск города"
             className={styles.filterInput}
+            autoComplete="off"
           />
           {findValues && findValues.city && findValues.city !== '' && (
             <div className={styles.serchContainer}>
@@ -226,6 +227,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
             value={values.findTags || ''}
             placeholder="Поиск тега"
             className={styles.filterInput}
+            autoComplete="off"
           />
           {findValues && findValues.findTags && findValues.findTags !== '' && (
             <div className={styles.serchContainer}>
