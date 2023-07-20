@@ -18,7 +18,7 @@ const EventPage = ({
     const eventFromParams = eventsFromApi.find((event) => event.id);
     if (eventFromParams) {
       setSelectedEvent(eventFromParams);
-      navigate(`/event/${eventId}`);
+      navigate(`/events/${eventId}`);
     }
   }, [id, setSelectedEvent, eventsFromApi]);
 
