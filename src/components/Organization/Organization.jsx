@@ -159,9 +159,9 @@ const Organization = ({ selectedEvent }) => {
   }, [selectedTags, selectedTopics, selectedFormat, values]);
 
   // ОТЛАДКА - смотреть что готовится к отправке на сервер
-  useEffect(() => {
-    console.log('newCardData updated:', newCardData);
-  }, [newCardData]);
+  // useEffect(() => {
+  //   console.log('newCardData updated:', newCardData);
+  // }, [newCardData]);
 
   const handleTopicChange = (selectedOptions) => {
     setSelectedTopics(selectedOptions);
@@ -228,20 +228,20 @@ const Organization = ({ selectedEvent }) => {
   ];
 
   const topicOptions = [
-    { id: 14, value: 'frontend', label: 'Frontend' },
-    { id: 15, value: 'backend', label: 'Backend' },
-    { id: 11, value: 'software-testing', label: 'Software Testing' },
-    { id: 17, value: 'ux/ui', label: 'UX/UI' },
-    { id: 6, value: 'big-data-and-analytics', label: 'Data analytics' },
-    { id: 30, value: 'hr', label: 'HR' },
-    { id: 12, value: 'management', label: 'Management' },
-    { id: 10, value: 'devops', label: 'Devops' },
     {
       id: 5,
       value: 'artificial-intelligence-and-machine-learning',
-      label: 'AI & ML',
+      label: 'Artificial Intelligence and Machine Learning',
     },
-    { id: 34, value: 'information_security', label: 'Кибербезопасность' },
+    { id: 15, value: 'backend', label: 'Backend' },
+    { id: 7, value: 'cybersecurity', label: 'Cybersecurity' },
+    { id: 42, value: 'data-analytics', label: 'Data analytics' },
+    { id: 10, value: 'devops', label: 'Devops' },
+    { id: 14, value: 'frontend', label: 'Frontend' },
+    { id: 30, value: 'hr_processes', label: 'HR-процессы' },
+    { id: 12, value: 'project-management', label: 'Project Management' },
+    { id: 43, value: 'qa', label: 'QA' },
+    { id: 17, value: 'uxui-design', label: 'UX/UI Design' },
   ];
 
   useEffect(() => {
@@ -319,7 +319,7 @@ const Organization = ({ selectedEvent }) => {
       <form className={styles.form}>
         <PageTitle
           title={
-            location.pathname === '/organization'
+            location.pathname === '/events/new'
               ? 'Добавить событие'
               : 'Изменить событие'
           }
@@ -809,7 +809,7 @@ const Organization = ({ selectedEvent }) => {
             корректность заполненных данных. Карточка с Вашим мероприятием
             появится на сайте после проверки модератором.{' '}
           </p>
-          {location.pathname === '/organization' ? (
+          {location.pathname === '/events/new' ? (
             <SubmitButton
               title="Отправить"
               type="submit"

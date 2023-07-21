@@ -57,7 +57,7 @@ export const logout = async (token) => {
 };
 
 export const getUserInfo = async (token) => {
-  const response = await fetch(`${BASE_URL}/auth/users/me`, {
+  const response = await fetch(`${BASE_URL}/auth/users/me/`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -69,7 +69,7 @@ export const getUserInfo = async (token) => {
 };
 
 export const getFullUser = async (token, id) => {
-  const response = await fetch(`${BASE_URL}/users/${id}/profile`, {
+  const response = await fetch(`${BASE_URL}/users/${id}/profile/`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',

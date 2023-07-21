@@ -31,14 +31,13 @@ const UserInfo = ({ onNewEventClick }) => {
   const disabledButton =
     !isValid ||
     (currentUser.name === values.name && currentUser.email === values.email);
-  console.log(disabledButton);
 
   useEffect(() => {
     if (currentUser) {
       setValues({
-        name: currentUser.name || '',
-        email: currentUser.email || '',
-        organization_name: currentUser.organization_name || '',
+        name: currentUser.name,
+        email: currentUser.email,
+        organization_name: currentUser.organization_name,
       });
     }
   }, [currentUser, setValues]);
@@ -78,7 +77,7 @@ const UserInfo = ({ onNewEventClick }) => {
           </span>
         </div>
         <Link
-          to="/organization"
+          to="/events/new"
           onClick={onNewEventClick}
           title="Создать событие"
           className={styles.create}

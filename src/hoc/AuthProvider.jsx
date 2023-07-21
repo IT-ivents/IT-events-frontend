@@ -1,25 +1,29 @@
-import { useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as auth from '../../utils/auth';
+import * as auth from '../utils/auth';
 
-function checkLoggedInStatus() {
-  const token = localStorage.getItem('jwt');
-  return !!token;
-}
+export const AuthContext = createContext(null);
 
-function useAuth() {
-  const [loggedIn, setIsLoggedIn] = useState(checkLoggedInStatus()); // AUTHORIZATION
+export const AuthProvider = ({ children }) => {
+  const [loggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem('currentUser');
-    if (user) {
-      console.log('LOGGED_IN:', loggedIn);
-      setCurrentUser(JSON.parse(user)); // Чтобы юзер успел дойти из localStorage
-    }
+    const checkLoggedInStatus = () => {
+      const token = localStorage.getItem('jwt');
+      const user = localStorage.getItem('currentUser');
+      if (token) {
+        setIsLoggedIn(true);
+        setCurrentUser(JSON.parse(user));
+      } else {
+        setIsLoggedIn(false);
+        setCurrentUser({});
+      }
+    };
+    checkLoggedInStatus();
   }, []);
 
   function handleError(error) {
@@ -57,8 +61,8 @@ function useAuth() {
     setIsLoading(true);
     try {
       const res = await auth.authorization({ email, password });
+      console.log('TOKEN_OK');
       if (res.auth_token) {
-        console.log('TOKEN_OK');
         localStorage.setItem('jwt', res.auth_token);
         setIsLoggedIn(true);
         try {
@@ -68,6 +72,8 @@ function useAuth() {
             res.auth_token,
             userData.id
           );
+          // setCurrentUser(fullUserData);
+          //setCurrentUser(userData);
           localStorage.setItem('currentUser', JSON.stringify(fullUserData));
           navigate('/account'); // Перенаправление на страницу /account
         } catch (error) {
@@ -112,16 +118,20 @@ function useAuth() {
     }
   }
 
-  return {
-    handleLogin,
-    handleRegister,
-    handleLogout,
-    loggedIn,
-    isLoading,
-    serverError,
-    setServerError,
-    currentUser,
-  };
-}
-
-export default useAuth;
+  return (
+    <AuthContext.Provider
+      value={{
+        loggedIn,
+        handleLogin,
+        handleRegister,
+        handleLogout,
+        isLoading,
+        serverError,
+        setServerError,
+        currentUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
