@@ -1,6 +1,6 @@
 import styles from './VerticalEventCard.module.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   formatDate,
   formatPrice,
@@ -12,6 +12,7 @@ import defaultImage from '../../images/default-image.png';
 
 const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
+  const location = useLocation();
 
   const handleCardClick = () => {
     onCardClick(event);
@@ -40,7 +41,9 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
     >
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
-        <Link to={`/events/${event.id}`}>
+        <Link
+          to={!location.pathname.includes('/edit') && `/events/${event.id}`}
+        >
           <img
             src={
               event.image_small

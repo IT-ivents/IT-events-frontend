@@ -11,11 +11,7 @@ const font = {
   fontSize: '20px',
 };
 
-const UserEvents = ({
-  mostAnticipatedEvents,
-  onCardClick,
-  onNewEventClick,
-}) => {
+const UserEvents = ({ onCardClick, onNewEventClick }) => {
   const [createdEvents, setCreatedEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
@@ -38,9 +34,7 @@ const UserEvents = ({
     }
   };
 
-  // useEffect(() => {
-  //   console.log('TO_DEL_CHECKBOX', checkedEvents);
-  // }, [checkedEvents]);
+  const handleEditEvent = () => {};
 
   const fetchUserEvents = async () => {
     try {
@@ -148,15 +142,13 @@ const UserEvents = ({
             className={styles.delete}
           ></button>
           <Link
-            to="/organization"
-            className={styles.link}
+            to="/events/new"
             onClick={onNewEventClick}
+            title="Создать событие"
+            className={styles.create}
           >
-            <button title="Создать событие" className={styles.create}>
-              <AddImage />
-              {/* <img src={AddImage} alt="Создать событие" /> */}
-              Создать событие
-            </button>
+            <AddImage />
+            Создать событие
           </Link>
         </div>
       </div>

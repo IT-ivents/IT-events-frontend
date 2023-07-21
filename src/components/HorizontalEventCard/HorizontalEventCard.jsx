@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './HorizontalEventCard.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   parseEventDate,
   formatPrice,
@@ -13,30 +13,7 @@ import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   const [imageError, setImageError] = useState(false);
-
-  // const renderLocationInfo = (event) => {
-  //   const isOnline = event?.format?.some((item) => item.name === 'Online');
-  //   if (isOnline) {
-  //     return (
-  //       <>
-  //         <p>Online</p>
-  //       </>
-  //     );
-  //   }
-  //   if (event.city !== ' ') {
-  //     return (
-  //       <>
-  //         <p>{event.city || 'Нет данных'}</p>
-  //       </>
-  //     );
-  //   } else {
-  //     return (
-  //       <>
-  //         <p>{event.address || 'Нет данных'}</p>
-  //       </>
-  //     );
-  //   }
-  // };
+  const location = useLocation();
 
   const handleCardClick = () => {
     onCardClick(event);
@@ -46,9 +23,14 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
     onLikeClick(event);
   };
 
-  // const handleImageError = (e) => {
-  //   e.target.src = defaultImage;
-  // };
+  const checkLocation = () => {
+    if (location.pathname.includes('account')) {
+      return `/events/${event.id}/edit`;
+    } else {
+      return `/events/${event.id}`;
+    }
+  };
+
   const handleImageError = () => {
     setImageError(true);
   };
@@ -63,7 +45,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   return (
     <li key={event.id} className={`${styles.card}`}>
       <div className={styles.imageContainer}>
-        <Link to={`/events/${event.id}`}>
+        <Link to={checkLocation()}>
           {imageError ? (
             <img
               src={DefaultImage}
@@ -81,21 +63,15 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
             />
           )}
         </Link>
-
-        {/* <img
-          src={event.image}
-          alt="event_picture"
-          className={styles.image}
-          onClick={handleCardClick}
-          onError={handleImageError}
-        /> */}
-        <button
-          className={`${
-            event.isLiked ? styles.likeButtonActive : styles.likeButton
-          }`}
-          type="button"
-          onClick={handleLikeClick}
-        ></button>
+        {location.pathname !== '/account/events' && (
+          <button
+            className={`${
+              event.isLiked ? styles.likeButtonActive : styles.likeButton
+            }`}
+            type="button"
+            onClick={handleLikeClick}
+          ></button>
+        )}
       </div>
 
       <div className={`${styles.descriptionContainer}`}>
