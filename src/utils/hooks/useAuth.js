@@ -69,6 +69,7 @@ function useAuth() {
             userData.id
           );
           localStorage.setItem('currentUser', JSON.stringify(fullUserData));
+          setCurrentUser(fullUserData);
           navigate('/account'); // Перенаправление на страницу /account
         } catch (error) {
           handleError(error);
