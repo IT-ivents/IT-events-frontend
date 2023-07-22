@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
+import Fieldset from '../../Fieldset/Fieldset';
 import attention from '../../../images/tooltip_attention.svg';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
@@ -35,7 +36,11 @@ const ModalSignUp = ({
 
   const disabledButton =
     !isValid ||
-    (values.confirmPassword ? errors.confirmPassword !== '' : false);
+    (values.confirmPassword ? errors.confirmPassword !== '' : false) ||
+    errors.email ||
+    errors.username ||
+    errors.organization ||
+    !isPrivacyChecked;
 
   const toggleTooltip = () => {
     setIsTooltipVisible(!isTooltipVisible);
@@ -109,7 +114,18 @@ const ModalSignUp = ({
         )}
         <form className={styles.modalForm} noValidate onSubmit={handleSignUp}>
           <div className={styles.fieldsetContainer}>
-            <fieldset className={styles.fieldset}>
+            <Fieldset
+              name="username"
+              label="Имя"
+              placeholder="Ваше имя"
+              minLength={2}
+              maxLength={50}
+              value={values.username}
+              errors={errors.username}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {/* <fieldset className={styles.fieldset}>
               <label htmlFor="name" className={styles.label}>
                 Имя <span className={styles.spanError}>*</span>
               </label>
@@ -132,7 +148,7 @@ const ModalSignUp = ({
               {errors.username && (
                 <span className={styles.span}>{errors.username}</span>
               )}
-            </fieldset>
+            </fieldset> */}
             <fieldset className={styles.fieldset}>
               {isTooltipVisible && <Tooltip onClick={toggleTooltip} />}
               <label htmlFor="organization" className={styles.label}>
@@ -281,7 +297,7 @@ const ModalSignUp = ({
           </div>
           <SubmitButton
             title={isLoading ? 'Подождите...' : 'Регистрация'}
-            disabled={disabledButton || !isPrivacyChecked}
+            disabled={disabledButton}
             onClick={handleSignUp}
           />
           <p className={styles.formSubtext}></p>

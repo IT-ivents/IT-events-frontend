@@ -26,7 +26,12 @@ const ModalSignIn = ({
   } = useFormWithValidation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const disabledButton = !isValid || (!values.email && !values.password);
+  const disabledButton =
+    !isValid ||
+    !values.email ||
+    !values.password ||
+    errors.email ||
+    errors.password;
 
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
