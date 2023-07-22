@@ -201,15 +201,24 @@ export function useFormWithValidation() {
 
   //&& values.partners !== '' && values.url !== ''
 
+  // const handleBlur = (event) => {
+  //   const target = event.target;
+  //   const { name } = target;
+  //   if (name === 'partners' || name === 'url') {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       [name]: target.value ? '' : target.validationMessage,
+  //     }));
+  //   }
+  // };
+
   const handleBlur = (event) => {
     const target = event.target;
     const { name } = target;
-    if (name === 'partners' || name === 'url') {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: target.value ? '' : target.validationMessage,
-      }));
-    }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
+    }));
   };
 
   const validatePasswordMatch = useCallback(() => {
@@ -228,7 +237,7 @@ export function useFormWithValidation() {
 
   useEffect(() => {
     validatePasswordMatch();
-  }, [values.confirmPassword]);
+  }, [values.confirmPassword, values.password]);
 
   const resetForm = useCallback(() => {
     setValues({});
