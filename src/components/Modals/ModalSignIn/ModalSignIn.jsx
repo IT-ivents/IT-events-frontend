@@ -1,9 +1,10 @@
 import styles from './ModalSignIn.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
+import Fieldset from '../../Fieldset/Fieldset';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignIn = ({
@@ -24,7 +25,6 @@ const ModalSignIn = ({
     isValid,
     resetForm,
   } = useFormWithValidation();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const disabledButton =
     !isValid ||
@@ -32,10 +32,6 @@ const ModalSignIn = ({
     !values.password ||
     errors.email ||
     errors.password;
-
-  const togglePasswordVisible = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
 
   useEffect(() => {
     resetForm();
@@ -95,70 +91,30 @@ const ModalSignIn = ({
             </button>
           </div>
           <div className={styles.fieldsetContainer}>
-            <fieldset className={styles.fieldset}>
-              <label htmlFor="email" className={styles.label}>
-                Почта <span className={styles.spanError}>*</span>
-              </label>
-              <input
-                className={`${styles.input} ${
-                  errors.email && values.email ? styles.inputError : ''
-                }`}
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-                minLength={6}
-                maxLength={254}
-                autoComplete="off"
-                value={values.email || ''}
-                onChange={handleEmailChange}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyPress}
-              />
-
-              {errors.email && (
-                <span className={styles.span}>{errors.email}</span>
-              )}
-            </fieldset>
-            <fieldset className={styles.fieldset}>
-              <label
-                htmlFor="password"
-                type="password"
-                className={styles.label}
-              >
-                Пароль <span className={styles.spanError}>*</span>
-              </label>
-              <div className={styles.inputContainer}>
-                <input
-                  className={`${styles.input} ${
-                    errors.password ? styles.inputError : ''
-                  }`}
-                  id="password"
-                  name="password"
-                  type={isPasswordVisible ? 'text' : 'password'}
-                  pattern="[^\s]+"
-                  placeholder="Введите пароль"
-                  required
-                  minLength={6}
-                  maxLength={25}
-                  autoComplete="off"
-                  value={values.password || ''}
-                  onChange={handlePasswordChange}
-                  onBlur={handleBlur}
-                  onKeyDown={handleKeyPress}
-                />
-                <figure
-                  className={`${styles.inputFigure} ${
-                    !isPasswordVisible ? styles.hidden : styles.visible
-                  }`}
-                  onClick={togglePasswordVisible}
-                />
-              </div>
-              {errors.password && (
-                <span className={styles.span}>{errors.password}</span>
-              )}
-            </fieldset>
+            <Fieldset
+              name="email"
+              label="Почта"
+              type="email"
+              placeholder="Email"
+              minLength={6}
+              maxLength={254}
+              value={values.email}
+              errors={errors.email}
+              onChange={handleEmailChange}
+              onKeyDown={handleKeyPress}
+            />
+            <Fieldset
+              name="password"
+              type="password"
+              label="Пароль"
+              placeholder="Введите пароль"
+              minLength={6}
+              maxLength={25}
+              value={values.password}
+              errors={errors.password}
+              onChange={handlePasswordChange}
+              onKeyDown={handleKeyPress}
+            />
           </div>
           <div className={styles.linksContainerBottom}>
             <button type="button" className={styles.btnForgot}>

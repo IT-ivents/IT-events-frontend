@@ -237,7 +237,7 @@ export function useFormWithValidation() {
 
   useEffect(() => {
     validatePasswordMatch();
-  }, [values.confirmPassword]);
+  }, [values.confirmPassword, values.password]);
 
   const resetForm = useCallback(() => {
     setValues({});
