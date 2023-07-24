@@ -6,6 +6,7 @@ export const apiConfig = {
   tags: `/tags/`,
   sities: `/sities/`,
   userEvents: `/users-events/`,
+  search: `/events/?q=`,
   // defaultHeaders: {
   //   'Content-Type': 'application/json'
   // }
@@ -21,6 +22,7 @@ class Api {
     sities,
     userEvents,
     headers,
+    search,
     // , defaultHeaders
   }) {
     this._baseUrl = baseUrl;
@@ -31,6 +33,7 @@ class Api {
     this._sitiesEndpoint = sities;
     this._userEvents = userEvents;
     this._headers = headers;
+    this._searchEndpoint = search;
     // this._defaultHeaders = defaultHeaders;
   }
 
@@ -150,6 +153,16 @@ class Api {
       'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     };
+  }
+
+  searchRequest(request) {
+    const options = {
+      method: 'GET',
+    };
+    return fetch(
+      this._makeUrl(this._searchEndpoint) + `${request}`,
+      options
+    ).then(this._handleResponse);
   }
 }
 
