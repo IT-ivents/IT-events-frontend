@@ -1,0 +1,210 @@
+.modalContainer {
+  max-width: 484px;
+  padding: 60px 60px 52px;
+  cursor: default;
+}
+
+.formTitle {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28.8px;
+  cursor: default;
+}
+
+.titleContainer {
+  padding-top: 48px;
+  padding-bottom: 8px;
+  gap: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.formDescription {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.4);
+  padding-bottom: 24px;
+  cursor: default;
+}
+
+.formSubtext {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.fieldsetContainer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 14px;
+}
+
+.fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16.2px;
+  color: rgba(0, 0, 0, 0.6);
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+}
+
+.inputContainer {
+  width: 100%;
+  position: relative;
+}
+
+.input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: none;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  line-height: 24px;
+}
+
+.input:hover {
+  box-shadow: 0 1px 4px 0 rgba(36, 63, 97, 0.1);
+}
+
+.input:focus {
+  background-color: #fefefe;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.inputError {
+  outline: 1px solid #e62214;
+}
+
+.inputFigure {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  background: url(../../images/hidden_password.svg) no-repeat center;
+}
+
+.visible {
+  background: url(../../images/visible_password.svg) no-repeat center;
+}
+
+.span {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+}
+
+.spanError {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  /* padding-top: 4px; */
+}
+
+.spanConfirm {
+  color: #e62214;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 4px;
+  position: absolute;
+  bottom: -17px;
+}
+
+.recommendation {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.checkboxText {
+  font-weight: 400;
+  font-size: 14px;
+  color: #797979;
+}
+
+.policyBtn {
+  color: #797979;
+  border: none;
+  text-decoration: none;
+  border-bottom: 1px solid #797979;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.policyBtn:hover {
+  color: #674eae;
+}
+
+.figure {
+  background: url(../../images/shape.svg) no-repeat center;
+  width: 16px;
+  height: 20px;
+}
+
+.errorContainer {
+  padding-bottom: 24px;
+  display: flex;
+  align-items: start;
+  gap: 11px;
+}
+
+.serverErrorFigure {
+  background: url(../../images/error.svg) no-repeat center;
+  width: 50px;
+  height: 20px;
+}
+
+.serverError {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #e62214;
+}
+
+.paddingNoError {
+  padding-bottom: 40px;
+}
+
+.paddingError {
+  padding-bottom: 20px;
+}
