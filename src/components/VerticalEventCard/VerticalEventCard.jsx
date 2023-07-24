@@ -1,5 +1,6 @@
 import styles from './VerticalEventCard.module.css';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   formatDate,
   formatPrice,
@@ -11,6 +12,7 @@ import defaultImage from '../../images/default-image.png';
 
 const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
   const [showNotification, setShowNotification] = useState(false);
+  const location = useLocation();
 
   const handleCardClick = () => {
     onCardClick(event);
@@ -39,19 +41,23 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
     >
       <div className={styles.imageContainer}>
         <span className={styles.price}>{formatPrice(event.price)}</span>
-        <img
-          src={
-            event.image_small
-              ? event.image_small
-              : event.image
-              ? event.image
-              : defaultImage
-          }
-          alt="event_picture"
-          className={styles.image}
-          onClick={() => handleCardClick(event.id)}
-          onError={handleImageError}
-        />
+        <Link
+          to={!location.pathname.includes('/edit') && `/events/${event.id}`}
+        >
+          <img
+            src={
+              event.image_small
+                ? event.image_small
+                : event.image
+                ? event.image
+                : defaultImage
+            }
+            alt="event_picture"
+            className={styles.image}
+            onClick={() => handleCardClick(event.id)}
+            onError={handleImageError}
+          />
+        </Link>
         <button
           className={`${
             event.isLiked ? styles.likeButtonActive : styles.likeButton

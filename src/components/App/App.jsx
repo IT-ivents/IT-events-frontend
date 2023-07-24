@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './App.module.css';
 
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
@@ -25,8 +25,22 @@ import {
 } from '../../pages';
 import { getRandomEvents } from '../../utils/helperFunctions';
 import useAuth from '../../utils/hooks/useAuth';
+import ProtectedRoute from '../../hoc/ProtectedRoute';
+import { AuthContext } from '../../hoc/AuthProvider';
 
 function App() {
+  const {
+    handleLogin,
+    handleRegister,
+    handleLogout,
+    loggedIn,
+    checkLoggedInStatus,
+    currentUser,
+    isLoading,
+    serverError,
+    setServerError,
+  } = useAuth();
+
   const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
   const [isModalSignUpOpen, setIsModalSignUpOpen] = useState(false);
 
@@ -43,17 +57,6 @@ function App() {
   const [recommendedEvents, setRecommendedEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-
-  const {
-    handleLogin,
-    handleRegister,
-    handleLogout,
-    loggedIn,
-    currentUser,
-    isLoading,
-    serverError,
-    setServerError,
-  } = useAuth();
 
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
@@ -205,25 +208,21 @@ function App() {
   //   }
   //   setSelectedEvent(event);
   // };
-  const handleCardClick = (event) => {
-    if (location.pathname === '/account/events') {
-      navigate('/edit');
-    } else {
-      navigate(`events/${event.id}`);
-    }
-    setSelectedEvent(event);
-  };
 
-  // const handleCardSelection = async (event) => {
+  // const fetchEvent = async (id) => {
   //   try {
-  //     const selectedEvent = await apiEvents.getSelectedEvent(event.id);
-  //     const { data } = selectedEvent;
-  //     console.log('Получили событие с сервера', data);
+  //     const response = await apiEvents.getSelectedEvent(id);
+  //     const { data } = response;
   //     setSelectedEvent(data);
+  //     console.log('Получили событие', data);
   //   } catch (error) {
   //     console.error('Ошибка получения события с сервера', error);
   //   }
   // };
+
+  const handleCardClick = (event) => {
+    setSelectedEvent(event);
+  };
 
   // Функция обновления массива избранных событий
   const updateFavorites = (event) => {
@@ -416,7 +415,22 @@ function App() {
               }
             />
             <Route
-              path="/events/:id"
+              path="account/*"
+              element={
+                <ProtectedRoute>
+                  <AccountDetailsPage
+                    mostAnticipatedEvents={mostAnticipatedEvents}
+                    selectedEvent={selectedEvent}
+                    onCardClick={handleCardClick}
+                    onNewEventClick={() => setSelectedEvent(null)}
+                    currentUser={currentUser}
+                    handleLogout={handleLogout}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="events/:id"
               element={
                 <EventPage
                   upcomingEvents={upcomingEvents}
@@ -426,6 +440,22 @@ function App() {
                   onCardClick={handleCardClick}
                   onLikeClick={toggleFavorite}
                 />
+              }
+            />
+            <Route
+              path="events/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <Organization selectedEvent={selectedEvent} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="events/new"
+              element={
+                <ProtectedRoute>
+                  <Organization />
+                </ProtectedRoute>
               }
             />
             <Route
@@ -466,29 +496,6 @@ function App() {
             <Route
               path="about"
               element={<About toggleModalSignUp={toggleModalSignUp} />}
-            />
-
-            <Route
-              path="organization"
-              element={<Organization selectedEvent={selectedEvent} />}
-            />
-            <Route
-              path="edit"
-              element={<Organization selectedEvent={selectedEvent} />}
-            />
-
-            <Route
-              path="account/*"
-              element={
-                <AccountDetailsPage
-                  mostAnticipatedEvents={mostAnticipatedEvents}
-                  selectedEvent={selectedEvent}
-                  onCardClick={handleCardClick}
-                  onNewEventClick={() => setSelectedEvent(null)}
-                  currentUser={currentUser}
-                  handleLogout={handleLogout}
-                />
-              }
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

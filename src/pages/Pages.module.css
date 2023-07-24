@@ -2,7 +2,7 @@
 .mainPageWrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 110px;
+  gap: 97px;
   flex-grow: 1;
   align-items: start;
   padding-top: 54px;
