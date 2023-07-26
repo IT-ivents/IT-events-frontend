@@ -22,8 +22,10 @@ const ModalSignUp = ({
   const {
     values,
     handleChange,
+    handleNameChange,
     handleEmailChange,
     handlePasswordChange,
+    preventInvalidPaste,
     handleBlur,
     isValid,
     errors,
@@ -111,7 +113,7 @@ const ModalSignUp = ({
               maxLength={50}
               value={values.username}
               errors={errors.username}
-              onChange={handleChange}
+              onChange={handleNameChange}
               onBlur={handleBlur}
             />
             <Fieldset
@@ -136,6 +138,7 @@ const ModalSignUp = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
             <Fieldset
               name="password"

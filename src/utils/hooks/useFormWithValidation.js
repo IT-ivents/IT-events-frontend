@@ -6,6 +6,27 @@ export function useFormWithValidation() {
   const [isValid, setIsValid] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
 
+  const preventInvalidPaste = (event) => {
+    const clipboardData = event.clipboardData || window.clipboardData;
+
+    if (!clipboardData) {
+      // Если clipboardData не существует, то вставка не может быть проверена, разрешаем вставку
+      return false;
+    }
+
+    const pastedText = clipboardData.getData('text/plain');
+
+    // Регулярное выражение для проверки допустимых символов
+    const validCharactersRegex =
+      /^[a-zA-Zа-яА-Я0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?\S]+$/;
+
+    if (!validCharactersRegex.test(pastedText)) {
+      event.preventDefault();
+      return true; // Возвращаем true, чтобы обозначить, что вставка была предотвращена
+    }
+    return false; // Возвращаем false, если вставка была успешной
+  };
+
   const handleChange = (event) => {
     const target = event.target;
     const { name, value } = target;
@@ -26,11 +47,41 @@ export function useFormWithValidation() {
     let validationPattern;
     let error = '';
     if (name === 'email') {
-      validationPattern = /^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      validationPattern =
+        /^[a-zA-Z0-9_%+-]+(\.[a-zA-Z0-9_%+-]+)*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!validationPattern.test(value)) {
         error = 'Введите корректный email';
       }
     }
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    setIsValid(target.closest('form').checkValidity());
+  };
+
+  const handleNameChange = (event) => {
+    const target = event.target;
+    const { name, value } = target;
+    let error = '';
+
+    // Паттерн для проверки, что строка не состоит только из пробельных символов
+    const noWhitespaceRegex = /^(?!\s{2}).*$/;
+
+    if (!noWhitespaceRegex.test(value)) {
+      error = 'Поле не может содержать только пробельные символы';
+    }
+    // Другие проверки, например, на минимальную и максимальную длину
+    if (value.trim().length < 2 || value.trim().length > 50) {
+      error = 'Имя должно содержать от 2 до 50 символов';
+    }
+
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -249,12 +300,14 @@ export function useFormWithValidation() {
     values,
     setValues,
     handleChange,
+    handleNameChange,
     handleEmailChange,
     handlePasswordChange,
     handleUrlChange,
     handleDateChange,
     handlePriceChange,
     handlePartnersChange,
+    preventInvalidPaste,
     handleBlur,
     errors,
     isValid,
