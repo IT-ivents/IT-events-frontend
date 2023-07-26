@@ -24,6 +24,7 @@ const SearchField = ({
     setQuery(searchQuery);
   };
   // Чтобы чертова поисковая строка была заполнена результатом только на странице results
+  // - Рома, не ругавси
   useEffect(() => {
     if (isResultsPage) {
       setPageQuery(searchQuery);
