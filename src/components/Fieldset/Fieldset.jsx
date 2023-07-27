@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './Fieldset.module.css';
 import attention from '../../images/tooltip_attention.svg';
 import Tooltip from '../Tooltip/Tooltip';
-import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 
 const Fieldset = ({
   name,
