@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './Fieldset.module.css';
 import attention from '../../images/tooltip_attention.svg';
 import Tooltip from '../Tooltip/Tooltip';
-import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 
 const Fieldset = ({
   name,
@@ -16,6 +15,7 @@ const Fieldset = ({
   onKeyDown,
   onChange,
   onBlur,
+  onPaste,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -57,6 +57,7 @@ const Fieldset = ({
           autoComplete="off"
           onKeyDown={onKeyDown}
           onBlur={onBlur}
+          onPaste={onPaste}
         />
         {type === 'password' && (
           <figure

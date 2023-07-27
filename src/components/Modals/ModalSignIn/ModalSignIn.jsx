@@ -20,7 +20,7 @@ const ModalSignIn = ({
     values,
     handleEmailChange,
     handlePasswordChange,
-    handleBlur,
+    preventInvalidPaste,
     errors,
     isValid,
     resetForm,
@@ -102,6 +102,7 @@ const ModalSignIn = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
             <Fieldset
               name="password"
@@ -114,6 +115,7 @@ const ModalSignIn = ({
               errors={errors.password}
               onChange={handlePasswordChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
           </div>
           <div className={styles.linksContainerBottom}>

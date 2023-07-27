@@ -22,9 +22,11 @@ const ModalSignUp = ({
   const {
     values,
     handleChange,
+    handleNameChange,
+    handleOrganizationChange,
     handleEmailChange,
     handlePasswordChange,
-    handleBlur,
+    preventInvalidPaste,
     isValid,
     errors,
     resetForm,
@@ -111,8 +113,8 @@ const ModalSignUp = ({
               maxLength={50}
               value={values.username}
               errors={errors.username}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              onChange={handleNameChange}
+              //onBlur={handleBlur}
             />
             <Fieldset
               name="organization_name"
@@ -122,8 +124,8 @@ const ModalSignUp = ({
               maxLength={100}
               value={values.organization_name}
               errors={errors.organization_name}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              onChange={handleOrganizationChange}
+              //onBlur={handleBlur}
             />
             <Fieldset
               name="email"
@@ -136,6 +138,7 @@ const ModalSignUp = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
             <Fieldset
               name="password"
@@ -148,6 +151,7 @@ const ModalSignUp = ({
               errors={errors.password}
               onChange={handlePasswordChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
             <Fieldset
               name="confirmPassword"
@@ -159,6 +163,7 @@ const ModalSignUp = ({
               errors={errors.confirmPassword}
               onChange={handleChange}
               onKeyDown={handleKeyPress}
+              onPaste={preventInvalidPaste}
             />
           </div>
           <div className={styles.checkboxContainer}>
