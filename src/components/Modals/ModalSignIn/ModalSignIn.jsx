@@ -1,5 +1,5 @@
 import styles from './ModalSignIn.module.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
@@ -25,6 +25,7 @@ const ModalSignIn = ({
     isValid,
     resetForm,
   } = useFormWithValidation();
+  const [isRememberMe, setIsRemebmerMe] = useState(false);
 
   const disabledButton =
     !isValid ||
@@ -32,6 +33,7 @@ const ModalSignIn = ({
     !values.password ||
     errors.email ||
     errors.password;
+  console.log(errors);
 
   useEffect(() => {
     resetForm();
@@ -55,6 +57,16 @@ const ModalSignIn = ({
   const handleKeyPress = (e) => {
     if (e.key === ' ') {
       e.preventDefault();
+    }
+  };
+
+  const toggleRemebmerCheckbox = () => {
+    if (localStorage.getItem('remembered') !== 'true') {
+      setIsRemebmerMe(true);
+      localStorage.setItem('remembered', true);
+    } else {
+      setIsRemebmerMe(false);
+      localStorage.setItem('remembered', false);
     }
   };
 
@@ -123,7 +135,10 @@ const ModalSignIn = ({
               Забыли пароль?
             </button>
             <div className={styles.checkboxContainer}>
-              <CustomCheckbox />
+              <CustomCheckbox
+                checked={isRememberMe}
+                handleChange={toggleRemebmerCheckbox}
+              />
               <span className={styles.checkboxText}>Запомнить</span>
             </div>
           </div>
