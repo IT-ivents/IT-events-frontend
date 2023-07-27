@@ -27,6 +27,7 @@ const ModalSignUp = ({
     handleEmailChange,
     handlePasswordChange,
     preventInvalidPaste,
+    validatePasswordMatch,
     isValid,
     errors,
     resetForm,
@@ -39,6 +40,10 @@ const ModalSignUp = ({
     errors.username ||
     errors.organization ||
     !isPrivacyChecked;
+
+  useEffect(() => {
+    validatePasswordMatch();
+  }, [values.password, values.confirmPassword]);
 
   const togglePrivacyChecked = () => {
     setIsPrivacyChecked(!isPrivacyChecked);
@@ -114,7 +119,6 @@ const ModalSignUp = ({
               value={values.username}
               errors={errors.username}
               onChange={handleNameChange}
-              //onBlur={handleBlur}
             />
             <Fieldset
               name="organization_name"
@@ -125,7 +129,6 @@ const ModalSignUp = ({
               value={values.organization_name}
               errors={errors.organization_name}
               onChange={handleOrganizationChange}
-              //onBlur={handleBlur}
             />
             <Fieldset
               name="email"

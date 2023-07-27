@@ -88,6 +88,16 @@ function App() {
   };
 
   useEffect(() => {
+    const isNotRemembered = localStorage.getItem('remembered') === 'false';
+    if (isNotRemembered) {
+      const timeout = setTimeout(() => {
+        handleLogout();
+      }, 24 * 60 * 60 * 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
+  useEffect(() => {
     if (location.pathname === '/') {
       resetFilters();
       setSearchQuery('');
