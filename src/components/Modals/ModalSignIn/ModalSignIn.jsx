@@ -18,25 +18,26 @@ const ModalSignIn = ({
 }) => {
   const {
     values,
+    setValues,
     handleEmailChange,
     handlePasswordChange,
     preventInvalidPaste,
     errors,
-    isValid,
     resetForm,
   } = useFormWithValidation();
   const [isRememberMe, setIsRemebmerMe] = useState(false);
 
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
   const disabledButton =
-    !isValid ||
-    !values.email ||
-    !values.password ||
-    errors.email ||
-    errors.password;
-  console.log(errors);
+    !Object.values(values).every((value) => value !== '') ||
+    Object.values(errors).some((error) => error !== '');
 
   useEffect(() => {
-    resetForm();
+    setValues(initialValues);
     setServerError('');
   }, []);
 
@@ -52,6 +53,7 @@ const ModalSignIn = ({
       email: values.email,
       password: values.password,
     });
+    resetForm();
   };
 
   const handleKeyPress = (e) => {
