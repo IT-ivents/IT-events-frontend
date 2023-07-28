@@ -4,17 +4,18 @@ export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
 
   // Регулярные выражения для валидации
   const emailRegex =
-    /^[a-zA-Z0-9_%+-]+(\.[a-zA-Z0-9_%+-]+)*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
+    /^(?=[^-._])[a-zA-Z0-9_-]+-?[a-zA-Z0-9]+@[a-zA-Z0-9.-]+-?[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/;
   const passwordRegex =
-    /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{6,}$/u;
+    /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{6,25}$/u;
   const urlRegex = /^(https?:\/\/)?([^\s.]+\.\S{2}|localhost)(\/[^\s]*)?$/;
   const nameRegex =
-    /^(?![0-9]+$)[a-zA-Zа-яА-ЯёЁ0-9]+(?:[-\s](?![ -])[a-zA-Zа-яА-ЯёЁ0-9]+)*$/;
+    /^(?!.*--)(?=[^-])(?!.*-$)[a-zA-Zа-яА-ЯёЁ\s]*[a-zA-Zа-яА-ЯёЁ-][a-zA-Zа-яА-ЯёЁ\s-]{0,48}[a-zA-Zа-яА-ЯёЁ]$/;
   const organizationRegex =
-    /^(?![0-9]*$)[a-zA-Zа-яА-Я0-9\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{2,100}$/;
+    /^(?=[^-.])(?=[a-zA-Zа-яА-ЯёЁ0-9№~\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?-]{2,100}$)(?!.*[- ]$)[a-zA-Zа-яА-ЯёЁ0-9№~\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?№~]+(?:[-][a-zA-Zа-яА-ЯёЁ0-9№~\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?№~`]+)*$/;
   const priceRegex = /^\d{0,8}$/;
   const partnersRegex = /^.{0,1000}$/;
   const emojiRegex =
@@ -53,7 +54,13 @@ export function useFormWithValidation() {
     return false; // Возвращаем false, если вставка была успешной
   };
 
-  const updateFieldValue = (name, value, validationRegex, errorMessage) => {
+  const updateFieldValue = (
+    name,
+    value,
+    validationRegex,
+    errorMessage,
+    inputElement
+  ) => {
     const sanitizedValue = sanitizeFieldValue(value);
 
     setValues((prevValues) => {
@@ -82,28 +89,35 @@ export function useFormWithValidation() {
           [name]: '',
         }));
       }
-      // Проверяем все ли значения ошибок пустые, исключая необязательные поля
-      const requiredFieldsErrors = Object.entries(errors).filter(
-        ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
-      );
-      const allErrorsEmpty = requiredFieldsErrors.every(
-        ([, error]) => error === ''
-      );
-
-      // Проверяем все ли значения полей не пустые, исключая необязательные поля
-      const requiredFieldsValues = Object.entries(updatedValues).filter(
-        ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
-      );
-      const allValuesFilled = requiredFieldsValues.every(
-        ([, val]) => val !== ''
-      );
-
-      // Обновляем состояние валидности на основе обоих условий
-      setIsValid(allErrorsEmpty && allValuesFilled);
-
       return updatedValues;
     });
   };
+
+  // Обработчик для email
+  const handleEmailChange = (event) => {
+    const { name, value } = event.target;
+    updateFieldValue(name, value, emailRegex, 'Введите корретный email');
+  };
+  // // Проверяем все ли значения ошибок пустые, исключая необязательные поля
+  // const requiredFieldsErrors = Object.entries(errors).filter(
+  //   ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
+  // );
+  // const allErrorsEmpty = requiredFieldsErrors.every(
+  //   ([, error]) => error === ''
+  // );
+  // //console.log(requiredFieldsErrors)
+
+  // // Проверяем все ли значения полей не пустые, исключая необязательные поля
+  // const requiredFieldsValues = Object.entries(updatedValues).filter(
+  //   ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
+  // );
+  // //console.log(requiredFieldsValues)
+  // const allValuesFilled = requiredFieldsValues.every(
+  //   ([, val]) => val !== ''
+  // );
+
+  // // Обновляем состояние валидности на основе обоих условий
+  // setIsValid(allErrorsEmpty && allValuesFilled);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -122,12 +136,6 @@ export function useFormWithValidation() {
       [name]: target.validationMessage,
     }));
     setIsValid(target.closest('form').checkValidity());
-  };
-
-  // Обработчик для email
-  const handleEmailChange = (event) => {
-    const { name, value } = event.target;
-    updateFieldValue(name, value, emailRegex, 'Введите корректный email');
   };
 
   // Обработчик для пароля
@@ -234,6 +242,11 @@ export function useFormWithValidation() {
     setIsValid(false);
   }, [setValues, setErrors, setIsValid]);
 
+  // useEffect(() => {
+  //  setDisabledBtn(Object.values(values).every((value) => value === '') ||
+  //  Object.values(errors).some((error) => error !== ''))
+  // }, [values, errors])
+
   return {
     values,
     setValues,
@@ -251,5 +264,6 @@ export function useFormWithValidation() {
     errors,
     isValid,
     resetForm,
+    disabledBtn,
   };
 }

@@ -19,8 +19,17 @@ const ModalSignUp = ({
 }) => {
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
+  const initialValues = {
+    username: '',
+    organization_name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+
   const {
     values,
+    setValues,
     handleChange,
     handleNameChange,
     handleOrganizationChange,
@@ -34,11 +43,8 @@ const ModalSignUp = ({
   } = useFormWithValidation();
 
   const disabledButton =
-    !isValid ||
-    (values.confirmPassword ? errors.confirmPassword !== '' : false) ||
-    errors.email ||
-    errors.username ||
-    errors.organization ||
+    !Object.values(values).every((value) => value !== '') ||
+    Object.values(errors).some((error) => error !== '') ||
     !isPrivacyChecked;
 
   useEffect(() => {
@@ -46,11 +52,11 @@ const ModalSignUp = ({
   }, [values.password, values.confirmPassword]);
 
   const togglePrivacyChecked = () => {
-    setIsPrivacyChecked(!isPrivacyChecked);
+    setIsPrivacyChecked((prev) => !prev);
   };
 
   useEffect(() => {
-    resetForm();
+    setValues(initialValues);
     setServerError('');
   }, []);
 
@@ -75,6 +81,7 @@ const ModalSignUp = ({
         password: values.password,
         organization_name: values.organization_name,
       });
+      resetForm();
     }
   };
 
@@ -164,7 +171,7 @@ const ModalSignUp = ({
               maxLength={25}
               value={values.confirmPassword}
               errors={errors.confirmPassword}
-              onChange={handleChange}
+              onChange={handlePasswordChange}
               onKeyDown={handleKeyPress}
               onPaste={preventInvalidPaste}
             />
