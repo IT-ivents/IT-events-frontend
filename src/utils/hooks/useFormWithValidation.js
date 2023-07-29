@@ -1,14 +1,20 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-  const [disabledBtn, setDisabledBtn] = useState(false);
 
   // Регулярные выражения для валидации
+  //const emailRegex = /^(?=[^-._])[a-zA-Z0-9_.-]+@[a-zA-Z0-9-.]+\.(?![.])(?:[a-zA-Z]{2,})$/;
+  //const emailRegex = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/;
+  //const emailRegex = /^(?=[^-._])[a-zA-Z0-9_.-]+@[a-zA-Z0-9-.]+\.[a-zA-Zа-яА-Я]{2,}$/;
+  //const emailRegex = /^(?=[^-._])[a-zA-Z0-9_.-]+@(?=[^-._])[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Zа-яА-ЯёЁ]+)?$/;
+  ///^(?=[^-._])[a-zA-Z0-9_.-]+@(?=[^-._])[a-zA-Z0-9-._]+(?![._-])[a-zA-Zа-яА-ЯёЁ]+\.[a-zA-Zа-яА-ЯёЁ]{2,}$/
+
   const emailRegex =
-    /^(?=[^-._])[a-zA-Z0-9_-]+-?[a-zA-Z0-9]+@[a-zA-Z0-9.-]+-?[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/;
+    /^[a-zA-Z0-9]{1,}((\.|_|-{0,1})[a-zA-Z0-9]{1,})*@[a-zA-ZА-Яа-я0-9]{1,}((\.|_|-{0,1})[a-zA-ZА-Яа-я0-9]{1,})*\.[a-zA-ZА-Яа-я]{2,}$/;
+
   const passwordRegex =
     /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{6,25}$/u;
   const urlRegex = /^(https?:\/\/)?([^\s.]+\.\S{2}|localhost)(\/[^\s]*)?$/;
@@ -54,13 +60,7 @@ export function useFormWithValidation() {
     return false; // Возвращаем false, если вставка была успешной
   };
 
-  const updateFieldValue = (
-    name,
-    value,
-    validationRegex,
-    errorMessage,
-    inputElement
-  ) => {
+  const updateFieldValue = (name, value, validationRegex, errorMessage) => {
     const sanitizedValue = sanitizeFieldValue(value);
 
     setValues((prevValues) => {
@@ -98,26 +98,6 @@ export function useFormWithValidation() {
     const { name, value } = event.target;
     updateFieldValue(name, value, emailRegex, 'Введите корретный email');
   };
-  // // Проверяем все ли значения ошибок пустые, исключая необязательные поля
-  // const requiredFieldsErrors = Object.entries(errors).filter(
-  //   ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
-  // );
-  // const allErrorsEmpty = requiredFieldsErrors.every(
-  //   ([, error]) => error === ''
-  // );
-  // //console.log(requiredFieldsErrors)
-
-  // // Проверяем все ли значения полей не пустые, исключая необязательные поля
-  // const requiredFieldsValues = Object.entries(updatedValues).filter(
-  //   ([fieldName]) => fieldName !== 'partners' && fieldName !== 'url'
-  // );
-  // //console.log(requiredFieldsValues)
-  // const allValuesFilled = requiredFieldsValues.every(
-  //   ([, val]) => val !== ''
-  // );
-
-  // // Обновляем состояние валидности на основе обоих условий
-  // setIsValid(allErrorsEmpty && allValuesFilled);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -242,11 +222,6 @@ export function useFormWithValidation() {
     setIsValid(false);
   }, [setValues, setErrors, setIsValid]);
 
-  // useEffect(() => {
-  //  setDisabledBtn(Object.values(values).every((value) => value === '') ||
-  //  Object.values(errors).some((error) => error !== ''))
-  // }, [values, errors])
-
   return {
     values,
     setValues,
@@ -264,6 +239,5 @@ export function useFormWithValidation() {
     errors,
     isValid,
     resetForm,
-    disabledBtn,
   };
 }
