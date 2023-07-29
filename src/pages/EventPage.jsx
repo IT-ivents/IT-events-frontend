@@ -11,21 +11,21 @@ const EventPage = ({
   selectedEvent,
   setSelectedEvent,
 }) => {
-  const { id } = useParams();
+  // const { id } = useParams();
 
-  useEffect(() => {
-    const fetchEvent = async (id) => {
-      try {
-        const response = await apiEvents.getSelectedEvent(id);
-        const { data } = response;
-        setSelectedEvent(data);
-        console.log('Получили событие на EventPage', data);
-      } catch (error) {
-        console.error('Ошибка получения события с сервера', error);
-      }
-    };
-    fetchEvent(id);
-  }, [id]);
+  // useEffect(() => {
+  //   const fetchEvent = async (id) => {
+  //     try {
+  //       const response = await apiEvents.getSelectedEvent(id);
+  //       const { data } = response;
+  //       setSelectedEvent(data);
+  //       console.log('Получили событие на EventPage', data);
+  //     } catch (error) {
+  //       console.error('Ошибка получения события с сервера', error);
+  //     }
+  //   };
+  //   fetchEvent(id);
+  // }, [id]);
 
   return !selectedEvent ? (
     <Loader />

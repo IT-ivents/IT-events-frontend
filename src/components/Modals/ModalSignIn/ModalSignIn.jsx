@@ -44,6 +44,7 @@ const ModalSignIn = ({
   useEffect(() => {
     if (loggedIn) {
       handleClose();
+      resetForm();
     }
   }, [loggedIn, handleClose]);
 
@@ -53,7 +54,6 @@ const ModalSignIn = ({
       email: values.email,
       password: values.password,
     });
-    resetForm();
   };
 
   const handleKeyPress = (e) => {
@@ -116,7 +116,7 @@ const ModalSignIn = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
-              onPaste={preventInvalidPaste}
+              onPaste={(e) => e.preventDefault()}
             />
             <Fieldset
               name="password"

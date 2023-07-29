@@ -63,6 +63,7 @@ const ModalSignUp = ({
   useEffect(() => {
     if (loggedIn) {
       handleClose();
+      resetForm();
     }
   }, [loggedIn, handleClose]);
 
@@ -74,16 +75,14 @@ const ModalSignUp = ({
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    if (isValid) {
-      onSignUp({
-        username: values.username,
-        email: values.email,
-        password: values.password,
-        organization_name: values.organization_name,
-      });
-      resetForm();
-    }
+    onSignUp({
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      organization_name: values.organization_name,
+    });
   };
+  console.log(values);
 
   // --------------------- ОТЛАДКА | СМОТРЕТЬ ЧТО ОТПРАВЛЕМ НА СЕРВЕР
   // const postData = {
@@ -148,7 +147,7 @@ const ModalSignUp = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
-              onPaste={preventInvalidPaste}
+              onPaste={(e) => e.preventDefault()}
             />
             <Fieldset
               name="password"
@@ -196,6 +195,7 @@ const ModalSignUp = ({
           <SubmitButton
             title={isLoading ? 'Регистрация...' : 'Регистрация'}
             disabled={disabledButton}
+            type="submit"
             onClick={handleSignUp}
           />
           <p className={styles.formSubtext}></p>
