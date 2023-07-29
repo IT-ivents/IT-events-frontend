@@ -1,11 +1,14 @@
 import styles from './CustomEventCard.module.css';
 import { formatDate, formatPrice } from '../../utils/helperFunctions';
+import { useNavigate } from 'react-router-dom';
 import PlaceImage from '../../images/EventInfo/place_white.svg';
 import CalendarImage from '../../images/EventInfo/calendar_white.svg';
 
 const CustomEventCard = ({ event, onCardClick }) => {
+  const navigate = useNavigate();
   const handleCardClick = () => {
     onCardClick(event);
+    navigate(`/events/${event.id}`);
   };
 
   return (

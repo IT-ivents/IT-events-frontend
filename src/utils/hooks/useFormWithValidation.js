@@ -10,8 +10,11 @@ export function useFormWithValidation() {
   //const emailRegex = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/;
   //const emailRegex = /^(?=[^-._])[a-zA-Z0-9_.-]+@[a-zA-Z0-9-.]+\.[a-zA-Zа-яА-Я]{2,}$/;
   //const emailRegex = /^(?=[^-._])[a-zA-Z0-9_.-]+@(?=[^-._])[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Zа-яА-ЯёЁ]+)?$/;
+  ///^(?=[^-._])[a-zA-Z0-9_.-]+@(?=[^-._])[a-zA-Z0-9-._]+(?![._-])[a-zA-Zа-яА-ЯёЁ]+\.[a-zA-Zа-яА-ЯёЁ]{2,}$/
+
   const emailRegex =
-    /^(?=[^-._])[a-zA-Z0-9_.-]+@(?=[^-._])[a-zA-Z0-9-._]+\.([a-zA-Zа-яА-ЯёЁ]{2,})+$/;
+    /^[a-zA-Z0-9]{1,}((\.|_|-{0,1})[a-zA-Z0-9]{1,})*@[a-zA-ZА-Яа-я0-9]{1,}((\.|_|-{0,1})[a-zA-ZА-Яа-я0-9]{1,})*\.[a-zA-ZА-Яа-я]{2,}$/;
+
   const passwordRegex =
     /^(?=.*[a-zA-Zа-яА-Я])(?=.*\d)[a-zA-Zа-яА-Я\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{6,25}$/u;
   const urlRegex = /^(https?:\/\/)?([^\s.]+\.\S{2}|localhost)(\/[^\s]*)?$/;
@@ -57,13 +60,7 @@ export function useFormWithValidation() {
     return false; // Возвращаем false, если вставка была успешной
   };
 
-  const updateFieldValue = (
-    name,
-    value,
-    validationRegex,
-    errorMessage,
-    inputElement
-  ) => {
+  const updateFieldValue = (name, value, validationRegex, errorMessage) => {
     const sanitizedValue = sanitizeFieldValue(value);
 
     setValues((prevValues) => {
