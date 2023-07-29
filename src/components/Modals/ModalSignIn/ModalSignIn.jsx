@@ -108,7 +108,7 @@ const ModalSignIn = ({
             <Fieldset
               name="email"
               label="Почта"
-              type="email"
+              //type="email"
               placeholder="Email"
               minLength={6}
               maxLength={254}
