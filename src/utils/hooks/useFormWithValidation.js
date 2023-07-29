@@ -96,7 +96,12 @@ export function useFormWithValidation() {
   // Обработчик для email
   const handleEmailChange = (event) => {
     const { name, value } = event.target;
-    updateFieldValue(name, value, emailRegex, 'Введите корретный email');
+    updateFieldValue(
+      name,
+      value,
+      emailRegex,
+      'Пожалуйста, введите корректный email-адрес" (вы ввели данные в неправильном формате)'
+    );
   };
 
   const handleChange = (event) => {
