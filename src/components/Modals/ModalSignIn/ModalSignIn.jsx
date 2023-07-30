@@ -116,7 +116,7 @@ const ModalSignIn = ({
               errors={errors.email}
               onChange={handleEmailChange}
               onKeyDown={handleKeyPress}
-              onPaste={(e) => e.preventDefault()}
+              onPaste={preventInvalidPaste}
             />
             <Fieldset
               name="password"
