@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as auth from '../../utils/auth';
 
 function checkLoggedInStatus() {
@@ -12,15 +11,15 @@ function useAuth() {
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     const user = localStorage.getItem('currentUser');
-    if (user) {
+    if (user && loggedIn) {
+      setCurrentUser(JSON.parse(user));
+      setIsLoggedIn(true);
       console.log('LOGGED_IN:', loggedIn);
-      setCurrentUser(JSON.parse(user)); // Чтобы юзер успел дойти из localStorage
     }
-  }, []);
+  }, [loggedIn]);
 
   function handleError(error) {
     let message = '';
@@ -70,7 +69,6 @@ function useAuth() {
           );
           localStorage.setItem('currentUser', JSON.stringify(fullUserData));
           setCurrentUser(fullUserData);
-          navigate('/account'); // Перенаправление на страницу /account
         } catch (error) {
           handleError(error);
         }
@@ -102,10 +100,10 @@ function useAuth() {
     if (token) {
       try {
         await auth.logout(token);
-        setIsLoggedIn(false);
-        navigate('/');
         localStorage.removeItem('jwt');
         localStorage.removeItem('currentUser');
+        setIsLoggedIn(false);
+        setCurrentUser({});
         console.log('Вышли из учетной записи');
       } catch (error) {
         console.error('Ошибка при выходе:', error);
@@ -121,6 +119,7 @@ function useAuth() {
     isLoading,
     serverError,
     setServerError,
+    checkLoggedInStatus,
     currentUser,
   };
 }

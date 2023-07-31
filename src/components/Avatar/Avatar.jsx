@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import useAuth from '../../utils/hooks/useAuth';
 
 const Avatar = ({ name, style }) => {
   const firstLetter = useMemo(() => name?.charAt(0).toUpperCase(), [name]);

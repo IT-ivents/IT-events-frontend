@@ -1,6 +1,8 @@
 import styles from './ModalSignUp.module.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../../utils/context/AuthContext';
+import { useModalContext } from '../../../utils/context/ModalContext';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import Fieldset from '../../Fieldset/Fieldset';
@@ -8,15 +10,10 @@ import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
-const ModalSignUp = ({
-  isOpen,
-  handleClose,
-  onSignUp,
-  isLoading,
-  loggedIn,
-  serverError,
-  setServerError,
-}) => {
+const ModalSignUp = () => {
+  const { handleRegister, serverError, setServerError, loggedIn, isLoading } =
+    useAuthContext();
+  const { toggleModalSignUp, isModalSignUpOpen } = useModalContext();
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
   const initialValues = {
@@ -30,14 +27,12 @@ const ModalSignUp = ({
   const {
     values,
     setValues,
-    handleChange,
     handleNameChange,
     handleOrganizationChange,
     handleEmailChange,
     handlePasswordChange,
     preventInvalidPaste,
     validatePasswordMatch,
-    isValid,
     errors,
     resetForm,
   } = useFormWithValidation();
@@ -56,16 +51,16 @@ const ModalSignUp = ({
   };
 
   useEffect(() => {
-    setValues(initialValues);
+    resetForm();
     setServerError('');
-  }, []);
+    setValues(initialValues);
+  }, [isModalSignUpOpen]);
 
   useEffect(() => {
     if (loggedIn) {
-      handleClose();
-      resetForm();
+      toggleModalSignUp();
     }
-  }, [loggedIn, handleClose]);
+  }, [loggedIn]);
 
   const handleKeyPress = (e) => {
     if (e.key === ' ') {
@@ -73,16 +68,15 @@ const ModalSignUp = ({
     }
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    onSignUp({
+    await handleRegister({
       username: values.username,
       email: values.email,
       password: values.password,
       organization_name: values.organization_name,
     });
   };
-  console.log(values);
 
   // --------------------- ОТЛАДКА | СМОТРЕТЬ ЧТО ОТПРАВЛЕМ НА СЕРВЕР
   // const postData = {
@@ -94,7 +88,7 @@ const ModalSignUp = ({
   //   console.log(postData);
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose}>
+    <Modal isOpen={isModalSignUpOpen} onClose={toggleModalSignUp}>
       <div className={styles.modalContainer}>
         <Logo />
         <div className={styles.titleContainer}>
