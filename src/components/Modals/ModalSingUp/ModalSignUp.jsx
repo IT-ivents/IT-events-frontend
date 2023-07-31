@@ -56,11 +56,11 @@ const ModalSignUp = () => {
     setValues(initialValues);
   }, [isModalSignUpOpen]);
 
-  useEffect(() => {
-    if (loggedIn) {
-      toggleModalSignUp();
-    }
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     toggleModalSignUp();
+  //   }
+  // }, [loggedIn]);
 
   const handleKeyPress = (e) => {
     if (e.key === ' ') {

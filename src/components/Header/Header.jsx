@@ -41,7 +41,7 @@ const avatar = {
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
-const Header = ({ onSearch, searchQuery }) => {
+const Header = () => {
   const { loggedIn, currentUser } = useAuthContext();
   const { toggleModalSignIn } = useModalContext();
   const location = useLocation();
@@ -94,8 +94,6 @@ const Header = ({ onSearch, searchQuery }) => {
         <Logo />
         {isSearchFieldOnTop && (
           <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
             smallForm={smallForm}
             smallFieldset={smallFieldset}
             smallInput={smallInput}
@@ -128,11 +126,7 @@ const Header = ({ onSearch, searchQuery }) => {
       {location.pathname === '/' && <HeroSection />}
       {location.pathname === '/results' && (
         <div className={styles.searchFieldContainer}>
-          <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
-            radiusForm={radiusForm}
-          />
+          <SearchField radiusForm={radiusForm} />
         </div>
       )}
     </header>

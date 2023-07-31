@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styles from './HorizontalEventList.module.css';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import ShowAllButton from '../ShowAllButton/ShowAllButton';
@@ -19,13 +19,6 @@ const HorizontalEventList = ({
   const location = useLocation();
   const totalPages = Math.ceil(list.length / eventOnPage) || 0;
   const eventPage = location.pathname.includes('/events');
-
-  const handleLikeClick = useCallback(
-    (eventId) => {
-      onLikeClick(eventId);
-    },
-    [] // Пустой массив зависимостей, чтобы сохранить этот экземпляр обратного вызова неизменным
-  );
 
   const handleShowMore = () => {
     if (page < totalPages) {
@@ -74,7 +67,7 @@ const HorizontalEventList = ({
               index={index}
               event={event}
               onCardClick={onCardClick}
-              onLikeClick={handleLikeClick}
+              onLikeClick={onLikeClick}
             />
           )
         )}

@@ -1,4 +1,6 @@
 import styles from './Pages.module.css';
+import { useEffect, useState } from 'react';
+import { useEventsContext } from '../utils/context/EventsContext';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
@@ -7,21 +9,17 @@ import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import ScrollToTopButton from '../components/ScrollToTopButton/ScrollToTopButton';
 import EventCarousel from '../components/EventCarousel/EventCarousel';
 import Loader from '../components/Loader/Loader';
-import { useEffect, useState } from 'react';
 
-const MainPage = ({
-  onCardClick,
-  onLikeClick,
-  popularEvents,
-  interestingEvents,
-  mostAnticipatedEvents,
-  soonEvents,
-  onSearch,
-  handleFilterSearch,
-  searchQuery,
-  setSelectedEvent,
-}) => {
+const MainPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const {
+    popularEvents,
+    soonEvents,
+    interestingEvents,
+    mostAnticipatedEvents,
+    handleCardClick,
+    toggleFavorite,
+  } = useEventsContext();
 
   const mainPageEvents = [
     // {
@@ -58,15 +56,15 @@ const MainPage = ({
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 750);
+    }, 500);
   }, []);
 
   return (
     <div className={styles.mainPageWrapper}>
-      <LeftFilerBar handleSearch={handleFilterSearch} />
+      <LeftFilerBar />
       <div className={styles.mainPageListWrapper}>
         <div>
-          <SearchField onSearch={onSearch} searchQuery={searchQuery} />
+          <SearchField />
           <TopFilersBar />
           {isLoading ? (
             <Loader />
@@ -74,7 +72,7 @@ const MainPage = ({
             <div>
               <EventCarousel
                 mostAnticipatedEvents={mostAnticipatedEvents}
-                onCardClick={onCardClick}
+                onCardClick={handleCardClick}
               />
               {mainPageEvents.map((event) => (
                 <HorizontalEventList
@@ -82,11 +80,10 @@ const MainPage = ({
                   list={event.list}
                   title={event.title}
                   span={event.span}
-                  onCardClick={onCardClick}
-                  onLikeClick={onLikeClick}
                   elseButton={event.else}
                   eventOnPage={event.eventOnPage}
-                  setSelectedEvent={setSelectedEvent}
+                  onCardClick={handleCardClick}
+                  onLikeClick={toggleFavorite}
                 />
               ))}
             </div>

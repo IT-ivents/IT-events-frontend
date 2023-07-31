@@ -42,12 +42,12 @@ const ModalSignIn = () => {
     setValues(initialValues);
   }, [isModalSignInOpen]);
 
-  useEffect(() => {
-    if (loggedIn) {
-      toggleModalSignIn();
-      navigate('/account');
-    }
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     toggleModalSignIn();
+  //     navigate('/account');
+  //   }
+  // }, [loggedIn]);
 
   const handleSignIn = async (e) => {
     e.preventDefault();

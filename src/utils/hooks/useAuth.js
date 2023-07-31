@@ -119,7 +119,6 @@ function useAuth() {
     isLoading,
     serverError,
     setServerError,
-    checkLoggedInStatus,
     currentUser,
   };
 }

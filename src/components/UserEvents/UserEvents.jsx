@@ -3,6 +3,7 @@ import styles from './UserEvents.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import FilterBar from '../FilterBar/FilterBar';
 import VerticalEventList from '../VerticalEventList/VerticalEventList';
+import { useEventsContext } from '../../utils/context/EventsContext';
 import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 import { parsePrice } from '../../utils/helperFunctions';
 import { apiEvents } from '../../utils/api';
@@ -17,6 +18,7 @@ const UserEvents = ({ onCardClick }) => {
   const [sortByPrice, setSortByPrice] = useState(true);
   const [sortByDate, setSortByDate] = useState(true);
   const [checkedEvents, setCheckedEvents] = useState([]);
+  const { handleCardClick } = useEventsContext();
 
   // Выбор карточки
   const location = useLocation();
@@ -106,7 +108,7 @@ const UserEvents = ({ onCardClick }) => {
       return (
         <VerticalEventList
           events={createdEvents}
-          onCardClick={onCardClick}
+          onCardClick={handleCardClick}
           checkedEvents={checkedEvents}
           handleCheckboxChange={handleCheckboxChange}
           isCheckboxInvisible={isCheckboxInvisible}

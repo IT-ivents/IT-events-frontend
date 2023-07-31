@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useFilterContext = () => {
+const useFilters = () => {
   const initialValues = {
     status: [],
     city: null,
@@ -27,4 +27,16 @@ const useFilterContext = () => {
   };
 };
 
-export default useFilterContext;
+export default useFilters;
+
+// const resetFilters = () => {
+//   setValues({
+//     status: [],
+//     city: null,
+//     date: null,
+//     specialities: [],
+//     price: null,
+//     findTags: null,
+//     tags: [],
+//   });
+// };

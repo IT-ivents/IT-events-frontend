@@ -7,8 +7,9 @@ import { useInitialFilter } from '../../utils/hooks/useInitialFilter';
 import { useFilter } from '../../utils/hooks/useFilter';
 import TagButton from '../TagButton/TagButton';
 import { useLocation } from 'react-router-dom';
+import { useEventsContext } from '../../utils/context/EventsContext';
 
-const LeftFilerBar = ({ handleSearch, searchQuery }) => {
+const LeftFilerBar = () => {
   const [showAllDates, setShowAllDates] = useState(false);
   const [showAllTopics, setShowAllTopics] = useState(false);
   const [showTopic, setShowTopic] = useState(false);
@@ -17,6 +18,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   const resultLocation = location.pathname === '/results';
   const { values, setValues, findValues, setFindValues } =
     useContext(SearchFilterContext);
+  const { handleFilterSearch } = useEventsContext();
 
   const {
     handleInputChange,
@@ -34,7 +36,7 @@ const LeftFilerBar = ({ handleSearch, searchQuery }) => {
   // console.log(dataLists)
 
   const handleSearchClick = () => {
-    handleSearch();
+    handleFilterSearch();
   };
 
   const toggleShowAllDates = () => {

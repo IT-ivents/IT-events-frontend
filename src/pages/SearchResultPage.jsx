@@ -7,15 +7,11 @@ import PageTitle from '../components/PageTitle/PageTitle';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import { useFilterdList } from '../utils/hooks/useFilteredList';
 import SearchFilterContext from '../utils/context/SearchFilterContext';
+import { useEventsContext } from '../utils/context/EventsContext';
 
-const SearchResultPage = ({
-  searchResult,
-  popularEvents,
-  onCardClick,
-  onLikeClick,
-  searchQuery,
-}) => {
+const SearchResultPage = () => {
   const { values } = useContext(SearchFilterContext);
+  const { popularEvents, searchResult } = useEventsContext();
   const { filteredList } = useFilterdList({ values, searchResult });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -47,7 +43,7 @@ const SearchResultPage = ({
 
   return (
     <section className={styles.searchResultPageWrapper}>
-      <LeftFilterBar searchQuery={searchQuery} />
+      <LeftFilterBar />
       <div>
         <TopFilersBar style={filterBar} />
         {isNothingFind && (
@@ -57,11 +53,7 @@ const SearchResultPage = ({
           />
         )}
         <div className={styles.searchResultListContainer}>
-          <VerticalEventList
-            events={getPageItems()}
-            onCardClick={onCardClick}
-            onLikeClick={onLikeClick}
-          />
+          <VerticalEventList events={getPageItems()} />
           {popularEvents.length > itemsPerPage &&
             filteredList.length <= itemsPerPage && (
               <VerticalEventList
@@ -70,8 +62,6 @@ const SearchResultPage = ({
                   0,
                   itemsPerPage - filteredList.length
                 )}
-                onCardClick={onCardClick}
-                onLikeClick={onLikeClick}
               />
             )}
           {totalPages > 1 && (
