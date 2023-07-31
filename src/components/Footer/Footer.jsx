@@ -1,6 +1,8 @@
+import styles from './Footer.module.css';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './Footer.module.css';
+import { useAuthContext } from '../../utils/context/AuthContext';
+import { useModalContext } from '../../utils/context/ModalContext';
 import Logo from '../Logo/Logo';
 import GitHubLogo from '../../images/SocialNetworks/GitHub.svg';
 import MessengerLogo from '../../images/SocialNetworks/Messenger.svg';
@@ -13,7 +15,9 @@ const logoSize = {
   color: '#F1F0EB',
 };
 
-const Footer = ({ onEnter, loggedIn }) => {
+const Footer = () => {
+  const { loggedIn } = useAuthContext();
+  const { toggleModalSignIn } = useModalContext();
   const date = new Date().getFullYear();
   const { scrollToTop } = useScrollToTop();
   const [showPopup, setShowPopup] = useState(false);
@@ -25,7 +29,7 @@ const Footer = ({ onEnter, loggedIn }) => {
       scrollToTop();
       navigate('/account');
     } else {
-      onEnter();
+      toggleModalSignIn();
     }
   };
 

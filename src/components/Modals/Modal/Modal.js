@@ -3,16 +3,16 @@ import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 
-const Modal = ({ children, isOpen, handleClose }) => {
+const Modal = ({ children, isOpen, onClose }) => {
   const modalRef = useRef(null);
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <section className={styles.container}>
-      <ModalOverlay handleClose={handleClose} />
+      <ModalOverlay onClose={onClose} />
       <div className={styles.modal} ref={modalRef}>
-        <div className={styles.closeButtonContainer} onClick={handleClose}>
+        <div className={styles.closeButtonContainer} onClick={onClose}>
           <button className={styles.closeButton} type="button" />
         </div>
         {children}

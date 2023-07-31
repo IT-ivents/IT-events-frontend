@@ -1,6 +1,7 @@
 import styles from './Header.module.css';
-import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuthContext } from '../../utils/context/AuthContext';
+import { useModalContext } from '../../utils/context/ModalContext';
 import Logo from '../Logo/Logo';
 import SearchField from '../SearchField/SearchField';
 import HeroSection from '../HeroSection/HeroSection';
@@ -40,26 +41,10 @@ const avatar = {
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
-const Header = ({
-  onSearch,
-  searchQuery,
-  onEnter,
-  loggedIn,
-  currentUser,
-  selectedEvent,
-}) => {
-  //const { handleLogout, currentUser } = useAuth();
-  const [username, setUsername] = useState('');
+const Header = ({ onSearch, searchQuery }) => {
+  const { loggedIn, currentUser } = useAuthContext();
+  const { toggleModalSignIn } = useModalContext();
   const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (currentUser && loggedIn) {
-      setUsername(currentUser.name);
-    } else if (!loggedIn) {
-      setUsername(null);
-    }
-  }, [currentUser, loggedIn]);
 
   const isSearchFieldOnTop =
     // location.pathname === '/events' ||
@@ -85,9 +70,9 @@ const Header = ({
     },
     {
       id: 3,
-      name: loggedIn ? username : 'Войти',
+      name: loggedIn ? currentUser.name : 'Войти',
       component: loggedIn ? (
-        <Avatar name={username} style={avatar} />
+        <Avatar name={currentUser.name} style={avatar} />
       ) : (
         <>
           <img src={enterIcon} alt="Иконка, Войти в кабинет" />
@@ -124,7 +109,7 @@ const Header = ({
               to={link.path ? link.path : ''}
               onClick={
                 link.id === 3 && !loggedIn
-                  ? onEnter
+                  ? toggleModalSignIn
                   : () => (window.location.href = link.path)
               }
             >

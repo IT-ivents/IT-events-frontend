@@ -1,21 +1,16 @@
 import styles from './ModalSignIn.module.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
+import { useAuthContext } from '../../../utils/context/AuthContext';
+import { useModalContext } from '../../../utils/context/ModalContext';
 import Modal from '../Modal/Modal';
 import Logo from '../../Logo/Logo';
 import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import SubmitButton from '../../SubmitButton/SubmitButton';
 import Fieldset from '../../Fieldset/Fieldset';
-import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
-const ModalSignIn = ({
-  isOpen,
-  handleClose,
-  isRegister,
-  onSignIn,
-  serverError,
-  setServerError,
-  loggedIn,
-}) => {
+const ModalSignIn = () => {
   const {
     values,
     setValues,
@@ -25,7 +20,12 @@ const ModalSignIn = ({
     errors,
     resetForm,
   } = useFormWithValidation();
+  const { isModalSignInOpen, toggleModalSignIn, toggleModalSignUp } =
+    useModalContext();
+  const { handleLogin, serverError, setServerError, loggedIn } =
+    useAuthContext();
   const [isRememberMe, setIsRemebmerMe] = useState(false);
+  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
@@ -37,20 +37,21 @@ const ModalSignIn = ({
     Object.values(errors).some((error) => error !== '');
 
   useEffect(() => {
-    setValues(initialValues);
+    resetForm();
     setServerError('');
-  }, []);
+    setValues(initialValues);
+  }, [isModalSignInOpen]);
 
   useEffect(() => {
     if (loggedIn) {
-      handleClose();
-      resetForm();
+      toggleModalSignIn();
+      navigate('/account');
     }
-  }, [loggedIn, handleClose]);
+  }, [loggedIn]);
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    onSignIn({
+    await handleLogin({
       email: values.email,
       password: values.password,
     });
@@ -73,7 +74,7 @@ const ModalSignIn = ({
   };
 
   return (
-    <Modal isOpen={isOpen} handleClose={handleClose}>
+    <Modal isOpen={isModalSignInOpen} onClose={toggleModalSignIn}>
       <div className={styles.modalContainer}>
         <Logo />
         <div className={styles.titleContainer}>
@@ -98,7 +99,7 @@ const ModalSignIn = ({
             <span className={styles.noAccount}>Нет аккаунта?</span>
             <button
               type="button"
-              onClick={isRegister}
+              onClick={toggleModalSignUp}
               className={styles.registerBtn}
             >
               Регистрация

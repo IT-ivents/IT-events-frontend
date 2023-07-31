@@ -13,6 +13,7 @@ import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import { aboutText, spanBlock } from '../../utils/constants/aboutPageText';
 import BannerImage from '../../images/team-banner.jpg';
 import { team, prevTeam } from '../../utils/constants/team';
+import { useModalContext } from '../../utils/context/ModalContext';
 
 const images = [
   { src: Image1, style: styles.imageOne },
@@ -22,7 +23,9 @@ const images = [
   { src: Image5, style: styles.imageFive },
 ];
 
-const AboutUs = ({ toggleModalSignUp }) => {
+const AboutUs = () => {
+  const { toggleModalSignUp } = useModalContext();
+
   return (
     <section className={styles.about}>
       <div className={styles.background}>

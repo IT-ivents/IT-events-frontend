@@ -11,7 +11,7 @@ const font = {
   fontSize: '20px',
 };
 
-const UserEvents = ({ onCardClick, onNewEventClick }) => {
+const UserEvents = ({ onCardClick }) => {
   const [createdEvents, setCreatedEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
@@ -33,8 +33,6 @@ const UserEvents = ({ onCardClick, onNewEventClick }) => {
       );
     }
   };
-
-  const handleEditEvent = () => {};
 
   const fetchUserEvents = async () => {
     try {
@@ -143,7 +141,6 @@ const UserEvents = ({ onCardClick, onNewEventClick }) => {
           ></button>
           <Link
             to="/events/new"
-            onClick={onNewEventClick}
             title="Создать событие"
             className={styles.create}
           >

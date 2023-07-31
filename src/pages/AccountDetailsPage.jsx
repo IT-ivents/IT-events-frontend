@@ -3,36 +3,17 @@ import styles from './Pages.module.css';
 import AccountMenu from '../components/AccountMenu/AccountMenu';
 import UserInfo from '../components/UserInfo/UserInfo';
 import UserEvents from '../components/UserEvents/UserEvents';
-import Organization from '../components/Organization/Organization';
 
-const AccountDetailsPage = ({
-  mostAnticipatedEvents,
-  selectedEvent,
-  onCardClick,
-  onNewEventClick,
-  handleLogout,
-  currentUser,
-}) => {
+const AccountDetailsPage = ({ onCardClick }) => {
   return (
     <section className={styles.userInfo}>
-      <AccountMenu handleLogout={handleLogout} currentUser={currentUser} />
+      <AccountMenu />
       <Routes>
-        <Route
-          path="/"
-          element={<UserInfo onNewEventClick={onNewEventClick} />}
-        />
+        <Route path="/" element={<UserInfo />} />
         <Route
           path="events"
-          element={
-            <UserEvents
-              mostAnticipatedEvents={mostAnticipatedEvents}
-              selectedEvent={selectedEvent}
-              onCardClick={onCardClick}
-              onNewEventClick={onNewEventClick}
-            />
-          }
+          element={<UserEvents onCardClick={onCardClick} />}
         />
-        {/* <Route path="organization" element={<Organization />} /> */}
       </Routes>
     </section>
   );

@@ -1,22 +1,22 @@
-// import styles from './Layout.module.css';
-// import { Outlet, useLocation } from 'react-router-dom';
-// import HeroSection from '../HeroSection/HeroSection';
-// import Footer from '../Footer/Footer';
-// import Header from '../Header/Header';
+import styles from './Layout.module.css';
+import { Outlet } from 'react-router-dom';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
+import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 
-// const Layout = () => {
-//   const location = useLocation();
-//   const pageRules = location.pathname === '/favorites' ? styles.favorites : '';
-//   return (
-//     <>
-//       {/* <HeroSection /> */}
-//       <Header />
-//       <main className={`${styles.main} ${pageRules}`}>
-//         <Outlet />
-//       </main>
-//       <Footer />
-//     </>
-//   );
-// };
+const Layout = ({ onSearch, searchQuery }) => {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.page}>
+        <Header onSearch={onSearch} searchQuery={searchQuery} />
+        {<Outlet />}
+        <Footer />
+        <ModalSignIn />
+        <ModalSignUp />
+      </div>
+    </div>
+  );
+};
 
-// export default Layout;
+export { Layout };

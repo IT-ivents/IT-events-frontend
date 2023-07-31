@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './AccountMenu.module.css';
+import { useAuthContext } from '../../utils/context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { ReactComponent as Person } from './../../images/person.svg';
 import { ReactComponent as PersonActive } from '../../images/person_active.svg';
@@ -9,16 +10,10 @@ import { ReactComponent as Exit } from './../../images/exit.svg';
 import AccountButton from '../AccountButton/AccountButton';
 import Avatar from '../Avatar/Avatar';
 
-const AccountMenu = ({ handleLogout, currentUser }) => {
+const AccountMenu = () => {
   const [activeTab, setActiveTab] = useState(0);
   const location = useLocation();
-
-  // useEffect(() => {
-  //   const storedActiveTab = localStorage.getItem('activeMenuTab');
-  //   if (storedActiveTab) {
-  //     setActiveTab(parseInt(storedActiveTab));
-  //   }
-  // }, []);
+  const { currentUser, handleLogout } = useAuthContext();
 
   const handleLogoutClick = async () => {
     try {
@@ -31,7 +26,6 @@ const AccountMenu = ({ handleLogout, currentUser }) => {
 
   const handleTabClick = (index) => {
     setActiveTab(index);
-    // localStorage.setItem('activeMenuTab', index.toString());
   };
 
   const tabs = [

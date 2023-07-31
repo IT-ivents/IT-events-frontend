@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styles from './App.module.css';
-
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
-import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
-// import { events } from '../../utils/events';
+import { Layout } from '../Layout/Layout';
 import { apiEvents } from '../../utils/api';
 import SearchFilterContext from '../../utils/context/SearchFilterContext';
+import ProtectedRoute from '../../hoc/ProtectedRoute';
+import { useAuthContext } from '../../utils/context/AuthContext';
+import { getRandomEvents } from '../../utils/helperFunctions';
 import {
   MainPage,
   EventPage,
@@ -23,26 +20,9 @@ import {
   CookiePage,
   AccountDetailsPage,
 } from '../../pages';
-import { getRandomEvents } from '../../utils/helperFunctions';
-import useAuth from '../../utils/hooks/useAuth';
-import ProtectedRoute from '../../hoc/ProtectedRoute';
-import { AuthContext } from '../../hoc/AuthProvider';
 
 function App() {
-  const {
-    handleLogin,
-    handleRegister,
-    handleLogout,
-    loggedIn,
-    checkLoggedInStatus,
-    currentUser,
-    isLoading,
-    serverError,
-    setServerError,
-  } = useAuth();
-
-  const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
-  const [isModalSignUpOpen, setIsModalSignUpOpen] = useState(false);
+  const { handleLogout } = useAuthContext();
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -58,6 +38,9 @@ function App() {
   const [pastEvents, setPastEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // стейты для поисковго фильтра
   const [values, setValues] = useState({
     status: [],
@@ -69,11 +52,6 @@ function App() {
     tags: [],
   });
   const [findValues, setFindValues] = useState(null);
-
-  //console.log(findValues, 'findValues');
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const resetFilters = () => {
     setValues({
@@ -87,6 +65,7 @@ function App() {
     });
   };
 
+  // Если Пользотваль не выставил "Запомнить меня" -> авторазлогин через 24ч.
   useEffect(() => {
     const isNotRemembered = localStorage.getItem('remembered') === 'false';
     if (isNotRemembered) {
@@ -97,18 +76,13 @@ function App() {
     }
   }, []);
 
+  // Обнулить фильтры и поисковый запрос на MAIN PAGE
   useEffect(() => {
     if (location.pathname === '/') {
       resetFilters();
       setSearchQuery('');
     }
   }, [location]);
-
-  // useEffect(() => {
-  //   if (location.pathname === '/results') {
-  //     resetFilters();
-  //   }
-  // }, []);
 
   // ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
   const getCurrentEvents = (events) => {
@@ -191,7 +165,7 @@ function App() {
   useEffect(() => {
     if (favorites.length >= 0) {
       localStorage.setItem('favorites', JSON.stringify(favorites));
-      console.log('Favorites saved:', favorites);
+      //console.log('Favorites saved:', favorites);
     }
   }, [favorites]);
 
@@ -208,27 +182,6 @@ function App() {
       setSelectedEvent(JSON.parse(savedSelectedEvent));
     }
   }, []);
-
-  // const handleCardClick = (event) => {
-  //   if (location.pathname === '/account/events') {
-  //     // navigate('/organization');
-  //     navigate('/edit');
-  //   } else {
-  //     navigate(`event/${event.id}`);
-  //   }
-  //   setSelectedEvent(event);
-  // };
-
-  // const fetchEvent = async (id) => {
-  //   try {
-  //     const response = await apiEvents.getSelectedEvent(id);
-  //     const { data } = response;
-  //     setSelectedEvent(data);
-  //     console.log('Получили событие', data);
-  //   } catch (error) {
-  //     console.error('Ошибка получения события с сервера', error);
-  //   }
-  // };
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
@@ -278,76 +231,7 @@ function App() {
     });
   }
 
-  // const searchEvents = (query) => {
-  //   if (typeof query !== 'string') {
-  //     return upcomingEvents;
-  //   }
-  //   const words = query.toLowerCase().trim().split(' ');
-  //   // Разбиваем входящий запрос на отдельные слова и проверяем совпадение
-  //   // хотя бы одного слова.
-
-  //   const filteredEvents = [...upcomingEvents]
-  //     .map((event) => {
-  //       const isLiked = favorites.some((item) => item.id === event.id);
-  //       // Установим релевантность
-  //       return { ...event, isLiked, relevance: 0 };
-  //     })
-  //     .map((event) => {
-  //       const {
-  //         title,
-  //         description,
-  //         city,
-  //         price,
-  //         topic,
-  //         tags,
-  //         date_start,
-  //         program,
-  //       } = event;
-
-  //       words.forEach((word) => {
-  //         const lowerCaseWord = word.toLowerCase().trim();
-
-  //         if (
-  //           title?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           description?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           program?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           city?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           price?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           topic?.name?.toLowerCase().trim().includes(lowerCaseWord) ||
-  //           tags?.some((tag) =>
-  //             tag.name.toLowerCase().trim().includes(lowerCaseWord)
-  //           )
-  //         ) {
-  //           // При каждом совпадении увеличиваем релевантность конкретной карточки
-  //           // filtered в консоли показывает результат нашего поиска
-  //           event.relevance++;
-  //         }
-  //       });
-  //       const startDate = new Date(date_start).getTime();
-  //       event.startDate = startDate;
-  //       return event;
-  //     })
-  //     .filter((event) => event.relevance > 0)
-  //     // Сортируем по релевантности наши карточки и потом по дате от ближайшего
-  //     .sort((a, b) => {
-  //       if (a.startDate !== b.startDate) {
-  //         return a.startDate - b.startDate;
-  //       } else {
-  //         return b.relevance - a.relevance;
-  //       }
-  //     });
-
-  //   return filteredEvents;
-  // };
-
-  //const filteredEvents = useMemo(() => searchEvents(searchQuery), [searchQuery]);
-
-  // const handleSearch = (query) => {
-  //   setSearchQuery(query);
-  //   const filteredResult = searchEvents(query);
-  //   setSearchResult(filteredResult);
-  //   navigate('/results');
-  // };
+  // RESERVE SearchEvents in reserveFuntions.js
 
   const handleSearch = (request) => {
     setSearchQuery(request);
@@ -369,15 +253,6 @@ function App() {
     navigate('/results');
   };
 
-  const toggleModalSignIn = () => {
-    setIsModalSignInOpen(!isModalSignInOpen);
-  };
-
-  const toggleModalSignUp = () => {
-    setIsModalSignInOpen(false);
-    setIsModalSignUpOpen(!isModalSignUpOpen);
-  };
-
   return (
     <SearchFilterContext.Provider
       value={{
@@ -387,147 +262,105 @@ function App() {
         setFindValues,
       }}
     >
-      <div className={styles.wrapper}>
-        <div className={styles.page}>
-          <Header
-            onSearch={handleSearch}
-            searchQuery={searchQuery}
-            onEnter={toggleModalSignIn}
-            loggedIn={loggedIn}
-            currentUser={currentUser}
-            selectedEvent={selectedEvent}
+      <Routes>
+        <Route
+          path="/"
+          element={<Layout onSearch={handleSearch} searchQuery={searchQuery} />}
+        >
+          <Route
+            index
+            element={
+              <MainPage
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+                mostAnticipatedEvents={mostAnticipatedEvents}
+                popularEvents={popularEvents}
+                soonEvents={soonEvents}
+                interestingEvents={interestingEvents}
+                handleFilterSearch={handleFilterSearch}
+                searchQuery={searchQuery}
+                onSearch={handleSearch}
+                setSelectedEvent={setSelectedEvent}
+              />
+            }
           />
-          {isModalSignInOpen && (
-            <ModalSignIn
-              isOpen={toggleModalSignIn}
-              handleClose={toggleModalSignIn}
-              isRegister={toggleModalSignUp}
-              onSignIn={handleLogin}
-              loggedIn={loggedIn}
-              serverError={serverError}
-              setServerError={setServerError}
-            />
-          )}
-          {isModalSignUpOpen && (
-            <ModalSignUp
-              isOpen={toggleModalSignUp}
-              handleClose={toggleModalSignUp}
-              onSignUp={handleRegister}
-              loggedIn={loggedIn}
-              isLoading={isLoading}
-              setServerError={setServerError}
-              serverError={serverError}
-            />
-          )}
-
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <MainPage
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                  mostAnticipatedEvents={mostAnticipatedEvents}
-                  popularEvents={popularEvents}
-                  soonEvents={soonEvents}
-                  interestingEvents={interestingEvents}
-                  handleFilterSearch={handleFilterSearch}
-                  searchQuery={searchQuery}
-                  onSearch={handleSearch}
-                  setSelectedEvent={setSelectedEvent}
-                />
-              }
-            />
-            <Route
-              path="account/*"
-              element={
-                <ProtectedRoute>
-                  <AccountDetailsPage
-                    mostAnticipatedEvents={mostAnticipatedEvents}
-                    selectedEvent={selectedEvent}
-                    onCardClick={handleCardClick}
-                    onNewEventClick={() => setSelectedEvent(null)}
-                    currentUser={currentUser}
-                    handleLogout={handleLogout}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="events/:id"
-              element={
-                <EventPage
-                  upcomingEvents={upcomingEvents}
-                  recommendedEvents={recommendedEvents}
-                  selectedEvent={selectedEvent}
-                  setSelectedEvent={setSelectedEvent}
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                />
-              }
-            />
-            <Route
-              path="events/:id/edit"
-              element={
-                <ProtectedRoute>
-                  <Organization selectedEvent={selectedEvent} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="events/new"
-              element={
-                <ProtectedRoute>
-                  <Organization />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="favorites"
-              element={
-                <FavoritesPage
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                  favoriteEvents={favorites}
-                />
-              }
-            />
-            <Route
-              path="notifications"
-              element={
-                <NotificationsPage
-                  favoriteEvents={favorites}
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                />
-              }
-            />
-            <Route
-              path="results"
-              element={
-                <SearchResultPage
-                  searchResult={searchResult}
-                  searchQuery={searchQuery}
-                  popularEvents={popularEvents}
-                  onCardClick={handleCardClick}
-                  onLikeClick={toggleFavorite}
-                />
-              }
-            />
-            <Route path="preferences" element={<PreferencesPage />} />
-            <Route path="privacy" element={<PrivacyPolicyPage />} />
-            <Route path="cookies" element={<CookiePage />} />
-            <Route
-              path="about"
-              element={<About toggleModalSignUp={toggleModalSignUp} />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          <Footer onEnter={toggleModalSignIn} loggedIn={loggedIn} />
-        </div>
-      </div>
+          <Route
+            path="account/*"
+            element={
+              <ProtectedRoute>
+                <AccountDetailsPage onCardClick={handleCardClick} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="events/:id"
+            element={
+              <EventPage
+                upcomingEvents={upcomingEvents}
+                recommendedEvents={recommendedEvents}
+                selectedEvent={selectedEvent}
+                setSelectedEvent={setSelectedEvent}
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+              />
+            }
+          />
+          <Route
+            path="events/:id/edit"
+            element={
+              <ProtectedRoute>
+                <Organization selectedEvent={selectedEvent} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="events/new"
+            element={
+              <ProtectedRoute>
+                <Organization />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="favorites"
+            element={
+              <FavoritesPage
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+                favoriteEvents={favorites}
+              />
+            }
+          />
+          <Route
+            path="notifications"
+            element={
+              <NotificationsPage
+                favoriteEvents={favorites}
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+              />
+            }
+          />
+          <Route
+            path="results"
+            element={
+              <SearchResultPage
+                searchResult={searchResult}
+                searchQuery={searchQuery}
+                popularEvents={popularEvents}
+                onCardClick={handleCardClick}
+                onLikeClick={toggleFavorite}
+              />
+            }
+          />
+          <Route path="preferences" element={<PreferencesPage />} />
+          <Route path="privacy" element={<PrivacyPolicyPage />} />
+          <Route path="cookies" element={<CookiePage />} />
+          <Route path="about" element={<About />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
     </SearchFilterContext.Provider>
   );
 }
-
 export default App;

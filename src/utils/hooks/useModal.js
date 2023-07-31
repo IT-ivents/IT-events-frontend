@@ -2,37 +2,58 @@ import { useEffect, useState } from 'react';
 import { lockScroll, unLockScroll } from '../lockScroll';
 
 function useModal() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalSignInOpen, setIsModalSignInOpen] = useState(false);
+  const [isModalSignUpOpen, setIsModalSignUpOpen] = useState(false);
 
-  const handleOpen = () => {
-    setIsOpen(true);
+  const openModalSignIn = () => {
+    setIsModalSignInOpen(true);
     lockScroll();
   };
-
-  const handleClose = () => {
-    setIsOpen(false);
+  const closeModalSignIn = () => {
+    setIsModalSignInOpen(false);
     unLockScroll();
+  };
+
+  const toggleModalSignIn = () => {
+    if (isModalSignInOpen) {
+      closeModalSignIn();
+    } else {
+      openModalSignIn();
+    }
+  };
+
+  const toggleModalSignUp = () => {
+    if (isModalSignUpOpen) {
+      setIsModalSignUpOpen(false);
+      unLockScroll();
+    } else {
+      setIsModalSignInOpen(false);
+      setIsModalSignUpOpen(true);
+      lockScroll();
+    }
   };
 
   useEffect(() => {
     const handleEscapeKey = (e) => {
       if (e.key === 'Escape') {
-        setIsOpen(false);
+        setIsModalSignUpOpen(false);
+        setIsModalSignInOpen(false);
         unLockScroll();
       }
     };
-    if (isOpen) {
+    if (isModalSignInOpen || isModalSignUpOpen) {
       document.addEventListener('keydown', handleEscapeKey);
       return () => {
         document.removeEventListener('keydown', handleEscapeKey);
       };
     }
-  }, [isOpen, setIsOpen]);
+  }, [isModalSignInOpen, isModalSignUpOpen]);
 
   return {
-    isOpen,
-    handleOpen,
-    handleClose,
+    isModalSignInOpen,
+    isModalSignUpOpen,
+    toggleModalSignIn,
+    toggleModalSignUp,
   };
 }
 

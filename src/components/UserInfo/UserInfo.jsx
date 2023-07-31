@@ -5,7 +5,7 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
-import useAuth from '../../utils/hooks/useAuth';
+import { useAuthContext } from '../../utils/context/AuthContext';
 import { ReactComponent as Attention } from '../../images/tooltip_attention.svg';
 import { ReactComponent as AddImage } from '../../images/Actions/Add.svg';
 
@@ -13,11 +13,10 @@ const height = {
   height: '44px',
 };
 
-const UserInfo = ({ onNewEventClick }) => {
+const UserInfo = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const { currentUser, isLoading } = useAuth();
+  const { currentUser, isLoading } = useAuthContext();
   const {
     values,
     setValues,
@@ -42,15 +41,8 @@ const UserInfo = ({ onNewEventClick }) => {
     }
   }, [currentUser, setValues]);
 
-  // console.log(currentUser);
-  // console.log(values);
-
   const togglePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  const togglePrivacyChecked = () => {
-    setIsPrivacyChecked(!isPrivacyChecked);
   };
 
   const handleKeyPress = (e) => {
@@ -78,7 +70,6 @@ const UserInfo = ({ onNewEventClick }) => {
         </div>
         <Link
           to="/events/new"
-          onClick={onNewEventClick}
           title="Создать событие"
           className={styles.create}
         >
@@ -291,7 +282,7 @@ const UserInfo = ({ onNewEventClick }) => {
         <div className={styles.button}>
           <SubmitButton
             title="Обновить"
-            disabled={disabledButton || !isPrivacyChecked}
+            disabled={disabledButton}
             style={height}
           />
         </div>
