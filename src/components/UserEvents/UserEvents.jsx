@@ -41,6 +41,7 @@ const UserEvents = ({ onCardClick }) => {
       const response = await apiEvents.getUserEvents();
       const userEvents = response.data;
       setCreatedEvents(userEvents);
+      console.log('USER_EVENTS', createdEvents);
     } catch (error) {
       console.error('Ошибка при получении событий пользователя', error);
     }
@@ -48,7 +49,6 @@ const UserEvents = ({ onCardClick }) => {
   // Получение созданных событий
   useEffect(() => {
     fetchUserEvents();
-    console.log('USER_EVENTS', createdEvents);
   }, []);
 
   const handleFilter = (option) => {
