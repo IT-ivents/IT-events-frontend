@@ -1,5 +1,5 @@
 import styles from './Header.module.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../utils/context/AuthContext';
 import { useModalContext } from '../../utils/context/ModalContext';
 import Logo from '../Logo/Logo';
@@ -106,7 +106,7 @@ const Header = () => {
         )}
         <nav className={styles.navigationBar}>
           {navLinks.map((link) => (
-            <Link
+            <NavLink
               className={styles.navLink}
               key={link.id}
               to={link.path ? link.path : ''}
@@ -120,7 +120,7 @@ const Header = () => {
                   <p>{link.name}</p>
                 </>
               )}
-            </Link>
+            </NavLink>
           ))}
         </nav>
       </div>
