@@ -1,6 +1,5 @@
 import styles from './ModalSignIn.module.css';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 import { useAuthContext } from '../../../utils/context/AuthContext';
 import { useModalContext } from '../../../utils/context/ModalContext';
@@ -25,7 +24,6 @@ const ModalSignIn = () => {
   const { handleLogin, serverError, setServerError, loggedIn } =
     useAuthContext();
   const [isRememberMe, setIsRemebmerMe] = useState(false);
-  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
@@ -45,7 +43,6 @@ const ModalSignIn = () => {
   useEffect(() => {
     if (loggedIn) {
       closeModalSignIn();
-      navigate('/account');
     }
   }, [loggedIn]);
 
