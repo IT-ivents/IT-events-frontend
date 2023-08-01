@@ -7,9 +7,10 @@ export const apiConfig = {
   sities: `/sities/`,
   userEvents: `/users-events/`,
   search: `/events/?q=`,
-  // defaultHeaders: {
-  //   'Content-Type': 'application/json'
-  // }
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
 };
 
 class Api {
@@ -23,7 +24,6 @@ class Api {
     userEvents,
     headers,
     search,
-    // , defaultHeaders
   }) {
     this._baseUrl = baseUrl;
     this._eventsEndpoint = events;
@@ -34,19 +34,12 @@ class Api {
     this._userEvents = userEvents;
     this._headers = headers;
     this._searchEndpoint = search;
-    // this._defaultHeaders = defaultHeaders;
   }
 
   _makeUrl(endpoint) {
     return `${this._baseUrl}${endpoint}`;
   }
 
-  // _handleResponse(res) {
-  //   if (res.ok) {
-  //     return res.json();
-  //   }
-  //   return Promise.reject(`Ошибка: ${res.status}`);
-  // }
   _handleResponse(res) {
     if (res.ok) {
       return res.json().then((data) => ({ data }));
@@ -67,6 +60,7 @@ class Api {
   getSelectedEvent(id) {
     const options = {
       method: 'GET',
+      headers: this._headers,
     };
     return fetch(this._makeUrl(this._eventsEndpoint) + `${id}/`, options).then(
       this._handleResponse
@@ -145,12 +139,10 @@ class Api {
     );
   }
 
-  getHeaders() {
+  _getHeaders() {
     const token = localStorage.getItem('jwt');
     return {
       ...this._headers,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     };
   }

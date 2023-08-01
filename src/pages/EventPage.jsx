@@ -13,8 +13,9 @@ const EventPage = () => {
 
 const eventLoader = async ({ params }) => {
   const id = params.id;
-  const result = await fetch(`http://80.87.107.15/api/v1/events/${id}`);
-  const event = await result.json();
+  console.log(params);
+  const result = await apiEvents.getSelectedEvent(id);
+  const event = result.data;
   console.log('Получено событие с сервера:', event);
 
   return { event };

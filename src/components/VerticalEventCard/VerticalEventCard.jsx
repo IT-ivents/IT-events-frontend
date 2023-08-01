@@ -27,7 +27,7 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
   };
 
   const handleCopyButtonClick = () => {
-    const link = `${window.location.origin}/events/${event.id}`;
+    const link = `${window.location.origin}/events/${event.id}/`;
     console.log('Ссылка скопирована в MainPage', link);
     handleCopyLink(link, setShowNotification);
   };
