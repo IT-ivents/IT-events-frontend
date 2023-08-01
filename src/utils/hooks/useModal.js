@@ -14,23 +14,17 @@ function useModal() {
     unLockScroll();
   };
 
-  const toggleModalSignIn = () => {
+  const openModalSignUp = () => {
     if (isModalSignInOpen) {
-      closeModalSignIn();
-    } else {
-      openModalSignIn();
+      setIsModalSignInOpen(false);
     }
+    setIsModalSignUpOpen(true);
+    lockScroll();
   };
 
-  const toggleModalSignUp = () => {
-    if (isModalSignUpOpen) {
-      setIsModalSignUpOpen(false);
-      unLockScroll();
-    } else {
-      setIsModalSignInOpen(false);
-      setIsModalSignUpOpen(true);
-      lockScroll();
-    }
+  const closeModalSignUp = () => {
+    setIsModalSignUpOpen(false);
+    unLockScroll();
   };
 
   useEffect(() => {
@@ -52,8 +46,10 @@ function useModal() {
   return {
     isModalSignInOpen,
     isModalSignUpOpen,
-    toggleModalSignIn,
-    toggleModalSignUp,
+    openModalSignIn,
+    openModalSignUp,
+    closeModalSignIn,
+    closeModalSignUp,
   };
 }
 

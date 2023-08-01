@@ -1,6 +1,7 @@
 import styles from './Pages.module.css';
 import { useEffect, useState } from 'react';
 import { useEventsContext } from '../utils/context/EventsContext';
+import { useFiltersContext } from '../utils/context/SearchFilterContext';
 import HorizontalEventList from '../components/HorizontalEventList/HorizontalEventList';
 import LeftFilerBar from '../components/LeftFilterBar/LeftFilterBar';
 import Subscribe from '../components/Subscribe/Subscribe';
@@ -12,6 +13,7 @@ import Loader from '../components/Loader/Loader';
 
 const MainPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const { resetFilters } = useFiltersContext();
   const {
     popularEvents,
     soonEvents,
@@ -22,13 +24,6 @@ const MainPage = () => {
   } = useEventsContext();
 
   const mainPageEvents = [
-    // {
-    //   id: 1,
-    //   title: 'Самые ожидаемые события года',
-    //   list: mostAnticipatedEvents,
-    //   else: false,
-    //   span: false,
-    // },
     {
       id: 2,
       title: 'Популярное',
@@ -57,6 +52,10 @@ const MainPage = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
+  }, []);
+
+  useEffect(() => {
+    resetFilters();
   }, []);
 
   return (

@@ -10,9 +10,9 @@ import useFilters from '../hooks/useFilters';
 const FiltersContext = createContext();
 
 export function FiltersProvider(props) {
-  const auth = useFilters();
+  const filters = useFilters();
 
-  return <FiltersContext.Provider value={auth} {...props} />;
+  return <FiltersContext.Provider value={filters} {...props} />;
 }
 
 export function useFiltersContext() {

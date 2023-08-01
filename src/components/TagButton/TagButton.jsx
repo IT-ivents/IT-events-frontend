@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import styles from './TagButton.module.css';
 import Cross from './../../images/Actions/Close.svg';
-import SearchFilterContext from '../../utils/context/SearchFilterContext';
+import { useFiltersContext } from '../../utils/context/SearchFilterContext';
 
 const TagButton = ({ value, handleChange, disabled }) => {
-  const { values } = useContext(SearchFilterContext);
+  const { values } = useFiltersContext();
 
   const handleClick = (value) => {
     handleChange({ tags: value });

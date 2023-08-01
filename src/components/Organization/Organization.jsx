@@ -183,7 +183,7 @@ const Organization = () => {
   const eventDetails = {
     title: values.title,
     city: values.city || 'Invalid City',
-    image: imageSmall || selectedEvent?.image,
+    image: !isNotNewEvent ? imageSmall : selectedEvent?.image,
     price: values.price || 0,
     date_start: values.date_start || selectedEvent?.date_start,
   };

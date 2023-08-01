@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import SearchFilterContext from '../../utils/context/SearchFilterContext';
+import { useFiltersContext } from '../../utils/context/SearchFilterContext';
 import styles from './TopFilersBar.module.css';
 import Cross from './../../images/Actions/Close_gray.svg';
 
 const TopFilersBar = ({ style }) => {
-  const { values, setValues } = useContext(SearchFilterContext);
+  const { values, setValues } = useFiltersContext();
   const arr = Object.entries(values);
 
   const deleteValue = (item, tag) => {

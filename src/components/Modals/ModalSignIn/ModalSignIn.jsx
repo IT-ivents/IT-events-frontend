@@ -20,7 +20,7 @@ const ModalSignIn = () => {
     errors,
     resetForm,
   } = useFormWithValidation();
-  const { isModalSignInOpen, toggleModalSignIn, toggleModalSignUp } =
+  const { isModalSignInOpen, closeModalSignIn, openModalSignUp } =
     useModalContext();
   const { handleLogin, serverError, setServerError, loggedIn } =
     useAuthContext();
@@ -42,12 +42,12 @@ const ModalSignIn = () => {
     setValues(initialValues);
   }, [isModalSignInOpen]);
 
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     toggleModalSignIn();
-  //     navigate('/account');
-  //   }
-  // }, [loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      closeModalSignIn();
+      navigate('/account');
+    }
+  }, [loggedIn]);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -74,7 +74,7 @@ const ModalSignIn = () => {
   };
 
   return (
-    <Modal isOpen={isModalSignInOpen} onClose={toggleModalSignIn}>
+    <Modal isOpen={isModalSignInOpen} onClose={closeModalSignIn}>
       <div className={styles.modalContainer}>
         <Logo />
         <div className={styles.titleContainer}>
@@ -99,7 +99,7 @@ const ModalSignIn = () => {
             <span className={styles.noAccount}>Нет аккаунта?</span>
             <button
               type="button"
-              onClick={toggleModalSignUp}
+              onClick={openModalSignUp}
               className={styles.registerBtn}
             >
               Регистрация

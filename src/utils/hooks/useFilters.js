@@ -28,15 +28,3 @@ const useFilters = () => {
 };
 
 export default useFilters;
-
-// const resetFilters = () => {
-//   setValues({
-//     status: [],
-//     city: null,
-//     date: null,
-//     specialities: [],
-//     price: null,
-//     findTags: null,
-//     tags: [],
-//   });
-// };

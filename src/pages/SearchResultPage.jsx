@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Pages.module.css';
 import Pagination from '../components/Pagination/Pagination';
 import LeftFilterBar from './../components/LeftFilterBar/LeftFilterBar';
@@ -6,11 +6,11 @@ import VerticalEventList from '../components/VerticalEventList/VerticalEventList
 import PageTitle from '../components/PageTitle/PageTitle';
 import TopFilersBar from '../components/TopFilersBar/TopFilersBar';
 import { useFilterdList } from '../utils/hooks/useFilteredList';
-import SearchFilterContext from '../utils/context/SearchFilterContext';
+import { useFiltersContext } from '../utils/context/SearchFilterContext';
 import { useEventsContext } from '../utils/context/EventsContext';
 
 const SearchResultPage = () => {
-  const { values } = useContext(SearchFilterContext);
+  const { values } = useFiltersContext();
   const { popularEvents, searchResult } = useEventsContext();
   const { filteredList } = useFilterdList({ values, searchResult });
   const [currentPage, setCurrentPage] = useState(1);

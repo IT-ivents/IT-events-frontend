@@ -2,9 +2,10 @@ import { useContext, useState } from 'react';
 import { motion as m } from 'framer-motion';
 import styles from './LeftFilterBar.module.css';
 import TagsSection from './../TagsSection/TagsSection';
-import SearchFilterContext from '../../utils/context/SearchFilterContext';
+
 import { useInitialFilter } from '../../utils/hooks/useInitialFilter';
 import { useFilter } from '../../utils/hooks/useFilter';
+import { useFiltersContext } from '../../utils/context/SearchFilterContext';
 import TagButton from '../TagButton/TagButton';
 import { useLocation } from 'react-router-dom';
 import { useEventsContext } from '../../utils/context/EventsContext';
@@ -16,8 +17,7 @@ const LeftFilerBar = () => {
   const { dataLists } = useInitialFilter();
   const location = useLocation();
   const resultLocation = location.pathname === '/results';
-  const { values, setValues, findValues, setFindValues } =
-    useContext(SearchFilterContext);
+  const { values, setValues, findValues, setFindValues } = useFiltersContext();
   const { handleFilterSearch } = useEventsContext();
 
   const {

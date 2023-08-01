@@ -11,9 +11,9 @@ import SubmitButton from '../../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../../utils/hooks/useFormWithValidation';
 
 const ModalSignUp = () => {
-  const { handleRegister, serverError, setServerError, loggedIn, isLoading } =
+  const { handleRegister, serverError, setServerError, isLoading } =
     useAuthContext();
-  const { toggleModalSignUp, isModalSignUpOpen } = useModalContext();
+  const { closeModalSignUp, isModalSignUpOpen } = useModalContext();
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
   const initialValues = {
@@ -56,12 +56,6 @@ const ModalSignUp = () => {
     setValues(initialValues);
   }, [isModalSignUpOpen]);
 
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     toggleModalSignUp();
-  //   }
-  // }, [loggedIn]);
-
   const handleKeyPress = (e) => {
     if (e.key === ' ') {
       e.preventDefault();
@@ -88,7 +82,7 @@ const ModalSignUp = () => {
   //   console.log(postData);
 
   return (
-    <Modal isOpen={isModalSignUpOpen} onClose={toggleModalSignUp}>
+    <Modal isOpen={isModalSignUpOpen} onClose={closeModalSignUp}>
       <div className={styles.modalContainer}>
         <Logo />
         <div className={styles.titleContainer}>
