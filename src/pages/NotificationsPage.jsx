@@ -2,9 +2,11 @@ import styles from './Pages.module.css';
 import PageTitle from '../components/PageTitle/PageTitle';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
 import CustomCheckbox from '../components/CustomCheckbox/CustomCheckbox';
+import { useEventsContext } from '../utils/context/EventsContext';
 
-const NotificationsPage = ({ favoriteEvents, onCardClick, onLikeClick }) => {
+const NotificationsPage = () => {
   const filters = ['Название', 'Cтоимость', 'Город', 'Формат'];
+  const { favoriteEvents } = useEventsContext();
 
   return (
     <section className={styles.notificationsPageWrapper}>
@@ -26,8 +28,8 @@ const NotificationsPage = ({ favoriteEvents, onCardClick, onLikeClick }) => {
       <div>
         <VerticalEventList
           events={favoriteEvents}
-          onCardClick={onCardClick}
-          onLikeClick={onLikeClick}
+          onCardClick={() => {}}
+          onLikeClick={() => {}}
         />
       </div>
     </section>

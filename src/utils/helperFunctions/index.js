@@ -127,3 +127,18 @@ export const formatTimeRange = (start, end) => {
   const endTime = formatTime(end);
   return `${startTime} - ${endTime}`;
 };
+
+// ---------- ТЕКУЩИЕ СОБЫТИЯ ------------- //
+export const getCurrentEvents = (events) => {
+  const currentDate = new Date();
+  return events
+    .filter((event) => new Date(event.date_start) >= currentDate)
+    .sort((a, b) => new Date(a.date_start) - new Date(b.date_start));
+};
+// ------------ ПРОШЕДШИЕ СОБЫТИЯ ----------- //
+export const getPastEvents = (events) => {
+  const currentDate = new Date();
+  return events
+    .filter((event) => new Date(event.date_start) < currentDate)
+    .sort((a, b) => new Date(b.date_start) - new Date(a.date_start));
+};

@@ -24,7 +24,7 @@ const images = [
 ];
 
 const AboutUs = () => {
-  const { toggleModalSignUp } = useModalContext();
+  const { openModalSignUp } = useModalContext();
 
   return (
     <section className={styles.about}>
@@ -42,7 +42,7 @@ const AboutUs = () => {
           </ul>
           <PrimaryButton
             title="Стать организатором"
-            onClick={toggleModalSignUp}
+            onClick={openModalSignUp}
             target=""
           />
         </div>

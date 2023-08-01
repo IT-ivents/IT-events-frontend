@@ -1,18 +1,20 @@
 import styles from './CustomEventCard.module.css';
+import { Link } from 'react-router-dom';
 import { formatDate, formatPrice } from '../../utils/helperFunctions';
-import { useNavigate } from 'react-router-dom';
 import PlaceImage from '../../images/EventInfo/place_white.svg';
 import CalendarImage from '../../images/EventInfo/calendar_white.svg';
 
 const CustomEventCard = ({ event, onCardClick }) => {
-  const navigate = useNavigate();
   const handleCardClick = () => {
     onCardClick(event);
-    navigate(`/events/${event.id}`);
   };
 
   return (
-    <div key={event.id} className={`${styles.card}`} onClick={handleCardClick}>
+    <Link
+      to={`/events/${event.id}`}
+      className={`${styles.card}`}
+      onClick={handleCardClick}
+    >
       <div className={styles.imageContainer}>
         {event.format
           ?.filter((item) => item.name === 'Online')
@@ -62,7 +64,7 @@ const CustomEventCard = ({ event, onCardClick }) => {
           className={styles.image}
         />
       </div>
-    </div>
+    </Link>
   );
 };
 

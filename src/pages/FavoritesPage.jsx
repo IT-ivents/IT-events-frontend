@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom';
 import styles from './Pages.module.css';
 import PageTitle from '../components/PageTitle/PageTitle';
 import VerticalEventList from '../components/VerticalEventList/VerticalEventList';
+import { useEventsContext } from '../utils/context/EventsContext';
 import FilterBar from '../components/FilterBar/FilterBar';
 import { parsePrice } from '../utils/helperFunctions';
 import Loader from '../components/Loader/Loader';
 
-const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
+const FavoritesPage = ({ onCardClick, onLikeClick }) => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [sortByName, setSortByName] = useState(true);
   const [sortByPrice, setSortByPrice] = useState(true);
   const [sortByDate, setSortByDate] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const { favoriteEvents } = useEventsContext();
   const noEvents = !favoriteEvents.length;
 
   useEffect(() => {
@@ -66,12 +68,12 @@ const FavoritesPage = ({ onCardClick, onLikeClick, favoriteEvents }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 750);
+    }, 500);
   }, []);
 
   return (
     <section className={styles.favoritesPageWrapper}>
-      {isLoading && !noEvents ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <>

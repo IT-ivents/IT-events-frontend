@@ -5,11 +5,11 @@ import Footer from '../Footer/Footer';
 import ModalSignIn from '../Modals/ModalSignIn/ModalSignIn';
 import ModalSignUp from '../Modals/ModalSingUp/ModalSignUp';
 
-const Layout = ({ onSearch, searchQuery }) => {
+const Layout = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.page}>
-        <Header onSearch={onSearch} searchQuery={searchQuery} />
+        <Header />
         {<Outlet />}
         <Footer />
         <ModalSignIn />

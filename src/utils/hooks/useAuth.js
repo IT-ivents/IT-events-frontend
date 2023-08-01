@@ -111,6 +111,17 @@ function useAuth() {
     }
   }
 
+  // Если Пользотваль не выставил "Запомнить меня" -> авторазлогин через 24ч.
+  useEffect(() => {
+    const isNotRemembered = localStorage.getItem('remembered') === 'false';
+    if (isNotRemembered) {
+      const timeout = setTimeout(() => {
+        handleLogout();
+      }, 24 * 60 * 60 * 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
   return {
     handleLogin,
     handleRegister,
@@ -119,7 +130,6 @@ function useAuth() {
     isLoading,
     serverError,
     setServerError,
-    checkLoggedInStatus,
     currentUser,
   };
 }

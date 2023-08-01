@@ -2,16 +2,11 @@ import styles from './SearchField.module.css';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ReactComponent as SearchIcon } from '../../images/Actions/loupe-purple.svg';
+import { useEventsContext } from '../../utils/context/EventsContext';
 
-const SearchField = ({
-  onSearch,
-  smallForm,
-  smallFieldset,
-  smallInput,
-  searchQuery,
-  radiusForm,
-}) => {
+const SearchField = ({ smallForm, smallFieldset, smallInput, radiusForm }) => {
   // Устанавливаем значение в поисковую строку из Пропса
+  const { handleSearch, searchQuery } = useEventsContext();
   const [query, setQuery] = useState(searchQuery || '');
   const location = useLocation();
   const isResultsPage = location.pathname === '/results';
@@ -41,7 +36,7 @@ const SearchField = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimQuery = query.trim();
-    onSearch(trimQuery);
+    handleSearch(trimQuery);
   };
 
   return (

@@ -6,8 +6,8 @@ import {
   formatPrice,
   handleCopyLink,
 } from '../../utils/helperFunctions';
-import PopupLink from '../PopupLink/PopupLink';
 import { motion as m } from 'framer-motion';
+import PopupLink from '../PopupLink/PopupLink';
 import defaultImage from '../../images/default-image.png';
 
 const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
@@ -54,7 +54,7 @@ const VerticalEventCard = ({ event, index, onCardClick, onLikeClick }) => {
             }
             alt="event_picture"
             className={styles.image}
-            onClick={() => handleCardClick(event.id)}
+            onClick={handleCardClick}
             onError={handleImageError}
           />
         </Link>

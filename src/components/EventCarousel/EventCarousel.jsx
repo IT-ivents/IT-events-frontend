@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './EventCarousel.module.css';
 import CustomEventCard from '../CustomEventCard/CustomEventCard';
+import { useEventsContext } from '../../utils/context/EventsContext';
 
 export default function EventCarousel({ mostAnticipatedEvents, onCardClick }) {
   var settings = {
@@ -16,6 +17,7 @@ export default function EventCarousel({ mostAnticipatedEvents, onCardClick }) {
     autoplaySpeed: 750,
     cssEase: 'linear',
   };
+  const { handleCardClick } = useEventsContext();
 
   return (
     <div className={styles.carousel}>

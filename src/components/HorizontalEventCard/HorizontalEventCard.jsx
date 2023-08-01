@@ -10,14 +10,16 @@ import DefaultImage from '../../images/default-image.png';
 import { ReactComponent as PlaceImage } from '../../images/EventInfo/place.svg';
 import { ReactComponent as CalendarImage } from '../../images/EventInfo/calendar.svg';
 import { ReactComponent as TimeImage } from '../../images/EventInfo/time.svg';
+import { useEventsContext } from '../../utils/context/EventsContext';
 
 const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
   const [imageError, setImageError] = useState(false);
+  const { handleCardClick, toggleFavorite } = useEventsContext();
   const location = useLocation();
 
-  const handleCardClick = () => {
-    onCardClick(event);
-  };
+  // const handleCardClick = () => {
+  //   onCardClick(event);
+  // };
 
   const handleLikeClick = () => {
     onLikeClick(event);
@@ -51,14 +53,14 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
               src={DefaultImage}
               alt="Изображение отсутствует"
               className={styles.image}
-              onClick={handleCardClick}
+              onClick={() => handleCardClick(event)}
             />
           ) : (
             <img
               src={event.image_small ? event.image_small : event.image}
               alt="event_picture"
               className={styles.image}
-              onClick={handleCardClick}
+              onClick={() => handleCardClick(event)}
               onError={handleImageError}
             />
           )}
@@ -69,7 +71,7 @@ const HorizontalEventCard = ({ event, onCardClick, onLikeClick, style }) => {
               event.isLiked ? styles.likeButtonActive : styles.likeButton
             }`}
             type="button"
-            onClick={handleLikeClick}
+            onClick={() => toggleFavorite(event)}
           ></button>
         )}
       </div>

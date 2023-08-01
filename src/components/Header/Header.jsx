@@ -1,13 +1,13 @@
 import styles from './Header.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../utils/context/AuthContext';
 import { useModalContext } from '../../utils/context/ModalContext';
 import Logo from '../Logo/Logo';
 import SearchField from '../SearchField/SearchField';
 import HeroSection from '../HeroSection/HeroSection';
-import notificationIcon from '../../images/notifications-icon.svg';
-import enterIcon from '../../images/enter_acc.svg';
-import favoritesIcon from '../../images/favorites-header-icon.svg';
+import { ReactComponent as NotificationIcon } from '../../images/notifications-icon.svg';
+import { ReactComponent as EnterIcon } from '../../images/enter_acc.svg';
+import { ReactComponent as FavoritesIcon } from '../../images/favorites-header-icon.svg';
 import Avatar from '../Avatar/Avatar';
 
 const smallForm = {
@@ -41,10 +41,11 @@ const avatar = {
   border: '1px solid rgba(0, 0, 0, 0.6)',
 };
 
-const Header = ({ onSearch, searchQuery }) => {
+const Header = () => {
   const { loggedIn, currentUser } = useAuthContext();
-  const { toggleModalSignIn } = useModalContext();
+  const { openModalSignIn } = useModalContext();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isSearchFieldOnTop =
     // location.pathname === '/events' ||
@@ -53,19 +54,23 @@ const Header = ({ onSearch, searchQuery }) => {
     location.pathname === '/notifications' ||
     location.pathname === '/privacy';
 
+  const handleAccountEnter = (path) => {
+    navigate(path);
+  };
+
   const navLinks = [
     {
       id: 1,
       name: 'Уведомления',
       path: '/notifications',
-      src: notificationIcon,
+      icon: <NotificationIcon />,
       alt: 'Иконка, Колокольчик',
     },
     {
       id: 2,
       name: 'Избранное',
       path: '/favorites',
-      src: favoritesIcon,
+      icon: <FavoritesIcon />,
       alt: 'Иконка, Избранное',
     },
     {
@@ -75,7 +80,7 @@ const Header = ({ onSearch, searchQuery }) => {
         <Avatar name={currentUser.name} style={avatar} />
       ) : (
         <>
-          <img src={enterIcon} alt="Иконка, Войти в кабинет" />
+          <EnterIcon />
           <p>Войти</p>
         </>
       ),
@@ -94,8 +99,6 @@ const Header = ({ onSearch, searchQuery }) => {
         <Logo />
         {isSearchFieldOnTop && (
           <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
             smallForm={smallForm}
             smallFieldset={smallFieldset}
             smallInput={smallInput}
@@ -107,17 +110,13 @@ const Header = ({ onSearch, searchQuery }) => {
               className={styles.navLink}
               key={link.id}
               to={link.path ? link.path : ''}
-              onClick={
-                link.id === 3 && !loggedIn
-                  ? toggleModalSignIn
-                  : () => (window.location.href = link.path)
-              }
+              onClick={() => link.id === 3 && !loggedIn && openModalSignIn()}
             >
               {link.component ? (
                 link.component
               ) : (
                 <>
-                  <img src={link.src} alt={link.alt} />
+                  {link.icon}
                   <p>{link.name}</p>
                 </>
               )}
@@ -128,11 +127,7 @@ const Header = ({ onSearch, searchQuery }) => {
       {location.pathname === '/' && <HeroSection />}
       {location.pathname === '/results' && (
         <div className={styles.searchFieldContainer}>
-          <SearchField
-            onSearch={onSearch}
-            searchQuery={searchQuery}
-            radiusForm={radiusForm}
-          />
+          <SearchField radiusForm={radiusForm} />
         </div>
       )}
     </header>

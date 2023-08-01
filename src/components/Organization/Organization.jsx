@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -9,13 +9,14 @@ import makeAnimated from 'react-select/animated';
 import PageTitle from '../PageTitle/PageTitle';
 import SubmitButton from '../SubmitButton/SubmitButton';
 import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
+import { useEventsContext } from '../../utils/context/EventsContext';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 registerLocale('ru', ru);
 
-const Organization = ({ selectedEvent }) => {
+const Organization = () => {
   const {
     values,
     setValues,
@@ -27,9 +28,9 @@ const Organization = ({ selectedEvent }) => {
     handleBlur,
     errors,
     isValid,
-    resetForm,
   } = useFormWithValidation();
 
+  const { selectedEvent } = useEventsContext();
   const [tags, setTags] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -38,11 +39,11 @@ const Organization = ({ selectedEvent }) => {
   const [imageErrorMessage, setImageErrorMessage] = useState('');
   const [imageSmall, setImageSmall] = useState('');
   const [newCardData, setNewCardData] = useState({});
-  const [submitDisabled, setSubmitDisabled] = useState(true);
   const currentDate = new Date();
 
   const location = useLocation();
   const navigate = useNavigate();
+  const isNotNewEvent = location.pathname !== '/events/new';
 
   const [isFocused, setIsFocused] = useState({
     tags: false,
@@ -96,7 +97,7 @@ const Organization = ({ selectedEvent }) => {
 
   // ЗАПОЛНИТЬ ФОРМУ ЗНАЧЕНИЯМИ ИЗ SELECTED EVENT
   useEffect(() => {
-    if (selectedEvent) {
+    if (isNotNewEvent) {
       const currentTags = selectedEvent.tags?.map((tag) => ({
         value: tag.id,
         label: tag.name,
@@ -182,7 +183,7 @@ const Organization = ({ selectedEvent }) => {
   const eventDetails = {
     title: values.title,
     city: values.city || 'Invalid City',
-    image: imageSmall || selectedEvent?.image,
+    image: !isNotNewEvent ? imageSmall : selectedEvent?.image,
     price: values.price || 0,
     date_start: values.date_start || selectedEvent?.date_start,
   };
