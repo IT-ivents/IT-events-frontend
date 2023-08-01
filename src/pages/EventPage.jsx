@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Event from '../components/Event/Event';
 import Loader from '../components/Loader/Loader';
-import { useEventsContext } from '../utils/context/EventsContext';
 import { apiEvents } from '../utils/api';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Await, useAsyncValue } from 'react-router-dom';
+
+const EventFromApi = () => {
+  const event = useAsyncValue();
+  return <Event selectedEvent={event} />;
+};
 
 const EventPage = () => {
   const { event } = useLoaderData();
 
-  return !event ? <Loader /> : <Event selectedEvent={event} />;
+  return (
+    <Suspense fallback={<Loader />}>
+      <Await resolve={event}>
+        <EventFromApi />
+      </Await>
+    </Suspense>
+  );
 };
 
-const eventLoader = async ({ params }) => {
-  const id = params.id;
-  console.log(params);
+async function getEventById(id) {
   const result = await apiEvents.getSelectedEvent(id);
   const event = result.data;
   console.log('Получено событие с сервера:', event);
+  return event;
+}
 
-  return { event };
+const eventLoader = async ({ params }) => {
+  const id = params.id;
+  return { event: getEventById(id) };
 };
 
 export { EventPage, eventLoader };
