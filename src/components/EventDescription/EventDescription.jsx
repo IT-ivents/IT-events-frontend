@@ -16,7 +16,7 @@ import {
   handleCopyLink,
 } from '../../utils/helperFunctions';
 
-const EventDescription = ({ selectedEvent, onLikeClick }) => {
+const EventDescription = ({ selectedEvent, onLikeClick, favoriteEvents }) => {
   const [showNotification, setShowNotification] = useState(false);
 
   const handleButtonClick = () => {
@@ -29,6 +29,8 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
   const handleLikeClick = () => {
     onLikeClick(selectedEvent);
   };
+
+  const isLiked = favoriteEvents.find((event) => event.id === selectedEvent.id);
 
   const eventStartDate = formatDate(selectedEvent.date_start);
   const eventEndDate = formatDate(selectedEvent.date_end);
@@ -44,7 +46,7 @@ const EventDescription = ({ selectedEvent, onLikeClick }) => {
         <h1 className={styles.eventName}>{selectedEvent.title}</h1>
         <div className={styles.eventFigures}>
           <figure className={styles.eventFigure} onClick={handleLikeClick}>
-            {selectedEvent.isLiked ? <LikeImageActive /> : <LikeImage />}
+            {isLiked ? <LikeImageActive /> : <LikeImage />}
             {/* <img
               src={selectedEvent.isLiked ? LikeImageActive : LikeImage}
               alt="Like"

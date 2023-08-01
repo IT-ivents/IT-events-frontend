@@ -4,8 +4,8 @@ import HorizontalEventsList from '../HorizontalEventList/HorizontalEventList';
 import defaultImage from '../../images/default-image.png';
 import { useEventsContext } from '../../utils/context/EventsContext';
 
-const Event = () => {
-  const { selectedEvent, handleCardClick, toggleFavorite, recommendedEvents } =
+const Event = ({ selectedEvent }) => {
+  const { handleCardClick, toggleFavorite, recommendedEvents, favoriteEvents } =
     useEventsContext();
 
   const handleImageError = (e) => {
@@ -17,6 +17,7 @@ const Event = () => {
       <>
         <EventDescription
           selectedEvent={selectedEvent}
+          favoriteEvents={favoriteEvents}
           onLikeClick={toggleFavorite}
         />
         <aside>

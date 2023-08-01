@@ -1,5 +1,5 @@
 import MainPage from './MainPage';
-import EventPage from './EventPage';
+import { EventPage, eventLoader } from './EventPage';
 import FavoritesPage from './FavoritesPage';
 import NotificationsPage from './NotificationsPage';
 import NotFoundPage from './NotFoundPage';
@@ -15,6 +15,7 @@ import AccountDetailsPage from './AccountDetailsPage';
 export {
   MainPage,
   EventPage,
+  eventLoader,
   FavoritesPage,
   NotificationsPage,
   NotFoundPage,
