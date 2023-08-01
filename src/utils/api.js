@@ -70,7 +70,7 @@ class Api {
   getUserEvents() {
     const options = {
       method: 'GET',
-      headers: this.getHeaders(),
+      headers: this._getHeaders(),
     };
     return fetch(this._makeUrl(this._userEvents), options).then(
       this._handleResponse
@@ -80,7 +80,7 @@ class Api {
   postNewEvent(data) {
     const options = {
       method: 'POST',
-      headers: this.getHeaders(),
+      headers: this._getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(this._makeUrl(this._eventsEndpoint), options).then(
@@ -91,7 +91,7 @@ class Api {
   editEvent(id, data) {
     const options = {
       method: 'PATCH',
-      headers: this.getHeaders(),
+      headers: this._getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(
@@ -103,7 +103,7 @@ class Api {
   deleteEvent(data) {
     const options = {
       method: 'DELETE',
-      headers: this.getHeaders(),
+      headers: this._getHeaders(),
       body: JSON.stringify(data),
     };
     return fetch(
