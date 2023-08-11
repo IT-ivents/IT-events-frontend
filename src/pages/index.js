@@ -2,7 +2,8 @@ import MainPage from './MainPage';
 import { EventPage, eventLoader } from './EventPage';
 import FavoritesPage from './FavoritesPage';
 import NotificationsPage from './NotificationsPage';
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from './ErrorPages/NotFoundPage';
+import EventErrorPage from './ErrorPages/EventErrorPage';
 import SearchResultPage from './SearchResultPage';
 import PreferencesPage from './PreferencesPage';
 import PrivacyPolicyPage from './PolicyPage';
@@ -15,6 +16,7 @@ import AccountDetailsPage from './AccountDetailsPage';
 export {
   MainPage,
   EventPage,
+  EventErrorPage,
   eventLoader,
   FavoritesPage,
   NotificationsPage,

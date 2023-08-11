@@ -80,7 +80,7 @@ export function useInitialFilter() {
         const response = await apiEvents.getTopics();
         setDataLists((prevDataLists) => ({
           ...prevDataLists,
-          topics: response.data.map((item) => item.name),
+          topics: response.map((item) => item.name),
         }));
       } catch (error) {
         console.log('Error fetching topics:', error);
@@ -92,7 +92,7 @@ export function useInitialFilter() {
         const response = await apiEvents.getTags();
         setDataLists((prevDataLists) => ({
           ...prevDataLists,
-          findTags: response.data.map((item) => item.name),
+          findTags: response.map((item) => item.name),
         }));
       } catch (error) {
         console.log('Error fetching tags:', error);
@@ -102,9 +102,10 @@ export function useInitialFilter() {
     const fetchSities = async () => {
       try {
         const response = await apiEvents.getSities();
+        console.log(response);
         setDataLists((prevDataLists) => ({
           ...prevDataLists,
-          city: response.data.map((item) => item.name),
+          city: response.map((item) => item.name),
         }));
       } catch (error) {
         console.log('Error fetching sities:', error);

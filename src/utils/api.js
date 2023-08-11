@@ -41,16 +41,34 @@ class Api {
   }
 
   _handleResponse(res) {
-    if (res.ok) {
-      return res.json().then((data) => ({ data }));
+    if (!res.ok) {
+      throw new Response('', {
+        status: res.status,
+        statusText: res.statusText,
+      });
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    // return Promise.reject(`Ошибка: ${res.status}`);
+    // if(res.status === 404) {
+    //   throw new Response('', {status: res.status, statusText: res.statusText})
+    // }
+    // if (!res.ok) {
+    //   return new Error (`Ошибка: ${res.status}`);
+    // }
+    return res.json();
+  }
+
+  _getHeaders() {
+    const token = localStorage.getItem('jwt');
+    return {
+      ...this._headers,
+      Authorization: `Token ${token}`,
+    };
   }
 
   getEvents() {
     const options = {
       method: 'GET',
-      // headers: this._defaultHeaders
+      headers: this._headers,
     };
     return fetch(this._makeUrl(this._eventsEndpoint), options).then(
       this._handleResponse
@@ -66,6 +84,14 @@ class Api {
       this._handleResponse
     );
   }
+
+  // async function getSelectedEvent(id) {
+  //   const res = await fetch(`http://80.87.107.15/api/v1/events/${id}`)
+  //   if(!res.ok) {
+  //     throw new Response('', {status: res.status, statusText: res.statusText})
+  //   }
+  //   return res.json()
+  // }
 
   getUserEvents() {
     const options = {
@@ -137,14 +163,6 @@ class Api {
     return fetch(this._makeUrl(this._sitiesEndpoint), options).then(
       this._handleResponse
     );
-  }
-
-  _getHeaders() {
-    const token = localStorage.getItem('jwt');
-    return {
-      ...this._headers,
-      Authorization: `Token ${token}`,
-    };
   }
 
   searchRequest(request) {

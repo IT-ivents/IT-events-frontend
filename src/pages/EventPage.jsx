@@ -23,7 +23,7 @@ const EventPage = () => {
 
 async function getEventById(id) {
   const result = await apiEvents.getSelectedEvent(id);
-  const event = result.data;
+  const event = result;
   console.log('Получено событие с сервера:', event);
   return event;
 }

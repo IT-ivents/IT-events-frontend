@@ -1,18 +1,30 @@
 export const BASE_URL = 'http://80.87.107.15/api/v1';
 
-export const handleResponse = async (res) => {
+const handleResponse = async (res) => {
   if (res.ok) {
     if (res.status === 204) {
       return null;
     } else {
       return await res.json();
     }
-  } else {
-    throw {
-      status: res.status,
-      message: `Запрос отклонен: ${res.status}`,
-    };
   }
+  const errorData = await res.json();
+  let errorMessage = '';
+  // Перебор всех полей в объекте ошибки
+  for (const field in errorData) {
+    if (Array.isArray(errorData[field])) {
+      // Проверка на то что ошибка пришла в массиве
+      errorMessage = errorData[field][0]; // Берем первый элемент массива ошибки
+      break; // Прекращаем цикл после нахождения первой ошибки
+    } else {
+      errorMessage = errorData[field]; // Если пришла в объекте
+      break;
+    }
+  } // Доп. проверка, чтобы избежать ошибок
+  if (typeof errorMessage !== 'string') {
+    errorMessage = 'Что-то пошло не так, попробуйте еще раз...';
+  }
+  throw new Error(errorMessage);
 };
 
 export const registration = async (data) => {

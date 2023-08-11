@@ -25,29 +25,13 @@ function useAuth() {
 
   function handleError(error) {
     let message = '';
-    switch (error.status) {
-      case 400:
-        message = 'Логин или пароль не совпадают. Проверьте введённые данные.';
-        break;
-      case 401:
-        message = 'Неверно указаны e-mail или пароль';
-        break;
-      case 409:
-        message = 'Пользователь с такой почтой уже зарегистрирован.';
-        break;
-      case 406:
-        message =
-          'Возможная ошибка: пароль состоит только из цифр, пароль слишком распространён, пароль слишком похож на email.';
-        break;
-      case 418:
-        message = 'Введённый пароль слишком широко распространён.';
-        break;
-      case 412:
-        message = 'Введённый пароль слишком похож на email address.';
-        break;
-      default:
-        message = 'Что-то пошло не так, попробуйте еще раз...';
+
+    if (error.message) {
+      message = error.message;
+    } else {
+      message = 'Что-то пошло не так, попробуйте еще раз...';
     }
+
     localStorage.removeItem('jwt');
     setIsLoggedIn(false);
     setServerError(message);
@@ -89,6 +73,7 @@ function useAuth() {
       .registration({ username, email, password, organization_name })
       .then((res) => {
         handleLogin({ email, password });
+        navigate('/account');
         console.log('Успешная регистрация');
       })
       .catch((error) => {

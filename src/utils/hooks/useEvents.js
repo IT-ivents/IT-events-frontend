@@ -22,7 +22,7 @@ function useEvents() {
     const fetchDataAndSaveToLocalStorage = async () => {
       try {
         const data = await apiEvents.getEvents();
-        const newData = data.data;
+        const newData = data;
         updateEventArrays(newData);
       } catch (error) {
         console.error('Ошибка при выполнении запроса:', error);
@@ -70,7 +70,7 @@ function useEvents() {
       localStorage.removeItem('eventsData');
       console.log('Обновились данные');
       fetchData();
-    }, 420000);
+    }, 600000);
     return () => {
       clearInterval(interval);
     };
