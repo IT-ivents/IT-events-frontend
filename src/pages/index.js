@@ -9,6 +9,8 @@ import PreferencesPage from './PreferencesPage';
 import PrivacyPolicyPage from './PolicyPage';
 import About from './About';
 import Organization from './OrganizationPage';
+import CreateNewEventPage from './CreateNewEventPage';
+import EditEventPage from './EditEventPage';
 import CookiePage from './CookiePage';
 import AccountPage from './AccountPage';
 import AccountDetailsPage from './AccountDetailsPage';
@@ -26,6 +28,8 @@ export {
   PrivacyPolicyPage,
   About,
   Organization,
+  CreateNewEventPage,
+  EditEventPage,
   CookiePage,
   AccountPage,
   AccountDetailsPage,

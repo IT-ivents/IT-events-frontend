@@ -29,7 +29,7 @@ const router = createBrowserRouter(
         path="events/:id/edit"
         element={
           <ProtectedRoute>
-            <page.Organization />
+            <page.EditEventPage />
           </ProtectedRoute>
         }
       />
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         path="events/new"
         element={
           <ProtectedRoute>
-            <page.Organization />
+            <page.CreateNewEventPage />
           </ProtectedRoute>
         }
       />

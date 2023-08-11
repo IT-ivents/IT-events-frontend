@@ -39,7 +39,7 @@ const UserEvents = ({ onCardClick }) => {
   const fetchUserEvents = async () => {
     try {
       const response = await apiEvents.getUserEvents();
-      const userEvents = response.data;
+      const userEvents = response;
       setCreatedEvents(userEvents);
       console.log('USER_EVENTS', createdEvents);
     } catch (error) {
@@ -95,7 +95,7 @@ const UserEvents = ({ onCardClick }) => {
   };
 
   const pageRender = () => {
-    if (createdEvents.length === 0) {
+    if (!createdEvents.length) {
       return (
         <>
           <h2 className={styles.title}>У Вас пока нет созданных событий</h2>

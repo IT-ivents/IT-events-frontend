@@ -12,7 +12,7 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { useEventsContext } from '../../utils/context/EventsContext';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Form, useLocation, useNavigate } from 'react-router-dom';
 
 registerLocale('ru', ru);
 
@@ -62,8 +62,7 @@ const Organization = () => {
     !values.date_start ||
     !values.date_end ||
     !values.time_start ||
-    !values.time_end ||
-    console.log(!values.image);
+    !values.time_end;
 
   const dateStart =
     values?.date_start
@@ -249,7 +248,7 @@ const Organization = () => {
     const fetchTags = async () => {
       try {
         const response = await apiEvents.getTags();
-        setTags(response.data);
+        setTags(response);
       } catch (error) {
         console.log('Error fetching tags:', error);
       }
@@ -265,16 +264,16 @@ const Organization = () => {
     setIsFocused((prevState) => ({ ...prevState, [section]: false }));
   };
 
-  const handlePostNewEvent = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await apiEvents.postNewEvent(newCardData);
-      console.log('Новое событие успешно создано', response.data);
-      navigate('/account/events');
-    } catch (error) {
-      console.error('Ошибка при создании события', error);
-    }
-  };
+  // const handlePostNewEvent = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await apiEvents.postNewEvent(newCardData);
+  //     console.log('Новое событие успешно создано', response.data);
+  //     navigate('/account/events');
+  //   } catch (error) {
+  //     console.error('Ошибка при создании события', error);
+  //   }
+  // };
 
   const handleEditEvent = async (event) => {
     event.preventDefault();
@@ -317,7 +316,7 @@ const Organization = () => {
 
   return (
     <div className={styles.formContainer}>
-      <form className={styles.form}>
+      <Form method="post" action="/events/new" className={styles.form}>
         <PageTitle
           title={
             location.pathname === '/events/new'
@@ -816,7 +815,7 @@ const Organization = () => {
               type="submit"
               disabled={disabledButton}
               style={width}
-              onClick={handlePostNewEvent}
+              //onClick={handlePostNewEvent}
             />
           ) : (
             <SubmitButton
@@ -828,7 +827,7 @@ const Organization = () => {
             />
           )}
         </div>
-      </form>
+      </Form>
     </div>
   );
 };
