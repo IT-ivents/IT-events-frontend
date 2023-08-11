@@ -1,6 +1,6 @@
 import styles from './Pages.module.css';
 import { cookiesSections } from '../utils/constants/cookies';
-import CookieFile from '../pdf/Cookie.pdf';
+import CookieFile from '../utils/pdf/Cookie.pdf';
 
 const CookiePage = () => {
   return (
@@ -12,7 +12,11 @@ const CookiePage = () => {
         {cookiesSections.map((block) => (
           <li key={block.id} className={styles.policyList}>
             <h2 className={styles.policySubtitle}>{block.title}</h2>
-            <p className={styles.policyText}>{block.content}</p>
+            {block.content.map((content, index) => (
+              <p key={index} className={styles.policyText}>
+                {content}
+              </p>
+            ))}
           </li>
         ))}
       </ul>

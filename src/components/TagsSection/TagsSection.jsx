@@ -11,7 +11,7 @@ const TagsSection = ({ handleChange }) => {
     const fetchTags = async () => {
       try {
         const response = await apiEvents.getTags();
-        setTags(response.data);
+        setTags(response);
       } catch (error) {
         console.log('Error fetching tags:', error);
       }

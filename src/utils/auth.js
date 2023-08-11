@@ -7,12 +7,17 @@ export const handleResponse = async (res) => {
     } else {
       return await res.json();
     }
-  } else {
-    throw {
-      status: res.status,
-      message: `Запрос отклонен: ${res.status}`,
-    };
   }
+  const errorData = await res.json();
+  let errorMessage = '';
+  // Перебор всех полей в объекте ошибки
+  for (const field in errorData) {
+    if (Array.isArray(errorData[field])) {
+      errorMessage = errorData[field][0]; // Берем первый элемент массива ошибки
+      break; // Прекращаем цикл после нахождения первой ошибки
+    }
+  }
+  throw new Error(errorMessage);
 };
 
 export const registration = async (data) => {

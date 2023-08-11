@@ -1,6 +1,6 @@
 import styles from './Pages.module.css';
 import { policySections } from '../utils/constants/policy';
-import PolicyFile from '../pdf/Policy.pdf';
+import PolicyFile from '../utils/pdf/Policy.pdf';
 
 const PrivacyPolicyPage = () => {
   return (

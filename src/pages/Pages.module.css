@@ -226,57 +226,6 @@
   border-top: 2px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Страница: 404 */
-.notFound {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: calc(100vh - 113px - 64px);
-  padding: 242px 142px 153px;
-  background: url('./../images/404.svg') no-repeat;
-  background-position-x: 104px;
-  background-position-y: 113px;
-  background-color: #e6e6e6;
-  border-top: 2px solid rgba(0, 0, 0, 0.08);
-}
-
-.notInfo {
-  position: absolute;
-  top: 114px;
-  left: 418px;
-}
-
-.notTitle {
-  color: #242424;
-  margin: 0 0 16px;
-}
-
-.notBlock {
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
-  line-height: 25px;
-  gap: 20px;
-}
-
-.notText {
-  color: #242424;
-  text-decoration: none;
-  line-height: 25px;
-}
-
-.notInterests {
-  width: 480px;
-  margin: 36px 0 -5px;
-  line-height: 25px;
-}
-
-.notLink {
-  margin-left: 4px;
-  text-underline-offset: 4px;
-  color: #674eae;
-}
-
 /* Страница: Предпочтения */
 .preferencesPageWrapper {
   display: flex;
