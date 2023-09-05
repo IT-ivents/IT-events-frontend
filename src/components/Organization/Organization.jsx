@@ -12,8 +12,16 @@ import { useFormWithValidation } from '../../utils/hooks/useFormWithValidation';
 import { apiEvents } from '../../utils/api';
 import VerticalEventCard from '../VerticalEventCard/VerticalEventCard';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Fieldset from '../Fieldset/Fieldset';
 
 registerLocale('ru', ru);
+
+const input = {
+  padding: '12.5px 14px',
+  border: '2px solid rgba(0, 0, 0, 0.1)',
+  outline: 'none',
+  backgroundColor: 'rgba(255, 255, 255, 1)',
+};
 
 const Organization = ({ selectedEvent }) => {
   const {
@@ -327,7 +335,7 @@ const Organization = ({ selectedEvent }) => {
 
         <div className={styles.rowContainer}>
           <div className={styles.columnContainer}>
-            <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
+            {/* <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="title" className={styles.label}>
                 Название мероприятия<span className={styles.spanError}>*</span>{' '}
               </label>
@@ -356,7 +364,38 @@ const Organization = ({ selectedEvent }) => {
                   <span className={styles.spanError}>50</span>
                 </span>
               </div>
-            </fieldset>
+            </fieldset> */}
+            <Fieldset
+              className={`${styles.fieldset} ${styles.regularHight}`}
+              // <input
+              // className={`${styles.input} ${
+              //   errors.title
+              //     ? styles.inputError
+              //     : values.title
+              //     ? styles.inputSuccess
+              //     : ''
+              // }`}
+              label="Название мероприятия"
+              type="text"
+              id="title"
+              name="title"
+              value={values.title || ''}
+              onChange={handleChange}
+              placeholder="Ваше название"
+              required
+              minLength={2}
+              maxLength={50}
+              style={input}
+              // />
+              // <div className={styles.spanContainer}>
+              //   <span className={styles.spanError}>{errors.title}</span>
+              //   <span className={styles.recommendation}>
+              //     {values?.title?.length || 0}/
+              //     <span className={styles.spanError}>50</span>
+              //   </span>
+              // </div>
+            />
+
             <fieldset className={`${styles.fieldset} ${styles.regularHight}`}>
               <label htmlFor="price" className={styles.label}>
                 Ссылка на сайт

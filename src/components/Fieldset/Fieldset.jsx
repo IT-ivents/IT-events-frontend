@@ -16,6 +16,7 @@ const Fieldset = ({
   onKeyDown,
   onChange,
   onBlur,
+  style,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -57,6 +58,7 @@ const Fieldset = ({
           autoComplete="off"
           onKeyDown={onKeyDown}
           onBlur={onBlur}
+          style={style}
         />
         {type === 'password' && (
           <figure
